@@ -1,0 +1,1 @@
+../../apps/fzf/shell/key-bindings.zsh
