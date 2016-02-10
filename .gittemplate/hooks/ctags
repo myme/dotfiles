@@ -1,0 +1,14 @@
+#!/bin/bash
+exit 0 # Uncomment to enable ctags
+mkdir .git/tags_lock 2>/dev/null || exit 0
+trap 'rmdir .git/tags_lock; rm -f .git/tags.$$' EXIT
+
+ctags --tag-relative -Rf.git/tags.$$ \
+    --exclude=.git \
+    --exclude=bower_components \
+    --exclude=node_modules \
+    --exclude=__pycache__ \
+    --exclude=tests/data \
+    --languages=-sql
+
+mv .git/tags.$$ .git/tags

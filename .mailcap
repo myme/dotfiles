@@ -1,0 +1,7 @@
+# Diff
+text/x-diff;  cat %s | colordiff; copiousoutput
+text/x-patch; cat %s | colordiff; copiousoutput
+
+# HTML
+text/html;  elinks %s; nametemplate=%s.html
+text/html;  elinks -dump %s; nametemplate=%s.html; copiousoutput

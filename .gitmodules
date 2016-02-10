@@ -1,0 +1,15 @@
+[submodule ".vim/bundle/neobundle.vim"]
+	path = .vim/bundle/neobundle.vim
+	url = https://github.com/Shougo/neobundle.vim
+[submodule ".tmux/powerline"]
+	path = .tmux/powerline
+	url = git://github.com/erikw/tmux-powerline.git
+[submodule ".zsh/oh-my-zsh"]
+	path = .zsh/oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh.git
+[submodule ".zsh/zsh-syntax-highlighting"]
+	path = .zsh/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "apps/fzf"]
+	path = apps/fzf
+	url = https://github.com/junegunn/fzf.git

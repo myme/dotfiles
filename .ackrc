@@ -1,0 +1,7 @@
+--type-set
+coffee=.coffee
+--ignore-dir=.git
+--ignore-dir=_build
+--ignore-dir=generated
+--ignore-dir=node_modules
+--ignore-dir=cache

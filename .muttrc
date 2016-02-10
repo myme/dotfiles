@@ -1,0 +1,47 @@
+# Cache + Certs
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+set certificate_file=~/.mutt/certificates
+
+# Default configs
+set mail_check=60
+set move = no
+set timeout=15
+
+# Create accounts setup
+# $ cat >~/.mutt/accounts <<EOF
+# set imap_user = "user@example.com"
+# set imap_pass = ""
+# set smtp_url = "smtp://example.com/"
+# set smtp_pass = ""
+# set folder = "imaps://example.com:993"
+# set realname="Some User"
+# set from = "user@example.com"
+# EOF
+# $ chmod go-rw ~/.mutt/accounts
+source ~/.mutt/accounts
+
+# Folders
+set spoolfile="+INBOX"
+set postponed="+Drafts"
+set record="+Sent Items"
+
+# Autoview
+auto_view text/html
+auto_view text/x-diff
+auto_view text/x-patch
+
+set allow_ansi
+
+# Macros
+macro index,pager I "<change-folder>+INBOX<enter>" "Navigate to INBOX"
+macro index,pager A "<tag-prefix-cond><save-message>+Archive<enter>" "Save tagged messages (if any) to Archive"
+
+# Diff color
+color body green default "^diff \-.*"
+color body green default "^index [a-f0-9].*"
+color body green default "^\-\-\- .*"
+color body green default "^[\+]{3} .*"
+color body cyan default "^[\+][^\+]+.*"
+color body red  default "^\-[^\-]+.*"
+color body brightblue default "^@@ .*"
