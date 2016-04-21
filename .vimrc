@@ -30,7 +30,7 @@ if has('python')
 endif
 
 NeoBundle 'AndrewRadev/linediff.vim'
-NeoBundle 'JazzCore/ctrlp-cmatcher', { 'build': { 'others': './install.sh' }}
+NeoBundle 'FelikZ/ctrlp-py-matcher'
 NeoBundle 'Shougo/vimproc.vim', { 'build': { 'others': 'make' }}
 NeoBundle 'SirVer/ultisnips'
 NeoBundle 'vim-airline/vim-airline'
@@ -199,7 +199,7 @@ nmap <Leader>bb :CtrlPBookmarkDir<Return>
 let g:ctrlp_extensions = [
             \ 'tag', 'buffertag', 'quickfix',
             \ 'line', 'mixed', 'bookmarkdir']
-let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+let g:ctrlp_match_func = {'match' : 'pymatcher#PyMatch' }
 let g:ctrlp_open_new_file = 't'
 let g:ctrlp_root_markers = ['.ctrlp']
 let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
