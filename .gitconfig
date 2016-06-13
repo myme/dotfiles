@@ -67,6 +67,7 @@
     autosetuprebase = remote
 
 [push]
-	default = upstream
+    default = upstream
+    followTags = true
 [user]
 	name = Martin Øinæs Myrseth
