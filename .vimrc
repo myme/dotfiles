@@ -25,8 +25,8 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-if has('python')
-    NeoBundle 'Valloric/YouCompleteMe', {'build': {'others': './install.sh --clang-completer'}}
+if has('python3')
+    NeoBundle 'Valloric/YouCompleteMe', {'build': {'others': './install.py --clang-completer'}}
 endif
 
 NeoBundle 'AndrewRadev/linediff.vim'
