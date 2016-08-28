@@ -273,7 +273,7 @@ let g:syntastic_javascript_checkers = ["eslint"]
 
 
 " Tagbar
-nmap <Leader>tb :TagbarToggle<Return>
+nmap <Leader>tb :TagbarOpen fjc<Return>
 let g:tagbar_type_coffee = {
         \ 'ctagstype' : 'coffee',
         \ 'kinds'     : [
