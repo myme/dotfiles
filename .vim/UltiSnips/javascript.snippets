@@ -25,3 +25,22 @@ endsnippet
 snippet eed "expect to deep equal"
 expect(${1:actual}).to.deep.equal(${2:expected});
 endsnippet
+
+# Logger stuff
+
+snippet logger "import and setup logger"
+import log from 'log';
+const logger = log.getLogger('${1:logger}');
+endsnippet
+
+snippet ld "add debug log statement"
+logger.debug(${1:'${2:debug}'});
+endsnippet
+
+snippet li "add info log statement"
+logger.info(${1:'${2:info}'});
+endsnippet
+
+snippet lw "add logger.warn statement"
+logger.warn(${1:'${2:warn}'});
+endsnippet
