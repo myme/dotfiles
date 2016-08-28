@@ -35,6 +35,7 @@ plugins=(
     python
     tmux
     virtualenvwrapper
+    vi-mode
     zsh-syntax-highlighting
 )
 

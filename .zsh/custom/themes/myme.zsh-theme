@@ -42,6 +42,10 @@ zstyle ':vcs_info:*:*' nvcsformats "%~" ""
 # Virtual env format
 PROMPT_VENV_FORMAT='${VIRTUAL_ENV:+(${VIRTUAL_ENV:t}) }'
 
+function venv() {
+  echo " %{$PROMPT_VENV_COLOR%}"$PROMPT_VENV_FORMAT"%{$FX[reset]%}"
+}
+
 # Define prompts.
 PROMPT="%(0?.%{$PROMPT_SUCCESS_COLOR%}.%{$PROMPT_FAILURE_COLOR%})${SSH_TTY:+[%n@%m]}%{$FX[bold]%}%$PROMPT_PATH_MAX_LENGTH<..<"'${vcs_info_msg_0_%%.}'"%<<%(!.$PROMPT_ROOT_END.$PROMPT_DEFAULT_END)%{$FX[no-bold]%}%{$FX[reset]%} "
-RPROMPT="%{$PROMPT_VENV_COLOR%}"$PROMPT_VENV_FORMAT"%{$PROMPT_VCS_INFO_COLOR%}"'$vcs_info_msg_1_'"%{$FX[reset]%}"
+RPROMPT='$(vi_mode_prompt_info)'"$(venv)""%{$PROMPT_VCS_INFO_COLOR%}"'$vcs_info_msg_1_'"%{$FX[reset]%}"
