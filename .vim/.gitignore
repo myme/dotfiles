@@ -1,2 +1,2 @@
 bundle/*
-!bundle/neobundle.vim
+!bundle/repos/github.com/Shougo/dein.vim

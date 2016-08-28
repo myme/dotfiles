@@ -10,3 +10,6 @@
 [submodule "apps/fzf"]
 	path = apps/fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule ".vim/bundle/repos/github.com/Shougo/dein.vim"]
+	path = .vim/bundle/repos/github.com/Shougo/dein.vim
+	url = git@github.com:Shougo/dein.vim.git
