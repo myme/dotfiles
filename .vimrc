@@ -9,9 +9,6 @@ if has('vim_starting')
   if &compatible
     set nocompatible               " Be iMproved
   endif
-
-  " Required:
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 
@@ -19,70 +16,68 @@ endif
 "
 
 " Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+set runtimepath^=~/.vim/bundle/repos/github.com/Shougo/dein.vim
+call dein#begin(expand('~/.vim/bundle/'))
+call dein#add('Shougo/dein.vim')
 
 if has('python3')
-    NeoBundle 'Valloric/YouCompleteMe', {'build': {'others': './install.py --clang-completer'}}
+    call dein#add('Valloric/YouCompleteMe', { 'build': './install.py --clang-completer' })
 endif
 
-NeoBundle 'AndrewRadev/linediff.vim'
-NeoBundle 'FelikZ/ctrlp-py-matcher'
-NeoBundle 'Shougo/vimproc.vim', { 'build': { 'others': 'make' }}
-NeoBundle 'SirVer/ultisnips'
-NeoBundle 'vim-airline/vim-airline'
-NeoBundle 'vim-airline/vim-airline-themes'
-NeoBundle 'cakebaker/scss-syntax.vim'
-NeoBundle 'digitaltoad/vim-jade'
-NeoBundle 'flazz/vim-colorschemes'
-NeoBundle 'gregsexton/gitv'
-NeoBundle 'groenewege/vim-less'
-NeoBundle 'honza/vim-snippets'
-NeoBundle 'jamessan/vim-gnupg'
-NeoBundle 'jez/vim-superman'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'marijnh/tern_for_vim', { 'build': { 'others': 'npm install' }}
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'mxw/vim-jsx'
-NeoBundle 'myusuf3/numbers.vim'
-NeoBundle 'othree/xml.vim'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'rking/ag.vim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'sjl/gundo.vim'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-sensible'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-unimpaired'
+call dein#add('AndrewRadev/linediff.vim')
+call dein#add('FelikZ/ctrlp-py-matcher')
+call dein#add('Shougo/vimproc.vim', { 'build': 'make' })
+call dein#add('SirVer/ultisnips')
+call dein#add('cakebaker/scss-syntax.vim')
+call dein#add('digitaltoad/vim-jade')
+call dein#add('flazz/vim-colorschemes')
+call dein#add('gregsexton/gitv')
+call dein#add('groenewege/vim-less')
+call dein#add('honza/vim-snippets')
+call dein#add('jamessan/vim-gnupg')
+call dein#add('jez/vim-superman')
+call dein#add('kchmck/vim-coffee-script')
+call dein#add('kien/ctrlp.vim')
+call dein#add('majutsushi/tagbar')
+call dein#add('marijnh/tern_for_vim', { 'build': 'npm install' })
+call dein#add('mattn/emmet-vim')
+call dein#add('mxw/vim-jsx')
+call dein#add('myusuf3/numbers.vim')
+call dein#add('othree/xml.vim')
+call dein#add('pangloss/vim-javascript')
+call dein#add('rking/ag.vim')
+call dein#add('scrooloose/nerdtree')
+call dein#add('scrooloose/syntastic')
+call dein#add('mtscout6/syntastic-local-eslint.vim')
+call dein#add('sjl/gundo.vim')
+call dein#add('tomtom/tcomment_vim')
+call dein#add('tpope/vim-fugitive')
+call dein#add('tpope/vim-repeat')
+call dein#add('tpope/vim-sensible')
+call dein#add('tpope/vim-surround')
+call dein#add('tpope/vim-unimpaired')
+call dein#add('vim-airline/vim-airline')
+call dein#add('vim-airline/vim-airline-themes')
 
 " TODO: Decide on these plugins
-" NeoBundle cscope_macros
-" NeoBundle ghcmod
-" NeoBundle haskellmode
-" NeoBundle javacomplete
-" NeoBundle neco-ghc
-" NeoBundle neocomplcache
-" NeoBundle vim2hs (heads/master)
-" NeoBundle vimclojure
-" NeoBundle vimtodo
-" NeoBundle zencoding
+" call dein#add('cscope_macros')
+" call dein#add('ghcmod')
+" call dein#add('haskellmode')
+" call dein#add('javacomplete')
+" call dein#add('neco-ghc')
+" call dein#add('neocomplcache')
+" call dein#add('vim2hs (heads/master)')
+" call dein#add('vimclojure')
+" call dein#add('vimtodo')
+" call dein#add('zencoding')
 
-call neobundle#end()
 
 " Required:
+call dein#end()
 filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
+if dein#check_install()
+    call dein#install()
+endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -184,13 +179,13 @@ nmap <Leader>ag "zyiw:Ag! -Q "<C-R>z"<CR>
 " Airline
 let g:airline_powerline_fonts=1
 let g:airline_theme="powerlineish"
-let g:airline_theme_patch_func = 'AirlineThemePatch'
 function! AirlineThemePatch(palette)
   for colors in values(a:palette.inactive)
     let colors[2] = 248
     let colors[3] = 240
   endfor
 endfunction
+let g:airline_theme_patch_func = 'AirlineThemePatch'
 
 
 " CtrlP
