@@ -1,14 +1,8 @@
 #!/bin/bash
-exit 0 # Uncomment to enable ctags
-mkdir .git/tags_lock 2>/dev/null || exit 0
-trap 'rmdir .git/tags_lock; rm -f .git/tags.$$' EXIT
-
-ctags --tag-relative -Rf.git/tags.$$ \
-    --exclude=.git \
-    --exclude=bower_components \
-    --exclude=node_modules \
-    --exclude=__pycache__ \
-    --exclude=tests/data \
-    --languages=-sql
-
-mv .git/tags.$$ .git/tags
+exit 0 # Comment out to enable ctags
+set -e
+dir="$(git rev-parse --git-dir)"
+mkdir "$dir/tags_lock" 2>/dev/null || exit 0
+trap 'rmdir "$dir/tags_lock"; rm -f "$dir/tags.$$"' EXIT INT TERM
+git ls-files | ctags --tag-relative -L- -f.git/tags.$$ --languages=-sql
+mv "$dir/tags.$$" "$dir/tags"
