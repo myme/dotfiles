@@ -1,4 +1,3 @@
-venv=$(basename "$VIRTUAL_ENV")
-if [ -n "$venv" ]; then
-    workon -n "$venv"
+if [ -n "$VENV" ]; then
+    workon -n "$VENV"
 fi
