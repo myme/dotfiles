@@ -90,8 +90,8 @@ let maplocalleader=","
 let html_use_css=1
 
 set   cmdheight=1
-set   cursorcolumn
-set   cursorline
+" set   cursorcolumn
+" set   cursorline
 set   expandtab
 set   foldlevel=1
 set   foldmethod=syntax
