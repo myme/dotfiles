@@ -33,7 +33,7 @@ Plug 'jez/vim-superman'
 Plug 'kchmck/vim-coffee-script'
 Plug 'kien/ctrlp.vim'
 Plug 'majutsushi/tagbar'
-Plug 'marijnh/tern_for_vim', { 'build': 'npm install' }
+Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
 Plug 'mattn/emmet-vim'
 Plug 'mxw/vim-jsx'
 Plug 'myusuf3/numbers.vim'
