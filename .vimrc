@@ -131,7 +131,7 @@ augroup END
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" Key mappings for native Vim commands
+" Key mappings for "native" Vim commands
 "
 
 " Shell + execution
@@ -148,6 +148,9 @@ nmap <Leader>cs :!coffee<Return>
 " Diff + linediff mapping
 nmap <Leader>dt :diffthis<Return>
 nmap <Leader>do :diffoff<Return>
+
+" File browser
+nmap <Leader>. :30vsplit .<Return>
 
 " Tabs + tags
 nmap <Leader>tg <C-w><C-]><C-w>T
@@ -244,15 +247,6 @@ vmap <Leader>ldf :Linediff<Return>
 nmap <Leader>ldr :LinediffReset<Return>
 
 
-" NERD Tree options
-" let NERDTreeShowFiles=1
-" let NERDTreeShowHidden=1
-" let NERDTreeHighlightCursorline=1
-" let NERDTreeMouseMode=2
-" nmap <Leader>nt   :NERDTreeToggle<Return>
-" nmap <Leader>nf   :NERDTreeFind<Return>
-
-
 " Syntastic
 let g:syntastic_check_on_open = 1
 let g:syntastic_always_populate_loc_list = 1
@@ -278,14 +272,6 @@ let g:tagbar_type_coffee = {
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsListSnippets = "<c-l>"
 let g:UltiSnipsEditSplit = "horizontal"
-
-
-" VimFiler
-" let g:vimfiler_tree_opened_icon="▾"
-" let g:vimfiler_tree_closed_icon="▸"
-" nmap <Leader>fe :VimFiler -buffer-name=explorer -explorer -find -simple -no-safe -toggle<Return>
-" nmap <Leader>ff :VimFiler -buffer-name=explorer -no-safe -toggle<Return>
-" nmap <Leader>fc :VimFilerClose explorer<Return>
 
 
 " YouCompleteMe
