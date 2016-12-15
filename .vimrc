@@ -1,5 +1,5 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" Plugins
+" Init
 "
 
 " Note: Skip initialization for vim-tiny or vim-small.
@@ -13,71 +13,64 @@ endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
 "
 
-" Required:
-set runtimepath^=~/.vim/bundle/repos/github.com/Shougo/dein.vim
-call dein#begin(expand('~/.vim/bundle/'))
-call dein#add('Shougo/dein.vim')
+call plug#begin('~/.vim/plugged')
+
+Plug 'AndrewRadev/linediff.vim'
+Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'SirVer/ultisnips'
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'digitaltoad/vim-jade'
+Plug 'flazz/vim-colorschemes'
+Plug 'gregsexton/gitv'
+Plug 'groenewege/vim-less'
+Plug 'honza/vim-snippets'
+Plug 'jamessan/vim-gnupg'
+Plug 'jez/vim-superman'
+Plug 'kchmck/vim-coffee-script'
+Plug 'kien/ctrlp.vim'
+Plug 'majutsushi/tagbar'
+Plug 'marijnh/tern_for_vim', { 'build': 'npm install' }
+Plug 'mattn/emmet-vim'
+Plug 'mxw/vim-jsx'
+Plug 'myusuf3/numbers.vim'
+Plug 'othree/xml.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'rking/ag.vim'
+Plug 'scrooloose/syntastic'
+Plug 'mtscout6/syntastic-local-eslint.vim'
+Plug 'sjl/gundo.vim'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 if has('python3')
-    call dein#add('Valloric/YouCompleteMe', { 'build': './install.py --clang-completer' })
+    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 endif
-
-call dein#add('AndrewRadev/linediff.vim')
-call dein#add('FelikZ/ctrlp-py-matcher')
-call dein#add('Shougo/vimproc.vim', { 'build': 'make' })
-call dein#add('SirVer/ultisnips')
-call dein#add('cakebaker/scss-syntax.vim')
-call dein#add('digitaltoad/vim-jade')
-call dein#add('flazz/vim-colorschemes')
-call dein#add('gregsexton/gitv')
-call dein#add('groenewege/vim-less')
-call dein#add('honza/vim-snippets')
-call dein#add('jamessan/vim-gnupg')
-call dein#add('jez/vim-superman')
-call dein#add('kchmck/vim-coffee-script')
-call dein#add('kien/ctrlp.vim')
-call dein#add('majutsushi/tagbar')
-call dein#add('marijnh/tern_for_vim', { 'build': 'npm install' })
-call dein#add('mattn/emmet-vim')
-call dein#add('mxw/vim-jsx')
-call dein#add('myusuf3/numbers.vim')
-call dein#add('othree/xml.vim')
-call dein#add('pangloss/vim-javascript')
-call dein#add('rking/ag.vim')
-call dein#add('scrooloose/nerdtree')
-call dein#add('scrooloose/syntastic')
-call dein#add('mtscout6/syntastic-local-eslint.vim')
-call dein#add('sjl/gundo.vim')
-call dein#add('tomtom/tcomment_vim')
-call dein#add('tpope/vim-fugitive')
-call dein#add('tpope/vim-repeat')
-call dein#add('tpope/vim-sensible')
-call dein#add('tpope/vim-surround')
-call dein#add('tpope/vim-unimpaired')
-call dein#add('vim-airline/vim-airline')
-call dein#add('vim-airline/vim-airline-themes')
 
 " TODO: Decide on these plugins
-" call dein#add('cscope_macros')
-" call dein#add('ghcmod')
-" call dein#add('haskellmode')
-" call dein#add('javacomplete')
-" call dein#add('neco-ghc')
-" call dein#add('neocomplcache')
-" call dein#add('vim2hs (heads/master)')
-" call dein#add('vimclojure')
-" call dein#add('vimtodo')
-" call dein#add('zencoding')
+" Plug 'cscope_macros'
+" Plug 'ghcmod'
+" Plug 'haskellmode'
+" Plug 'javacomplete'
+" Plug 'neco-ghc'
+" Plug 'neocomplcache'
+" Plug 'vim2hs'
+" Plug 'vimclojure'
+" Plug 'vimtodo'
+" Plug 'zencoding'
+" Plug 'scrooloose/nerdtree'
 
-
-" Required:
-call dein#end()
-filetype plugin indent on
-if dein#check_install()
-    call dein#install()
-endif
+call plug#end()
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -252,12 +245,12 @@ nmap <Leader>ldr :LinediffReset<Return>
 
 
 " NERD Tree options
-let NERDTreeShowFiles=1
-let NERDTreeShowHidden=1
-let NERDTreeHighlightCursorline=1
-let NERDTreeMouseMode=2
-nmap <Leader>nt   :NERDTreeToggle<Return>
-nmap <Leader>nf   :NERDTreeFind<Return>
+" let NERDTreeShowFiles=1
+" let NERDTreeShowHidden=1
+" let NERDTreeHighlightCursorline=1
+" let NERDTreeMouseMode=2
+" nmap <Leader>nt   :NERDTreeToggle<Return>
+" nmap <Leader>nf   :NERDTreeFind<Return>
 
 
 " Syntastic
@@ -288,11 +281,11 @@ let g:UltiSnipsEditSplit = "horizontal"
 
 
 " VimFiler
-let g:vimfiler_tree_opened_icon="▾"
-let g:vimfiler_tree_closed_icon="▸"
-nmap <Leader>fe :VimFiler -buffer-name=explorer -explorer -find -simple -no-safe -toggle<Return>
-nmap <Leader>ff :VimFiler -buffer-name=explorer -no-safe -toggle<Return>
-nmap <Leader>fc :VimFilerClose explorer<Return>
+" let g:vimfiler_tree_opened_icon="▾"
+" let g:vimfiler_tree_closed_icon="▸"
+" nmap <Leader>fe :VimFiler -buffer-name=explorer -explorer -find -simple -no-safe -toggle<Return>
+" nmap <Leader>ff :VimFiler -buffer-name=explorer -no-safe -toggle<Return>
+" nmap <Leader>fc :VimFilerClose explorer<Return>
 
 
 " YouCompleteMe
