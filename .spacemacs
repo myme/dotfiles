@@ -306,4 +306,33 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; Find eslint binary relative to current file
+  (defun my/use-eslint-from-node-modules ()
+    (let ((root (locate-dominating-file
+                 (or (buffer-file-name) default-directory)
+                 (lambda (dir)
+                   (let ((eslint (expand-file-name "node_modules/.bin/eslint" dir)))
+                     (and eslint (file-executable-p eslint)))))))
+      (when root
+        (let ((eslint (expand-file-name "node_modules/.bin/eslint" root)))
+          (setq-local flycheck-javascript-eslint-executable eslint)))))
+  (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
   )
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default bold shadow italic underline bold bold-italic bold])
+ '(evil-want-Y-yank-to-eol nil)
+ '(js-indent-level 2)
+ '(js2-strict-trailing-comma-warning nil))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
