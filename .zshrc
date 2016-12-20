@@ -2,7 +2,6 @@
 export DISABLE_AUTO_TITLE="true"
 export DISABLE_VENV_CD=1
 export VIRTUAL_ENV_DISABLE_PROMPT="true"
-export EDITOR="vim"
 
 # Path to your oh-my-zsh configuration.
 export ZSH=$HOME/.zsh/oh-my-zsh
@@ -39,8 +38,6 @@ plugins=(
     zsh-syntax-highlighting
 )
 
-export N_PREFIX=$HOME/.local
-export PATH=$HOME/.cabal/bin:$HOME/.local/bin:$PATH
 source $ZSH/oh-my-zsh.sh
 
 alias conf="GIT_DIR=~/.dotfiles GIT_WORK_TREE=~ git"
