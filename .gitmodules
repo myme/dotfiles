@@ -1,21 +1,18 @@
-[submodule ".tmux/powerline"]
-	path = .tmux/powerline
-	url = git://github.com/erikw/tmux-powerline.git
-[submodule ".zsh/oh-my-zsh"]
-	path = .zsh/oh-my-zsh
-	url = https://github.com/robbyrussell/oh-my-zsh.git
-[submodule ".zsh/zsh-syntax-highlighting"]
-	path = .zsh/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "apps/fzf"]
-	path = apps/fzf
-	url = https://github.com/junegunn/fzf.git
-[submodule ".vim/bundle/repos/github.com/Shougo/dein.vim"]
-	path = .vim/bundle/repos/github.com/Shougo/dein.vim
-	url = git@github.com:Shougo/dein.vim.git
-[submodule ".tmux/plugins/tpm"]
-	path = .tmux/plugins/tpm
-	url = https://github.com/tmux-plugins/tpm
-[submodule ".emacs.d"]
-	path = .emacs.d
+[submodule "emacs/.emacs.d"]
+	path = emacs/.emacs.d
 	url = https://github.com/syl20bnr/spacemacs
+[submodule "fzf/apps/fzf"]
+	path = fzf/apps/fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule "tmux/.tmux/powerline"]
+	path = tmux/.tmux/powerline
+	url = git://github.com/erikw/tmux-powerline.git
+[submodule "tmux/.tmux/plugins/tpm"]
+	path = tmux/.tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
+[submodule "zsh/.zsh/oh-my-zsh"]
+	path = zsh/.zsh/oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh.git
+[submodule "zsh/.zsh/zsh-syntax-highlighting"]
+	path = zsh/.zsh/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git

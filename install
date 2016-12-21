@@ -1,0 +1,37 @@
+#!/bin/bash
+
+set -e
+
+delete=""
+optspec="dh"
+
+
+usage() {
+    echo "$0: [OPTION ...] [PACKAGE ...]"
+    echo ""
+    echo "OPTIONS:"
+    echo ""
+    echo "  -d    Remove all packages"
+    echo "  -h    Display usage information"
+}
+
+
+while getopts "$optspec" optchar; do
+    case "$optchar" in
+        d) delete="yes" ; shift ;;
+        h) usage ; exit ;;
+        *) usage ; exit 1 ;;
+    esac
+done
+
+
+# http://stackoverflow.com/a/23357277
+packages=()
+if [[ -z "$@" ]]; then
+    while IFS= read -r -d $'\0'; do
+        packages+=($(basename "$REPLY"))
+    done < <(find ./* -maxdepth 0 -type d -print0)
+fi
+
+
+stow --verbose --target="$HOME" ${delete:+-D} "${@:-${packages[@]}}"
