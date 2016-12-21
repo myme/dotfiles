@@ -40,9 +40,4 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-alias conf="GIT_DIR=~/.dotfiles GIT_WORK_TREE=~ git"
-alias vconf="GIT_DIR=~/.dotfiles vim"
-
-# Customize to your needs...
-
 zle_highlight=(isearch:fg=green,bold)
