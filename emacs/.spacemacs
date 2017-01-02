@@ -33,6 +33,8 @@ values."
    '(
      ;; Languages
      emacs-lisp
+     (haskell :variables
+               haskell-completion-backend 'intero)
      html
      javascript
      markdown
