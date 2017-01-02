@@ -64,7 +64,8 @@ values."
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(
+                                    vi-tilde-fringe)
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -132,10 +133,9 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(monokai
-                         sanityinc-tomorrow-day
-                         ;; spacemacs-dark
-                         ;; spacemacs-light
+   dotspacemacs-themes '(spacemacs-dark
+                         darkokai
+                         spacemacs-light
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -320,6 +320,7 @@ you should place your code here."
         (let ((eslint (expand-file-name "node_modules/.bin/eslint" root)))
           (setq-local flycheck-javascript-eslint-executable eslint)))))
   (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+  (spacemacs/load-theme 'darkokai)
   )
 
 (custom-set-variables
