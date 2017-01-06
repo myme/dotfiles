@@ -17,6 +17,7 @@
   (setq gdb-many-windows t ;; use gdb-many-windows by default
 	gdb-show-main t))
 
+
 (use-package semantic
   :ensure t
   :config
@@ -25,44 +26,58 @@
   (global-semantic-stickyfunc-mode 1)
   (semantic-mode 1))
 
+
 (use-package ede
   :ensure t
   :config
   ;; Enable EDE only in C/C++
   (global-ede-mode))
 
+
 (use-package ggtags
   :ensure t
+  :general (
+    :keymaps 'ggtags-mode-map
+
+    "M-."   'ggtags-find-tag-dwim
+    "M-,"   'pop-tag-mark
+    "C-c <" 'ggtags-prev-mark
+    "C-c >" 'ggtags-next-mark
+
+    :prefix "C-c"
+    "gs" 'ggtags-find-other-symbol
+    "gh" 'ggtags-view-tag-history
+    "gr" 'ggtags-find-reference
+    "gf" 'ggtags-find-file
+    "gc" 'ggtags-create-tags
+    "gu" 'ggtags-update-tags
+    )
+
   :config
   (ggtags-mode 1)
   (add-hook 'c-mode-common-hook
 	    (lambda ()
 	      (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
 		(ggtags-mode 1))))
+  )
 
-  (dolist (map (list ggtags-mode-map))
-    (define-key map (kbd "C-c g s") 'ggtags-find-other-symbol)
-    (define-key map (kbd "C-c g h") 'ggtags-view-tag-history)
-    (define-key map (kbd "C-c g r") 'ggtags-find-reference)
-    (define-key map (kbd "C-c g f") 'ggtags-find-file)
-    (define-key map (kbd "C-c g c") 'ggtags-create-tags)
-    (define-key map (kbd "C-c g u") 'ggtags-update-tags)
-    (define-key map (kbd "M-.")     'ggtags-find-tag-dwim)
-    (define-key map (kbd "M-,")     'pop-tag-mark)
-    (define-key map (kbd "C-c <")   'ggtags-prev-mark)
-    (define-key map (kbd "C-c >")   'ggtags-next-mark)))
 
 ;; company-c-headers
 (use-package company-c-headers
   :ensure t
-  :init
-  (add-to-list 'company-backends 'company-c-headers))
+  :config
+  (add-hook 'after-init-hook
+	    (lambda () (add-to-list 'company-backends 'company-c-headers)))
+  )
+
 
 (use-package cc-mode
   :ensure t
-  :init
+  :config
   (define-key c-mode-map  [(tab)] 'company-complete)
-  (define-key c++-mode-map  [(tab)] 'company-complete))
+  (define-key c++-mode-map  [(tab)] 'company-complete)
+  )
+
 
 ;; git@github.com:syohex/emacs-counsel-gtags.git
 ;(use-package counsel-gtags
@@ -78,14 +93,17 @@
 ;    ;(define-key counsel-gtags-mode-map (kbd "M-s") 'counsel-gtags-find-symbol)
 ;    (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-pop-stack)))
 
+
 (defun alexott/cedet-hook ()
   (local-set-key (kbd "C-c C-j") 'semantic-ia-fast-jump)
   (local-set-key (kbd "C-c C-s") 'semantic-ia-show-summary))
+
 
 ;; hs-minor-mode for folding source code
 (add-hook 'c-mode-common-hook 'hs-minor-mode)
 (add-hook 'c-mode-common-hook 'alexott/cedet-hook)
 (add-hook 'c-mode-hook 'alexott/cedet-hook)
 (add-hook 'c++-mode-hook 'alexott/cedet-hook)
+
 
 (provide 'lang-c)

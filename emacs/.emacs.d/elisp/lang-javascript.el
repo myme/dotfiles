@@ -2,14 +2,19 @@
 ;; https://github.com/mooz/js2-mode
 (use-package js2-mode
   :ensure t
-  :bind (:map js2-mode-map
-              (("C-x C-e" . js-send-last-sexp)
-               ("C-M-x" . js-send-last-sexp-and-go)
-               ("C-c C-b" . js-send-buffer-and-go)
-               ("C-c C-l" . js-load-file-and-go)))
+  :general (
+    :keymaps 'js2-mode-map
+    "C-x C-e" 'js-send-last-sexp
+    "C-M-x"   'js-send-last-sexp-and-go
+    "C-c C-b" 'js-send-buffer-and-go
+    "C-c C-l" 'js-load-file-and-go
+    )
+
   :mode
   ("\\.js$" . js2-mode)
-  ("\\.json$" . js2-jsx-mode)
+  ("\\.jsx$" . js2-jsx-mode)
+  ("\\.json$" . js-mode)
+
   :config
   (custom-set-variables '(js2-strict-inconsistent-return-warning nil))
   (custom-set-variables '(js2-strict-missing-semi-warning nil))
