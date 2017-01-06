@@ -1,2 +1,8 @@
-vim/.vim/plugged
-vim/.vim/.netrwhist
+/vim/.vim/plugged
+/vim/.vim/.netrwhist
+
+/emacs/.emacs.d/ede-projects.el
+/emacs/.emacs.d/elpa
+/emacs/.emacs.d/private
+/emacs/.emacs.d/recentf
+/emacs/.emacs.d/smex-items
