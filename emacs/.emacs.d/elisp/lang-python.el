@@ -5,9 +5,12 @@
 ;;; Code:
 
 (use-package python
+  :ensure t
   :mode ("\\.py" . python-mode)
+
   :config
   (use-package elpy
+    :ensure t
     :init
     (add-to-list 'auto-mode-alist '("\\.py$" . python-mode))
     :config
@@ -20,13 +23,15 @@
   (elpy-enable))
 
 (use-package pip-requirements
+  :ensure t
   :config
   (add-hook 'pip-requirements-mode-hook #'pip-requirements-auto-complete-setup))
 
-(use-package py-autopep8)
+(use-package py-autopep8 :ensure t)
 
 
 (use-package pyenv-mode
+  :ensure t
   :init
   (add-to-list 'exec-path "~/.pyenv/shims")
   (setenv "WORKON_HOME" "~/.pyenv/versions/")
