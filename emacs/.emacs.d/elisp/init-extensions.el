@@ -392,7 +392,18 @@
 
   (use-package evil-matchit :ensure t)
   (use-package evil-nerd-commenter :ensure t)
-  (use-package org-evil :ensure t)
+
+  (use-package org-evil
+    :ensure t
+    :general (
+      :states '(normal visual insert)
+      "M-h" 'org-metaleft
+      "M-j" 'org-metadown
+      "M-k" 'org-metaup
+      "M-l" 'org-metaright
+      )
+    )
+
   )
 
 
