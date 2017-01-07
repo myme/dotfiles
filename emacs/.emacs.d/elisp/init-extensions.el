@@ -22,6 +22,7 @@
 
 
 (use-package company
+  :diminish company-mode
   :ensure t
   :general (
     :keymaps 'company-active-map
@@ -51,23 +52,23 @@
 
 (use-package counsel
   :ensure t
-  :general (
-    "M-x" 'counsel-M-x
-    :prefix "C-x"
-    "C-m" 'counsel-M-x
-    "C-f" 'counsel-find-file
-    "ck" 'counsel-yank-pop
-    )
+  :general
+    ("M-x" 'counsel-M-x)
+    (:prefix "C-x"
+      "C-m" 'counsel-M-x
+      "C-f" 'counsel-find-file
+      "ck" 'counsel-yank-pop
+      )
   )
 
 
 (use-package counsel-projectile
   :ensure t
-  :general (
-    :prefix "C-x"
-    "v" 'counsel-projectile
-    "cp" 'counsel-projectile-ag
-    )
+  :general
+    (:prefix "C-x"
+      "v" 'counsel-projectile
+      "cp" 'counsel-projectile-ag
+      )
 
   :config
   (counsel-projectile-on)
@@ -75,17 +76,26 @@
 
 
 (use-package ivy
+  :diminish ivy-mode
   :ensure t
-  :general (
-    "C-s" 'swiper
-    "C-x C-r" 'ivy-resume
-    :keymaps 'read-expression-map
-    "C-r" 'counsel-expression-history
-    )
+  :general
+    (:prefix "C-x"
+      "C-r" 'ivy-resume
+      )
+    (:keymaps 'read-expression-map
+      "C-r" 'counsel-expression-history
+      )
 
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers nil)
+  )
+
+
+(use-package swiper
+  :ensure t
+  :general
+    ("C-s" 'swiper)
   )
 
 
@@ -98,6 +108,9 @@
   :config
   (dashboard-setup-startup-hook)
   (setq dashboard-startup-banner 'logo)
+  (setq dashboard-items '((recents  . 5)
+                         (bookmarks . 5)
+                         (projects . 5)))
   )
 
 
@@ -130,7 +143,10 @@
 
 
 (use-package flycheck
-  :ensure t)
+  :diminish flycheck-mode
+  :ensure t
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode))
 
 
 ;;
@@ -262,6 +278,7 @@
 
 (use-package projectile
   :ensure t
+  :diminish projectile-mode
   :config
   (setq projectile-known-projects-file
         (expand-file-name "projectile-bookmarks.eld" temp-dir))
@@ -292,6 +309,7 @@
 
 (use-package undo-tree
   :ensure t
+  :diminish undo-tree-mode
   :config
   ;; Remember undo history
   (setq
@@ -302,6 +320,7 @@
 
 (use-package which-key
   :ensure t
+  :diminish which-key-mode
   :config
   (define-key global-map (kbd "C-h <SPC>") 'which-key-show-top-level)
   (which-key-mode))
@@ -316,6 +335,7 @@
 ;;
 
 (use-package yasnippet
+  :diminish yas-minor-mode
   :ensure t
   :config
   (yas-global-mode 1))
@@ -330,11 +350,10 @@
   :init
   (evil-mode 1)
 
-  :general (
-    ;; "All" modes
-    :states '(normal visual insert emacs)
-
+  :general
     ;; Evil leader
+    (
+    :states '(normal visual insert emacs)
     :prefix "SPC"
     :non-normal-prefix "C-SPC"
 
@@ -354,6 +373,7 @@
     ;; buffers
     "b" '(:ignore t :which-key "buffers")
     "bb" 'ivy-switch-buffer
+    "bd" 'kill-this-buffer
     "bn" 'next-buffer
     "bp" 'previous-buffer
 
@@ -369,7 +389,14 @@
     "fr" 'counsel-recentf
 
     ;; git
+    "g" '(:ignore g :which-key "git/vcs")
     "gs" 'magit-status
+
+    ;; projectile
+    "p" '(:ignore p :which-key "projectile")
+    "pf" 'projectile-find-file
+    "pl" 'projectile-persp-switch-project
+    "pp" 'projectile-switch-project
 
     ;; toggles
     "t" '(:ignore t :which-key "toggles")
@@ -377,6 +404,29 @@
     "tn" 'linum-mode
     "tr" 'linum-relative-toggle
     )
+
+    ;; Evil org mode
+    (
+    :keymaps 'org-mode-map
+    :states '(normal visual)
+
+    "gh" 'outline-up-heading
+    "gj" 'org-forward-heading-same-level
+    "gk" 'org-backward-heading-same-level
+    "gl" 'outline-next-visible-heading
+
+    "C-]" 'org-open-at-point
+
+    "M-h" 'org-metaleft
+    "M-j" 'org-metadown
+    "M-k" 'org-metaup
+    "M-l" 'org-metaright
+
+    "M-H" 'org-shiftmetaleft
+    "M-J" 'org-shiftmetadown
+    "M-K" 'org-shiftmetaup
+    "M-L" 'org-shiftmetaright
+      )
 
   :config
 
@@ -392,18 +442,6 @@
 
   (use-package evil-matchit :ensure t)
   (use-package evil-nerd-commenter :ensure t)
-
-  (use-package org-evil
-    :ensure t
-    :general (
-      :states '(normal visual insert)
-      "M-h" 'org-metaleft
-      "M-j" 'org-metadown
-      "M-k" 'org-metaup
-      "M-l" 'org-metaright
-      )
-    )
-
   )
 
 
