@@ -10,17 +10,11 @@
   (load-theme 'darkokai t))
 
 
-(use-package powerline
-  :ensure t
+(use-package spaceline-config
+  :ensure spaceline
   :config
-
-  (use-package powerline-evil
-    :ensure t)
-
-  (setq powerline-default-separator
-    (if (display-graphic-p) 'arrow nil))
-
-  (powerline-evil-vim-color-theme))
+  (spaceline-spacemacs-theme)
+  )
 
 
 (provide 'init-theme)
