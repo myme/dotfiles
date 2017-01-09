@@ -327,6 +327,8 @@ you should place your code here."
 
   ;; Powerline
   (setq powerline-default-separator 'slant)
+
+  (global-set-key (kbd "C-c '") #'org-cycle-agenda-files)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
