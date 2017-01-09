@@ -345,6 +345,7 @@ you should place your code here."
      (awk-mode . "awk")
      (other . "gnu"))))
  '(evil-want-Y-yank-to-eol nil)
+ '(js-indent-level 2)
  '(js2-strict-trailing-comma-warning nil)
  '(org-agenda-files (quote ("~/Dropbox/org/notes.org")))
  '(org-default-notes-file "~/Dropbox/org/notes.org")
