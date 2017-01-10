@@ -368,7 +368,8 @@ you should place your code here."
  '(safe-local-variable-values
    (quote
     ((pyvenv-workon . vega)
-     (projectile-enable-caching . t)))))
+     (projectile-enable-caching . t))))
+ '(split-height-threshold nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
