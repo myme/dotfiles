@@ -328,7 +328,9 @@ you should place your code here."
   ;; Powerline
   (setq powerline-default-separator 'slant)
 
-  (global-set-key (kbd "C-c '") #'org-cycle-agenda-files)
+  ;; Org mode leader bindings
+  (spacemacs/set-leader-keys "ao'" #'org-cycle-agenda-files)
+  (spacemacs/set-leader-keys "aob" #'org-iswitchb)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
