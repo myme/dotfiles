@@ -353,20 +353,22 @@ you should place your code here."
  '(org-capture-templates
    (quote
     (("n" "A generic note" entry
-      (file+headline "notes.org" "Notes")
+      (file+headline "refile.org" "Notes")
       (file "~/.spacemacs.d/note.template")
       :clock-in t :clock-resume t)
      ("t" "A TODO item" entry
-      (file+headline "notes.org" "TODOs")
+      (file+headline "refile.org" "TODOs")
       (file "~/.spacemacs.d/todo.template")
       :clock-in t :clock-resume t)
-     ("i" "Interruption/digression" entry
-      (file+headline "notes.org" "Interruptions")
-      (file "~/.spacemacs.d/interruption.template")
+     ("j" "Journal entry" entry
+      (file+datetree "journal.org")
+      (file "~/.spacemacs.d/journal.template")
       :clock-in t :clock-resume t))))
  '(org-default-notes-file "~/Dropbox/org/notes.org")
  '(org-directory "~/Dropbox/org")
+ '(org-outline-path-complete-in-steps nil)
  '(org-refile-targets (quote ((org-agenda-files :maxlevel . 9))))
+ '(org-refile-use-outline-path t)
  '(org-todo-keywords
    (quote
     ((type "TODO(t)" "NEXT(n)" "WAITING(w)" "|" "DONE(d)" "CANCELLED(c)"))))
