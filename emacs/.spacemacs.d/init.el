@@ -330,6 +330,9 @@ you should place your code here."
   ;; Powerline
   (setq powerline-default-separator 'slant)
 
+  ;; Python
+  (pyvenv-mode 1)
+
   ;; Org mode leader bindings
   (defun my/org-agenda-default-list (&optional arg)
     (interactive "P")
