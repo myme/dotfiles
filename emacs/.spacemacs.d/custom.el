@@ -43,6 +43,7 @@
       (file+datetree "journal.org")
       (file "~/.spacemacs.d/journal.template")
       :clock-in t :clock-resume t))))
+ '(org-clock-out-remove-zero-time-clocks t)
  '(org-default-notes-file "~/Dropbox/org/notes.org")
  '(org-directory "~/Dropbox/org")
  '(org-outline-path-complete-in-steps nil)
