@@ -18,7 +18,8 @@
  '(org-agenda-custom-commands
    (quote
     (("d" "Default agenda list"
-      ((agenda "" nil)
+      ((agenda ""
+               ((org-agenda-span 1)))
        (tags "REFILE"
              ((org-agenda-overriding-header "Tasks to Refile")
               (org-tags-match-list-sublevels nil)))
