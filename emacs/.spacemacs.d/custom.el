@@ -44,6 +44,7 @@
       (file "~/.spacemacs.d/journal.template")
       :clock-in t :clock-resume t))))
  '(org-clock-out-remove-zero-time-clocks t)
+ '(org-clock-rounding-minutes 0)
  '(org-default-notes-file "~/Dropbox/org/notes.org")
  '(org-directory "~/Dropbox/org")
  '(org-outline-path-complete-in-steps nil)
@@ -52,6 +53,7 @@
     ((nil :maxlevel . 9)
      (org-agenda-files :maxlevel . 9))))
  '(org-refile-use-outline-path t)
+ '(org-time-stamp-rounding-minutes (quote (0 0)))
  '(org-todo-keywords
    (quote
     ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
