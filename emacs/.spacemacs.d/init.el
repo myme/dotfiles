@@ -38,6 +38,7 @@ values."
               haskell-completion-backend 'intero)
      html
      javascript
+     markdown
      python
      (shell :variables
             shell-default-height 30
