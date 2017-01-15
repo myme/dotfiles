@@ -339,7 +339,7 @@ you should place your code here."
     (org-agenda arg "d"))
 
   (spacemacs/set-leader-keys "ao'" #'org-cycle-agenda-files)
-  (spacemacs/set-leader-keys "aob" #'org-iswitchb)
+  (spacemacs/set-leader-keys "aob" #'org-switchb)
   (spacemacs/set-leader-keys "aod" #'my/org-agenda-default-list)
   (spacemacs/set-leader-keys "aoI" #'org-clock-in-last)
   )
