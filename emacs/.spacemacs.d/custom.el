@@ -13,6 +13,7 @@
      (other . "gnu"))))
  '(evil-want-Y-yank-to-eol nil)
  '(js-indent-level 2)
+ '(js-switch-indent-offset 2)
  '(js2-strict-trailing-comma-warning nil)
  '(org-agenda-compact-blocks t)
  '(org-agenda-custom-commands
