@@ -339,8 +339,21 @@ you should place your code here."
     (interactive "P")
     (org-agenda arg "d"))
 
+  ;; Org mode
   (spacemacs/set-leader-keys "ao'" #'org-cycle-agenda-files)
   (spacemacs/set-leader-keys "aob" #'org-switchb)
   (spacemacs/set-leader-keys "aod" #'my/org-agenda-default-list)
   (spacemacs/set-leader-keys "aoI" #'org-clock-in-last)
+
+  ;; Workspaces
+  (global-set-key (kbd "s-1") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-1-and-exit)
+  (global-set-key (kbd "s-2") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-2-and-exit)
+  (global-set-key (kbd "s-3") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-3-and-exit)
+  (global-set-key (kbd "s-4") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-4-and-exit)
+  (global-set-key (kbd "s-5") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-5-and-exit)
+  (global-set-key (kbd "s-6") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-6-and-exit)
+  (global-set-key (kbd "s-7") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-7-and-exit)
+  (global-set-key (kbd "s-8") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-8-and-exit)
+  (global-set-key (kbd "s-9") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-9-and-exit)
+  (global-set-key (kbd "s-0") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-0-and-exit)
   )
