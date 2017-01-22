@@ -150,7 +150,7 @@ nmap <Leader>dt :diffthis<Return>
 nmap <Leader>do :diffoff<Return>
 
 " File browser
-nmap <Leader>. :exec '30vsplit' expand('%:p:h')<Return>
+nmap <Leader>. :exec ':edit' expand('%:p:h')<Return>
 
 " Tabs + tags
 nmap <Leader>tg <C-w><C-]><C-w>T
