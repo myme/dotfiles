@@ -22,12 +22,13 @@
       ((agenda ""
                ((org-agenda-span 1)))
        (tags "REFILE"
-             ((org-agenda-overriding-header "Tasks to Refile")
-              (org-tags-match-list-sublevels nil)))
+             ((org-agenda-overriding-header "Tasks to Refile")))
        (todo "NEXT"
              ((org-agenda-overriding-header "Next items")))
        (todo "TODO"
-             ((org-agenda-overriding-header "TODOs"))))
+             ((org-agenda-overriding-header "TODOs")))
+       (todo "WAITING"
+             ((org-agenda-overriding-header "Waiting items"))))
       nil nil))))
  '(org-agenda-files (quote ("~/Dropbox/org")))
  '(org-capture-templates
