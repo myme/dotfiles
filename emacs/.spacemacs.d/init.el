@@ -312,6 +312,12 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; C++
+  (setq my-cc-style
+        '("cc-mode"
+          (c-offsets-alist . ((innamespace . [0])))))
+  (c-add-style "my-cc-style" my-cc-style)
+
   ;; ESLint
   ;; Find eslint binary relative to current file
   (defun my/use-eslint-from-node-modules ()
