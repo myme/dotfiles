@@ -350,6 +350,8 @@ you should place your code here."
   (spacemacs/set-leader-keys "aob" #'org-switchb)
   (spacemacs/set-leader-keys "aod" #'my/org-agenda-default-list)
   (spacemacs/set-leader-keys "aoI" #'org-clock-in-last)
+  (spacemacs/set-leader-keys "aoj" #'org-clock-goto)
+  (spacemacs/set-leader-keys "aoP" #'org-pomodoro)
 
   ;; Workspaces
   (global-set-key (kbd "s-1") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-1-and-exit)
