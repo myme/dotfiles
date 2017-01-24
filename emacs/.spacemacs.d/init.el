@@ -352,16 +352,4 @@ you should place your code here."
   (spacemacs/set-leader-keys "aoI" #'org-clock-in-last)
   (spacemacs/set-leader-keys "aoj" #'org-clock-goto)
   (spacemacs/set-leader-keys "aoP" #'org-pomodoro)
-
-  ;; Workspaces
-  (global-set-key (kbd "s-1") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-1-and-exit)
-  (global-set-key (kbd "s-2") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-2-and-exit)
-  (global-set-key (kbd "s-3") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-3-and-exit)
-  (global-set-key (kbd "s-4") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-4-and-exit)
-  (global-set-key (kbd "s-5") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-5-and-exit)
-  (global-set-key (kbd "s-6") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-6-and-exit)
-  (global-set-key (kbd "s-7") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-7-and-exit)
-  (global-set-key (kbd "s-8") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-8-and-exit)
-  (global-set-key (kbd "s-9") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-9-and-exit)
-  (global-set-key (kbd "s-0") #'spacemacs/workspaces-transient-state/eyebrowse-switch-to-window-config-0-and-exit)
   )
