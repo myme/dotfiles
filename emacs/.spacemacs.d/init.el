@@ -346,9 +346,15 @@ you should place your code here."
     (org-agenda arg "d"))
 
   ;; Org mode
+  (defun my/org-clock-in-recent ()
+    (interactive)
+    (let ((current-prefix-arg '(4)))
+      (call-interactively #'org-clock-in)))
+
   (spacemacs/set-leader-keys "ao'" #'org-cycle-agenda-files)
   (spacemacs/set-leader-keys "aob" #'org-switchb)
   (spacemacs/set-leader-keys "aod" #'my/org-agenda-default-list)
+  (spacemacs/set-leader-keys "aoi" #'my/org-clock-in-recent)
   (spacemacs/set-leader-keys "aoI" #'org-clock-in-last)
   (spacemacs/set-leader-keys "aoj" #'org-clock-goto)
   (spacemacs/set-leader-keys "aoP" #'org-pomodoro)
