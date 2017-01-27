@@ -315,7 +315,9 @@ you should place your code here."
   ;; C++
   (setq my-cc-style
         '("cc-mode"
-          (c-offsets-alist . ((innamespace . [0])))))
+          (c-offsets-alist . (
+                              (innamespace . [0])
+                              (inline-open . 0)))))
   (c-add-style "my-cc-style" my-cc-style)
 
   ;; ESLint
