@@ -46,7 +46,9 @@ values."
             shell-default-position 'bottom)
      ;; Div
      ivy
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t)
+
      git
      (org :variables
           org-enable-reveal-js-support t)
@@ -361,4 +363,7 @@ you should place your code here."
   (spacemacs/set-leader-keys "aoI" #'org-clock-in-last)
   (spacemacs/set-leader-keys "aoj" #'org-clock-goto)
   (spacemacs/set-leader-keys "aoP" #'org-pomodoro)
+
+  ;; Snippets
+  (spacemacs/set-leader-keys "is" #'company-yasnippet)
   )
