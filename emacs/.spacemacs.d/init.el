@@ -340,7 +340,7 @@ you should place your code here."
   (spacemacs/add-flycheck-hook 'rjsx-mode)
 
   ;; Powerline
-  (setq powerline-default-separator 'slant)
+  (setq powerline-default-separator 'bar)
 
   ;; Python
   (pyvenv-mode 1)
