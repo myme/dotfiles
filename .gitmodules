@@ -16,3 +16,6 @@
 [submodule "emacs/.emacs.d"]
 	path = emacs/.emacs.d
 	url = https://github.com/syl20bnr/spacemacs
+[submodule "emacs/apps/emacs"]
+	path = emacs/apps/emacs
+	url = git://git.sv.gnu.org/emacs.git
