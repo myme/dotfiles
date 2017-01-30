@@ -1,3 +1,3 @@
-export EDITOR="vim"
-export N_PREFIX=$HOME/.local
-export PATH=$HOME/.cabal/bin:$HOME/.local/bin:$PATH
+if [ -f "$HOME/.profile" ]; then
+    emulate sh -c ". $HOME/.profile"
+fi
