@@ -17,6 +17,12 @@ In [[file:/etc/nsswitch.conf::#%20hosts:%20files%20mdns4_minimal%20%5BNOTFOUND=r
 + hosts:          files dns
 #+END_SRC
 
+or remove completely:
+
+#+BEGIN_SRC sh
+$ sudo apt remove libnss-mdns
+#+END_SRC
+
 *** ZSH 5.2 has a broken function in `VCS_INFO_nvcsformats`             :zsh:
 
 #+BEGIN_SRC sh
