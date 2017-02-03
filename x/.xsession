@@ -14,5 +14,4 @@ nitrogen --restore &
 dropbox start &
 volumeicon &
 
-export PATH=$HOME/.local/bin:$PATH
 exec $WINDOW_MANAGER
