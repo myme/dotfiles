@@ -39,6 +39,7 @@ values."
      html
      javascript
      markdown
+     purescript
      python
      yaml
      (shell :variables
