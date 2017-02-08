@@ -348,6 +348,9 @@ you should place your code here."
   ;; Powerline
   (setq powerline-default-separator 'bar)
 
+  ;; Purescript
+  (define-key purescript-mode-map (kbd "M-/") #'company-complete)
+
   ;; Python
   (pyvenv-mode 1)
 
