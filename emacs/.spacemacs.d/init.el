@@ -344,6 +344,8 @@ you should place your code here."
 
   ;; JSX
   (spacemacs/add-flycheck-hook 'rjsx-mode)
+  (with-eval-after-load 'rjsx-mode
+    (define-key rjsx-mode-map "<" nil))
 
   ;; Powerline
   (setq powerline-default-separator 'bar)
