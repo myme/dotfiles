@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: it
+# key: it
+# --
+it${2:.only}('$1', () => {
+  $0
+});
