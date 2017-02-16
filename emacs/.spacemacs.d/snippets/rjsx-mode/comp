@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: React class component
+# key: comp
+# --
+$0class $1 extends Component {
+  render() {
+    return ${2:<div />};
+  }
+}
