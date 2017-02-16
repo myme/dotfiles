@@ -7,7 +7,8 @@
  ;; If there is more than one, they won't work right.
  '(c-default-style
    (quote
-    ((c++-mode . "my-cc-style")
+    ((c-mode . "my-cc-style")
+     (c++-mode . "my-cc-style")
      (java-mode . "java")
      (awk-mode . "awk")
      (other . "gnu"))))
