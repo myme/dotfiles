@@ -10,7 +10,7 @@ export ZSH_CUSTOM=$HOME/.zsh/custom
 # Set to the name theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # export ZSH_THEME="myme"
-export ZSH_THEME="bira"
+export ZSH_THEME="bira-myme"
 
 # Set to this to use case-sensitive completion
 # export CASE_SENSITIVE="true"
