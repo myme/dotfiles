@@ -28,8 +28,10 @@
              ((org-agenda-overriding-header "Next items")))
        (todo "TODO"
              ((org-agenda-overriding-header "TODOs")))
+       (todo "HOLD"
+             ((org-agenda-overriding-header "Items on hold")))
        (todo "WAITING"
-             ((org-agenda-overriding-header "Waiting items"))))
+             ((org-agenda-overriding-header "Items waiting"))))
       nil nil))))
  '(org-agenda-files (quote ("~/Dropbox/org")))
  '(org-capture-templates
