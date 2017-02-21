@@ -30,7 +30,6 @@ plugins=(
     fabric
     git
     git-flow
-    ssh-agent
     npm
     python
     tmux
@@ -38,6 +37,8 @@ plugins=(
     vi-mode
     zsh-syntax-highlighting
 )
+
+eval `keychain --eval -q ~/.ssh/id_rsa`
 
 source $ZSH/oh-my-zsh.sh
 
