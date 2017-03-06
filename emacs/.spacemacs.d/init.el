@@ -63,6 +63,7 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
+                                      keychain-environment
                                       rjsx-mode
                                       )
    ;; A list of packages that cannot be updated.
@@ -346,6 +347,9 @@ you should place your code here."
   (spacemacs/add-flycheck-hook 'rjsx-mode)
   (with-eval-after-load 'rjsx-mode
     (define-key rjsx-mode-map "<" nil))
+
+  ;; Keychain
+  (keychain-refresh-environment)
 
   ;; Powerline
   (setq powerline-default-separator 'bar)
