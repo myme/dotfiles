@@ -8,9 +8,13 @@ xcompmgr -n &
 xrandr --output DP-1 --auto --primary
 xrandr | grep "DVI-I-1 connected" | ifne xrandr --output DVI-I-1 --auto --right-of DP-1
 
+# screen locking
+xautolock -time 5 -locker "$HOME/.local/bin/i3-lock" &
+
+# background image
 nitrogen --restore &
 
-# stalonetray &
+# task bar apps
 dropbox start &
 volumeicon &
 

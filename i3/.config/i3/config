@@ -133,7 +133,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Lock the screen
-bindsym $mod+Shift+z exec "i3lock -c 000000 -d"
+bindsym $mod+Shift+z exec "i3-lock"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
