@@ -14,7 +14,13 @@ fi
 local current_dir='%{$terminfo[bold]$fg[blue]%} %~%{$reset_color%}'
 local git_branch='$(git_prompt_info)%{$reset_color%}'
 
-PROMPT="╭─${user_host} ${current_dir} ${git_branch} \$(vi_mode_prompt_info)
+function zsh_venv() {
+    local venv_color=$FG[202]
+    local venv_format='${VIRTUAL_ENV:+(${VIRTUAL_ENV:t}) }'
+    echo "%{$venv_color%}"$venv_format"%{$FX[reset]%}"
+}
+
+PROMPT="╭─${user_host} ${current_dir} ${git_branch} $(zsh_venv) \$(vi_mode_prompt_info)
 ╰─%B${user_symbol}%b "
 RPS1="%B${return_code}%b"
 
