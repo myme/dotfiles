@@ -351,6 +351,9 @@ you should place your code here."
   ;; Keychain
   (keychain-refresh-environment)
 
+  ;; Magit
+  (spacemacs/set-leader-keys "gff" #'magit-find-file)
+
   ;; Powerline
   (setq powerline-default-separator 'bar)
 
