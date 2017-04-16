@@ -31,7 +31,12 @@
        (todo "HOLD"
              ((org-agenda-overriding-header "Items on hold")))
        (todo "WAITING"
-             ((org-agenda-overriding-header "Items waiting"))))
+             ((org-agenda-overriding-header "Items waiting")))
+       (tags "-refile"
+             ((org-agenda-overriding-header "Items to archive")
+              (org-agenda-skip-function
+               (function my/org-skip-non-archive-tasks))
+              (org-tags-match-list-sublevels nil))))
       nil nil))))
  '(org-agenda-files (quote ("~/Dropbox/org")))
  '(org-capture-templates

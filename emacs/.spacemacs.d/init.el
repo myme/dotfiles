@@ -387,9 +387,32 @@ you should place your code here."
 
   ;; Org mode
   (defun my/org-clock-in-recent ()
+    "Select a recently clocked task to clock into"
     (interactive)
     (let ((current-prefix-arg '(4)))
       (call-interactively #'org-clock-in)))
+
+  (defun my/org-skip-non-archive-tasks ()
+    "Skip tasks not ready for archiving"
+    (save-restriction
+      (widen)
+      (let ((next-headline (save-excursion (or (outline-next-heading) (point-max))))
+            (subtree-end (save-excursion (org-end-of-subtree t))))
+        (if (member (org-get-todo-state) org-todo-keywords-1)
+            (if (member (org-get-todo-state) org-done-keywords)
+                (let* ((daynr (string-to-int (format-time-string "%d" (current-time))))
+                       (a-month-ago (* 60 60 24 (+ daynr 1)))
+                       (last-month (format-time-string "%Y-%m-" (time-subtract (current-time) (seconds-to-time a-month-ago))))
+                       (this-month (format-time-string "%Y-%m-" (current-time)))
+                       (subtree-is-current (save-excursion
+                                             (forward-line 1)
+                                             (and (< (point) subtree-end)
+                                                  (re-search-forward (concat last-month "\\|" this-month) subtree-end t)))))
+                  (if subtree-is-current
+                      subtree-end ; Has a date in this month or last month, skip it
+                    nil))  ; available to archive
+              (or subtree-end (point-max)))
+          next-headline))))
 
   (spacemacs/set-leader-keys "ao'" #'org-cycle-agenda-files)
   (spacemacs/set-leader-keys "aob" #'org-switchb)
