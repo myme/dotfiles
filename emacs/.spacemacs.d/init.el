@@ -368,7 +368,8 @@ you should place your code here."
   ;; Keychain
   (keychain-refresh-environment)
 
-  ;; Magit
+  ;; VCS/Git/Magit
+  (spacemacs/set-leader-keys "gB" #'vc-annotate)
   (spacemacs/set-leader-keys "gff" #'magit-find-file)
 
   ;; Powerline
