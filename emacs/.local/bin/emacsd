@@ -1,2 +1,0 @@
-#!/bin/sh
-/usr/local/bin/emacs --eval '(setq server-name "term-server")' --daemon

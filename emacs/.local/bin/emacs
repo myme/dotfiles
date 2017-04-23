@@ -1,3 +1,0 @@
-#!/bin/sh
-cd
-echo '/usr/local/bin/emacs "$@"' | /usr/local/bin/zsh -i -l -s "$@"

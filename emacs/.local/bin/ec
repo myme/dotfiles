@@ -1,2 +1,2 @@
 #!/bin/sh
-emacsclient -t -s term-server "$@"
+emacsclient -s term-server -a '' -t "$@"
