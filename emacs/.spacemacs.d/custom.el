@@ -21,7 +21,7 @@
    (quote
     (("d" "Default agenda list"
       ((agenda ""
-               ((org-agenda-span 3)))
+               ((org-agenda-span 1)))
        (tags "REFILE"
              ((org-agenda-overriding-header "Tasks to Refile")))
        (todo "NEXT"
