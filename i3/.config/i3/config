@@ -173,7 +173,7 @@ bindsym $mod+Prior  exec --no-startup-id "i3-spotify Next"
 bar {
     output DP-1
     position top
-    status_command i3status
+    status_command i3blocks
 }
 
 bar {
