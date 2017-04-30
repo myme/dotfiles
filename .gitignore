@@ -6,3 +6,6 @@
 /emacs/.emacs.d/private
 /emacs/.emacs.d/recentf
 /emacs/.emacs.d/smex-items
+
+/tmux/.tmux/plugins/*
+!/tmux/.tmux/plugins/tpm
