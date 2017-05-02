@@ -74,16 +74,11 @@ interval=30
 # If the instance is not specified, use the interface used for default route.
 # The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
 [iface]
-#instance=wlp2s0
+#instance=wlan0
 color=#00FF00
 interval=10
 separator=false
 
-[wifi]
-label=📶
-instance=wlp2s0
-interval=10
-separator=false
 
 [bandwidth]
 #instance=eth0
@@ -102,14 +97,6 @@ min_width=CPU: 100.00%
 #[load_average]
 #interval=10
 
-# Battery indicator
-#
-# The battery instance defaults to 0.
-[battery]
-# label=BAT
-label=⚡
-#instance=1
-interval=30
 
 # Date Time
 #
