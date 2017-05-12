@@ -1,3 +1,6 @@
+# Dumb term
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
 # Overrides
 export DISABLE_AUTO_TITLE="true"
 export DISABLE_VENV_CD=1
