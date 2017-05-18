@@ -375,6 +375,24 @@ you should place your code here."
   (spacemacs/set-leader-keys "gB" #'vc-annotate)
   (spacemacs/set-leader-keys "gff" #'magit-find-file)
 
+  ;; Projectile
+  (defvar my/projectile-prev-root "/tmp")
+
+  (defun query-project-root ()
+    (interactive)
+    (setq my/projectile-prev-root (read-directory-name "Search at: " default-directory)))
+
+  (defun read-my-project-root (orig-fun &rest args)
+    (let ((res (ignore-errors (apply orig-fun nil))))
+      (if res
+          (progn
+            (setq my/projectile-prev-root res)
+            res)
+        my/projectile-prev-root))
+    )
+
+  (advice-add 'projectile-project-root :around #'read-my-project-root)
+
   ;; Powerline
   (setq powerline-default-separator 'bar)
 
