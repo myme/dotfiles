@@ -378,11 +378,11 @@ you should place your code here."
   ;; Projectile
   (defvar my/projectile-prev-root "/tmp")
 
-  (defun query-project-root ()
+  (defun my/projectile-set-project-root ()
     (interactive)
     (setq my/projectile-prev-root (read-directory-name "Search at: " default-directory)))
 
-  (defun read-my-project-root (orig-fun &rest args)
+  (defun my/projectile-read-project-root (orig-fun &rest args)
     (let ((res (ignore-errors (apply orig-fun nil))))
       (if res
           (progn
@@ -391,7 +391,7 @@ you should place your code here."
         my/projectile-prev-root))
     )
 
-  (advice-add 'projectile-project-root :around #'read-my-project-root)
+  (advice-add 'projectile-project-root :around #'my/projectile-read-project-root)
 
   ;; Powerline
   (setq powerline-default-separator 'bar)
