@@ -41,7 +41,7 @@ plugins=(
     zsh-syntax-highlighting
 )
 
-eval `keychain --eval -q ~/.ssh/id_rsa`
+eval `keychain --eval -q ~/.ssh/*_rsa`
 
 source $ZSH/oh-my-zsh.sh
 
