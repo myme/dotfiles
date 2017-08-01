@@ -332,6 +332,9 @@ you should place your code here."
   ;; Buffers
   (spacemacs/set-leader-keys "b," #'rename-buffer)
 
+  ;; Diffing
+  (spacemacs/set-leader-keys "db" #'ediff-buffers)
+
   ;; Date
   (defun my/date ()
     (interactive)
