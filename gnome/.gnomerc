@@ -3,5 +3,5 @@
 # screen setup
 $HOME/.local/bin/setup-monitors
 
-export GDK_DPI_SCALE=1.5
+# export GDK_DPI_SCALE=1.5
 

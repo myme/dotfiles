@@ -152,7 +152,8 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "echo 'No\nYes' | rofi -dmenu -p 'Really quit?' | exit"
 
 # Lock the screen
-bindsym $mod+Shift+z exec "i3-lock"
+# bindsym $mod+Shift+z exec "i3-lock"
+bindsym $mod+Shift+z exec "gnome-screensaver-command -a"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
