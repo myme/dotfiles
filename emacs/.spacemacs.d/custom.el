@@ -43,16 +43,13 @@
    (quote
     (("n" "A generic note" entry
       (file "refile.org")
-      (file "~/.spacemacs.d/note.template")
-      :clock-in t :clock-resume t)
+      (file "~/.spacemacs.d/note.template"))
      ("t" "A TODO item" entry
       (file "refile.org")
-      (file "~/.spacemacs.d/todo.template")
-      :clock-in t :clock-resume t)
+      (file "~/.spacemacs.d/todo.template"))
      ("j" "Journal entry" entry
       (file+datetree "journal.org")
-      (file "~/.spacemacs.d/journal.template")
-      :clock-in t :clock-resume t))))
+      (file "~/.spacemacs.d/journal.template")))))
  '(org-clock-out-remove-zero-time-clocks t)
  '(org-clock-rounding-minutes 0)
  '(org-default-notes-file "~/Dropbox/org/notes.org")
