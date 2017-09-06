@@ -329,6 +329,15 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; Ag
+  (defun my/helm-ag-find-project-file (&optional basedir)
+    "Use ag to find a file relative to project root"
+    (interactive)
+    (let ((helm-ag-command-option "-g"))
+      (helm-do-ag-project-root)))
+
+  (spacemacs/set-leader-keys "C-p" #'my/helm-ag-find-project-file)
+
   ;; Buffers
   (spacemacs/set-leader-keys "b," #'rename-buffer)
 
