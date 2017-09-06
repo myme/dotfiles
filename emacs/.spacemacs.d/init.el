@@ -41,6 +41,7 @@ values."
      markdown
      purescript
      python
+     vimscript
      yaml
      (shell :variables
             shell-default-height 30
