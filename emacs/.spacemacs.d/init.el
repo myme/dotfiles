@@ -37,7 +37,6 @@ values."
      (haskell :variables
               haskell-completion-backend 'intero)
      html
-     javascript
      markdown
      purescript
      python
@@ -46,11 +45,16 @@ values."
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
+
+     ;; Custom
+     myme-javascript
+
      ;; Div
      helm
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t)
 
+     ;; Utils
      git
      (org :variables
           org-enable-reveal-js-support t)
@@ -65,7 +69,6 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
                                       keychain-environment
-                                      rjsx-mode
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -369,24 +372,6 @@ you should place your code here."
                               (innamespace . [0])
                               (inline-open . 0)))))
   (c-add-style "my-cc-style" my-cc-style)
-
-  ;; ESLint
-  ;; Find eslint binary relative to current file
-  (defun my/use-eslint-from-node-modules ()
-    (let ((root (locate-dominating-file
-                 (or (buffer-file-name) default-directory)
-                 (lambda (dir)
-                   (let ((eslint (expand-file-name "node_modules/.bin/eslint" dir)))
-                     (and eslint (file-executable-p eslint)))))))
-      (when root
-        (let ((eslint (expand-file-name "node_modules/.bin/eslint" root)))
-          (setq-local flycheck-javascript-eslint-executable eslint)))))
-  (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
-
-  ;; JSX
-  (spacemacs/add-flycheck-hook 'rjsx-mode)
-  (with-eval-after-load 'rjsx-mode
-    (define-key rjsx-mode-map "<" nil))
 
   ;; Keychain
   (keychain-refresh-environment)
