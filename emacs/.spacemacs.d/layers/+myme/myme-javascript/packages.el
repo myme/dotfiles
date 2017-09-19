@@ -36,7 +36,11 @@
                   #'myme-javascript/js-jsx-indent-line-align-closing-bracket)
       (add-hook 'rjsx-mode-hook #'myme-javascript/use-eslint-from-node-modules))
     :config
-    (modify-syntax-entry ?_ "w" js2-mode-syntax-table)))
+    (progn
+      (modify-syntax-entry ?_ "w" js2-mode-syntax-table)
+      ;; Disable rjsx-mode tag insert smartness
+      (define-key rjsx-mode-map "<" nil)
+      (define-key rjsx-mode-map (kbd "C-d") nil))))
 
 (defun myme-javascript/post-init-add-node-modules-path ()
   (with-eval-after-load 'rjsx-mode
