@@ -56,7 +56,7 @@
   (with-eval-after-load 'flycheck
     (push 'javascript-jshint flycheck-disabled-checkers)
     (push 'json-jsonlint flycheck-disabled-checkers))
-  (spacemacs/add-flycheck-hook 'rjsx-mode))
+  (spacemacs/enable-flycheck 'rjsx-mode))
 
 (defun myme-javascript/init-prettier-js ()
   (use-package prettier-js
