@@ -53,6 +53,9 @@ This function should only modify configuration layer settings."
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t)
 
+     ;; Mail + News
+     gnus
+
      ;; Utils
      git
      (org :variables
