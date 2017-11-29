@@ -479,7 +479,36 @@ before packages are loaded."
                 nil)))
           has-subtask))))
 
-  (defun my/org-skip-non-stuck-projects ()
+  (defun my/org-is-standalone ()
+    "Check if current task is a project (has subtasks)"
+    (save-restriction
+      (widen)
+      (org-save-outline-visibility nil
+        (org-reveal)
+        (save-excursion
+          (if (not (my/org-is-project))
+              (let ((is-subtask))
+                (while (and (not is-subtask)
+                            (org-up-heading-safe))
+                  (if (member (org-get-todo-state) org-todo-keywords-1)
+                      (setq is-subtask t)))
+                (not is-subtask))
+            nil)
+          ))))
+
+  (defun my/org-skip-project ()
+    "Skip projects"
+    (save-restriction
+      (widen)
+      (org-save-outline-visibility nil
+        (org-reveal)
+        (org-show-subtree)
+        (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
+          (if (my/org-is-project)
+             next-headline
+            nil)))))
+
+  (defun my/org-skip-non-stuck-project ()
     "Skip projects which are not stuck (has NEXT task)"
     (save-restriction
       (widen)
@@ -494,6 +523,18 @@ before packages are loaded."
                   (if (re-search-forward "^\*+ NEXT " subtree-end t)
                       next-headline
                     nil)))
+            next-headline)))))
+
+  (defun my/org-skip-non-standalone ()
+    "Skip tasks which are not standalone"
+    (save-restriction
+      (widen)
+      (org-save-outline-visibility nil
+        (org-reveal)
+        (org-show-subtree)
+        (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
+          (if (my/org-is-standalone)
+              nil
             next-headline)))))
 
   (defun my/org-skip-non-archive-tasks ()
@@ -559,13 +600,19 @@ This function is called at the very end of Spacemacs initialization."
          (tags "REFILE"
                ((org-agenda-overriding-header "Tasks to Refile")))
          (tags-todo "-REFILE/NEXT"
-                    ((org-agenda-overriding-header "Next items")))
+                    ((org-agenda-overriding-header "Next items")
+                     (org-agenda-skip-function
+                      (function my/org-skip-project))))
          (tags-todo "-REFILE-CANCELED"
                     ((org-agenda-overriding-header "Stuck projects")
                      (org-agenda-skip-function
-                      (function my/org-skip-non-stuck-projects))))
+                      (function my/org-skip-non-stuck-project))))
          (todo "HOLD|WAITING"
                ((org-agenda-overriding-header "Pending items")))
+         (tags-todo "-REFILE/TODO"
+                    ((org-agenda-overriding-header "Standalone tasks")
+                     (org-agenda-skip-function
+                      (function my/org-skip-non-standalone))))
          (tags "-REFILE"
                ((org-agenda-overriding-header "Items to archive")
                 (org-agenda-skip-function
