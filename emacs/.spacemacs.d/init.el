@@ -461,6 +461,41 @@ before packages are loaded."
     (let ((current-prefix-arg '(4)))
       (call-interactively #'org-clock-in)))
 
+  (defun my/org-is-project ()
+    "Check if current task is a project (has subtasks)"
+    (save-restriction
+      (widen)
+      (org-save-outline-visibility nil
+        (org-reveal)
+        (org-show-subtree)
+        (let ((has-subtask)
+              (subtree-end (save-excursion (org-end-of-subtree))))
+          (save-excursion
+            (while (and (outline-next-heading)
+                        (< (point) subtree-end)
+                        (not has-subtask))
+              (if (member (org-get-todo-state) org-todo-keywords-1)
+                  (setq has-subtask t)
+                nil)))
+          has-subtask))))
+
+  (defun my/org-skip-non-stuck-projects ()
+    "Skip projects which are not stuck (has NEXT task)"
+    (save-restriction
+      (widen)
+      (org-save-outline-visibility nil
+        (org-reveal)
+        (org-show-subtree)
+        (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
+          (if (my/org-is-project)
+              (let ((subtree-end (save-excursion (org-end-of-subtree))))
+                (save-excursion
+                  (forward-line 1)
+                  (if (re-search-forward "^\*+ NEXT " subtree-end t)
+                      next-headline
+                    nil)))
+            next-headline)))))
+
   (defun my/org-skip-non-archive-tasks ()
     "Skip tasks not ready for archiving"
     (save-restriction
@@ -523,15 +558,15 @@ This function is called at the very end of Spacemacs initialization."
                  ((org-agenda-span 1)))
          (tags "REFILE"
                ((org-agenda-overriding-header "Tasks to Refile")))
-         (todo "NEXT"
-               ((org-agenda-overriding-header "Next items")))
-         (tags-todo "-REFILE/TODO"
-                    ((org-agenda-overriding-header "TODOs")))
-         (todo "HOLD"
-               ((org-agenda-overriding-header "Items on hold")))
-         (todo "WAITING"
-               ((org-agenda-overriding-header "Items waiting")))
-         (tags "-refile"
+         (tags-todo "-REFILE/NEXT"
+                    ((org-agenda-overriding-header "Next items")))
+         (tags-todo "-REFILE-CANCELED"
+                    ((org-agenda-overriding-header "Stuck projects")
+                     (org-agenda-skip-function
+                      (function my/org-skip-non-stuck-projects))))
+         (todo "HOLD|WAITING"
+               ((org-agenda-overriding-header "Pending items")))
+         (tags "-REFILE"
                ((org-agenda-overriding-header "Items to archive")
                 (org-agenda-skip-function
                  (function my/org-skip-non-archive-tasks))
@@ -564,6 +599,7 @@ This function is called at the very end of Spacemacs initialization."
       ((nil :maxlevel . 9)
        (org-agenda-files :maxlevel . 9))))
    '(org-refile-use-outline-path t)
+   '(org-stuck-projects (quote ("" nil nil "")))
    '(org-time-stamp-rounding-minutes (quote (0 0)))
    '(org-todo-keywords
      (quote
