@@ -396,6 +396,7 @@ before packages are loaded."
 
   ;; Diffing
   (spacemacs/set-leader-keys "db" #'ediff-buffers)
+  (spacemacs/set-leader-keys "dl" #'ediff-regions-linewise)
 
   ;; Date
   (defun my/date ()
