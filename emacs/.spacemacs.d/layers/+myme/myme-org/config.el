@@ -47,8 +47,6 @@
 %U" :clock-in t :clock-resume t)))
  org-clock-out-remove-zero-time-clocks t
  org-clock-rounding-minutes 0
- org-default-notes-file "~/Dropbox/org/notes.org"
- org-directory "~/Dropbox/org"
  org-outline-path-complete-in-steps nil
  org-refile-targets
  (quote
