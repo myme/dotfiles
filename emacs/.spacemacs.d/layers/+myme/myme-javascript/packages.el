@@ -24,12 +24,13 @@
       (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
 
       (setq
-       js2-mode-show-strict-warnings nil
-       js2-mode-show-parse-errors nil
        js-indent-level 2
+       js-switch-indent-offset 2
        js2-basic-offset 2
-       js2-strict-trailing-comma-warning nil
+       js2-mode-show-parse-errors nil
+       js2-mode-show-strict-warnings nil
        js2-strict-missing-semi-warning nil)
+       js2-strict-trailing-comma-warning nil
 
       (advice-add #'js-jsx-indent-line
                   :after
