@@ -465,7 +465,9 @@ before packages are loaded."
     (quote
      ((pyvenv-workon . "vega")
       (projectile-enable-caching . t))))
-  '(split-height-threshold nil)
+  (setq
+   split-height-threshold nil
+   split-width-threshold 0)
   )
 
 (defun dotspacemacs/emacs-custom-settings ()
