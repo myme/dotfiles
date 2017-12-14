@@ -432,6 +432,8 @@ before packages are loaded."
   ;; VCS/Git/Magit
   (spacemacs/set-leader-keys "gB" #'vc-annotate)
   (spacemacs/set-leader-keys "gff" #'magit-find-file)
+  (setq
+   magit-repository-directories '(("~/dotfiles" . 0) ("~/src" . 1) ("~/projects" . 1)))
 
   ;; Projectile
   (defvar my/projectile-prev-root "/tmp")
