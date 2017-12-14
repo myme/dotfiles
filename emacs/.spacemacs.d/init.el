@@ -460,6 +460,9 @@ before packages are loaded."
   ;; Python
   (pyvenv-mode 1)
 
+  ;; Smartparens
+  (setq sp-escape-quotes-after-insert nil)
+
   ;; Div
   '(safe-local-variable-values
     (quote
