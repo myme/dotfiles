@@ -52,7 +52,8 @@ This function should only modify configuration layer settings."
      ;; Div
      helm
      (auto-completion :variables
-                      auto-completion-enable-snippets-in-popup t)
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-return-key-behavior nil)
 
      ;; Mail + News
      gnus
