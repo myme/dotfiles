@@ -396,6 +396,12 @@ before packages are loaded."
   (spacemacs/set-leader-keys "b," #'rename-buffer)
 
   ;; C/C++
+  (setq my-cc-style
+        '("cc-mode"
+          (c-offsets-alist . (
+                              (innamespace . [0])
+                              (inline-open . 0)))))
+  (c-add-style "my-cc-style" my-cc-style)
   (setq
    c-default-style
    (quote
@@ -419,14 +425,6 @@ before packages are loaded."
   ;; Evil
   (setq-default evil-escape-key-sequence "qq")
   (setq evil-want-Y-yank-to-eol nil)
-
-  ;; C++
-  (setq my-cc-style
-        '("cc-mode"
-          (c-offsets-alist . (
-                              (innamespace . [0])
-                              (inline-open . 0)))))
-  (c-add-style "my-cc-style" my-cc-style)
 
   ;; Keychain
   (keychain-refresh-environment)
