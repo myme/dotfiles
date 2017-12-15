@@ -53,7 +53,8 @@ This function should only modify configuration layer settings."
      helm
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
-                      auto-completion-return-key-behavior nil)
+                      auto-completion-return-key-behavior nil
+                      auto-completion-tab-key-behavior 'complete)
 
      ;; Mail + News
      gnus
