@@ -464,6 +464,8 @@ before packages are loaded."
 
   ;; Purescript
   (define-key purescript-mode-map (kbd "M-/") #'company-complete)
+  (spacemacs/set-leader-keys-for-major-mode 'purescript-mode "hs" #'purescript-pursuit)
+  ;; (setq psc-ide-use-npm-bin t)
 
   ;; Python
   (pyvenv-mode 1)
