@@ -53,8 +53,9 @@ This function should only modify configuration layer settings."
      ivy
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
-                      auto-completion-return-key-behavior nil
-                      auto-completion-tab-key-behavior 'complete)
+                      ;; auto-completion-return-key-behavior nil
+                      ;; auto-completion-tab-key-behavior 'complete
+                      )
 
      ;; Mail + News
      gnus
@@ -425,6 +426,11 @@ before packages are loaded."
   ;; Evil
   (setq-default evil-escape-key-sequence "qq")
   (setq evil-want-Y-yank-to-eol nil)
+
+  ;; Ivy
+  (with-eval-after-load 'company
+      (let ((map company-active-map))
+        (define-key map (kbd "C-/") #'counsel-company)))
 
   ;; Keychain
   (keychain-refresh-environment)
