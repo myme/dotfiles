@@ -472,10 +472,10 @@ before packages are loaded."
   (setq sp-escape-quotes-after-insert nil)
 
   ;; Div
-  '(safe-local-variable-values
-    (quote
-     ((pyvenv-workon . "vega")
-      (projectile-enable-caching . t))))
+  (setq
+   safe-local-variable-values (quote
+                               ((pyvenv-workon . "vega")
+                                (projectile-enable-caching . t))))
   (setq
    split-height-threshold nil
    split-width-threshold 0)
