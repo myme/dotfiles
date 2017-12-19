@@ -378,20 +378,20 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   ;; Ag
-  (defun my/helm-ag-find-project-file ()
-    "Use ag to find a file relative to project root"
-    (interactive)
-    (let ((helm-ag-command-option "-g"))
-      (helm-do-ag-project-root)))
+  ;; TODO Fixme!
+  ;; (defun my/ag-project-find-file ()
+  ;;   "Use ag to find a file relative to project root"
+  ;;   (interactive)
+  ;;   (counsel-projectile-ag "-g"))
 
-  (defun my/helm-ag-find-file ()
-    "Use ag to find a file relative to current directory"
-    (interactive)
-    (let ((helm-ag-command-option "-g"))
-      (helm-do-ag)))
+  ;; (defun my/ag-find-file ()
+  ;;   "Use ag to find a file relative to current directory"
+  ;;   (interactive)
+  ;;   (let ((current-prefix-arg 4))
+  ;;     (counsel-ag nil nil "g")))
 
-  (spacemacs/set-leader-keys "C-p" #'my/helm-ag-find-project-file)
-  (spacemacs/set-leader-keys "M-p" #'my/helm-ag-find-file)
+  ;; (spacemacs/set-leader-keys "C-p" #'my/ag-project-find-file)
+  ;; (spacemacs/set-leader-keys "M-p" #'my/ag-find-file)
 
   ;; Buffers
   (spacemacs/set-leader-keys "b," #'rename-buffer)
