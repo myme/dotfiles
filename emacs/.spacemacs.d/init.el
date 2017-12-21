@@ -442,6 +442,9 @@ before packages are loaded."
    magit-repository-directories '(("~/dotfiles" . 0) ("~/src" . 1) ("~/projects" . 1)))
 
   ;; Projectile
+  (setq projectile-switch-project-action (lambda ()
+                                           (magit-status)
+                                           (spacemacs/toggle-maximize-buffer)))
   (defvar my/projectile-prev-root "/tmp")
 
   (defun my/projectile-set-project-root ()
