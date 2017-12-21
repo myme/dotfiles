@@ -462,6 +462,9 @@ before packages are loaded."
 
   (advice-add 'projectile-project-root :around #'my/projectile-read-project-root)
 
+  ;; Popwin
+  (spacemacs/set-leader-keys "wpb" #'popwin:popup-buffer)
+
   ;; Powerline
   (setq powerline-default-separator 'bar)
 
