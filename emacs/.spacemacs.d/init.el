@@ -445,7 +445,7 @@ before packages are loaded."
   ;; Projectile
   (setq projectile-switch-project-action (lambda ()
                                            (magit-status)
-                                           (spacemacs/toggle-maximize-buffer)))
+                                           (delete-other-windows)))
   (defvar my/projectile-prev-root "/tmp")
 
   (defun my/projectile-set-project-root ()
