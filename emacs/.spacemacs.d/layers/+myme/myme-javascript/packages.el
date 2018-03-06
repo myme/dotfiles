@@ -67,7 +67,6 @@
     (progn
       (add-hook 'rjsx-mode-hook 'prettier-js-mode)
       (setq prettier-js-args '(
-                               "--trailing-comma" "es5"
-                               "--bracket-spacing" "false"
-                               "--no-semi"
+                               "--semi"
+                               "--trailing-comma" "all"
                                "--single-quote")))))
