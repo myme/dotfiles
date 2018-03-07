@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# screen setup
+$HOME/.local/bin/setup-monitors
+
+export GDK_DPI_SCALE=1.5
+
