@@ -484,6 +484,9 @@ before packages are loaded."
   ;; Smartparens
   (setq sp-escape-quotes-after-insert nil)
 
+  ;; Woman
+  (spacemacs/set-leader-keys "hm" #'woman)
+
   ;; Div
   (setq
    safe-local-variable-values (quote
