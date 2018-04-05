@@ -447,9 +447,13 @@ before packages are loaded."
    magit-repository-directories '(("~/dotfiles" . 0) ("~/src" . 1) ("~/projects" . 1)))
 
   ;; Projectile
-  (setq projectile-switch-project-action (lambda ()
-                                           (magit-status)
-                                           (delete-other-windows)))
+  (ivy-set-actions
+   'spacemacs/ivy-persp-switch-project
+   '(("v" (lambda (project)
+            (let ((persp-reset-windows-on-nil-window-conf t))
+              (persp-switch project))
+            (counsel-projectile-switch-project-action-vc project)
+            (delete-other-windows)) "version control")))
   (defvar my/projectile-prev-root "/tmp")
 
   (defun my/projectile-set-project-root ()
