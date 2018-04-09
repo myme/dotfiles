@@ -35,7 +35,7 @@
     (file "refile.org")
     "* %? :NOTE:
 %U
-%a" :clock-in t :clock-resume t)
+%a")
    ("t" "A TODO item" entry
     (file "refile.org")
     "* TODO %?
