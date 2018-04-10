@@ -20,9 +20,8 @@ function zsh_venv() {
     echo "%{$venv_color%}"$venv_format"%{$FX[reset]%}"
 }
 
-PROMPT="╭─${user_host} ${current_dir} ${git_branch} $(zsh_venv) \$(vi_mode_prompt_info)
+PROMPT="╭─${user_host}${current_dir} ${git_branch}$(zsh_venv)%B${return_code}%b
 ╰─%B${user_symbol}%b "
-RPS1="%B${return_code}%b"
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}‹"
 ZSH_THEME_GIT_PROMPT_SUFFIX="› %{$reset_color%}"
