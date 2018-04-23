@@ -47,6 +47,7 @@
 %U" :clock-in t :clock-resume t)))
  org-clock-out-remove-zero-time-clocks t
  org-clock-rounding-minutes 0
+ org-footnote-section nil
  org-outline-path-complete-in-steps nil
  org-refile-targets
  (quote
