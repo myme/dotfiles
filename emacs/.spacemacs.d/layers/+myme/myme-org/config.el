@@ -8,17 +8,12 @@
              ((org-agenda-span 1)))
      (tags "REFILE"
            ((org-agenda-overriding-header "Tasks to Refile")))
-     (tags-todo "-REFILE/NEXT"
-                ((org-agenda-overriding-header "Next items")
-                 (org-agenda-skip-function
-                  (function my/org-skip-project))))
-     (tags-todo "-REFILE-CANCELED"
-                ((org-agenda-overriding-header "Stuck projects")
-                 (org-agenda-skip-function
-                  (function my/org-skip-non-stuck-project))))
+     (org-agenda-list-stuck-projects)
+     (tags-todo "-REFILE-SCHEDULED>\"<now>\"/NEXT"
+                ((org-agenda-overriding-header "Next items")))
      (todo "HOLD|WAITING"
            ((org-agenda-overriding-header "Pending items")))
-     (tags-todo "-REFILE/TODO"
+     (tags-todo "-REFILE-PROJECT/TODO"
                 ((org-agenda-overriding-header "Standalone tasks")
                  (org-agenda-skip-function
                   (function my/org-skip-non-standalone))))
@@ -56,7 +51,8 @@
   ((nil :maxlevel . 9)
    (org-agenda-files :maxlevel . 9)))
  org-refile-use-outline-path t
- org-stuck-projects (quote ("" nil nil ""))
+ org-stuck-projects (quote ("PROJECT-SCHEDULED>\"<now>\"" ("NEXT") nil ""))
+ org-tags-exclude-from-inheritance '("PROJECT")
  org-time-stamp-rounding-minutes (quote (0 0))
  org-todo-keywords
  (quote
