@@ -27,7 +27,7 @@
             (org-agenda-skip-function
              (function my/org-skip-non-archive-tasks))
             (org-tags-match-list-sublevels nil))))
-    nil nil)))
+    ((org-agenda-start-with-log-mode t)) nil)))
  org-agenda-files (quote ("~/Dropbox/org"))
  org-capture-templates
  (quote
