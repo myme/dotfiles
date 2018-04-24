@@ -60,7 +60,7 @@
  org-time-stamp-rounding-minutes (quote (0 0))
  org-todo-keywords
  (quote
-  ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+  ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
    (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELED(c@/!)")))
  org-todo-state-tags-triggers
  (quote
