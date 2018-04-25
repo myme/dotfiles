@@ -13,7 +13,7 @@
                 ((org-agenda-overriding-header "Next items")))
      (todo "HOLD|WAITING"
            ((org-agenda-overriding-header "Pending items")))
-     (tags-todo "-REFILE-PROJECT/TODO"
+     (tags-todo "-REFILE-PROJECT-SCHEDULED>\"<now>\"/TODO"
                 ((org-agenda-overriding-header "Standalone tasks")
                  (org-agenda-skip-function
                   (function my/org-skip-non-standalone))))
