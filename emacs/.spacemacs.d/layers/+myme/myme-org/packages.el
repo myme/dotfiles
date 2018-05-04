@@ -2,6 +2,8 @@
 
 (spacemacs|use-package-add-hook org
   :post-config
-  (setq
-   org-directory "~/Dropbox/org"
-   org-default-notes-file (expand-file-name "notes.org" "~/Dropbox/org/notes.org")))
+  (progn
+    (add-to-list 'org-modules 'org-habit)
+    (setq
+     org-directory "~/Dropbox/org"
+     org-default-notes-file (expand-file-name "notes.org" "~/Dropbox/org/notes.org"))))
