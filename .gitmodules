@@ -13,3 +13,6 @@
 [submodule "emacs/.emacs.d"]
 	path = emacs/.emacs.d
 	url = https://github.com/syl20bnr/spacemacs
+[submodule "zsh/.zprezto"]
+	path = zsh/.zprezto
+	url = git@github.com:sorin-ionescu/prezto.git
