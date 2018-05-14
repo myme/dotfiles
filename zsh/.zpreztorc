@@ -36,7 +36,8 @@ zstyle ':prezto:load' pmodule \
   'utility' \
   'completion' \
   'prompt' \
-  'python'
+  'python' \
+  'tmux'
 
 #
 # Autosuggestions
