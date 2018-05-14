@@ -35,9 +35,10 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'completion' \
-  'prompt' \
   'python' \
-  'tmux'
+  'tmux' \
+  'syntax-highlighting' \
+  'prompt'
 
 #
 # Autosuggestions
