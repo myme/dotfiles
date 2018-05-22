@@ -9,4 +9,4 @@
 	url = https://github.com/syl20bnr/spacemacs
 [submodule "zsh/.zprezto"]
 	path = zsh/.zprezto
-	url = git@github.com:sorin-ionescu/prezto.git
+	url = git@github.com:myme/prezto.git
