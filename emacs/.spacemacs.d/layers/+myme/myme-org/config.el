@@ -51,7 +51,7 @@
   ((nil :maxlevel . 9)
    (org-agenda-files :maxlevel . 9)))
  org-refile-use-outline-path t
- org-stuck-projects (quote ("PROJECT-SCHEDULED>\"<now>\"" ("NEXT") nil ""))
+ org-stuck-projects (quote ("PROJECT-SCHEDULED>\"<now>\"/-HOLD-WAITING" ("NEXT") nil ""))
  org-tags-exclude-from-inheritance '("PROJECT")
  org-time-stamp-rounding-minutes (quote (0 0))
  org-todo-keywords
