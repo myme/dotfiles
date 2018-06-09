@@ -225,3 +225,9 @@ zstyle ':prezto:module:prompt' theme 'pure'
 # before deleting or overwriting files. Set to 'no' to disable this safer
 # behavior.
 # zstyle ':prezto:module:utility' safe-ops 'yes'
+
+#
+# Aliases
+#
+
+alias ta="tmux attach -t"
