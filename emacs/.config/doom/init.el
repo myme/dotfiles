@@ -144,3 +144,5 @@
        ;; your own modules.
        (default +bindings +snippets +evil-commands))
 
+(setq doom-font (font-spec :family "DejaVu Sans Mono" :size 12))
+
