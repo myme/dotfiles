@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: prop
-# key: prop
-# --
-$1: PropTypes.$2${3:.isRequired},$0

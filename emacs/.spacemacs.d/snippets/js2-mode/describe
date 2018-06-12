@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: describe
-# key: desc
-# --
-describe${2:.only}('$1', () => {
-  $0
-});

@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: assert.match
-# key: am
-# --
-assert.match($1, $2);$0
