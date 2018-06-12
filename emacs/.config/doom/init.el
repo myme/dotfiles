@@ -43,7 +43,7 @@
       ;unicode           ; extended unicode support for various languages
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        window-select     ; visually switch windows
-      
+
        :editor
       ;parinfer          ; turn lisp into python, sort of
 
@@ -53,7 +53,7 @@
        electric-indent   ; smarter, keyword-based electric-indent
       ;eshell            ; a consistent, cross-platform shell (WIP)
        imenu             ; an imenu sidebar and searchable code index
-      ;term              ; terminals in Emacs
+       term              ; terminals in Emacs
 
        :tools
        editorconfig      ; let someone else argue about tabs vs spaces
@@ -61,7 +61,7 @@
       ;gist              ; interacting with github gists
       ;macos             ; MacOS-specific commands
       ;make              ; run make tasks from Emacs
-      ;magit             ;
+       magit             ;
       ;password-store    ; password manager for nerds
       ;pdf               ; pdf enhancements
       ;prodigy           ; FIXME managing external services & code builders
@@ -73,7 +73,7 @@
 
        :lang
       ;assembly          ; assembly for fun or debugging
-      ;cc                ; C/C++/Obj-C madness
+       cc                ; C/C++/Obj-C madness
       ;crystal           ; ruby at the speed of c
       ;clojure           ; java with a lisp
       ;csharp            ; unity, .NET, and mono shenanigans
@@ -84,10 +84,10 @@
        emacs-lisp        ; drown in parentheses
       ;ess               ; emacs speaks statistics
       ;go                ; the hipster dialect
-      ;(haskell +intero) ; a language that's lazier than I am
+       (haskell +intero) ; a language that's lazier than I am
       ;hy                ; readability of scheme w/ speed of python
-      ;(java +meghanada) ; the poster child for carpal tunnel syndrome
-      ;javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       (java +meghanada) ; the poster child for carpal tunnel syndrome
+       javascript        ; all(hope(abandon(ye(who(enter(here))))))
       ;julia             ; a better, faster MATLAB
       ;latex             ; writing papers in Emacs has never been so fun
       ;ledger            ; an accounting system in Emacs
@@ -105,8 +105,8 @@
       ;perl              ; write code no one else can comprehend
       ;php               ; perl's insecure younger brother
       ;plantuml          ; diagrams for confusing people more
-      ;purescript        ; javascript, but functional
-      ;python            ; beautiful is better than ugly
+       purescript        ; javascript, but functional
+       python            ; beautiful is better than ugly
       ;qt                ; the 'cutest' gui framework ever
       ;rest              ; Emacs as a REST client
       ;ruby              ; 1.step do {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
@@ -115,7 +115,7 @@
        sh                ; she sells (ba|z)sh shells on the C xor
       ;solidity          ; do you need a blockchain? No.
       ;swift             ; who asked for emoji variables?
-      ;web               ; the tubes
+       web               ; the tubes
 
        ;; Applications are complex and opinionated modules that transform Emacs
        ;; toward a specific purpose. They may have additional dependencies and
