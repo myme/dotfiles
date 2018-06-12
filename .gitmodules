@@ -10,3 +10,6 @@
 [submodule "emacs/.emacs.d"]
 	path = emacs/.emacs.d
 	url = git@github.com:myme/doom-emacs.git
+[submodule "emacs/apps/emacs"]
+	path = emacs/apps/emacs
+	url = git://git.sv.gnu.org/emacs.git
