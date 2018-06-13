@@ -9,7 +9,8 @@
    (quote
     (("d" "Default agenda list"
       ((agenda ""
-               ((org-agenda-span 1)))
+               ((org-agenda-span 1)
+                (org-agenda-start-day nil)))
        (tags "REFILE"
              ((org-agenda-overriding-header "Tasks to Refile")))
        (org-agenda-list-stuck-projects)
@@ -87,3 +88,6 @@
       ("CANCELLED")
       ("HOLD"))))
    ))
+
+(load! "+keybindings")
+
