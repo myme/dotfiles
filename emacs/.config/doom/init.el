@@ -145,8 +145,7 @@
        (default +bindings +snippets +evil-commands)
 
        :private
+        myme-config
         myme-dashboard
         myme-org)
-
-(setq doom-font (font-spec :family "DejaVu Sans Mono" :size 12))
 
