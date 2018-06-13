@@ -143,9 +143,10 @@
        ;; and additional ex commands for evil-mode. Use it as a reference for
        ;; your own modules.
        (default +bindings +snippets +evil-commands)
-       
+
        :private
-       myme-dashboard)
+        myme-dashboard
+        myme-org)
 
 (setq doom-font (font-spec :family "DejaVu Sans Mono" :size 12))
 
