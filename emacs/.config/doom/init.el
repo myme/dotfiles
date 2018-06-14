@@ -147,5 +147,6 @@
        :private
         myme-config
         myme-dashboard
-        myme-org)
+        myme-org
+        myme-python)
 
