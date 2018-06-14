@@ -1,7 +1,11 @@
 ;;; private/myme-config/config.el -*- lexical-binding: t; -*-
 
-;; Look-and-feel
-(setq doom-font (font-spec :family "DejaVu Sans Mono" :size 12))
+(setq
+ ;; Look-and-feel
+ doom-font (font-spec :family "DejaVu Sans Mono" :size 12)
+
+ ;; Dired
+ dired-dwim-target t)
 
 ;; Bindings
 (map! (:after company
