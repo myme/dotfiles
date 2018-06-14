@@ -9,6 +9,9 @@
  ;; Look-and-feel
  doom-font (font-spec :family "DejaVu Sans Mono" :size 12)
 
+ ;; Avy
+ avy-all-windows 'all-frames
+
  ;; Dired
  dired-dwim-target t)
 
@@ -16,6 +19,16 @@
 (map! (:after company
         :map company-mode-map
         "C-/" #'counsel-company))
+
+(after! ace-window
+  (setq aw-scope 'global))
+
+(after! evil
+  (require 'evil-collection-avy)
+  (map! :leader
+        (:desc "jump" :prefix "j"
+          :desc "Jump to character" :nv "c" #'evil-avy-goto-char
+          :desc "Jump to line" :nv "l" #'evil-avy-goto-line)))
 
 (map! :leader
       (:prefix "p"
