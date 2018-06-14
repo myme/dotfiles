@@ -31,6 +31,8 @@
           :desc "Jump to line" :nv "l" #'evil-avy-goto-line)))
 
 (map! :leader
+      (:prefix "b"
+        :desc "Rename buffer" :nv "r" #'rename-buffer)
       (:prefix "p"
         :desc "Run async cmd in project" :nv "&" #'projectile-run-async-shell-command-in-root)
       (:desc "theme" :prefix "T"
