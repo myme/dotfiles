@@ -23,3 +23,8 @@
       (:desc "theme" :prefix "T"
         :desc "Switch theme" :nv "T" #'counsel-load-theme))
 
+(after! ivy
+  (ivy-add-actions
+   'counsel-projectile-switch-project
+   '(("v" magit-status "version control"))))
+
