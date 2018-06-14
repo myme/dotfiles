@@ -87,7 +87,8 @@
       ("WAITING")
       ("CANCELLED")
       ("HOLD"))))
-   ))
+   )
+  (add-to-list 'org-modules 'org-habit))
 
 (load! "+keybindings")
 
