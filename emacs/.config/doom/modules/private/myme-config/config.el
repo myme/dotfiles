@@ -1,9 +1,9 @@
 ;;; private/myme-config/config.el -*- lexical-binding: t; -*-
 
 ;; Popups
-(set! :popups
-  '("^ \\*" ((slot . 1) (vslot . -1) (size . +popup-shrink-to-fit)) ((transient)))
-  '("^\\*"  ((slot . 1) (vslot . -1)) ((select . t) (transient))))
+(set-popup-rules!
+ '(("^ \\*" ((slot . 1) (vslot . -1) (size . +popup-shrink-to-fit)) ((transient)))
+   ("^\\*"  ((slot . 1) (vslot . -1)) ((select . t) (transient)))))
 
 (setq
  ;; Look-and-feel
