@@ -43,3 +43,7 @@
    'counsel-projectile-switch-project
    '(("v" magit-status "version control"))))
 
+;; Fix TAB issues made with :config default/+bindings.el
+(if (not window-system)
+    (define-key input-decode-map (kbd "TAB") nil))
+
