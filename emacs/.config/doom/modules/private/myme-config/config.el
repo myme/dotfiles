@@ -33,6 +33,8 @@
 (map! :leader
       (:prefix "b"
         :desc "Rename buffer" :nv "r" #'rename-buffer)
+      (:prefix "o"
+        :desc "Open URL" :nv "u" #'myme/avy-open-url)
       (:prefix "p"
         :desc "Run async cmd in project" :nv "&" #'projectile-run-async-shell-command-in-root)
       (:desc "theme" :prefix "T"
