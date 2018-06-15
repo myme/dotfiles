@@ -49,6 +49,7 @@
    org-clock-report-include-clocking-task t
    org-clock-rounding-minutes 0
    org-footnote-section nil
+   org-log-done 'time
    org-log-into-drawer "LOGBOOK"
    org-outline-path-complete-in-steps nil
    org-refile-targets
