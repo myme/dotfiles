@@ -231,3 +231,4 @@ zstyle ':prezto:module:prompt' theme 'pure'
 #
 
 alias ta="tmux attach -t"
+alias tl="tmux list-sessions"
