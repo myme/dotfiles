@@ -17,10 +17,6 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 # Env
-if [ -z "$DOTPROFILE_LOADED" ]; then
-    export LC_ALL="en_US.UTF-8"
-    export EDITOR="ec"
-    export N_PREFIX="$HOME/.local"
-    export PATH="$HOME/.cabal/bin:$HOME/.local/bin:$PATH"
-    export DOTPROFILE_LOADED="true"
-fi
+export LC_ALL="en_US.UTF-8"
+export N_PREFIX="$HOME/.local"
+export PATH="$HOME/.cabal/bin:$HOME/.local/bin:$PATH"
