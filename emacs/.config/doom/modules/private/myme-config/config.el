@@ -43,6 +43,8 @@
         :desc "Open URL" :nv "u" #'myme/avy-open-url)
       (:prefix "p"
         :desc "Run async cmd in project" :nv "&" #'projectile-run-async-shell-command-in-root)
+      (:prefix "q"
+        :desc "Kill emacs" :nv "k" #'kill-emacs)
       (:desc "theme" :prefix "T"
         :desc "Switch theme" :nv "T" #'counsel-load-theme))
 
