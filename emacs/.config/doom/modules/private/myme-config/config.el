@@ -18,11 +18,6 @@
  ;; Workspaces
  +workspaces-main "default")
 
-;; Bindings - TODO this doesn't work optimally as selecting a candidate often breaks the existing text
-(map! (:after company
-        :map company-mode-map
-        "C-/" #'counsel-company))
-
 ;; Ace window
 (after! ace-window
   (setq aw-scope 'global))
