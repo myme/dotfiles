@@ -13,7 +13,10 @@
  avy-all-windows 'all-frames
 
  ;; Dired
- dired-dwim-target t)
+ dired-dwim-target t
+
+ ;; Workspaces
+ +workspaces-main "default")
 
 ;; Bindings - TODO this doesn't work optimally as selecting a candidate often breaks the existing text
 (map! (:after company
