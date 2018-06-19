@@ -37,6 +37,8 @@
 
 ;; Custom leader bindings
 (map! :leader
+      (:prefix "a" :desc "Apps"
+        :desc "Processes" :nv "p" #'counsel-list-processes)
       (:prefix "b"
         :desc "Rename buffer" :nv "r" #'rename-buffer)
       (:prefix "o"
