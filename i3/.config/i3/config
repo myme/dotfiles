@@ -47,8 +47,9 @@ bindsym $mod+d exec dmenu_run
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
-# Synapse
-bindsym $mod+Shift+p exec --no-startup-id "synapse"
+# Rofi
+bindsym $mod+Shift+p exec --no-startup-id "rofi -show run"
+bindsym $mod+Shift+w exec --no-startup-id "rofi -show window"
 
 # change focus
 bindsym $mod+h focus left
@@ -147,7 +148,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+Shift+e exec lxde-logout
+bindsym $mod+Shift+e exec "echo 'No\nYes' | rofi -dmenu -p 'Really quit?' | exit"
 
 # Lock the screen
 bindsym $mod+Shift+z exec "i3-lock"
