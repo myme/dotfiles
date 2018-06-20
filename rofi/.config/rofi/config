@@ -1,0 +1,2 @@
+modi: window,run,ssh,combi,drun
+rofi.theme: /usr/share/rofi/themes/Monokai.rasi
