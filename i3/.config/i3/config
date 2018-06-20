@@ -47,6 +47,9 @@ bindsym $mod+Shift+q kill
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
+# Gnome Flashback
+exec --no-startup-id gnome-flashback
+
 # Rofi
 bindsym $mod+space exec --no-startup-id "rofi -show combi -combi-modi run,drun"
 bindsym $mod+Tab exec --no-startup-id "rofi -show window"
