@@ -37,6 +37,8 @@
 
 ;; Custom leader bindings
 (map! :leader
+      (:prefix "/"
+        :desc "Ivy resume" :nv "r" #'ivy-resume)
       (:prefix "a" :desc "Apps"
         :desc "Processes" :nv "p" #'counsel-list-processes)
       (:prefix "b"
