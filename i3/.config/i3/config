@@ -51,7 +51,7 @@ bindsym $mod+Shift+q kill
 exec --no-startup-id gnome-flashback
 
 # Rofi
-bindsym $mod+space exec --no-startup-id "rofi -show combi -combi-modi run,drun"
+bindsym $mod+d exec --no-startup-id "rofi -show combi -combi-modi run,drun"
 bindsym $mod+Tab exec --no-startup-id "rofi -show window"
 
 # change focus
@@ -84,19 +84,15 @@ bindsym $mod+backslash split h
 # split in vertical orientation
 bindsym $mod+minus split v
 
-# enter fullscreen mode for the focused container
+# enter fullscreen + floating mode for the focused container
 bindsym $mod+f fullscreen
+bindsym $mod+Shift+f floating toggle
+bindsym $mod+space focus mode_toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+Shift+u floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+u focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
