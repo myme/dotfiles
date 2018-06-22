@@ -57,3 +57,16 @@
    'counsel-projectile-switch-project
    '(("v" magit-status "version control"))))
 
+
+;; JavaScript
+(setq
+ js-indent-level 2
+ js-switch-indent-offset 2
+ js2-basic-offset 2
+ js2-mode-show-parse-errors nil
+ js2-mode-show-strict-warnings nil
+ js2-strict-missing-semi-warning nil
+ js2-strict-trailing-comma-warning nil)
+
+(add-hook! js2-mode
+  (myme/use-eslint-from-node-modules))
