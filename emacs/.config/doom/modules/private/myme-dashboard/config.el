@@ -1,6 +1,6 @@
 ;;; ui/doom-dashboard/config.el -*- lexical-binding: t; -*-
 
-(defvar +doom-dashboard-name " *doom*"
+(defvar +doom-dashboard-name "*doom*"
   "The name to use for the dashboard buffer.")
 
 (defvar +doom-dashboard-functions '(doom-dashboard-widget-banner
@@ -63,6 +63,7 @@ Possible values:
         buffer-read-only t)
   (setq-local whitespace-style nil)
   (setq-local show-trailing-whitespace nil)
+  (setq-local hscroll-margin 0)
   (cl-loop for (car . _cdr) in fringe-indicator-alist
            collect (cons car nil) into alist
            finally do (setq fringe-indicator-alist alist))
@@ -207,9 +208,9 @@ project (which may be different across perspective)."
 
 (defun +doom-dashboard-initial-buffer ()
   "Returns buffer to display on startup. Designed for `initial-buffer-choice'."
-  (if (doom-real-buffer-p)
-      (current-buffer)
-    (doom-fallback-buffer)))
+  (if (string-match-p "^ ?\\*\\(?:scratch\\|server\\)" (buffer-name))
+      (doom-fallback-buffer)
+    (current-buffer)))
 
 (defun +doom-dashboard-p (buffer)
   "Returns t if BUFFER is the dashboard buffer."
