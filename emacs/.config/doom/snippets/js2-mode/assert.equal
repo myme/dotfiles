@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Assert equal
+# key: ae
+# --
+assert.equal($1, $2);
