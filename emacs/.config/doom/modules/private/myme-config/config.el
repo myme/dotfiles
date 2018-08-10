@@ -18,8 +18,6 @@
  ;; Workspaces
  +workspaces-main "default")
 
-(define-key minibuffer-local-map (kbd "\C-r") #'counsel-minibuffer-history)
-
 ;; Ace window
 (after! ace-window
   (setq aw-scope 'global))
