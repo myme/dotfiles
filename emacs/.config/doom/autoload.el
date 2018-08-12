@@ -1,4 +1,4 @@
-;;; private/myme-config/autoload.el -*- lexical-binding: t; -*-
+;;; ~/dotfiles/emacs/.config/doom/autoload.el -*- lexical-binding: t; -*-
 
 ;;;###autoload
 (defun myme/avy-goto-url()

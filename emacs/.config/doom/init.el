@@ -153,7 +153,5 @@
        (default +bindings +snippets +evil-commands)
 
        :private
-        myme-config
-        myme-org
-        myme-python)
+        myme-org)
 

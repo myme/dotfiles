@@ -20,3 +20,6 @@
      "M-J" (lambda! (org-eval-in-calendar '(calendar-forward-year 1)))
      )))
 
+(map! :prefix "C-c"
+      :desc "Org store link" :nv "l" #'org-store-link)
+
