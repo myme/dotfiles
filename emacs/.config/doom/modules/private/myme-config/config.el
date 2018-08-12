@@ -48,7 +48,7 @@
       (:prefix "q"
         :desc "Kill emacs" :nv "k" #'kill-emacs)
       (:desc "theme" :prefix "T"
-        :desc "Switch theme" :nv "T" #'counsel-load-theme))
+        :desc "Switch theme" :nv "T" #'doom/switch-theme))
 
 (after! ivy
   (ivy-add-actions
