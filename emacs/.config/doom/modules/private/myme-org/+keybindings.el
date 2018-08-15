@@ -6,6 +6,8 @@
     (:desc "Org Agenda" :prefix "o"
       :desc "Org Agenda" :nv "a" #'org-agenda
       :desc "Org Default Agenda" :nv "d" #'myme/org-agenda-default-list
+      :desc "Org Clock In" :nv "i" #'myme/org-clock-in-recent
+      :desc "Org Clock Out" :nv "o" #'org-clock-out
       )))
  (:after org
    (:map org-read-date-minibuffer-local-map
