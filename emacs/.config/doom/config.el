@@ -43,8 +43,6 @@
 
 ;; Custom leader bindings
 (map! :leader
-      (:prefix "/"
-        :desc "Ivy resume" :nv "r" #'ivy-resume)
       (:prefix "a" :desc "Apps"
         :desc "Email" :nv "e" #'=email
         :desc "Processes" :nv "p" #'helm-list-emacs-process)
