@@ -7,27 +7,32 @@
    org-agenda-compact-blocks t
    org-agenda-custom-commands
    (quote
-    (("d" "Default agenda list"
-      ((agenda ""
-               ((org-agenda-span 1)
-                (org-agenda-start-day nil)))
-       (tags "REFILE"
-             ((org-agenda-overriding-header "Tasks to Refile")))
-       (org-agenda-list-stuck-projects)
-       (tags-todo "-REFILE-SCHEDULED>\"<now>\"/NEXT"
-                  ((org-agenda-overriding-header "Next items")))
-       (todo "HOLD|WAITING"
-             ((org-agenda-overriding-header "Pending items")))
-       (tags-todo "-REFILE-PROJECT-SCHEDULED>\"<now>\"/TODO"
-                  ((org-agenda-overriding-header "Standalone tasks")
-                   (org-agenda-skip-function
-                    (function myme/org-skip-non-standalone))))
-       (tags "-REFILE"
+    (("r" "Tasks to refile"
+      ((tags "REFILE"
+             ((org-agenda-overriding-header "Tasks to refile"))))
+      nil nil)
+     ("p" "Pending items"
+       ((todo "HOLD|WAITING"
+             ((org-agenda-overriding-header "Pending items"))))
+      nil nil)
+     ("$" "Items to archive"
+      ((tags "-REFILE"
              ((org-agenda-overriding-header "Items to archive")
               (org-agenda-skip-function
                (function myme/org-skip-non-archive-tasks))
               (org-tags-match-list-sublevels nil))))
-      ((org-agenda-start-with-log-mode t)) nil)))
+      nil nil)
+     ("n" "Next items"
+      ((tags-todo "-REFILE-SCHEDULED>\"<now>\"/NEXT"
+                  ((org-agenda-overriding-header "Next items"))))
+      nil nil)
+     ("o" "Standalone tasks"
+      ((tags-todo "-REFILE-PROJECT-SCHEDULED>\"<now>\"/TODO"
+                  ((org-agenda-overriding-header "Standalone tasks")
+                   (org-agenda-skip-function
+                    (function myme/org-skip-non-standalone)))))
+      nil nil)
+     ))
    org-agenda-files (quote ("~/Dropbox/org"))
    org-capture-templates
    (quote
