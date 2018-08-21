@@ -10,4 +10,7 @@ i3:
 	sudo apt install i3 i3blocks rofi gnome-flashback gnome-power-manager gnome-screensaver
 	sudo make -C i3/apps/i3-gnome install
 
-.PHONY: all emacs i3
+term:
+	wget -O gogh https://git.io/vQgMr && chmod +x gogh && ./gogh && rm gogh
+
+.PHONY: all emacs i3 term
