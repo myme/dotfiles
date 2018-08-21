@@ -15,6 +15,9 @@ i3:
 haskell:
 	$(APT) install haskell-stack
 
+python:
+	$(APT) install virtualenv virtualenvwrapper
+
 term:
 	wget -O gogh https://git.io/vQgMr && chmod +x gogh && ./gogh && rm gogh
 
