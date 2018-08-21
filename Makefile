@@ -3,9 +3,9 @@ all:
 APT := sudo apt
 
 emacs:
-	$(APT) install build-essential
+	$(APT) install build-essential mu4e isync
 	$(APT) build-dep emacs25
-	(cd ~/apps/emacs && ./autogen.sh && ./configure && make)
+	(cd ~/apps/emacs && ./autogen.sh && ./configure && make -j)
 	./install emacs
 
 i3:
