@@ -6,4 +6,8 @@ emacs:
 	(cd ~/apps/emacs && ./autogen.sh && ./configure && make)
 	./install emacs
 
-.PHONY: all emacs
+i3:
+	sudo apt install i3
+	sudo make -C i3/apps/i3-gnome install
+
+.PHONY: all emacs i3
