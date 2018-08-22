@@ -52,6 +52,7 @@ exec --no-startup-id gnome-flashback
 
 # Rofi
 bindsym $mod+d exec --no-startup-id "rofi -show combi -combi-modi run,drun"
+bindsym $mod+Shift+d exec --no-startup-id "rofi -show drun"
 bindsym $mod+Tab exec --no-startup-id "rofi -show window"
 
 # change focus
