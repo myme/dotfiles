@@ -2,11 +2,8 @@
 
 ;; Doom
 
-;; Popups
 (set-popup-rules!
- '(("^ \\*" :slot 1 :vslot -1 :size #'+popup-shrink-to-fit)
-   ("^\\*"  :slot 1 :vslot -1 :select t :ttl 0)))
-
+  '(("^\\*Async"  :slot 1 :vslot -1 :ttl 0)))
 
 (setq
  ;; Look-and-feel
