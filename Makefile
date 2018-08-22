@@ -23,4 +23,4 @@ python:
 term:
 	wget -O gogh https://git.io/vQgMr && chmod +x gogh && ./gogh && rm gogh
 
-.PHONY: all emacs i3 term
+.PHONY: all emacs haskell i3 python term
