@@ -14,6 +14,8 @@ i3:
 
 haskell:
 	$(APT) install haskell-stack
+	stack upgrade
+	stack install hindent hlint
 
 python:
 	$(APT) install virtualenv virtualenvwrapper
