@@ -9,7 +9,7 @@ emacs:
 	./install emacs
 
 i3:
-	$(APT) install i3 i3blocks rofi gnome-flashback gnome-power-manager gnome-screensaver
+	$(APT) install i3 i3blocks rofi gnome-flashback gnome-power-manager gnome-screensaver feh
 	sudo make -C i3/apps/i3-gnome install
 
 haskell:
