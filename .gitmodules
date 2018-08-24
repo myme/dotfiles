@@ -16,3 +16,6 @@
 [submodule "emacs/apps/emacs"]
 	path = emacs/apps/emacs
 	url = git://git.sv.gnu.org/emacs.git
+[submodule "shell/apps/gogh"]
+	path = shell/apps/gogh
+	url = git@github.com:Mayccoll/Gogh.git
