@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: PropTypes
+# key: props
+# --
+${1:Component.}propTypes = {
+  $0
+};
