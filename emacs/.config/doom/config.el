@@ -55,11 +55,6 @@
         :desc "Switch theme" :nv "T" #'doom/switch-theme))
 
 
-;; Org
-(map! :prefix "C-c"
-      :desc "Org store link" :nv "l" #'org-store-link)
-
-
 ;; JavaScript
 (setq
  js-indent-level 2

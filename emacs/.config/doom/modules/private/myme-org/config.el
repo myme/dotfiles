@@ -34,6 +34,9 @@
       nil nil)
      ))
    org-agenda-files (quote ("~/Dropbox/org"))
+   org-agenda-span 1
+   org-agenda-start-day "Today"
+   org-agenda-start-with-log-mode t
    org-capture-templates
    (quote
     (("n" "A generic note" entry
