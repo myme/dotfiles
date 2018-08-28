@@ -51,13 +51,7 @@ signal=10
 # The type defaults to "mem" if the instance is not specified.
 [memory]
 label=MEM
-separator=false
-interval=30
-
-[memory]
-label=SWAP
 label=
-instance=swap
 color=#ecbe7b
 separator=false
 interval=30
