@@ -110,31 +110,47 @@ bindsym $mod+Shift+semicolon exec i3-input -F '[workspace=%s] focus' -P 'Focus w
 # Move workspace
 bindsym $mod+x move workspace to output right
 
+set $workspace1 "1: "
+set $workspace2 "2: "
+set $workspace3 "3: "
+set $workspace4 "4: "
+set $workspace5 "5: "
+set $workspace6 "6: "
+set $workspace7 "7: "
+set $workspace8 "8: "
+set $workspace9 "9: "
+set $workspace10 "10: "
+
 # switch to workspace
 bindsym $mod+p workspace prev
 bindsym $mod+n workspace next
-bindsym $mod+1 workspace number 1 
-bindsym $mod+2 workspace number 2 
-bindsym $mod+3 workspace number 3 
-bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
-bindsym $mod+6 workspace number 6
-bindsym $mod+7 workspace number 7
-bindsym $mod+8 workspace number 8
-bindsym $mod+9 workspace number 9
-bindsym $mod+0 workspace number 10
+bindsym $mod+1 workspace number $workspace1
+bindsym $mod+2 workspace number $workspace2
+bindsym $mod+3 workspace number $workspace3
+bindsym $mod+4 workspace number $workspace4
+bindsym $mod+5 workspace number $workspace5
+bindsym $mod+6 workspace number $workspace6
+bindsym $mod+7 workspace number $workspace7
+bindsym $mod+8 workspace number $workspace8
+bindsym $mod+9 workspace number $workspace9
+bindsym $mod+0 workspace number $workspace10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number 1 
-bindsym $mod+Shift+2 move container to workspace number 2 
-bindsym $mod+Shift+3 move container to workspace number 3 
-bindsym $mod+Shift+4 move container to workspace number 4
-bindsym $mod+Shift+5 move container to workspace number 5
-bindsym $mod+Shift+6 move container to workspace number 6
-bindsym $mod+Shift+7 move container to workspace number 7
-bindsym $mod+Shift+8 move container to workspace number 8
-bindsym $mod+Shift+9 move container to workspace number 9
-bindsym $mod+Shift+0 move container to workspace number 10
+bindsym $mod+Shift+1 move container to workspace number $workspace1
+bindsym $mod+Shift+2 move container to workspace number $workspace2
+bindsym $mod+Shift+3 move container to workspace number $workspace3
+bindsym $mod+Shift+4 move container to workspace number $workspace4
+bindsym $mod+Shift+5 move container to workspace number $workspace5
+bindsym $mod+Shift+6 move container to workspace number $workspace6
+bindsym $mod+Shift+7 move container to workspace number $workspace7
+bindsym $mod+Shift+8 move container to workspace number $workspace8
+bindsym $mod+Shift+9 move container to workspace number $workspace9
+bindsym $mod+Shift+0 move container to workspace number $workspace1
+
+# Use `xprop` to find: WM_CLASS(STRING) "<instance>", "<Class>"
+assign [class="Emacs"] $workspace1
+assign [class="Firefox"] $workspace2
+# assign [class="Gnome-terminal"] $workspace3
 
 # Default border + toggle
 new_window pixel 2
