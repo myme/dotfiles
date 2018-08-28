@@ -39,9 +39,10 @@ markup=none
 [volume]
 # label=VOL
 # label=♪
-label=🔊
+label=
 instance=Master
 #instance=PCM
+color=#46d9ff
 interval=2
 signal=10
 
@@ -55,7 +56,9 @@ interval=30
 
 [memory]
 label=SWAP
+label=
 instance=swap
+color=#ecbe7b
 separator=false
 interval=30
 
@@ -66,6 +69,8 @@ interval=30
 # (defaults to 10 for 10%).
 [disk]
 label=HOME
+label=
+color=#ecbe7b
 #instance=/mnt/data
 interval=30
 
@@ -78,6 +83,9 @@ interval=30
 # color=#00FF00
 # interval=10
 # separator=false
+# label=
+# color=#51afef
+# interval=10
 
 
 # [bandwidth]
@@ -90,6 +98,8 @@ interval=30
 # see the script for details.
 [cpu_usage]
 label=CPU
+label=
+color=#ff6c6b
 interval=10
 min_width=CPU: 100.00%
 #separator=false
@@ -101,5 +111,16 @@ min_width=CPU: 100.00%
 # Date Time
 #
 [time]
-command=date '+%Y-%m-%d %H:%M:%S'
+label=Date
+label=
+command=date '+%Y-%m-%d'
+color=#c678dd
+interval=5
+separator=false
+
+[time]
+label=Time
+label=
+command=date '+%H:%M'
+color=#98be65
 interval=5
