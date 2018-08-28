@@ -87,6 +87,12 @@ interval=30
 # color=#51afef
 # interval=10
 
+# [wifi]
+# label=WiFi
+# label=
+# instance=wlp1s0
+# min_width=100%
+# interval=10
 
 # [bandwidth]
 # #instance=eth0
