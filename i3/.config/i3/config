@@ -145,7 +145,7 @@ bindsym $mod+Shift+6 move container to workspace number $workspace6
 bindsym $mod+Shift+7 move container to workspace number $workspace7
 bindsym $mod+Shift+8 move container to workspace number $workspace8
 bindsym $mod+Shift+9 move container to workspace number $workspace9
-bindsym $mod+Shift+0 move container to workspace number $workspace1
+bindsym $mod+Shift+0 move container to workspace number $workspace10
 
 # Use `xprop` to find: WM_CLASS(STRING) "<instance>", "<Class>"
 assign [class="Emacs"] $workspace1
