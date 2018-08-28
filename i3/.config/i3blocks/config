@@ -107,6 +107,11 @@ min_width=CPU: 100.00%
 #[load_average]
 #interval=10
 
+# [battery]
+# # label=Bat
+# command=i3-battery
+# #instance=1
+# interval=30
 
 # Date Time
 #

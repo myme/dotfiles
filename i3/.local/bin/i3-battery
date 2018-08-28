@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+import re
+import subprocess
+import sys
+
+battery_number = 0
+acpi = subprocess.check_output('acpi -b', shell=True).decode()
+
+try:
+    battery = next(
+        b for b in acpi.split('\n')
+        if 'Battery %d' % battery_number in b)
+except StopIteration:
+    sys.exit(1)
+
+match = re.search(': (\w+), (\d+)%', battery)
+
+if not match:
+    sys.exit(1);
+
+status = match[1]
+percent = int(match[2])
+urgent = False
+icon = ''
+
+if status == 'Discharging':
+    if percent < 20:
+        color = '#FF0000'
+        icon = ''
+        if percent < 5:
+            urgent = True
+    elif percent < 40:
+        color = '#FFAE00'
+        icon = ''
+    elif percent < 60:
+        color = '#FFF600'
+        icon = ''
+    elif percent < 85:
+        color = '#A8FF00'
+        icon = ''
+    else:
+        color = '#A8FF00'
+        icon = ''
+
+short_text = '%s %d%%' % (icon, percent)
+full_text = short_text
+
+match = re.search('(\d+):(\d+)', battery)
+if match:
+    hours = int(match[1])
+    minutes = int(match[2])
+    if hours > 0:
+        full_text += ' %dh' % hours
+    else:
+        full_text += ' %dm' % minutes
+
+print(full_text)
+print(short_text)
+print(color)
+
+sys.exit(33 if urgent else 0)
