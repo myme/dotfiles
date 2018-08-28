@@ -98,7 +98,7 @@ interval=30
 # see the script for details.
 [cpu_usage]
 label=CPU
-label=
+label=
 color=#ff6c6b
 interval=10
 min_width=CPU: 100.00%
