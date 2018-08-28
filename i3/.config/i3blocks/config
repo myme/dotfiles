@@ -127,5 +127,5 @@ separator=false
 label=Time
 label=
 command=date '+%H:%M'
-color=#98be65
+color=#51afef
 interval=5
