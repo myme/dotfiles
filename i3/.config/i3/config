@@ -188,6 +188,9 @@ bindsym $mod+Insert exec --no-startup-id "i3-spotify Previous"
 bindsym $mod+Home   exec --no-startup-id "i3-spotify PlayPause"
 bindsym $mod+Prior  exec --no-startup-id "i3-spotify Next"
 
+# Background image + compositor
+exec --no-startup-id "compton"
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
