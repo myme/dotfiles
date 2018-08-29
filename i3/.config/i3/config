@@ -148,10 +148,11 @@ bindsym $mod+Shift+9 move container to workspace number $workspace9
 bindsym $mod+Shift+0 move container to workspace number $workspace10
 
 # Use `xprop` to find: WM_CLASS(STRING) "<instance>", "<Class>"
-assign [class="Spotify"] $workspace10
 assign [class="Emacs"] $workspace1
 assign [class="Firefox"] $workspace2
-# assign [class="Gnome-terminal"] $workspace3
+assign [class="Vpnui"] $workspace8
+assign [class="Bitwarden"] $workspace9
+assign [class="Spotify"] $workspace10
 
 # Default border + toggle
 new_window pixel 2
