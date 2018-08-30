@@ -3,10 +3,10 @@
 ;; Doom
 
 (set-popup-rules!
-  '(("^\\*Async" :slot 1 :vslot -1 :ttl nil)
-    ("^\\*"  :slot 1 :vslot -1 :select t)
+  '(("^\\*"  :slot 1 :vslot -1 :select t)
     ("^ \\*" :slot 1 :vslot -1 :size +popup-shrink-to-fit)
-    ("^\\*Compil\\(?:ation\\|e-Log\\)" :size 0.3)
+    ("^\\*Async" :slot 1 :vslot -1 :ttl nil)
+    ("^\\*Compil\\(?:ation\\|e-Log\\)" :size 0.3 :ttl nil)
     ("^\\*Man " :side right :size 0.4 :vslot -6 :ttl 0 :quit t :select t)))
 
 (set-frame-parameter (selected-frame) 'alpha 95)
