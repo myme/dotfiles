@@ -88,19 +88,6 @@
 ;;     (add-hook 'js2-mode-hook 'pretter-js-mode t)))
 
 
-;; Email
-(set-email-account!
- "Cisco"
-  '((mu4e-sent-folder        . "/Cisco/Sent Items")
-    (mu4e-drafts-folder      . "/Cisco/Drafts")
-    (mu4e-trash-folder       . "/Cisco/Trash")
-    (mu4e-refile-folder      . "/Cisco/All Mail")
-    (smtpmail-smtp-user      . "mmyrseth@cisco.com")
-    (user-mail-address       . "mmyrseth@cisco.com")
-    (mu4e-compose-signature  . " - Martin"))
-  t)
-
-
 ;; mu4e
 (when (not (featurep 'org-mu4e))
   (add-to-list 'load-path "/usr/share/emacs/site-lisp/mu4e"))
