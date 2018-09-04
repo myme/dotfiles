@@ -56,6 +56,8 @@
    org-clock-out-remove-zero-time-clocks t
    org-clock-report-include-clocking-task t
    org-clock-rounding-minutes 0
+   org-export-with-toc nil
+   org-export-with-section-numbers nil
    org-footnote-section nil
    org-log-done 'time
    org-log-into-drawer "LOGBOOK"
