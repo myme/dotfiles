@@ -47,6 +47,7 @@
        window-select     ; visually switch windows
 
        :editor
+      ;(format +onsave)  ; automated prettiness
        multiple-cursors  ; editing in many places at once
       ;parinfer          ; turn lisp into python, sort of
        rotate-text       ; cycle region at point between text candidates
@@ -81,8 +82,8 @@
       ;(cc +irony +rtags); C/C++/Obj-C madness
       ;clojure           ; java with a lisp
       ;common-lisp       ; if you've seen one lisp, you've seen them all
+      ;coq               ; proofs-as-programs
       ;crystal           ; ruby at the speed of c
-      ;clojure           ; java with a lisp
       ;csharp            ; unity, .NET, and mono shenanigans
        data              ; config/data formats
       ;erlang            ; an elegant language for a more civilized age
