@@ -25,6 +25,7 @@
       ; +fuzzy)          ; enable fuzzy search backend for ivy
 
        :ui
+      ;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-modeline     ; a snazzy Atom-inspired mode-line
@@ -63,6 +64,7 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :tools
+      ;docker
        editorconfig      ; let someone else argue about tabs vs spaces
       ;ein               ; tame Jupyter notebooks with emacs
       ;gist              ; interacting with github gists
@@ -94,6 +96,7 @@
       ;go                ; the hipster dialect
        (haskell +intero) ; a language that's lazier than I am
       ;hy                ; readability of scheme w/ speed of python
+      ;idris             ;
        (java +meghanada) ; the poster child for carpal tunnel syndrome
        javascript        ; all(hope(abandon(ye(who(enter(here))))))
       ;julia             ; a better, faster MATLAB
