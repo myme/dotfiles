@@ -104,9 +104,6 @@ bindsym $mod+a focus parent
 # Rename workspace
 bindsym $mod+comma exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
 
-# Focus workspace by name
-bindsym $mod+Shift+semicolon exec i3-input -F '[workspace=%s] focus' -P 'Focus workspace: '
-
 # Focus output
 bindsym $mod+grave focus output right
 bindsym $mod+Shift+asciitilde focus output left
