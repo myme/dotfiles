@@ -35,7 +35,6 @@
 
 ;; Jump bindings
 (after! evil
-  (require 'evil-collection-avy)
   (map! :leader
         (:desc "jump" :prefix "j"
           :desc "Jump to current clock" :nv "C" #'org-clock-jump-to-current-clock
