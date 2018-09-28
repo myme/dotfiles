@@ -99,6 +99,7 @@
       ("CANCELLED")
       ("HOLD"))))
    )
+  (require 'ox-md)
   (add-to-list 'org-modules 'org-habit)
   (add-to-list 'org-latex-classes
                '("article" "\\documentclass[11pt]{article}\n\\usepackage{parskip}\n\\setlength{\\parindent}{0}"
