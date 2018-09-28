@@ -12,7 +12,7 @@
 (set-frame-parameter (selected-frame) 'alpha 95)
 (add-to-list 'default-frame-alist '(alpha  95))
 
-(setq
+(setq-default
  ;; Look-and-feel
  doom-font (font-spec :family "DejaVu Sans Mono" :size 12)
 
@@ -25,7 +25,8 @@
 
 
  ;; Workspaces
- +workspaces-main "default")
+ +workspaces-main "default"
+ +workspaces-switch-project-function #'ignore)
 
 
 ;; Ace window
