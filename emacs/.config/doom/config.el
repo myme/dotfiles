@@ -23,6 +23,9 @@
  ;; Dired
  dired-dwim-target t
 
+ ;; Banner
+ +doom-dashboard-banner-dir (concat doom-private-dir "banners/")
+ +doom-dashboard-banner-file "mushroom.png"
 
  ;; Workspaces
  +workspaces-main "default"
