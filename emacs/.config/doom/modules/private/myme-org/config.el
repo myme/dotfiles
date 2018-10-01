@@ -50,7 +50,7 @@
 %U
 %a" :clock-in t :clock-resume t)
      ("j" "Journal entry" entry
-      (file+olp+datetree "work.org" "Journal")
+      (file+olp+datetree "journal.org" "Journal")
       "* %?
 %U" :clock-in t :clock-resume t)))
    org-clock-out-remove-zero-time-clocks t
