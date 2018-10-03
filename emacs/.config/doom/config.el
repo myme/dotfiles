@@ -9,8 +9,9 @@
     ("^\\*Compil\\(?:ation\\|e-Log\\)" :size 0.3 :ttl nil)
     ("^\\*Man " :side right :size 0.4 :vslot -6 :ttl 0 :quit t :select t)))
 
-(set-frame-parameter (selected-frame) 'alpha 95)
-(add-to-list 'default-frame-alist '(alpha  95))
+;; Transparency
+;; (set-frame-parameter (selected-frame) 'alpha 95)
+;; (add-to-list 'default-frame-alist '(alpha  95))
 
 (setq-default
  ;; Look-and-feel
