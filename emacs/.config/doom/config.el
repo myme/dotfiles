@@ -56,8 +56,8 @@
         :desc "Processes" :nv "p" #'helm-list-emacs-process)
       (:prefix "b"
         :desc "Rename buffer" :nv "r" #'rename-buffer)
-      (:prefix "o"
-        :desc "Open URL" :nv "u" #'myme/avy-open-url)
+      (:prefix "/"
+        :desc "Open URL" :n "l" #'ace-link)
       (:prefix "p"
         :desc "Run async cmd in project" :nv "&" #'projectile-run-async-shell-command-in-root
         :desc "Test project" :nv "t" #'projectile-test-project)
@@ -65,6 +65,8 @@
         :desc "Kill emacs" :nv "k" #'save-buffers-kill-emacs)
       (:desc "theme" :prefix "T"
         :desc "Switch theme" :nv "T" #'doom/switch-theme))
+
+(setq ace-link-fallback-function #'myme/avy-open-url)
 
 
 ;; JavaScript
