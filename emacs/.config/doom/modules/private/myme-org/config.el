@@ -39,7 +39,11 @@
    org-agenda-start-with-log-mode t
    org-capture-templates
    (quote
-    (("n" "A generic note" entry
+    (("b" "Bookmark" entry
+      (file+headline "bookmarks.org" "Bookmarks")
+      "* [[%x]%^{title|}]%? :BOOKMARK:
+%U")
+     ("n" "A generic note" entry
       (file "refile.org")
       "* %? :NOTE:
 %U
