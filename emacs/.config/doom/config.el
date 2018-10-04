@@ -62,7 +62,7 @@
         :desc "Run async cmd in project" :nv "&" #'projectile-run-async-shell-command-in-root
         :desc "Test project" :nv "t" #'projectile-test-project)
       (:prefix "q"
-        :desc "Kill emacs" :nv "k" #'kill-emacs)
+        :desc "Kill emacs" :nv "k" #'save-buffers-kill-emacs)
       (:desc "theme" :prefix "T"
         :desc "Switch theme" :nv "T" #'doom/switch-theme))
 
