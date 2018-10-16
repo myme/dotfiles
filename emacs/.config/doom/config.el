@@ -66,6 +66,10 @@
       (:desc "theme" :prefix "T"
         :desc "Switch theme" :nv "T" #'doom/switch-theme))
 
+(after! mu4e
+  (map! :mode mu4e-view-mode
+        (:desc "Fill long lines" :nv "M-Q" #'mu4e-view-fill-long-lines)))
+
 (setq ace-link-fallback-function #'myme/avy-open-url)
 
 
