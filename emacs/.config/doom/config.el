@@ -75,7 +75,14 @@
   (setq mu4e-update-interval 300
         org-mu4e-convert-to-html nil))
 
-(setq ace-link-fallback-function #'myme/avy-open-url)
+(setq ace-link-fallback-function
+      (lambda ()
+        "Add ace-link functions for additional modes."
+        (interactive)
+        (cond ((eq major-mode 'mu4e-view-mode)
+               (ace-link-mu4e))
+              (t
+               (myme/avy-open-url)))))
 
 
 ;; JavaScript
