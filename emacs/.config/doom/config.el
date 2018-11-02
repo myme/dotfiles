@@ -68,10 +68,10 @@
 
 (after! mu4e
   (map!
-   :mode mu4e-main-mode
-   (:desc "Update index" :nv "U" #'mu4e-update-index)
-   :mode mu4e-view-mode
-   (:desc "Fill long lines" :nv "M-Q" #'mu4e-view-fill-long-lines))
+   (:mode mu4e-main-mode
+     :desc "Update index" :nv "U" #'mu4e-update-index)
+   (:mode mu4e-view-mode
+     :desc "Fill long lines" :nv "M-Q" #'mu4e-view-fill-long-lines))
   (setq mu4e-update-interval 300
         org-mu4e-convert-to-html nil))
 
