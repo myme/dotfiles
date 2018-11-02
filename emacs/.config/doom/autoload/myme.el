@@ -15,6 +15,11 @@
     (browse-url-at-point)))
 
 ;;;###autoload
+(defun myme/insert-date ()
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d")))
+
+;;;###autoload
 (defun myme/use-eslint-from-node-modules ()
   "Find eslint binary relative to current file."
   (let ((root (locate-dominating-file

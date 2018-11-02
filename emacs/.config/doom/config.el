@@ -50,21 +50,24 @@
 
 
 ;; Custom leader bindings
-(map! :leader
-      (:prefix "a" :desc "Apps"
-        :desc "Email" :nv "e" #'=email
-        :desc "Processes" :nv "p" #'helm-list-emacs-process)
-      (:prefix "b"
-        :desc "Rename buffer" :nv "r" #'rename-buffer)
-      (:prefix "/"
-        :desc "Open URL" :n "l" #'ace-link)
-      (:prefix "p"
-        :desc "Run async cmd in project" :nv "&" #'projectile-run-async-shell-command-in-root
-        :desc "Test project" :nv "t" #'projectile-test-project)
-      (:prefix "q"
-        :desc "Kill emacs" :nv "k" #'save-buffers-kill-emacs)
-      (:desc "theme" :prefix "T"
-        :desc "Switch theme" :nv "T" #'doom/switch-theme))
+(map!
+ (:prefix "C-c i"
+   (:desc "Insert today's date" :nvi "d" #'myme/insert-date))
+ (:leader
+   (:prefix "a" :desc "Apps"
+     :desc "Email" :nv "e" #'=email
+     :desc "Processes" :nv "p" #'helm-list-emacs-process)
+   (:prefix "b"
+     :desc "Rename buffer" :nv "r" #'rename-buffer)
+   (:prefix "/"
+     :desc "Open URL" :n "l" #'ace-link)
+   (:prefix "p"
+     :desc "Run async cmd in project" :nv "&" #'projectile-run-async-shell-command-in-root
+     :desc "Test project" :nv "t" #'projectile-test-project)
+   (:prefix "q"
+     :desc "Kill emacs" :nv "k" #'save-buffers-kill-emacs)
+   (:desc "theme" :prefix "T"
+     :desc "Switch theme" :nv "T" #'doom/switch-theme)))
 
 (after! mu4e
   (map!
