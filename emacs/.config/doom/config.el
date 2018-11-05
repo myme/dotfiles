@@ -84,6 +84,8 @@
         (interactive)
         (cond ((eq major-mode 'mu4e-view-mode)
                (ace-link-mu4e))
+              ((eq major-mode 'Man-mode)
+               (ace-link-woman))
               (t
                (myme/avy-open-url)))))
 
