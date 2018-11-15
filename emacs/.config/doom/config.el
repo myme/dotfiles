@@ -77,6 +77,7 @@
      :desc "Fill long lines" :nv "M-Q" #'mu4e-view-fill-long-lines))
   (setq mu4e-compose-mode-hook '(org-mu4e-compose-org-mode)
         mu4e-update-interval 300
+        mu4e-compose-format-flowed nil
         org-mu4e-convert-to-html nil)
   (advice-add #'org~mu4e-mime-switch-headers-or-body
               :after
