@@ -71,6 +71,8 @@
    (:desc "theme" :prefix "T"
      :desc "Switch theme" :nv "T" #'doom/switch-theme)))
 
+(after! helm :desc "Top" :nv #'helm-top)
+
 (after! mu4e
   (map!
    (:mode mu4e-main-mode
