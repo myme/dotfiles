@@ -113,5 +113,9 @@
                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
+(after! org-agenda
+  (setq
+    org-agenda-clockreport-parameter-plist (plist-put org-agenda-clockreport-parameter-plist :fileskip0 t)))
+
 (load! "+keybindings")
 
