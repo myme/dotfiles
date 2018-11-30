@@ -58,7 +58,8 @@
      :desc "Email" :nv "e" #'=email
      :desc "Processes" :nv "p" #'helm-list-emacs-process
      (:prefix "s" :desc "Shells"
-       :desc "eshell" :nv "e" #'eshell))
+       :desc "eshell" :nv "e" #'eshell
+       :desc "eshell" :nv "E" #'projectile-run-eshell))
    (:prefix "b"
      :desc "Rename buffer" :nv "r" #'rename-buffer)
    (:prefix "/"
