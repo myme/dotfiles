@@ -59,7 +59,9 @@
      :desc "Processes" :nv "p" #'helm-list-emacs-process
      (:prefix "s" :desc "Shells"
        :desc "eshell" :nv "e" #'eshell
-       :desc "eshell" :nv "E" #'projectile-run-eshell))
+       :desc "eshell" :nv "E" #'projectile-run-eshell)
+     (:after helm
+       :desc "helm-top" :nv "t" #'helm-top))
    (:prefix "b"
      :desc "Rename buffer" :nv "r" #'rename-buffer)
    (:prefix "/"
@@ -71,8 +73,6 @@
      :desc "Kill emacs" :nv "k" #'save-buffers-kill-emacs)
    (:desc "theme" :prefix "T"
      :desc "Switch theme" :nv "T" #'doom/switch-theme)))
-
-(after! helm :desc "Top" :nv #'helm-top)
 
 (after! mu4e
   (map!
