@@ -64,6 +64,9 @@
        :desc "helm-top" :nv "t" #'helm-top))
    (:prefix "b"
      :desc "Rename buffer" :nv "r" #'rename-buffer)
+   (:prefix "c"
+     :desc "Compile" :nv "c" #'compile
+     :desc "Compile" :nv "k" #'kill-compilation)
    (:prefix "/"
      :desc "Open URL" :n "l" #'ace-link)
    (:prefix "p"
