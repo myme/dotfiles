@@ -21,6 +21,10 @@
  avy-all-windows 'all-frames
 
 
+ ;; Line numbers
+ (setq display-line-numbers-type 'relative)
+
+
  ;; Dired
  dired-dwim-target t
 
