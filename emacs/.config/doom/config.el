@@ -20,10 +20,8 @@
  ;; Avy
  avy-all-windows 'all-frames
 
-
  ;; Line numbers
- (setq display-line-numbers-type 'relative)
-
+ display-line-numbers-type 'relative
 
  ;; Dired
  dired-dwim-target t
@@ -36,11 +34,9 @@
  +workspaces-main "default"
  +workspaces-switch-project-function #'ignore)
 
-
 ;; Ace window
 (after! ace-window
   (setq aw-scope 'global))
-
 
 ;; Jump bindings
 (after! evil
