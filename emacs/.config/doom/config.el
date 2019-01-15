@@ -119,6 +119,11 @@
   (myme/use-eslint-from-node-modules))
 
 
+;; TypeScript
+(setq
+ typescript-indent-level 2)
+
+
 ;; (after! eslintd-fix
 ;;   (add-hook 'js2-mode-hook 'eslintd-fix-mode t))
 
