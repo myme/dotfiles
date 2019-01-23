@@ -70,6 +70,7 @@
    (:prefix "/"
      :desc "Open URL" :n "l" #'ace-link)
    (:prefix "p"
+     :desc "Open dired in project" :nv "d" #'projectile-dired
      :desc "Run async cmd in project" :nv "&" #'projectile-run-async-shell-command-in-root
      :desc "Test project" :nv "t" #'projectile-test-project)
    (:prefix "q"
