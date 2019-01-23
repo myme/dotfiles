@@ -75,7 +75,7 @@
    (:prefix "q"
      :desc "Kill emacs" :nv "k" #'save-buffers-kill-emacs)
    (:desc "theme" :prefix "T"
-     :desc "Switch theme" :nv "T" #'doom/switch-theme)))
+     :desc "Switch theme" :nv "T" #'load-theme)))
 
 (after! mu4e
   (map!
