@@ -8,7 +8,7 @@ hosts using branches. These branches has a set of host-specific patches which
 are continuously rebased on top of the master branch. This provides a sensible
 backup across hosts, while having tailored configuration for each host.
 
-Most configurations are applied by symlinking dotfiles into ~$HOME~ using [[http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html][GNU stow]].
+Most configurations are applied by symlinking dotfiles into ~$HOME~ using [[https://www.gnu.org/software/stow/][GNU stow]].
 
 ** Installation
 
