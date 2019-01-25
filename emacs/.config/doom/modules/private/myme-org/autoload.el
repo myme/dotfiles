@@ -1,12 +1,6 @@
 ;;; private/myme-org/autoload.el -*- lexical-binding: t; -*-
 
 ;;;###autoload
-(defun myme/org-agenda-default-list (&optional arg)
-  "Default Org Agenda view"
-  (interactive "P")
-  (org-agenda arg "d"))
-
-;;;###autoload
 (defun myme/org-clock-in-recent ()
   "Select a recently clocked task to clock into"
   (interactive)
