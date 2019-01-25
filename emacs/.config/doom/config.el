@@ -54,6 +54,9 @@
  (:prefix "C-c i"
    (:desc "Insert today's date" :nvi "d" #'myme/insert-date))
  (:leader
+   (:prefix "F" :desc "Frame"
+     :desc "Delete frame" :nv "d" #'delete-frame
+     :desc "New frame" :nv "n" #'new-frame)
    (:prefix "a" :desc "Apps"
      :desc "Email" :nv "e" #'=email
      :desc "Processes" :nv "p" #'helm-list-emacs-process
