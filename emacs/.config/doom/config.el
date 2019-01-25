@@ -105,24 +105,26 @@
                (myme/avy-open-url)))))
 
 
-;; JavaScript
+;; Code
 (setq
+ ;; JavaScript
  js-indent-level 2
  js-switch-indent-offset 2
  js2-basic-offset 2
  js2-mode-show-parse-errors nil
  js2-mode-show-strict-warnings nil
  js2-strict-missing-semi-warning nil
- js2-strict-trailing-comma-warning nil)
+ js2-strict-trailing-comma-warning nil
+
+ ;; TypeScript
+ typescript-indent-level 2
+
+ ;; Web mode
+ web-mode-code-indent-offset 2)
 
 
 (add-hook! js2-mode
   (myme/use-eslint-from-node-modules))
-
-
-;; TypeScript
-(setq
- typescript-indent-level 2)
 
 
 ;; (after! eslintd-fix
