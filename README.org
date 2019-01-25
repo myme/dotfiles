@@ -1,10 +1,40 @@
 * Dotfiles
 
-[[http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html][GNU stow]]
+These are my dotfiles. There are many like them, but these ones are mine. I take
+my dotfiles very seriously, as any professional programmer should.
 
-`stow --target=$HOME <dir>`
+For the time being, I'm using ~git~ to track my configurations across multiple
+hosts using branches. These branches has a set of host-specific patches which
+are continuously rebased on top of the master branch. This provides a sensible
+backup across hosts, while having tailored configuration for each host.
 
-** Issues
+Most configurations are applied by symlinking dotfiles into ~$HOME~ using [[http://brandon.invergo.net/news/2012-05-26-using-gnu-stow-to-manage-your-dotfiles.html][GNU stow]].
+
+** Installation
+
+#+BEGIN_SRC sh
+stow --target=$HOME <dir>
+#+END_SRC
+
+I'm mostly using a tiny bash wrapper around stow:
+
+#+BEGIN_SRC sh
+$ ./install <emacs|git|zsh|...>
+#+END_SRC
+
+see:
+
+#+BEGIN_SRC sh
+$ ./install -h
+#+END_SRC
+
+** Submodules
+
+I'm using ~git submodules~ to track some external dependencies like [[https://github.com/myme/doom-emacs][Doom Emacs]],
+[[https://github.com/myme/prezto][Prezto]], [[https://github.com/junegunn/fzf.git][fzf]] (NB: some are personal forks of awesome upstream software, so please
+check out the origin).
+
+** Issues :noexport:
 
 *** DNS resolve                                                         :dns:
 
