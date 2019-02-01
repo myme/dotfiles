@@ -12,7 +12,7 @@
              ((org-agenda-overriding-header "Tasks to refile"))))
       nil nil)
      ("p" "Pending items"
-       ((todo "HOLD|WAITING"
+      ((todo "HOLD|WAITING"
              ((org-agenda-overriding-header "Pending items"))))
       nil nil)
      ("$" "Items to archive"
@@ -53,9 +53,26 @@
       "* TODO %?
 %U
 %a" :clock-in t :clock-resume t)
-     ("j" "Journal entry" entry
+     ("j" "Journal")
+     ("jj" "Entry" entry
       (file+olp+datetree "journal.org" "Journal")
       "* %?
+%U" :clock-in t :clock-resume t)
+     ("jb" "Backlog/bug management" entry
+      (file+olp+datetree "journal.org" "Journal")
+      "* Backlog/bug management%? :BACKLOG:
+%U" :clock-in t :clock-resume t)
+     ("je" "Email" entry
+      (file+olp+datetree "journal.org" "Journal")
+      "* Email%? :EMAIL:
+%U" :clock-in t :clock-resume t)
+     ("jm" "Meeting" entry
+      (file+olp+datetree "journal.org" "Journal")
+      "* Meeting: %? :MEETING:
+%U" :clock-in t :clock-resume t)
+     ("jr" "Review" entry
+      (file+olp+datetree "journal.org" "Journal")
+      "* Review: %? :REVIEW:
 %U" :clock-in t :clock-resume t)))
    org-clock-out-remove-zero-time-clocks t
    org-clock-report-include-clocking-task t
@@ -107,11 +124,11 @@
   (add-to-list 'org-modules 'org-habit)
   (add-to-list 'org-latex-classes
                '("article" "\\documentclass[11pt]{article}\n\\usepackage{parskip}\n\\setlength{\\parindent}{0}"
-                ("\\section{%s}" . "\\section*{%s}")
-                ("\\subsection{%s}" . "\\subsection*{%s}")
-                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 (after! org-agenda
   (setq
