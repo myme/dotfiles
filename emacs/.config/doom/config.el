@@ -52,7 +52,7 @@
 ;; Custom leader bindings
 (map!
  (:prefix "C-c i"
-   (:desc "Insert today's date" :nvi "d" #'myme/insert-date))
+   (:desc "Insert today's date" "d" #'myme/insert-date))
  (:leader
    (:prefix "F" :desc "Frame"
      :desc "Delete frame" :nv "d" #'delete-frame
