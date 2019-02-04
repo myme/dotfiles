@@ -62,9 +62,9 @@
       (file+olp+datetree "journal.org" "Journal")
       "* Backlog/bug management%? :BACKLOG:
 %U" :clock-in t :clock-resume t)
-     ("je" "Email" entry
+     ("je" "Email + collab" entry
       (file+olp+datetree "journal.org" "Journal")
-      "* Email%? :EMAIL:
+      "* Email + collab%? :EMAIL:MESSAGING:
 %U" :clock-in t :clock-resume t)
      ("jm" "Meeting" entry
       (file+olp+datetree "journal.org" "Journal")
