@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+ENVDIR="$HOME/.virtualenvs/i3-workspace-titles"
+source "$ENVDIR/bin/activate"
+cd "$(cat "$ENVDIR/.project")"
+python "./i3ws.py" "$@"

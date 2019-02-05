@@ -108,20 +108,27 @@ bindsym $mod+comma exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
 bindsym $mod+grave focus output right
 bindsym $mod+Shift+asciitilde focus output left
 
+# Move workspace left/right
+bindsym $mod+Shift+p exec i3ws move left
+bindsym $mod+Shift+n exec i3ws move right
+
+# Automatic workspace naming
+exec_always i3ws monitor
+
 # Move workspace to output
 bindsym $mod+x move workspace to output right
 bindsym $mod+Shift+x move workspace to output left
 
-set $workspace1 "1:  "
-set $workspace2 "2:  "
-set $workspace3 "3:  "
-set $workspace4 "4:  "
-set $workspace5 "5:  "
-set $workspace6 "6:  "
-set $workspace7 "7:  "
-set $workspace8 "8:  "
-set $workspace9 "9:  "
-set $workspace10 "10:  "
+set $workspace1 "1"
+set $workspace2 "2"
+set $workspace3 "3"
+set $workspace4 "4"
+set $workspace5 "5"
+set $workspace6 "6"
+set $workspace7 "7"
+set $workspace8 "8"
+set $workspace9 "9"
+set $workspace10 "10"
 
 # switch to workspace
 bindsym $mod+p workspace prev
@@ -149,13 +156,6 @@ bindsym $mod+Shift+8 move container to workspace number $workspace8
 bindsym $mod+Shift+9 move container to workspace number $workspace9
 bindsym $mod+Shift+0 move container to workspace number $workspace10
 
-# Use `xprop` to find: WM_CLASS(STRING) "<instance>", "<Class>"
-# assign [class="Emacs"] $workspace1
-# assign [class="Firefox"] $workspace2
-assign [class="Vpnui"] $workspace8
-assign [class="Bitwarden"] $workspace9
-# assign [class="Spotify"] $workspace10
-
 # Default border + toggle
 new_window pixel 2
 bindsym $mod+b border pixel 2
@@ -175,26 +175,17 @@ bindsym $mod+Shift+e exec "echo 'No\nYes' | rofi -dmenu -p 'Really quit?' | grep
 # bindsym $mod+Shift+z exec "i3-lock"
 bindsym $mod+Shift+z exec "gnome-screensaver-command -a"
 
-# resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+        bindsym h resize shrink width 10 px or 1 ppt
+        bindsym j resize grow height 10 px or 1 ppt
+        bindsym k resize shrink height 10 px or 1 ppt
+        bindsym l resize grow width 10 px or 1 ppt
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 10 px or 1 ppt
+        bindsym Down resize grow height 10 px or 1 ppt
+        bindsym Up resize shrink height 10 px or 1 ppt
+        bindsym Right resize grow width 10 px or 1 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
