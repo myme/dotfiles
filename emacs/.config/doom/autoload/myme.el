@@ -4,7 +4,7 @@
 (defun myme/avy-goto-url()
   "Use avy to go to an URL in the buffer."
   (interactive)
-  (avy--generic-jump "https?://" nil 'pre))
+  (avy-jump "https?://"))
 
 ;;;###autoload
 (defun myme/avy-open-url ()
