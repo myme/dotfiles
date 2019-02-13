@@ -126,11 +126,16 @@ def parse_args():
 
     parser.set_defaults(func=error)
 
-    parser_monitor = subparsers.add_parser('monitor', help='Monitor i3 for workspace/window changes.')
+    parser_monitor = subparsers.add_parser(
+        'monitor',
+        help='Monitor i3 for workspace/window changes.')
     parser_monitor.set_defaults(func=monitor)
 
     parser_move = subparsers.add_parser('move', help='Move workspace')
-    parser_move.add_argument('direction', choices=('left', 'right'), help='Move left or right')
+    parser_move.add_argument(
+        'direction',
+        choices=('left', 'right'),
+        help='Move left or right')
     parser_move.set_defaults(func=move)
 
     return parser.parse_args()
