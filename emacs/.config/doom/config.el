@@ -42,7 +42,7 @@
 (after! evil
   (map! :leader
         (:desc "jump" :prefix "j"
-          :desc "Jump to current clock" :nv "C" #'org-clock-jump-to-current-clock
+          :desc "Jump to current clock" :nv "C" #'org-clock-goto
           :desc "Jump to character" :nv "c" #'evil-avy-goto-char
           :desc "Jump to function" :nv "f" #'find-function
           :desc "Jump to line" :nv "l" #'evil-avy-goto-line
