@@ -81,6 +81,7 @@
    (:desc "theme" :prefix "T"
      :desc "Switch theme" :nv "T" #'load-theme)))
 
+;; Email
 (after! mu4e
   (map!
    (:mode mu4e-main-mode
@@ -96,6 +97,7 @@
               (lambda ()
                 (if (eq major-mode 'org-mode) (setq fill-column 66)))))
 
+;; Links
 (setq ace-link-fallback-function
       (lambda ()
         "Add ace-link functions for additional modes."
