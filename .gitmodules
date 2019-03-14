@@ -19,3 +19,6 @@
 [submodule "shell/apps/gogh"]
 	path = shell/apps/gogh
 	url = git@github.com:Mayccoll/Gogh.git
+[submodule "haskell/apps/haskell-ide-engine"]
+	path = haskell/apps/haskell-ide-engine
+	url = git@github.com:haskell/haskell-ide-engine.git
