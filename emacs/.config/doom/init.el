@@ -68,7 +68,7 @@
        flycheck          ; tasing you for every semicolon you forget
        ;;flyspell          ; tasing you for misspelling mispelling
        ;;gist            ; interacting with github gists
-       ;;lsp
+       lsp
        ;;macos           ; MacOS-specific commands
        ;;make            ; run make tasks from Emacs
        magit             ; a git porcelain for Emacs
@@ -101,7 +101,7 @@
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
-       javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript +lsp)   ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;latex             ; writing papers in Emacs has never been so fun
        ;;ledger            ; an accounting system in Emacs
@@ -122,7 +122,7 @@
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        purescript        ; javascript, but functional
-       python            ; beautiful is better than ugly
+       (python +lsp)       ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;rest              ; Emacs as a REST client
