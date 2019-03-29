@@ -162,7 +162,7 @@ bindsym $mod+b border pixel 2
 bindsym $mod+Shift+b border normal 2
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+r reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
@@ -198,7 +198,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $mod+z mode "resize"
 
 # Media keys
 bindsym $mod+Delete exec --no-startup-id "amixer -c 0 -- set Master 1-"
