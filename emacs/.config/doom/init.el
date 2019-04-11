@@ -23,7 +23,7 @@
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
        evil-goggles      ; display visual hints when editing in evil
-       ;;fci               ; a `fill-column' indicator
+       ;;fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE tags
        ;;indent-guides     ; highlighted indent columns
        modeline          ; snazzy, Atom-inspired modeline, plus API
@@ -53,7 +53,6 @@
        ;;+ranger         ; bringing the goodness of ranger to dired
        ;;+icons          ; colorful icons for dired-mode
         )
-       ediff             ; comparing files in Emacs
        electric          ; smarter, keyword-based electric-indent
        ;;eshell            ; a consistent, cross-platform shell (WIP)
        imenu             ; an imenu sidebar and searchable code index
@@ -62,6 +61,7 @@
 
        :tools
        ;;ansible
+       ;;direnv
        ;;docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein             ; tame Jupyter notebooks with emacs
@@ -70,8 +70,8 @@
        ;;gist            ; interacting with github gists
        lsp
        ;;macos           ; MacOS-specific commands
-       ;;make            ; run make tasks from Emacs
        magit             ; a git porcelain for Emacs
+       ;;make            ; run make tasks from Emacs
        ;;password-store  ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy         ; FIXME managing external services & code builders
@@ -117,7 +117,8 @@
         +babel           ; running code in org
         +capture         ; org-capture in and outside of Emacs
         +export          ; Exporting org to whatever you want
-        +present)        ; Emacs for presentations
+        +present         ; Emacs for presentations
+        +protocol)       ; Support for org-protocol:// links
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
