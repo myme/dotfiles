@@ -56,7 +56,7 @@
  (:leader
    (:prefix "F" :desc "Frame"
      :desc "Delete frame" :nv "d" #'delete-frame
-     :desc "New frame" :nv "n" #'new-frame)
+     :desc "New frame" :nv "n" #'make-frame)
    (:prefix "a" :desc "Apps"
      :desc "Email" :nv "e" #'=email
      :desc "Processes" :nv "p" #'helm-list-emacs-process
