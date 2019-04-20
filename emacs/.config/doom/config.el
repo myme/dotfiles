@@ -10,8 +10,8 @@
     ("^\\*Man " :side right :size 0.4 :vslot -6 :ttl 0 :quit t :select t)))
 
 ;; Transparency
-;; (set-frame-parameter (selected-frame) 'alpha 95)
-;; (add-to-list 'default-frame-alist '(alpha  95))
+(set-frame-parameter (selected-frame) 'alpha 95)
+(add-to-list 'default-frame-alist '(alpha  95))
 
 (setq-default
  ;; Look-and-feel
