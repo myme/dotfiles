@@ -127,6 +127,8 @@
  ;; Web mode
  web-mode-code-indent-offset 2)
 
+;; TypeScript file assoc
+(add-to-list 'auto-mode-alist '("\\.tsx$" . typescript-mode))
 
 (add-hook! js2-mode
   (myme/use-eslint-from-node-modules))
