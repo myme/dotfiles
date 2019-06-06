@@ -33,6 +33,7 @@
                     (function myme/org-skip-non-standalone)))))
       nil nil)
      ))
+   org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'"
    org-agenda-files (quote ("~/Dropbox/org"))
    org-agenda-span 1
    org-agenda-start-day "Today"
@@ -40,38 +41,38 @@
    org-capture-templates
    (quote
     (("b" "Bookmark" entry
-      (file+headline "bookmarks.org" "Bookmarks")
+      (file+headline "bookmarks.org.gpg" "Bookmarks")
       "* [[%x][%^{title|}]]%? :BOOKMARK:
 %U")
      ("n" "A generic note" entry
-      (file "refile.org")
+      (file "refile.org.gpg")
       "* %? :NOTE:
 %U
 %a")
      ("t" "A TODO item" entry
-      (file "refile.org")
+      (file "refile.org.gpg")
       "* TODO %?
 %U
 %a" :clock-in t :clock-resume t)
      ("j" "Journal")
      ("jj" "Entry" entry
-      (file+olp+datetree "journal.org" "Journal")
+      (file+olp+datetree "journal.org.gpg" "Journal")
       "* %?
 %U" :clock-in t :clock-resume t)
      ("jb" "Backlog/bug management" entry
-      (file+olp+datetree "journal.org" "Journal")
+      (file+olp+datetree "journal.org.gpg" "Journal")
       "* Backlog/bug management%? :BACKLOG:
 %U" :clock-in t :clock-resume t)
      ("je" "Email + collab" entry
-      (file+olp+datetree "journal.org" "Journal")
+      (file+olp+datetree "journal.org.gpg" "Journal")
       "* Email + collab%? :EMAIL:MESSAGING:
 %U" :clock-in t :clock-resume t)
      ("jm" "Meeting" entry
-      (file+olp+datetree "journal.org" "Journal")
+      (file+olp+datetree "journal.org.gpg" "Journal")
       "* Meeting: %? :MEETING:
 %U" :clock-in t :clock-resume t)
      ("jr" "Review" entry
-      (file+olp+datetree "journal.org" "Journal")
+      (file+olp+datetree "journal.org.gpg" "Journal")
       "* Review: %? :REVIEW:
 %U" :clock-in t :clock-resume t)))
    org-clock-out-remove-zero-time-clocks t
