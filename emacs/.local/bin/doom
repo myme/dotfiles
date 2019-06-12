@@ -1,2 +1,2 @@
-#!/bin/bash
+#!/usr/bin/env bash
 (cd "$HOME/.emacs.d" && ./bin/doom "$@")
