@@ -98,19 +98,20 @@ bindsym $mod+e layout toggle split
 # focus the parent container
 bindsym $mod+a focus parent
 
-# focus the child container
-#bindsym $mod+d focus child
-
-# Rename workspace
-bindsym $mod+comma exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
-
 # Focus output
 bindsym $mod+grave focus output right
 bindsym $mod+Shift+asciitilde focus output left
 
 # Move workspace to output
-bindsym $mod+x move workspace to output right
-bindsym $mod+Shift+x move workspace to output left
+bindsym $mod+Shift+comma move workspace to output left
+bindsym $mod+Shift+period move workspace to output right
+
+# Create new workspace
+# bindsym $mod+c exec --no-startup-id i3ws new
+bindsym $mod+c exec --no-startup-id i3-input -F 'workspace "%s"' -P 'Create workspace: '
+
+# Rename workspace
+bindsym $mod+comma exec --no-startup-id i3-input -F 'rename workspace to "%s"' -P 'Rename workspace: '
 
 set $workspace1 "1:  "
 set $workspace2 "2:  "
@@ -124,18 +125,18 @@ set $workspace9 "9:  "
 set $workspace10 "10:  "
 
 # switch to workspace
-bindsym $mod+p workspace prev
-bindsym $mod+n workspace next
-bindsym $mod+1 workspace number $workspace1
-bindsym $mod+2 workspace number $workspace2
-bindsym $mod+3 workspace number $workspace3
-bindsym $mod+4 workspace number $workspace4
-bindsym $mod+5 workspace number $workspace5
-bindsym $mod+6 workspace number $workspace6
-bindsym $mod+7 workspace number $workspace7
-bindsym $mod+8 workspace number $workspace8
-bindsym $mod+9 workspace number $workspace9
-bindsym $mod+0 workspace number $workspace10
+bindsym $mod+Shift+p workspace prev
+bindsym $mod+Shift+n workspace next
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $workspace1
