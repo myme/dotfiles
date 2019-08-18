@@ -109,6 +109,22 @@
               (t
                (myme/avy-open-url)))))
 
+;; C/C++
+(setq my-cc-style
+      '("cc-mode"
+        (c-offsets-alist . (
+                            (innamespace . [0])
+                            (inline-open . 0)))))
+(c-add-style "my-cc-style" my-cc-style)
+(setq
+ c-default-style
+ (quote
+  ((c-mode . "my-cc-style")
+   (c++-mode . "my-cc-style")
+   (java-mode . "java")
+   (awk-mode . "awk")
+   (other . "gnu"))))
+
 
 ;; Code
 (setq
