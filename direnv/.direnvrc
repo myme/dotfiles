@@ -1,3 +1,4 @@
+# https://github.com/direnv/direnv/wiki/Nix#using-a-global-use_nix-with-garbage-collection-prevention
 use_nix() {
   local path="$(nix-instantiate --find-file nixpkgs)"
 
