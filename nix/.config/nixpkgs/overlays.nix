@@ -3,9 +3,15 @@ let
     baseEnv = self.buildEnv {
       name = "env-base";
       paths = with self; [
-        direnv
         fzf
         pureZshPrompt
+      ];
+    };
+
+    devEnv = self.buildEnv {
+      name = "env-development";
+      paths = with self; [
+        direnv
       ];
     };
 
