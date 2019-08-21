@@ -4,9 +4,6 @@
 [submodule "tmux/.tmux/plugins/tpm"]
 	path = tmux/.tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
-[submodule "zsh/.zprezto"]
-	path = zsh/.zprezto
-	url = git@github.com:myme/prezto.git
 [submodule "i3/apps/i3-gnome"]
 	path = i3/apps/i3-gnome
 	url = git@github.com:51v4n/i3-gnome.git
