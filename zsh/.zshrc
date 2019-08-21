@@ -11,3 +11,7 @@ source ~/.zsources/history.zsh
 # Aliases
 alias ta="tmux attach -t"
 alias tl="tmux list-sessions"
+
+# Fzf
+source ~/.nix-profile/share/fzf/completion.zsh
+source ~/.nix-profile/share/fzf/key-bindings.zsh

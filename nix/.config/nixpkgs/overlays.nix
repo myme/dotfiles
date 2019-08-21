@@ -3,6 +3,7 @@ let
     baseEnv = self.buildEnv {
       name = "env-base";
       paths = with self; [
+        fzf
         pureZshPrompt
       ];
     };
