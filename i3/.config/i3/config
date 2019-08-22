@@ -25,12 +25,6 @@ client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, if you need a lot of unicode glyphs or
-# right-to-left text rendering, you should instead use pango for rendering and
-# chose a FreeType font, such as:
-# font pango:DejaVu Sans Mono 10
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -39,16 +33,6 @@ bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
-
-# start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-
-# Gnome Flashback
-exec --no-startup-id gnome-flashback
 
 # Rofi
 bindsym $mod+d exec --no-startup-id "rofi -show drun"
@@ -116,17 +100,6 @@ bindsym $mod+Shift+c exec --no-startup-id i3-input -F 'move container to workspa
 # Rename workspace
 bindsym $mod+comma exec --no-startup-id i3-input -F 'rename workspace to "%s"' -P 'Rename workspace: '
 
-set $workspace1 "1:  "
-set $workspace2 "2:  "
-set $workspace3 "3:  "
-set $workspace4 "4:  "
-set $workspace5 "5:  "
-set $workspace6 "6:  "
-set $workspace7 "7:  "
-set $workspace8 "8:  "
-set $workspace9 "9:  "
-set $workspace10 "10:  "
-
 # switch to workspace
 bindsym $mod+Shift+p workspace prev
 bindsym $mod+Shift+n workspace next
@@ -142,23 +115,16 @@ bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number $workspace1
-bindsym $mod+Shift+2 move container to workspace number $workspace2
-bindsym $mod+Shift+3 move container to workspace number $workspace3
-bindsym $mod+Shift+4 move container to workspace number $workspace4
-bindsym $mod+Shift+5 move container to workspace number $workspace5
-bindsym $mod+Shift+6 move container to workspace number $workspace6
-bindsym $mod+Shift+7 move container to workspace number $workspace7
-bindsym $mod+Shift+8 move container to workspace number $workspace8
-bindsym $mod+Shift+9 move container to workspace number $workspace9
-bindsym $mod+Shift+0 move container to workspace number $workspace10
-
-# Use `xprop` to find: WM_CLASS(STRING) "<instance>", "<Class>"
-# assign [class="Emacs"] $workspace1
-# assign [class="Firefox"] $workspace2
-assign [class="Vpnui"] $workspace8
-assign [class="Bitwarden"] $workspace9
-# assign [class="Spotify"] $workspace10
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
 
 # Default border + toggle
 new_window pixel 2
@@ -172,12 +138,7 @@ bindsym $mod+r reload
 bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec lxde-logout
-bindsym $mod+Shift+e exec "echo 'No\nYes' | rofi -dmenu -p 'Really quit?' | grep 'Yes' && i3-msg exit"
-
-# Lock the screen
-# bindsym $mod+Shift+z exec "i3-lock"
-bindsym $mod+Shift+z exec "gnome-screensaver-command -a"
+bindsym $mod+Shift+e exec "echo -e 'No\nYes' | rofi -dmenu -p 'Really quit?' | grep 'Yes' && i3-msg exit"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -193,23 +154,11 @@ mode "resize" {
     bindsym Shift+k resize shrink height 100 px or 10 ppt
     bindsym Shift+l resize grow width 100 px or 10 ppt
 
-    bindsym Left resize shrink width 10 px or 1 ppt
-    bindsym Down resize grow height 10 px or 1 ppt
-    bindsym Up resize shrink height 10 px or 1 ppt
-    bindsym Right resize grow width 10 px or 1 ppt
-
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
 bindsym $mod+z mode "resize"
-
-# Media keys
-bindsym $mod+Delete exec --no-startup-id "amixer -c 0 -- set Master 1-"
-bindsym $mod+Next   exec --no-startup-id "amixer -c 0 -- set Master 1+"
-bindsym $mod+Insert exec --no-startup-id "i3-spotify Previous"
-bindsym $mod+Home   exec --no-startup-id "i3-spotify PlayPause"
-bindsym $mod+Prior  exec --no-startup-id "i3-spotify Next"
 
 # Background image + compositor
 exec --no-startup-id "compton"
