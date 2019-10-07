@@ -42,7 +42,7 @@
    (quote
     (("b" "Bookmark" entry
       (file+headline "bookmarks.org.gpg" "Bookmarks")
-      "* [[%x][%^{title|}]]%? :BOOKMARK:
+      "* [[%^{url|%x}][%^{title|}]]%? :BOOKMARK:
 %U")
      ("n" "A generic note" entry
       (file "refile.org.gpg")
