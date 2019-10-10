@@ -2,6 +2,7 @@
 # Based off:
 # https://github.com/direnv/direnv/wiki/Nix#using-a-global-use_nix-with-garbage-collection-prevention
 # https://github.com/Mic92/dotfiles/blob/master/home/.direnvrc
+# XXX: This has now moved to: https://github.com/nix-community/nix-direnv
 
 use_nix() {
   local path="$(nix-instantiate --find-file nixpkgs)"
@@ -22,19 +23,23 @@ use_nix() {
     [[ shell.nix -nt "$cache" ]];
   then
     [ -d .direnv ] || mkdir .direnv
-    nix-shell --show-trace --pure "$@" --run "\"$direnv\" dump bash" > "$cache"
+    local dump_cmd="echo -n _____direnv_____; \"$direnv\" dump bash"
+    local tmp=$(nix-shell --show-trace --pure "$@" \
+      --run "$dump_cmd" | grep -oP '(?<=_____direnv_____).*')
+    echo "$tmp" > "$cache"
     update_drv=1
   else
     log_status using cached derivation
   fi
   local term_backup=$TERM path_backup=$PATH
-  if [ -n ${TMPDIR+x} ]; then
+  if [ -z ${TMPDIR+x} ]; then
     local tmp_backup=$TMPDIR
   fi
 
+  log_status eval $cache
   eval "$(< $cache)"
   export PATH=$PATH:$path_backup TERM=$term_backup TMPDIR=$tmp_backup
-  if [ -n ${tmp_backup+x} ]; then
+  if [ -z ${tmp_backup+x} ]; then
     export TMPDIR=${tmp_backup}
   else
     unset TMPDIR
