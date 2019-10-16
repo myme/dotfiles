@@ -33,6 +33,7 @@
                     (function myme/org-skip-non-standalone)))))
       nil nil)
      ))
+   org-agenda-dim-blocked-tasks t
    org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'"
    org-agenda-files (quote ("~/Dropbox/org"))
    org-agenda-span 1
