@@ -82,6 +82,7 @@
    org-export-with-toc nil
    org-export-with-section-numbers nil
    org-footnote-section nil
+   org-imenu-depth 3
    org-log-done 'time
    org-log-into-drawer "LOGBOOK"
    org-outline-path-complete-in-steps nil
