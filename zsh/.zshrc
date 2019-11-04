@@ -1,3 +1,10 @@
+# Dumb
+if [[ "$TERM" == 'dumb' ]]; then
+  unsetopt zle
+  PS1="$ "
+  return
+fi
+
 # Pure prompt
 fpath=("$HOME/.nix-profile/share/zsh/site-functions" $fpath)
 export PURE_GIT_PULL=0
