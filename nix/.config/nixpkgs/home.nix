@@ -2,6 +2,7 @@
 {
   imports = [
     ./home/alacritty.nix
+    ./home/nixon.nix
     ./home/prezto.nix
     ./home/tmux.nix
   ];
@@ -26,6 +27,17 @@
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
+
+    nixon = {
+      enable = true;
+      exact_match = true;
+      source_dirs = [
+        "~/dotfiles"
+        "~/src"
+      ];
+      use_direnv = true;
+      use_nix = true;
+    };
 
     bat.enable = true;
     direnv = import ./home/direnv.nix;
