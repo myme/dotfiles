@@ -70,8 +70,6 @@
    (:prefix "c"
      :desc "Compile" :nv "c" #'compile
      :desc "Compile" :nv "k" #'kill-compilation)
-   (:prefix "/"
-     :desc "Open URL" :n "l" #'ace-link)
    (:prefix "p"
      :desc "Open dired in project" :nv "d" #'projectile-dired
      :desc "Run async cmd in project" :nv "&" #'projectile-run-async-shell-command-in-root
