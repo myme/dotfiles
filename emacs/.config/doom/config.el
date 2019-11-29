@@ -165,6 +165,14 @@
 (after! mu4e
   (require 'org-mu4e))
 
+;; Direnv patches
+(after! direnv
+  (defadvice! +direnv-update-async-shell-command-a (command &optional output-buffer _error-buffer)
+    :before #'shell-command
+    (when-let ((match (string-match "[ \t]*&[ \t]*\\'" command))
+               (directory-name direnv--active-directory))
+      (with-current-buffer (get-buffer-create (or output-buffer "*Async Shell Command*"))
+        (direnv-update-directory-environment directory-name)))))
 
 ;; PureScript
 (setq psc-ide-use-npm-bin t)
