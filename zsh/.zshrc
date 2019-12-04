@@ -5,6 +5,9 @@ if [[ "$TERM" == 'dumb' ]]; then
   return
 fi
 
+# Add nix zsh site-functions to fpath
+fpath=("$HOME/.nix-profile/share/zsh/site-functions" $fpath)
+
 # Starship prompt
 eval "$(starship init zsh)"
 
