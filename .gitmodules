@@ -9,7 +9,7 @@
 	url = git@github.com:51v4n/i3-gnome.git
 [submodule "emacs/.emacs.d"]
 	path = emacs/.emacs.d
-	url = git@github.com:myme/doom-emacs.git
+	url = git@github.com:hlissner/doom-emacs.git
 [submodule "emacs/apps/emacs"]
 	path = emacs/apps/emacs
 	url = git://git.sv.gnu.org/emacs.git
