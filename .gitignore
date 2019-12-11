@@ -1,3 +1,5 @@
+/.direnv
+
 /vim/.vim/plugged
 /vim/.vim/.netrwhist
 
