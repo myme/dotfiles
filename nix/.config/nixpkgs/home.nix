@@ -3,6 +3,7 @@
   imports = [
     ./home/alacritty.nix
     ./home/prezto.nix
+    ./home/tmux.nix
   ];
 
   home.packages = with pkgs; [
