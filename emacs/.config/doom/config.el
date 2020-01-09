@@ -28,7 +28,7 @@
 
  ;; Banner
  +doom-dashboard-banner-dir (concat doom-private-dir "banners/")
- +doom-dashboard-banner-file "mushroom.png"
+ +doom-dashboard-banner-file "rocket-ship.svg"
 
  ;; Workspaces
  +workspaces-main "default"
