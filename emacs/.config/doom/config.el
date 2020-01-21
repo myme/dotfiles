@@ -122,6 +122,12 @@
    (awk-mode . "awk")
    (other . "gnu"))))
 
+;; LSP
+(after! lsp-mode
+  (map!
+   (:mode lsp-mode
+     (:leader
+       :desc "LSP execute code action" :nv "ca" #'lsp-execute-code-action))))
 
 ;; Code
 (setq
