@@ -7,6 +7,11 @@
   ];
 
   home.packages = with pkgs; [
+    (aspellWithDicts (dicts: with dicts; [
+      en
+      en-computers
+      nb
+    ]))
     jq
     ncdu
     ripgrep
