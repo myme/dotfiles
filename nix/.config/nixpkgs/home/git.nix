@@ -31,7 +31,6 @@
     save  = ''!git add -u && git commit -m \"WIP: $(git show -q --oneline HEAD)\"'';
   };
   extraConfig = {
-    core.excludesfile = "~/.gitignore";
     branch.autosetuprebase = "remote";
     init.templatedir = "~/.gittemplate";
     github.user = "myme";
@@ -47,4 +46,9 @@
       smtpUser = "mmyrseth@cisco.com";
     };
   };
+  ignores = [
+    ".dir-locals.el"
+    ".direnv"
+    ".envrc"
+  ];
 }
