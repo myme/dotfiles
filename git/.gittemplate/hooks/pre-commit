@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-if !(git config user.name &> /dev/null && git config user.email &> /dev/null); then
-    echo "Please setup your repository with a user.name and user.email" >&2
-    exit 1
-fi

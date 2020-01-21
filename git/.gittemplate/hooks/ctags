@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-exit 0 # Comment out to enable ctags
-set -e
-dir="$(git rev-parse --git-dir)"
-mkdir "$dir/tags_lock" 2>/dev/null || exit 0
-trap 'rmdir "$dir/tags_lock"; rm -f "$dir/tags.$$"' EXIT INT TERM
-git ls-files -co --exclude-standard | ctags --tag-relative -L- -f.git/tags.$$ --languages=-sql
-mv "$dir/tags.$$" "$dir/tags"
