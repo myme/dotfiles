@@ -35,6 +35,13 @@ in
 
     programs.zsh = with pkgs; {
       envExtra     = ''source ${prezto}/runcoms/zshenv'';
+      initExtraBeforeCompInit = ''
+        if [[ $TERM == "dumb" ]]; then
+          unsetopt zle
+          PS1='$ '
+          return
+        fi
+      '';
       initExtra    = (mkMerge [
         ''
           source ${prezto}/runcoms/zshrc
@@ -42,12 +49,6 @@ in
           # Disable/remove right prompt
           export RPS1=""
         ''
-        (mkIf config.programs.starship.enable ''
-          # Source starship prompt
-          if [[ "$TERM" != 'dumb' && -z "$INSIDE_EMACS" ]]; then
-            eval "$(${starship}/bin/starship init zsh)"
-          fi
-        '')
       ]);
       loginExtra   = ''source ${prezto}/runcoms/zlogin'';
       logoutExtra  = ''source ${prezto}/runcoms/zlogout'';

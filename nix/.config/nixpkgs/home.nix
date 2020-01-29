@@ -41,7 +41,6 @@
     };
     starship = {
       enable = true;
-      enableZshIntegration = false;
       settings.time = {
         disabled = false;
         format = "%T";
