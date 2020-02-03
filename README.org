@@ -10,6 +10,40 @@ backup across hosts, while having tailored configuration for each host.
 
 Most configurations are applied by symlinking dotfiles into ~$HOME~ using [[https://www.gnu.org/software/stow/][GNU stow]].
 
+** Install Home Manager
+
+#+BEGIN_SRC shell
+nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+nix-channel --update
+#+END_SRC
+
+On NixOS you may need to log out and back in for the channel to become
+available. On non-NixOS you may have to add:
+
+#+BEGIN_SRC shell
+export NIX_PATH=$HOME/.nix-defexpr/channels${NIX_PATH:+:}$NIX_PATH
+#+END_SRC
+
+to your shell.
+
+#+BEGIN_SRC shell
+nix-shell '<home-manager>' -A install
+#+END_SRC
+
+If you do not plan on having Home Manager manage your shell configuration then you must source the
+
+#+BEGIN_SRC shell
+$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+#+END_SRC
+
+file in your shell configuration. Unfortunately, in this specific case we currently only support POSIX.2-like shells such as Bash or Z shell.
+
+For example, if you use Bash then add
+
+#+BEGIN_SRC shell
+. "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+#+END_SRC
+
 ** Installation
 
 #+BEGIN_SRC sh
