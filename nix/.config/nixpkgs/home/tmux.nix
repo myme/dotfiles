@@ -25,6 +25,11 @@
         set -g status-style "fg=blue,bg=default"
         set -g status-justify "centre"
       '';
+      plugins = with pkgs.tmuxPlugins; [
+        sensible
+        sessionist
+        yank
+      ];
     };
 
     programs.zsh.initExtra = ''
