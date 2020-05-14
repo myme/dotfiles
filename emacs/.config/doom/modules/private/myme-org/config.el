@@ -26,7 +26,7 @@
               (org-tags-match-list-sublevels nil))))
       nil nil)
      ("n" "Next items"
-      ((tags-todo "-REFILE-SCHEDULED>\"<now>\"/NEXT"
+      ((tags-todo "-HOLD-REFILE-SCHEDULED>\"<now>\"/NEXT"
                   ((org-agenda-overriding-header "Next items"))))
       nil nil)
      ("o" "Standalone tasks"
