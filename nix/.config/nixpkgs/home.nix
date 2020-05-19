@@ -5,6 +5,7 @@
     ./home/nixon.nix
     ./home/prezto.nix
     ./home/tmux.nix
+    ./home/vim.nix
   ];
 
   home.packages = with pkgs; [
@@ -58,7 +59,6 @@
         format = "%T";
       };
     };
-    vim.enable = true;
     zsh.enable = true;
   };
 }
