@@ -30,3 +30,11 @@
     (when root
       (let ((eslint (expand-file-name "node_modules/.bin/eslint" root)))
         (setq-local flycheck-javascript-eslint-executable eslint)))))
+
+;;;###autoload
+(defun myme/toggle-magit-todos (arg)
+  (interactive "P")
+  (if magit-todos-mode
+      (magit-todos-mode -1)
+    (magit-todos-mode arg))
+  (magit-refresh))
