@@ -82,6 +82,13 @@
    (:desc "theme" :prefix "T"
      :desc "Switch theme" :nv "T" #'load-theme)))
 
+(after! magit
+  (map!
+   (:mode magit-status-mode
+    (:leader
+     (:prefix "g"
+      :desc "Toggle magit todos" :nv "T" #'myme/toggle-magit-todos)))))
+
 ;; Email
 (after! mu4e
   (map!
