@@ -105,7 +105,7 @@ in {
           nixon run . "$@"
       }
 
-      source ${nixon}/share/zsh/site-functions/_nixon_widget
+      source ${cfg.package}/share/zsh/site-functions/_nixon_widget
     '');
   };
 }
