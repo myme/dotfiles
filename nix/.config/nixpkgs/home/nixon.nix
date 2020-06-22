@@ -55,6 +55,31 @@ in {
       inherit (cfg) source_dirs exact_match use_direnv use_nix;
     };
 
+    programs.bash.initExtra = (mkIf config.programs.bash.enable ''
+      # Nixon
+      alias n=nixon
+
+      # Nixon (p: project cd)
+      p () {
+          local project;
+          project=$(nixon project -s "$@" | tail -1)
+          if [ -z "$project" ]; then
+              return
+          fi
+          cd "$project"
+      }
+
+      # Nixon (px: project execute)
+      px () {
+          nixon project . "$@"
+      }
+
+      # Nixon (x: execute)
+      x () {
+          nixon run . "$@"
+      }
+    '');
+
     programs.zsh.initExtra = (mkIf config.programs.zsh.enable ''
       # Nixon
       alias n=nixon
