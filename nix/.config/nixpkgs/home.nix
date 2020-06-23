@@ -15,6 +15,7 @@
       nb
     ]))
     jq
+    mosh
     ncdu
     ripgrep
     tree
