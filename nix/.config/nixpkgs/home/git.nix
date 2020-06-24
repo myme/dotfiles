@@ -17,18 +17,18 @@
     ss    = ''show --stat'';
     br    = ''branch -vv'';
     bra   = ''branch -avv'';
-    ls    = ''!git --no-pager log --pretty=format:\"%C(green)%h %Creset%s%C(yellow)%d %Creset%C(cyan)<%ae>%Creset\" --graph -20'';
-    lsa   = ''log --pretty=format:\"%C(green)%h %Creset%s%C(yellow)%d %Creset%C(cyan)<%ae>%Creset\" --graph -20 --all'';
-    lg    = ''log --pretty=format:\"%C(green)%h %C(blue)%ad %Creset%s%C(yellow)%d %Creset%C(cyan)<%an (%ae)>%Creset\" --graph --date=short'';
-    lga   = ''log --pretty=format:\"%C(green)%h %C(blue)%ad %Creset%s%C(yellow)%d %Creset%C(cyan)<%an (%ae)>%Creset\" --graph --date=short --all'';
+    ls    = ''!git --no-pager log --pretty=format:"%C(green)%h %Creset%s%C(yellow)%d %Creset%C(cyan)<%ae>%Creset" --graph -20'';
+    lsa   = ''log --pretty=format:"%C(green)%h %Creset%s%C(yellow)%d %Creset%C(cyan)<%ae>%Creset" --graph -20 --all'';
+    lg    = ''log --pretty=format:"%C(green)%h %C(blue)%ad %Creset%s%C(yellow)%d %Creset%C(cyan)<%an (%ae)>%Creset" --graph --date=short'';
+    lga   = ''log --pretty=format:"%C(green)%h %C(blue)%ad %Creset%s%C(yellow)%d %Creset%C(cyan)<%an (%ae)>%Creset" --graph --date=short --all'';
     ff    = ''merge --ff-only @{u}'';
     up    = ''remote update'';
     rup   = ''rebase @{u}'';
     rank  = ''shortlog -s -n --no-merges'';
     desc  = ''describe'';
-    track = ''!git branch --set-upstream $(git for-each-ref --format=\"%(refname:short)\" $(git symbolic-ref HEAD))'';
+    track = ''!git branch --set-upstream $(git for-each-ref --format="%(refname:short)" $(git symbolic-ref HEAD))'';
     fixup = ''commit --amend -C HEAD'';
-    save  = ''!git add -u && git commit -m \"WIP: $(git show -q --oneline HEAD)\"'';
+    save  = ''!git add -u && git commit -m "WIP: $(git show -q --oneline HEAD)"'';
   };
   extraConfig = {
     branch.autosetuprebase = "remote";
