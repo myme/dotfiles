@@ -32,10 +32,9 @@
       ];
     };
 
-    programs.zsh.initExtra = ''
-      # Tmux Aliases
-      alias ta="tmux attach -t"
-      alias tl="tmux list-sessions"
-    '';
+    programs.zsh.shellAliases = {
+      ta = "tmux attach -t";
+      tl = "tmux list-sessions";
+    };
   };
 }
