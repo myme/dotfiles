@@ -8,8 +8,8 @@ let
   nixon = pkgs.callPackage (pkgs.fetchFromGitHub {
     owner = "myme";
     repo = "nixon";
-    rev = "921c11f7cf3e91ed97ae57eef5d03b60b5a91ebd";
-    sha256 = "1biwa1xv4wc38pkwi7hrssjdi5093s7fh009bggi8216c6nrn6kj";
+    rev = "3bb9e37ac9db3bc58977fcfaf97fca84a90bf15a";
+    sha256 = "1bxvbjhlwdfwicyvlhymnbf3pmlkbjs37ivhiphr1daffykbm544";
   }) {};
 
 in {
