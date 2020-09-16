@@ -8,8 +8,8 @@ let
   nixon = pkgs.callPackage (pkgs.fetchFromGitHub {
     owner = "myme";
     repo = "nixon";
-    rev = "3bb9e37ac9db3bc58977fcfaf97fca84a90bf15a";
-    sha256 = "1bxvbjhlwdfwicyvlhymnbf3pmlkbjs37ivhiphr1daffykbm544";
+    rev = "c325e1628ae3e24ac86e07c546bafe6b4e98894d";
+    sha256 = "02xl54pxizfivic62f6yi8g42is24b5bzfsrmyx3xid51467czn3";
   }) {};
 
 in {
@@ -78,6 +78,8 @@ in {
       x () {
           nixon run . "$@"
       }
+
+      source ${cfg.package}/share/nixon/nixon-widget.bash
     '');
 
     programs.zsh.initExtra = (mkIf config.programs.zsh.enable ''
