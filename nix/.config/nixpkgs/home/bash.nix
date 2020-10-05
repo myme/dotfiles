@@ -8,7 +8,7 @@
         la = "ll -A";
         ll = "ls -lh";
         lr = "ll -R";
-        ls = "ls --color=auto";
+        ls = "ls --color=auto --group-directories-first";
       };
     };
   };
