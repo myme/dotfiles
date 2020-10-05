@@ -9,6 +9,10 @@ pkgs.st.override {
       url = "https://st.suckless.org/patches/alpha/st-alpha-0.8.2.diff";
       sha256 = "11dj1z4llqbbki5cz1k1crr7ypnfqsfp7hsyr9wdx06y4d7lnnww";
     })
+    (builtins.fetchurl {
+      url = "https://st.suckless.org/patches/desktopentry/st-desktopentry-0.8.2.diff";
+      sha256 = "0zl12xi8i10x3i2jy4lqg64vphkx77mjp7g1rc4kdd4q8saw7psx";
+    })
   ];
   conf = lib.readFile ./config.def.h;
 }
