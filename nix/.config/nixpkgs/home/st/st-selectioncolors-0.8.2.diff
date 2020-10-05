@@ -1,0 +1,68 @@
+From 33bf0cb9ad1f3941ecfd7c9f3902607dcabc6978 Mon Sep 17 00:00:00 2001
+From: aleks <aleks.stier@icloud.com>
+Date: Thu, 10 Oct 2019 23:22:38 +0200
+Subject: [PATCH] Add settings for selection-colors
+
+This patch adds the two color-settings *selectionfg* and *selectionbg* to
+config.def.h. Those define the fore- and background colors which are used when
+text on the screen is selected with the mouse. This removes the default
+behaviour which would simply reverse the colors.
+
+Additionally, a third setting *ingnoreselfg* exists. If true then the setting
+*selectionfg* is ignored and the original foreground-colors of each cell are
+not changed during selection. Basically only the background-color would change.
+This might be more visually appealing to some folks.
+---
+ config.def.h | 11 +++++++++--
+ x.c          |  6 +++---
+ 2 files changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/config.def.h b/config.def.h
+index 0e01717..fbbb2a4 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -108,7 +108,7 @@ static const char *colorname[] = {
+ 
+ 	/* more colors can be added after 255 to use with DefaultXX */
+ 	"#cccccc",
+-	"#555555",
++	"#2e3440",
+ };
+ 
+ 
+@@ -119,7 +119,14 @@ static const char *colorname[] = {
+ unsigned int defaultfg = 7;
+ unsigned int defaultbg = 0;
+ static unsigned int defaultcs = 256;
+-static unsigned int defaultrcs = 257;
++static unsigned int defaultrcs = 256;
++
++/* Colors used for selection */
++unsigned int selectionbg = 257;
++unsigned int selectionfg = 7;
++/* If 0 use selectionfg as foreground in order to have a uniform foreground-color */
++/* Else if 1 keep original foreground-color of each cell => more colors :) */
++static int ignoreselfg = 1;
+ 
+ /*
+  * Default shape of cursor
+diff --git a/x.c b/x.c
+index 0422421..a001f2e 100644
+--- a/x.c
++++ b/x.c
+@@ -1336,9 +1336,9 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
+ 	}
+ 
+ 	if (base.mode & ATTR_REVERSE) {
+-		temp = fg;
+-		fg = bg;
+-		bg = temp;
++		bg = &dc.col[selectionbg];
++		if (!ignoreselfg)
++			fg = &dc.col[selectionfg];
+ 	}
+ 
+ 	if (base.mode & ATTR_BLINK && win.mode & MODE_BLINK)
+-- 
+2.23.0
+
