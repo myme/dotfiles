@@ -6,6 +6,7 @@
       shellAliases = {
         ll = "ls -l";
         la = "ls -la";
+        ls = "ls --color=auto";
       };
     };
   };
