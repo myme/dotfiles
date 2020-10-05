@@ -19,8 +19,8 @@ in {
       default = (import (pkgs.fetchFromGitHub {
         owner = "myme";
         repo = "i3ws";
-        rev = "c2b49862be3e969d6f310b823a6caed660f1d34f";
-        sha256 = "1jr91w6is1wpl2zrl7i6cq39vszafz7p1km92mgqnnkjsajj437i";
+        rev = "540b8274eb69faac0bbf6b07c080921d3ec12802";
+        sha256 = "1hagxkmlr3258mcf1134yszj0jvcsh9sshl0xg1izk3ajxz95344";
       }) {}).i3ws;
       description = "i3ws package";
     };
