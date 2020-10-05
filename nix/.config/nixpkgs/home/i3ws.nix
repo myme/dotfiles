@@ -14,6 +14,17 @@ in {
   options.myme.i3ws = {
     enable = mkEnableOption "Enable i3ws integration";
 
+    package = mkOption {
+      type = types.package;
+      default = (import (pkgs.fetchFromGitHub {
+        owner = "myme";
+        repo = "i3ws";
+        rev = "c2b49862be3e969d6f310b823a6caed660f1d34f";
+        sha256 = "1jr91w6is1wpl2zrl7i6cq39vszafz7p1km92mgqnnkjsajj437i";
+      }) {}).i3ws;
+      description = "i3ws package";
+    };
+
     icons = mkOption {
       type = types.bool;
       default = false;
