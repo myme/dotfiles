@@ -4,8 +4,10 @@
     programs.bash = {
       enable = true;
       shellAliases = {
-        ll = "ls -l";
-        la = "ls -la";
+        l = "ls -1A";
+        la = "ll -A";
+        ll = "ls -lh";
+        lr = "ll -R";
         ls = "ls --color=auto";
       };
     };
