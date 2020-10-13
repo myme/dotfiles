@@ -47,7 +47,13 @@
     firefox.enable = true;
     fzf.enable = true;
     git = import ./home/git.nix;
-    htop.enable = true;
+    htop = {
+      enable = true;
+      meters = {
+        left = [ "LeftCPUs2" "Memory" "Swap" ];
+        right = [ "RightCPUs2" "Tasks" "LoadAverage" "Uptime" ];
+      };
+    };
     prezto.enable = true;
     rofi = {
       enable = true;
