@@ -1,7 +1,7 @@
 ;;; private/myme-org/init.el -*- lexical-binding: t; -*-
 
 (setq
-  org-directory "~/Sync/org")
+  org-directory "~/notes")
 
 ;; Org-mode
 (after! org
@@ -38,7 +38,7 @@
      ))
    org-agenda-dim-blocked-tasks t
    org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'"
-   org-agenda-files (quote ("~/Sync/org"))
+   org-agenda-files (quote ("~/notes/cisco" "~/notes/personal"))
    org-agenda-span 1
    org-agenda-start-day "Today"
    org-agenda-start-with-log-mode t
