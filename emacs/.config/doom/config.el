@@ -55,7 +55,8 @@
 ;; Custom leader bindings
 (map!
  (:prefix "C-c i"
-   (:desc "Insert today's date" "d" #'myme/insert-date))
+   (:desc "Insert today's date" "d" #'myme/insert-date)
+   (:desc "Insert current timestamp" "t" #'myme/insert-timestamp))
  (:leader
    (:prefix "F" :desc "Frame"
      :desc "Delete frame" :nv "d" #'delete-frame

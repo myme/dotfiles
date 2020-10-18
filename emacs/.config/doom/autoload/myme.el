@@ -20,6 +20,11 @@
   (insert (format-time-string "%Y-%m-%d")))
 
 ;;;###autoload
+(defun myme/insert-timestamp ()
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d %H:%M:%S")))
+
+;;;###autoload
 (defun myme/use-eslint-from-node-modules ()
   "Find eslint binary relative to current file."
   (let ((root (locate-dominating-file
