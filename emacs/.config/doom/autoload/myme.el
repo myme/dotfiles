@@ -25,6 +25,14 @@
   (insert (format-time-string "%Y-%m-%d %H:%M:%S")))
 
 ;;;###autoload
+(defun myme/git-auto-sync ()
+  (interactive)
+  (magit-stage-modified)
+  (magit-commit-create `("-m" ,(concat "Auto-commit: " (format-time-string "%Y-%m-%d %H:%M:%S"))))
+  (magit-pull-from-pushremote ())
+  (magit-push-current-to-pushremote ()))
+
+;;;###autoload
 (defun myme/use-eslint-from-node-modules ()
   "Find eslint binary relative to current file."
   (let ((root (locate-dominating-file

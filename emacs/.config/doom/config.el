@@ -85,6 +85,10 @@
 
 (after! magit
   (map!
+   (:leader
+    (:prefix "g"
+     (:prefix "z"
+      :desc "Auto-sync" :nv "z" #'myme/git-auto-sync)))
    (:mode magit-status-mode
     (:leader
      (:prefix "g"
