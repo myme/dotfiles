@@ -45,38 +45,38 @@
    org-capture-templates
    (quote
     (("b" "Bookmark" entry
-      (file+headline "bookmarks.org.gpg" "Bookmarks")
+      (file+headline "refile.org" "Bookmarks")
       "* [[%^{url|%x}][%^{title|}]]%? :BOOKMARK:
 %U")
      ("n" "A generic note" entry
-      (file "refile.org.gpg")
+      (file "refile.org")
       "* %? :NOTE:
 %U
 %a")
      ("t" "A TODO item" entry
-      (file "refile.org.gpg")
+      (file "refile.org")
       "* TODO %?
 %U
 %a" :clock-in t :clock-resume t)
      ("j" "Journal")
      ("jj" "Entry" entry
-      (file+olp+datetree "journal.org.gpg" "Journal")
+      (file+olp+datetree "cisco/journal.org" "Journal")
       "* %?
 %U" :clock-in t :clock-resume t)
      ("jb" "Backlog/bug management" entry
-      (file+olp+datetree "journal.org.gpg" "Journal")
+      (file+olp+datetree "cisco/journal.org" "Journal")
       "* Backlog/bug management%? :BACKLOG:
 %U" :clock-in t :clock-resume t)
      ("je" "Email + collab" entry
-      (file+olp+datetree "journal.org.gpg" "Journal")
+      (file+olp+datetree "cisco/journal.org" "Journal")
       "* Email + collab%? :EMAIL:MESSAGING:
 %U" :clock-in t :clock-resume t)
      ("jm" "Meeting" entry
-      (file+olp+datetree "journal.org.gpg" "Journal")
+      (file+olp+datetree "cisco/journal.org" "Journal")
       "* Meeting: %? :MEETING:
 %U" :clock-in t :clock-resume t)
      ("jr" "Review" entry
-      (file+olp+datetree "journal.org.gpg" "Journal")
+      (file+olp+datetree "cisco/journal.org" "Journal")
       "* Review: %? :REVIEW:
 %U" :clock-in t :clock-resume t)))
    org-clock-out-remove-zero-time-clocks t
