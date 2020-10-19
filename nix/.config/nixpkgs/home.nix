@@ -54,6 +54,7 @@
         right = [ "RightCPUs2" "Tasks" "LoadAverage" "Uptime" ];
       };
     };
+    info.enable = true;
     prezto.enable = true;
     rofi = {
       enable = true;
