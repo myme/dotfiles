@@ -58,3 +58,25 @@
                  (and closed (> (- days-ago) (org-time-stamp-to-now closed)))))
           nil
         next-headline))))
+
+;;;###autoload
+(defun myme/git-auto-sync ()
+  (cl-letf (((symbol-function 'magit-anything-staged-p) (lambda () nil)))
+    ;; Avoid asking for "stage all (y/n)"
+    (magit-stage-modified))
+  (when (magit-anything-staged-p)
+    (let ((message (list "-m" (concat "Auto-commit: " (format-time-string "%Y-%m-%d %H:%M:%S")))))
+      (message "Staged %s" (magit-anything-staged-p))
+      (magit-commit-create message)))
+  (magit-pull-from-pushremote ())
+  (magit-push-current-to-pushremote ()))
+
+;;;###autoload
+(defun myme/org-auto-sync ()
+  (interactive)
+  (org-save-all-org-buffers)
+  (dolist (org-dir (directory-files org-directory t (rx bos (not "."))))
+    (when (f-directory-p org-dir)
+      (let ((default-directory org-dir))
+        (message "Syncing \"%s\"" (file-relative-name org-dir org-directory))
+        (myme/git-auto-sync)))))
