@@ -1,5 +1,9 @@
 { config, pkgs, ... }:
-{
+
+let
+  git-sync = pkgs.callPackage ./home/git-sync.nix {};
+
+in {
   imports = [
     ./home/alacritty.nix
     ./home/nixon.nix
@@ -19,6 +23,8 @@
     ncdu
     ripgrep
     tree
+  ] ++ [
+    git-sync
   ];
 
   myme.alacritty = {
