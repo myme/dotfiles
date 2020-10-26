@@ -23,5 +23,6 @@ in stdenv.mkDerivation {
     install git-sync $out/bin
     wrapProgram $out/bin/git-sync \
       --set-default DEFAULT_AUTOCOMMIT_MSG ${defaultCommitMsg}
+    install ${./git-sync-all.sh} $out/bin/git-sync-all
   '';
 }
