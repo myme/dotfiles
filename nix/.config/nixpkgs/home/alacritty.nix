@@ -14,7 +14,7 @@ in {
     };
     font_size = mkOption {
       type = types.float;
-      default = 6.0;
+      default = 12.0;
       description = "Alacritty font size";
     };
   };
