@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  git-sync = pkgs.callPackage ./home/git-sync.nix {};
+  git-sync = pkgs.callPackage ./home/git-sync {};
 
 in {
   imports = [
