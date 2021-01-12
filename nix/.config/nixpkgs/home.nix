@@ -18,6 +18,7 @@ in {
       en-computers
       nb
     ]))
+    fd
     jq
     mosh
     ncdu
