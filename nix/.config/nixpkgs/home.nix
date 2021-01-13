@@ -29,6 +29,12 @@ in {
     git-sync
   ];
 
+  # Keyboard
+  home.keyboard = {
+    layout = "us";
+    variant = "alt-intl-unicode";
+  };
+
   myme.alacritty = {
     background_opacity = 0.95;
     font_size = 6.0;
