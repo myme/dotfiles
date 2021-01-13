@@ -5,7 +5,7 @@ let
 
 in {
   imports = [
-    ./home/alacritty.nix
+    ./home/alacritty
     ./home/nixon.nix
     ./home/prezto.nix
     ./home/tmux.nix
@@ -38,6 +38,7 @@ in {
   myme.alacritty = {
     background_opacity = 0.95;
     font_size = 6.0;
+    # theme = "nord";
   };
 
   programs = {
