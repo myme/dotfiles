@@ -137,8 +137,9 @@
 (after! lsp-mode
   (map!
    (:mode lsp-mode
-     (:leader
-       :desc "LSP execute code action" :nv "ca" #'lsp-execute-code-action))))
+    (:leader
+     :desc "LSP execute code action" :nv "ca" #'lsp-execute-code-action)))
+  (setq lsp-file-watch-ignored (add-to-list 'lsp-file-watch-ignored "[/\\\\]\\_build$")))
 
 ;; Code
 (setq
