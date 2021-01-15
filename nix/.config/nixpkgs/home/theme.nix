@@ -8,6 +8,10 @@ let
     };
   };
   cursorThemes = {
+    capitaine = {
+      package = pkgs.capitaine-cursors;
+      name = "capitaine-cursors";
+    };
     none = null;
     numix = {
       package = pkgs.numix-cursor-theme;
@@ -37,6 +41,6 @@ in {
       iconTheme = iconThemes.numix-circle;
       theme = themes.dracula;
     };
-    xsession.pointerCursor = cursorThemes.numix;
+    xsession.pointerCursor = cursorThemes.capitaine;
   };
 }
