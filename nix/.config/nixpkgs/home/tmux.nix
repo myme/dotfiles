@@ -15,6 +15,9 @@
         bind | split-window -h -c '#{pane_current_path}'
         bind - split-window -v -c '#{pane_current_path}'
 
+        # Mouse support (shift + click for selection)
+        set -g mouse on
+
         # Disable automatic window rename
         setw -g allow-rename off
         setw -g automatic-rename off
