@@ -18,6 +18,7 @@ in {
       en-computers
       nb
     ]))
+    bpytop
     fd
     jq
     mosh
