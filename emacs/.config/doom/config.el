@@ -13,6 +13,52 @@
 (set-frame-parameter (selected-frame) 'alpha 95)
 (add-to-list 'default-frame-alist '(alpha  95))
 
+
+(defun myme/doom-ascii-banner ()
+  (let* ((banner
+          '(
+            "                 ...',;;;;;;,''.."
+            "            ..,;;;;;;;;;;;;;;;;;;;;,.."
+            "          .;;;;;;;;;;;;;:c:;;;;;;;;;;;;."
+            "       .,;;;;;;;;;;;;:looK0kc;;;;;;;;;;;;,."
+            "     .,;;;;;;;;;;;;;cooooKKK0o,;;;;;;;;;;;;,."
+            "    .;;;;;;;;;;;;;;coolccldk0Ko',;;;;;;;;;;;;."
+            "   ,;;;;;;;;;;;;;;:occkKNKOd;d0:.',;;;;;;;;;;;,"
+            "  ,;;;;;;;;;;;;;;;lccWMMMNNNX,dO'..',;;;;;;;;;;,"
+            " .;;;;;;;;;;;;;;;co:xMMMMNNNNlcKl....',;;;;;;;;;."
+            " ;;;;;;;;;;;;;;;;lol:0MMMNNNk'k0O......',;;;;;;;;"
+            ";;;;;;;;;;;;;;;;ooolclxkdl:lOKKK'.......',;;;;;;."
+            ",;;;;;;;;;;;;;;;:ooooooolO00KKKK0;.........',;;;;,"
+            ";;;;;;;;;;;;;;;;dooooooooKKKKKKK0c...........',;;;"
+            ",;;;;;;;;;;;;;o0KKxoooooo0KKKK0Oool,...........',,"
+            ";;;;;;;;;;;;xKKKKKdooooOk0KKKOooooo:............."
+            " ;;;;;;;;;;;kKKKKKK0oooOKdk0KKdooooooc..........."
+            " .;;;;;;;;;dKKKKKKKKoodKKddOKKoooooooo;.........."
+            "  ,;;;;;;;;KKKKKKKKOooxKKddkKKxoooooool........."
+            "   ,;;;;;;cKKKKKKx:'..cKKddl...,:looooo'......."
+            "    .;;;;;cKKKxc'.....'KKdd:......,cloo'......"
+            "     .,;;;;xc'.........oKdo..........,c....."
+            "       .,;;;'...........xo'..............."
+            "          .;;;'........................."
+            "            ..,;'...................."
+            "                 ..............."
+            ""
+            "                    E M A C S"
+            )
+          )
+         (longest-line (apply #'max (mapcar #'length banner))))
+    (put-text-property
+     (point)
+     (dolist (line banner (point))
+       (insert (+doom-dashboard--center
+                +doom-dashboard--width
+                (concat
+                 line (make-string (max 0 (- longest-line (length line)))
+                                   32)))
+               "\n"))
+     'face 'doom-dashboard-banner)))
+
+
 (setq-default
  ;; Look-and-feel
  doom-font (font-spec :family "DejaVu Sans Mono" :size 12)
@@ -29,6 +75,7 @@
  ;; Banner
  +doom-dashboard-banner-dir (concat doom-private-dir "banners/")
  +doom-dashboard-banner-file "rocket-ship.svg"
+ +doom-dashboard-ascii-banner-fn #'myme/doom-ascii-banner
 
  ;; Workspaces
  +workspaces-main "default"
