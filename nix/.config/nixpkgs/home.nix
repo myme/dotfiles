@@ -6,6 +6,7 @@ let
 in {
   imports = [
     ./home/alacritty
+    ./home/bpytop.nix
     ./home/nixon.nix
     ./home/prezto.nix
     ./home/tmux.nix
@@ -18,7 +19,6 @@ in {
       en-computers
       nb
     ]))
-    bpytop
     fd
     jq
     mosh
