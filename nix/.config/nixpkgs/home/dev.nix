@@ -4,8 +4,6 @@ with lib;
 
 let
   cfg = config.myme.dev;
-  ghcide = (import (builtins.fetchTarball
-    "https://github.com/cachix/ghcide-nix/tarball/master") {}).ghcide-ghc884;
 
 in {
   options.myme.dev = {
@@ -28,9 +26,9 @@ in {
   config = {
     home.packages = mkMerge [
       # Haskell
-      (mkIf cfg.haskell.enable [
-        ghcide
-      ])
+      (mkIf cfg.haskell.enable (with pkgs; [
+        haskell-language-server
+      ]))
 
       # Nodejs
       (mkIf cfg.nodejs.enable (with pkgs; [
