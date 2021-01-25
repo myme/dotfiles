@@ -8,6 +8,7 @@ let
 
 in pkgs.mkShell {
   buildInputs = [
+    pkgs.cabal-install
     ghc
 
     # keep this line if you use bash
