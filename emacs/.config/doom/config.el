@@ -143,7 +143,9 @@
    (:mode mu4e-main-mode
      :desc "Update index" :nv "U" #'mu4e-update-index)
    (:mode mu4e-view-mode
-     :desc "Fill long lines" :nv "M-Q" #'mu4e-view-fill-long-lines))
+    :desc "Fill long lines" :nv "M-Q" #'mu4e-view-fill-long-lines)
+   (:mode mu4e-headers-mode
+    :desc "Rerun search" :nv "gr" #'mu4e-headers-rerun-search))
   (setq mu4e-compose-mode-hook '(org-mu4e-compose-org-mode)
         mu4e-compose-format-flowed nil
         org-mu4e-convert-to-html nil)
