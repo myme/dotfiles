@@ -4,6 +4,7 @@ with lib;
 
 let
   cfg = config.myme.dev;
+  unstable = import <unstable> {};
 
 in {
   options.myme.dev = {
@@ -26,7 +27,7 @@ in {
   config = {
     home.packages = mkMerge [
       # Haskell
-      (mkIf cfg.haskell.enable (with pkgs; [
+      (mkIf cfg.haskell.enable (with unstable; [
         haskell-language-server
       ]))
 
