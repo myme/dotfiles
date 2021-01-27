@@ -1,6 +1,7 @@
 import           Control.Monad (when)
 import           Data.List (sortOn)
 import qualified Data.List as L
+import qualified Data.Map as M
 import           Data.Maybe (fromMaybe)
 import           Data.Monoid (First(getFirst, First))
 import qualified FontAwesome as Fa
@@ -66,10 +67,11 @@ confirm msg action = do
 
 
 -- | Keybindings
-myKeys :: XConfig l -> XConfig l
-myKeys conf@XConfig { XMonad.terminal = term } = additionalKeysP conf
+myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
+myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
   -- Quit + kill
   [("M-S-q", confirm "Really quit?" $ io exitSuccess)
+  ,("M-q", spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi")
   ,("M-w", kill)
   -- Suspend/Lock
   ,("C-M1-l", submap $ mkKeymap conf
@@ -77,10 +79,25 @@ myKeys conf@XConfig { XMonad.terminal = term } = additionalKeysP conf
      ,("s", spawn "systemctl suspend")
      ])
   -- Layout
+  ,("M-<Space>", sendMessage NextLayout)
+  ,("M-S-<Space>", setLayout $ XMonad.layoutHook conf)
+  ,("M-r", refresh)
+  -- Master area
   ,("M-S-m", windows W.swapMaster)
+  ,("M-h", sendMessage Shrink)
+  ,("M-S-h", sendMessage Shrink)
+  ,("M-l", sendMessage Expand)
+  ,("M-S-l", sendMessage Expand)
+  ,("M-,", sendMessage (IncMasterN 1))
+  ,("M-.", sendMessage (IncMasterN (-1)))
+  -- Focus + Swap
+  ,("M-j", windows W.focusDown)
+  ,("M-k", windows W.focusUp)
+  ,("M-S-j", windows W.swapDown)
+  ,("M-S-k", windows W.swapUp)
   -- Terminal
   ,("M-<Return>", spawn $ term <> " -e tmux")
-  ,("M-S-<Return>", spawn $ XMonad.terminal conf)
+  ,("M-S-<Return>", spawn term)
   -- Launcher
   ,("M-d", spawn "rofi -show drun")
   ,("M-S-d", spawn "rofi -show combi -combi-modi run,drun")
@@ -98,18 +115,14 @@ myKeys conf@XConfig { XMonad.terminal = term } = additionalKeysP conf
   ,("M-n", moveTo Next NonEmptyWS)
   ,("M-c", moveTo Next EmptyWS)
   ,("M-S-c", shiftTo Next EmptyWS)
+  ] ++
   -- Workspaces navigation
-  ,("M-1", withNthWorkspace W.greedyView 0)
-  ,("M-2", withNthWorkspace W.greedyView 1)
-  ,("M-3", withNthWorkspace W.greedyView 2)
-  ,("M-4", withNthWorkspace W.greedyView 3)
-  ,("M-5", withNthWorkspace W.greedyView 4)
-  ,("M-6", withNthWorkspace W.greedyView 5)
-  ,("M-7", withNthWorkspace W.greedyView 6)
-  ,("M-8", withNthWorkspace W.greedyView 7)
-  ,("M-9", withNthWorkspace W.greedyView 8)
-  ,("M-0", withNthWorkspace W.greedyView 9)
-  ]
+  -- M-[1..9]   => Switch to workspace N
+  -- M-S-[1..9] => Move client to workspace N
+  [(m <> [k], windows $ f i)
+    | (i, k) <- zip (XMonad.workspaces conf) (['1' .. '9'] <> ['0'])
+    , (f, m) <- [(W.greedyView, "M-"), (W.shift, "M-S-")]]
+  )
 
 -- | Match against start of Query
 (=?^) :: Eq a => Query [a] -> [a] -> Query Bool
@@ -223,7 +236,7 @@ main = do
   logDir <- fromMaybe "/tmp" <$> lookupEnv "XDG_RUNTIME_DIR"
   let workspaceLog = logDir <> "/xmonad.log"
   safeSpawn "mkfifo" [workspaceLog]
-  xmonad $ myKeys $ ewmh $ docks def
+  xmonad $ ewmh $ docks def
     { borderWidth        = 2
     , handleEventHook    = handleEventHook def <+> fullscreenEventHook
     , manageHook         = myManageHook <+> manageHook def
@@ -233,5 +246,6 @@ main = do
     , focusedBorderColor = "#bd93f9"
     , layoutHook         = myLayout
     , logHook            = logWorkspaces workspaceLog
+    , keys               = myKeys
     , workspaces         = map show [1 .. 10 :: Int]
     }
