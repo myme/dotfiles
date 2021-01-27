@@ -1,8 +1,6 @@
 import           Control.Monad (when)
 import           Data.List (sortOn)
 import qualified Data.List as L
-import           Data.Map (Map)
-import qualified Data.Map as M
 import           Data.Maybe (fromMaybe)
 import           Data.Monoid (First(getFirst, First))
 import qualified FontAwesome as Fa
