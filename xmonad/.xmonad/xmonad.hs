@@ -178,12 +178,11 @@ formatLayout = fmt [A BLeft $ xdo "super+space", Ul DimGreen] . pad . layoutIcon
 
 formatWS :: String -> (String, [String]) -> String
 formatWS focused (tag, cls) =
-  let label = pad $ if null cls then tag else unwords (tag : cls)
-      key = if tag == "10" then "0" else tag
-      addClick = fmt [A BLeft (xdo $ "super+" <> key)]
-      addFocus = applyIf (tag == focused) $ fmt [Bg BgLight, Ul Purple]
-  in addClick $ addFocus label
-  where applyIf p f x | p = f x | otherwise = x
+  let key = if tag == "10" then "0" else tag
+  in addClick key $ addFocus $ pad $ unwords $ tag : cls
+  where addFocus = applyIf (tag == focused) $ fmt [Bg BgLight, Ul Purple]
+        addClick key = fmt [A BLeft (xdo $ "super+" <> key)]
+        applyIf p f x | p = f x | otherwise = x
 
 -- | Icons for current layout configuration
 layoutIcon :: String -> String
