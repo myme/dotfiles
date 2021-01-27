@@ -9,7 +9,6 @@ import           System.Exit
 import           Text.Read (readMaybe)
 import           XMonad hiding (Color)
 import           XMonad.Actions.CycleWS
-import           XMonad.Actions.DynamicWorkspaces
 import           XMonad.Actions.Navigation2D
 import           XMonad.Actions.Submap
 import           XMonad.Hooks.DynamicLog hiding (wrap)
@@ -49,9 +48,16 @@ instance Show Color where
   show Green       = "#50fa7b"
   show Purple      = "#ff79c6"
 
+data Btn = BLeft | BMiddle | BRight | BUp | BDown | BLeftDbl | BMiddleDbl | BRightDbl
+  deriving Enum
+
+btnIdx :: Btn -> Int
+btnIdx = (1+) . fromEnum
+
 data Fmt = Fg Color
          | Bg Color
          | Ul Color
+         | A Btn String
 
 confirm :: String -> X () -> X ()
 confirm msg action = do
@@ -132,9 +138,13 @@ fmt :: [Fmt] -> String -> String
 fmt []     txt = txt
 fmt (f:fs) txt = fmt fs (wrap f txt)
   where
-    wrap (Fg color) t = concat ["%{F", show color, "}", t, "%{F-}"]
-    wrap (Bg color) t = concat ["%{B", show color, "}", t, "%{B-}"]
-    wrap (Ul color) t = concat ["%{u", show color, "}", t, "%{-u}"]
+    wrap (Fg color)  t = concat ["%{F", show color, "}", t, "%{F-}"]
+    wrap (Bg color)  t = concat ["%{B", show color, "}", t, "%{B-}"]
+    wrap (Ul color)  t = concat ["%{u", show color, "}", t, "%{-u}"]
+    wrap (A btn cmd) t = concat ["%{A", show $ btnIdx btn, ":", cmd, ":}", t, "%{A}"]
+
+xdo :: String -> String
+xdo = ("xdotool key " <>)
 
 -- | Add application icons to workspace list
 logWorkspaces :: FilePath -> X ()
@@ -144,19 +154,30 @@ logWorkspaces logfile = do
   wsIcons <- mapM workspaceIcons ws
   focused <- W.tag . W.workspace . W.current . windowset <$> get
   let focusedOrNonEmpty (tag, icons) = tag == focused || not (null icons)
-      formatWS (tag, cls) =
-        let label = pad $ if null cls then tag else unwords (tag : cls)
-        in if tag == focused then fmt [Bg BgLight, Ul Purple] label else label
-      wsStr = fmt [Ul DimGreen] (pad $ layoutIcon layout) <> " " <> unwords (map formatWS $ filter focusedOrNonEmpty wsIcons)
+      workspaces = unwords $ map (formatWS focused) $ filter focusedOrNonEmpty wsIcons
+      wsStr = unwords [formatLayout layout, addScroll workspaces]
   io $ appendFile logfile (wsStr <> "\n")
   where readInt = readMaybe :: String -> Maybe Int
+        addScroll = fmt [A BUp $ xdo "super+n", A BDown $ xdo "super+p"]
+
+formatLayout :: String -> String
+formatLayout = fmt [A BLeft $ xdo "super+space", Ul DimGreen] . pad . layoutIcon
+
+formatWS :: String -> (String, [String]) -> String
+formatWS focused (tag, cls) =
+  let label = pad $ if null cls then tag else unwords (tag : cls)
+      key = if tag == "10" then "0" else tag
+      addClick = fmt [A BLeft (xdo $ "super+" <> key)]
+      addFocus = applyIf (tag == focused) $ fmt [Bg BgLight, Ul Purple]
+  in addClick $ addFocus label
+  where applyIf p f x | p = f x | otherwise = x
 
 -- | Icons for current layout configuration
 layoutIcon :: String -> String
 layoutIcon desc | "Full" `L.isInfixOf` desc = Fa.icon Fa.WindowMaximize
-               | "Grid" `L.isInfixOf` desc = Fa.icon Fa.Th
-               | "Mirror" `L.isInfixOf` desc = Fa.icon Fa.ChevronDown
-               | otherwise = Fa.icon Fa.ChevronRight
+                | "Grid" `L.isInfixOf` desc = Fa.icon Fa.Th
+                | "Mirror" `L.isInfixOf` desc = Fa.icon Fa.ChevronDown
+                | otherwise = Fa.icon Fa.ChevronRight
 
 workspaceIcons :: W.Workspace WorkspaceId l Window  -> X (String, [String])
 workspaceIcons workspace = case W.stack workspace of
