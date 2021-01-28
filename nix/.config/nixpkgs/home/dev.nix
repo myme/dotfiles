@@ -22,6 +22,11 @@ in {
     python = {
       enable = mkEnableOption "Enable Python development tools";
     };
+
+    # Haskell options
+    github = {
+      enable = mkEnableOption "Enable GitHub development tools";
+    };
   };
 
   config = {
@@ -45,6 +50,11 @@ in {
           ipython
         ]))
         python-language-server
+      ]))
+
+      # GitHub
+      (mkIf cfg.github.enable (with pkgs; [
+        gitAndTools.gh
       ]))
     ];
   };
