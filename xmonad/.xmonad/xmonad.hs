@@ -191,7 +191,8 @@ layoutIcon :: String -> String
 layoutIcon desc | "Full" `L.isInfixOf` desc = Fa.icon Fa.WindowMaximize
                 | "Grid" `L.isInfixOf` desc = Fa.icon Fa.Th
                 | "Mirror" `L.isInfixOf` desc = Fa.icon Fa.ChevronDown
-                | otherwise = Fa.icon Fa.ChevronRight
+                | "Tall" `L.isInfixOf` desc = Fa.icon Fa.ChevronRight
+                | otherwise = Fa.icon Fa.Question
 
 workspaceIcons :: W.Workspace WorkspaceId l Window  -> X (String, [String])
 workspaceIcons workspace = case W.stack workspace of
