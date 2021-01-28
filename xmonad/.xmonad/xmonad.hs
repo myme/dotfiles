@@ -90,6 +90,8 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
   ,("M-S-l", sendMessage Expand)
   ,("M-,", sendMessage (IncMasterN 1))
   ,("M-.", sendMessage (IncMasterN (-1)))
+  -- Float + Tiling
+  ,("M-t", withFocused $ windows . W.sink)
   -- Focus + Swap
   ,("M-j", windows W.focusDown)
   ,("M-k", windows W.focusUp)
