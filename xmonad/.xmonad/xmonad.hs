@@ -72,7 +72,7 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
   -- Quit + kill
   [("M-S-q", confirm "Really quit?" $ io exitSuccess)
   ,("M-q", spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi")
-  ,("M-w", kill)
+  ,("M-S-w", kill)
   -- Suspend/Lock
   ,("C-M1-l", submap $ mkKeymap conf
      [("l", spawn "loginctl lock-session")
