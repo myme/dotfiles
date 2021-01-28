@@ -2,6 +2,12 @@
 
 let
   git-sync = pkgs.callPackage ./home/git-sync {};
+  piddif = pkgs.callPackage (pkgs.fetchFromGitHub {
+    owner = "myme";
+    repo = "piddif";
+    rev = "7df2ecadec4441b97200eb02b41a62a9bdf54633";
+    sha256 = "128y7mkyp2qqj968i34yfan8bgp8364x5h7xpzb2ly3zaw41d5i1";
+  }) {};
 
 in {
   imports = [
@@ -28,6 +34,7 @@ in {
     tree
   ] ++ [
     git-sync
+    piddif
   ];
 
   # Keyboard
