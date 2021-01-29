@@ -5,8 +5,8 @@ let
   piddif = pkgs.callPackage (pkgs.fetchFromGitHub {
     owner = "myme";
     repo = "piddif";
-    rev = "7df2ecadec4441b97200eb02b41a62a9bdf54633";
-    sha256 = "128y7mkyp2qqj968i34yfan8bgp8364x5h7xpzb2ly3zaw41d5i1";
+    rev = "97d9cef8918c81fddd7db052f88d2295e832089d";
+    sha256 = "05y7hh636nr6niljg368hfwv5kc0939pmx53x78cr4hj8qsn6q85";
   }) {};
 
 in {
