@@ -12,6 +12,7 @@ import           XMonad hiding (Color)
 import           XMonad.Actions.CycleWS
 import           XMonad.Actions.Navigation2D
 import           XMonad.Actions.Submap
+import           XMonad.Actions.SwapWorkspaces (swapTo)
 import           XMonad.Hooks.DynamicLog hiding (wrap)
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.ManageDocks
@@ -115,6 +116,8 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
   -- Workspaces cycling
   ,("M-p", moveTo Prev NonEmptyWS)
   ,("M-n", moveTo Next NonEmptyWS)
+  ,("M-S-p", swapTo Prev)
+  ,("M-S-n", swapTo Next)
   ,("M-c", moveTo Next EmptyWS)
   ,("M-S-c", shiftTo Next EmptyWS)
   ] ++
