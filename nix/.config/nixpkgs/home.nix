@@ -78,6 +78,10 @@ in {
       };
     };
     info.enable = true;
+    man = {
+      enable = true;
+      generateCaches = true;
+    };
     prezto.enable = true;
     rofi = {
       enable = true;
