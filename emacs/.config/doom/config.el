@@ -104,6 +104,9 @@
  (:prefix "C-c i"
    (:desc "Insert today's date" "d" #'myme/insert-date)
    (:desc "Insert current timestamp" "t" #'myme/insert-timestamp))
+ (:prefix "g z"
+  (:desc "Skip and goto next match" :nv "s" #'evil-mc-skip-and-goto-next-match)
+  (:desc "Skip and goto prev match" :nv "S" #'evil-mc-skip-and-goto-prev-match))
  (:leader
    (:prefix "F" :desc "Frame"
      :desc "Delete frame" :nv "d" #'delete-frame
