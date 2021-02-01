@@ -102,38 +102,38 @@
 ;; Custom leader bindings
 (map!
  (:prefix "C-c i"
-   (:desc "Insert today's date" "d" #'myme/insert-date)
-   (:desc "Insert current timestamp" "t" #'myme/insert-timestamp))
+  (:desc "Insert today's date" "d" #'myme/insert-date)
+  (:desc "Insert current timestamp" "t" #'myme/insert-timestamp))
  (:prefix "g z"
   (:desc "Skip and goto next match" :nv "s" #'evil-mc-skip-and-goto-next-match)
   (:desc "Skip and goto prev match" :nv "S" #'evil-mc-skip-and-goto-prev-match))
  (:leader
-   (:prefix "F" :desc "Frame"
-     :desc "Delete frame" :nv "d" #'delete-frame
-     :desc "New frame" :nv "n" #'make-frame)
-   (:prefix "a" :desc "Apps"
-     :desc "Email" :nv "e" #'=mu4e
-     :desc "Processes" :nv "p" #'counsel-list-processes
-     (:prefix "s" :desc "Shells"
-       :desc "eshell" :nv "e" #'eshell
-       :desc "eshell" :nv "E" #'projectile-run-eshell)
-     (:after helm
-       :desc "helm-top" :nv "t" #'helm-top))
-   (:prefix "b"
-     :desc "Rename buffer" :nv "r" #'rename-buffer)
-   (:prefix "c"
-     :desc "Compile" :nv "c" #'compile
-     :desc "Compile" :nv "k" #'kill-compilation)
-   (:prefix "d"
-     :desc "Ediff buffers" :nv "b" #'ediff-buffers)
-   (:prefix "p"
-     :desc "Open dired in project" :nv "d" #'projectile-dired
-     :desc "Run async cmd in project" :nv "&" #'projectile-run-async-shell-command-in-root
-     :desc "Test project" :nv "t" #'projectile-test-project)
-   (:prefix "q"
-     :desc "Kill emacs" :nv "k" #'save-buffers-kill-emacs)
-   (:desc "theme" :prefix "T"
-     :desc "Switch theme" :nv "T" #'load-theme)))
+  (:prefix "F" :desc "Frame"
+   :desc "Delete frame" :nv "d" #'delete-frame
+   :desc "New frame" :nv "n" #'make-frame)
+  (:prefix "a" :desc "Apps"
+   :desc "Email" :nv "e" #'=mu4e
+   :desc "Processes" :nv "p" #'counsel-list-processes
+   (:prefix "s" :desc "Shells"
+    :desc "eshell" :nv "e" #'eshell
+    :desc "eshell" :nv "E" #'projectile-run-eshell)
+   (:after helm
+    :desc "helm-top" :nv "t" #'helm-top))
+  (:prefix "b"
+   :desc "Rename buffer" :nv "r" #'rename-buffer)
+  (:prefix "c"
+   :desc "Compile" :nv "c" #'compile
+   :desc "Compile" :nv "k" #'kill-compilation)
+  (:prefix "d"
+   :desc "Ediff buffers" :nv "b" #'ediff-buffers)
+  (:prefix "p"
+   :desc "Open dired in project" :nv "d" #'projectile-dired
+   :desc "Run async cmd in project" :nv "&" #'projectile-run-async-shell-command-in-root
+   :desc "Test project" :nv "t" #'projectile-test-project)
+  (:prefix "q"
+   :desc "Kill emacs" :nv "k" #'save-buffers-kill-emacs)
+  (:desc "theme" :prefix "T"
+   :desc "Switch theme" :nv "T" #'load-theme)))
 
 (after! magit
   (map!
