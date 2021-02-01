@@ -29,11 +29,13 @@
       }
     ]);
     userSettings = {
+      "extensions.ignoreRecommendations" = true;
       "files.watcherExclude" = {
         "**/node_modules/*/**" = true;
         "**/_build/*" = true;
       };
       "rust-client.disableRustup" = true;
+      "update.mode" = "none";
       "workbench.colorTheme" = "Dracula";
     };
   };
