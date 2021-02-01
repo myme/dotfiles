@@ -5,10 +5,16 @@
     enable = true;
     extensions = with pkgs.vscode-extensions; [
       ms-python.python
-      ms-vscode.cpptools
+      # ms-vscode.cpptools
       ms-vscode-remote.remote-ssh
       vscodevim.vim
     ] ++ (pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "ccls";
+        publisher = "ccls-project";
+        version = "0.1.29";
+        sha256 = "1q0cs5fnj42a5jc0zgdfsypk63zil6y3gam67rhfk2qvp021hcs6";
+      }
       {
         name = "GitLens";
         publisher = "eamodio";
