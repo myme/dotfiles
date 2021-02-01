@@ -18,6 +18,7 @@ import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Layout.Grid
 import           XMonad.Layout.NoBorders
+import           XMonad.Layout.ResizableTile
 import           XMonad.Layout.Spacing
 import qualified XMonad.StackSet as W
 import           XMonad.Util.Dmenu
@@ -85,10 +86,10 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
   ,("M-r", refresh)
   -- Master area
   ,("M-S-m", windows W.swapMaster)
-  ,("M-h", sendMessage Shrink)
   ,("M-S-h", sendMessage Shrink)
-  ,("M-l", sendMessage Expand)
   ,("M-S-l", sendMessage Expand)
+  ,("M-S-j", sendMessage MirrorShrink)
+  ,("M-S-k", sendMessage MirrorExpand)
   ,("M-,", sendMessage (IncMasterN 1))
   ,("M-.", sendMessage (IncMasterN (-1)))
   -- Float + Tiling
@@ -96,20 +97,20 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
   -- Focus + Swap
   ,("M-j", windows W.focusDown)
   ,("M-k", windows W.focusUp)
-  ,("M-S-j", windows W.swapDown)
-  ,("M-S-k", windows W.swapUp)
+  ,("M-S-f", windows W.swapDown)
+  ,("M-S-b", windows W.swapUp)
   -- Terminal
   ,("M-<Return>", spawn $ term <> " -e tmux")
   ,("M-S-<Return>", spawn term)
   -- Launcher
   ,("M-d", spawn "rofi -show drun")
   ,("M-S-d", spawn "rofi -show combi -combi-modi run,drun")
-  ,("M-S-s", spawn "rofi -show ssh")
+  ,("M-s", spawn "rofi -show ssh")
   ,("M-<Tab>", spawn "rofi -show window")
   ,("M-x", spawn "nixon project")
   ,("M-S-x", spawn "nixon run")
   -- Struts...
-  ,("M-S-b", sendMessage $ ToggleStrut D)
+  ,("M-S-s", sendMessage $ ToggleStrut D)
     -- Screenshots
   ,("<Print>", spawn "flameshot full -c")
   ,("S-<Print>", spawn "flameshot gui")
@@ -233,8 +234,9 @@ appIcon = runQuery $ fromMaybe Fa.WindowMaximize . getFirst <$> composeAll
 
 myLayout = smartBorders
          $ avoidStruts
-         $ spacingRaw True (Border 0 0 0 0) True (Border 5 5 5 5) True baseLayouts
-  where baseLayouts = layoutHook def ||| Grid
+         $ spacingRaw True (Border 0 0 0 0) True (Border 5 5 5 5) True
+         $ rzTiled ||| Mirror rzTiled ||| Full ||| Grid
+  where rzTiled = ResizableTall 1 (3/100) (1/2) []
 
 main :: IO ()
 main = do
