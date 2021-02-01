@@ -8,6 +8,11 @@ let
 
 in {
   options.myme.dev = {
+    # C/C++ options
+    cpp = {
+      enable = mkEnableOption "Enable C/C++ development tools";
+    };
+
     # Haskell options
     haskell = {
       enable = mkEnableOption "Enable Haskell development tools";
@@ -31,6 +36,11 @@ in {
 
   config = {
     home.packages = mkMerge [
+      # C/C++
+      (mkIf cfg.cpp.enable (with pkgs; [
+        ccls
+      ]))
+
       # Haskell
       (mkIf cfg.haskell.enable (with unstable; [
         haskell-language-server
