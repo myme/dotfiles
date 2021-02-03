@@ -193,7 +193,8 @@
    (:mode lsp-mode
     (:leader
      :desc "LSP execute code action" :nv "ca" #'lsp-execute-code-action)))
-  (setq lsp-file-watch-ignored (add-to-list 'lsp-file-watch-ignored "[/\\\\]\\_build$")))
+  (setq lsp-file-watch-ignored-directories (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\_build$"))
+  (setq lsp-clients-python-command "python-language-server"))
 
 ;; Code
 (setq
