@@ -106,11 +106,12 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
   ,("M-d", spawn "rofi -show drun")
   ,("M-S-d", spawn "rofi -show combi -combi-modi run,drun")
   ,("M-s", spawn "rofi -show ssh")
+  ,("M-S-s", spawn "rofi -show ssh -ssh-command '{terminal} -e mosh {host}'")
   ,("M-<Tab>", spawn "rofi -show window")
   ,("M-x", spawn "nixon project")
   ,("M-S-x", spawn "nixon run")
   -- Struts...
-  ,("M-S-s", sendMessage $ ToggleStrut D)
+  ,("M-b", sendMessage $ ToggleStrut D)
     -- Screenshots
   ,("<Print>", spawn "flameshot full -c")
   ,("S-<Print>", spawn "flameshot gui")
