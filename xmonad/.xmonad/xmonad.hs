@@ -110,6 +110,7 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
   ,("M-<Tab>", spawn "rofi -show window")
   ,("M-x", spawn "nixon project")
   ,("M-S-x", spawn "nixon run")
+  ,("M-e", spawn "rofimoji")
   -- Struts...
   ,("M-b", sendMessage $ ToggleStrut D)
     -- Screenshots
