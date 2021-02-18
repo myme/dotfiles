@@ -70,7 +70,12 @@ in {
 
     bat.enable = true;
     direnv = import ./home/direnv.nix;
-    emacs.enable = true;
+    emacs = {
+      enable = true;
+      extraPackages = epkgs: with epkgs; [
+        vterm
+      ];
+    };
     firefox.enable = true;
     fzf.enable = true;
     git = import ./home/git.nix;
