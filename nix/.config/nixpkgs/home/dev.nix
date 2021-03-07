@@ -28,7 +28,7 @@ in {
       enable = mkEnableOption "Enable Python development tools";
     };
 
-    # Haskell options
+    # GitHub options
     github = {
       enable = mkEnableOption "Enable GitHub development tools";
     };
