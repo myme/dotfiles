@@ -123,6 +123,10 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
   ,("M-S-n", swapTo Next)
   ,("M-c", moveTo Next EmptyWS)
   ,("M-S-c", shiftTo Next EmptyWS)
+  -- Audio controls
+  ,("<XF86AudioRaiseVolume>", spawn "amixer set Master 1%+")
+  ,("<XF86AudioLowerVolume>", spawn "amixer set Master 1%-")
+  ,("<XF86AudioMute>", spawn "amixer set Master toggle")
   ] ++
   -- Workspaces navigation
   -- M-[1..9]   => Switch to workspace N
