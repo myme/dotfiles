@@ -34,6 +34,8 @@ in {
     pcmanfm
     ripgrep
     tree
+    unzip
+    zip
   ] ++ (with unstable; [
     rofimoji
   ]) ++ [
