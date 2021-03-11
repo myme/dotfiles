@@ -99,6 +99,11 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
   ,("M-k", windows W.focusUp)
   ,("M-S-f", windows W.swapDown)
   ,("M-S-b", windows W.swapUp)
+  -- Spaces
+  ,("M-=", incWindowSpacing 5)
+  ,("M--", decWindowSpacing 5)
+  ,("M-S-=", incScreenSpacing 5)
+  ,("M-S--", decScreenSpacing 5)
   -- Terminal
   ,("M-<Return>", spawn $ term <> " -e tmux")
   ,("M-S-<Return>", spawn term)
