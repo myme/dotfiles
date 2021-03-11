@@ -103,11 +103,11 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
   ,("M-<Return>", spawn $ term <> " -e tmux")
   ,("M-S-<Return>", spawn term)
   -- Launcher
-  ,("M-d", spawn "rofi -show drun")
+  ,("M-d", spawn "rofi -show drun -show-icons")
   ,("M-S-d", spawn "rofi -show combi -combi-modi run,drun")
   ,("M-s", spawn "rofi -show ssh")
   ,("M-S-s", spawn "rofi -show ssh -ssh-command '{terminal} -e mosh {host}'")
-  ,("M-<Tab>", spawn "rofi -show window")
+  ,("M-<Tab>", spawn "rofi -show window -show-icons")
   ,("M-x", spawn "nixon project")
   ,("M-S-x", spawn "nixon run")
   ,("M-e", spawn "rofimoji")
