@@ -8,8 +8,8 @@ let
   nixon = pkgs.callPackage (pkgs.fetchFromGitHub {
     owner = "myme";
     repo = "nixon";
-    rev = "c325e1628ae3e24ac86e07c546bafe6b4e98894d";
-    sha256 = "02xl54pxizfivic62f6yi8g42is24b5bzfsrmyx3xid51467czn3";
+    rev = "9f287ff48e761917a070b06f347f3ba552e1b042";
+    sha256 = "0xj93jlfmfjpwvsgibw71a3ispcfcwxh4wfj7g98hh3agxynqbi0";
   }) {};
 
 in {
@@ -71,12 +71,7 @@ in {
 
       # Nixon (px: project execute)
       px () {
-          nixon project . "$@"
-      }
-
-      # Nixon (x: execute)
-      x () {
-          nixon run . "$@"
+          nixon project "$@"
       }
 
       source ${cfg.package}/share/nixon/nixon-widget.bash
@@ -99,12 +94,7 @@ in {
 
       # Nixon (px: project execute)
       px () {
-          nixon project . "$@"
-      }
-
-      # Nixon (x: execute)
-      x () {
-          nixon run . "$@"
+          nixon project "$@"
       }
 
       source ${cfg.package}/share/zsh/site-functions/_nixon_widget
