@@ -32,6 +32,11 @@ in {
     github = {
       enable = mkEnableOption "Enable GitHub development tools";
     };
+
+    # Rust options
+    rust = {
+      enable = mkEnableOption "Enable Rust development tools";
+    };
   };
 
   config = {
@@ -65,6 +70,11 @@ in {
       # GitHub
       (mkIf cfg.github.enable (with pkgs; [
         gitAndTools.gh
+      ]))
+
+      # Rust
+      (mkIf cfg.rust.enable (with pkgs; [
+        rust-analyzer
       ]))
     ];
   };
