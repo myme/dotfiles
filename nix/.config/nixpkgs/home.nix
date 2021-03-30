@@ -17,6 +17,7 @@ in {
     ./home/bpytop.nix
     ./home/nixon.nix
     ./home/prezto.nix
+    ./home/spotify.nix
     ./home/tmux.nix
     ./home/vim.nix
   ];
