@@ -70,7 +70,10 @@ in {
     };
 
     bat.enable = true;
-    direnv = import ./home/direnv.nix;
+    direnv = {
+      enable = true;
+      enableNixDirenvIntegration = true;
+    };
     emacs = {
       enable = true;
       extraPackages = epkgs: with epkgs; [
