@@ -13,6 +13,7 @@ let
 
 in {
   imports = [
+    ./home/alacritty
     ./home/bpytop.nix
     ./home/nixon.nix
     ./home/prezto.nix
@@ -49,9 +50,10 @@ in {
   };
 
   myme.alacritty = {
+    enable = false;
     background_opacity = 0.95;
     font_size = 6.0;
-    # theme = "nord";
+    theme = "dracula";
   };
 
   programs = {

@@ -9,6 +9,7 @@ let
 
 in {
   options.myme.alacritty = {
+    enable = mkEnableOption "Enable Alacritty";
     background_opacity = mkOption {
       type = types.float;
       default = 0.95;
@@ -32,7 +33,7 @@ in {
     ];
 
     programs.alacritty = {
-      enable = true;
+      enable = cfg.enable;
       settings = {
         background_opacity = cfg.background_opacity;
         env = {
