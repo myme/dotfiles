@@ -31,7 +31,6 @@ in {
     jq
     mosh
     ncdu
-    pcmanfm
     ripgrep
     tree
     unzip
