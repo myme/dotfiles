@@ -5,11 +5,10 @@ with lib;
 let
   cfg = config.programs.nixon;
 
-  nixon = pkgs.callPackage (pkgs.fetchFromGitHub {
+  nixon = import (pkgs.fetchFromGitHub {
     owner = "myme";
     repo = "nixon";
-    rev = "e0c5fa2fdf41349f8ef20d46c318a3c3a5b99c55";
-    sha256 = "0kbnc1nzxjv58ndq0w652w9lghfpsphzr2qhf26xrbz398rx1n5g";
+    rev = "ff3637f1f9a8b71048b631818521fb8f11014b29";
   }) {};
 
 in {
