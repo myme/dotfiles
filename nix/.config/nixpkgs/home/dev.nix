@@ -8,6 +8,11 @@ let
 
 in {
   options.myme.dev = {
+    # Documentation (Man, info, ++)
+    docs = {
+      enable = mkEnableOption "Enable documentation (man, info, ++)";
+    };
+
     # C/C++ options
     cpp = {
       enable = mkEnableOption "Enable C/C++ development tools";
@@ -40,7 +45,19 @@ in {
   };
 
   config = {
+    programs = {
+      info.enable = cfg.docs.enable;
+      man = {
+        enable = cfg.docs.enable;
+        generateCaches = true;
+      };
+    };
     home.packages = mkMerge [
+      # Docs
+      (mkIf cfg.docs.enable (with pkgs; [
+        posix_man_pages
+      ]))
+
       # C/C++
       (mkIf cfg.cpp.enable (with pkgs; [
         ccls

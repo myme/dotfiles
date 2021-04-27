@@ -91,11 +91,6 @@ in {
         right = [ "RightCPUs2" "Tasks" "LoadAverage" "Uptime" ];
       };
     };
-    info.enable = true;
-    man = {
-      enable = true;
-      generateCaches = true;
-    };
     prezto.enable = true;
     rofi = {
       enable = true;
