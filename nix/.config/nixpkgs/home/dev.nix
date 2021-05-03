@@ -55,6 +55,7 @@ in {
     home.packages = mkMerge [
       # Docs
       (mkIf cfg.docs.enable (with pkgs; [
+        man-pages
         posix_man_pages
       ]))
 
