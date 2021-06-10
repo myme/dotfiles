@@ -19,7 +19,11 @@ import           XMonad.Hooks.ManageDocks
 import           XMonad.Layout.Grid
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.ResizableTile
+import           XMonad.Layout.Simplest
 import           XMonad.Layout.Spacing
+import           XMonad.Layout.SubLayouts
+import           XMonad.Layout.Tabbed
+import           XMonad.Layout.WindowNavigation
 import qualified XMonad.StackSet as W
 import           XMonad.Util.Dmenu
 import           XMonad.Util.EZConfig (mkKeymap, additionalKeysP)
@@ -27,6 +31,8 @@ import           XMonad.Util.Run
 
 data Color = BgDark
            | BgLight
+           | FgDark
+           | FgLight
            | BrightGreen
            | DimGreen
            | DimBlue
@@ -41,6 +47,8 @@ data Color = BgDark
 instance Show Color where
   show BgDark      = "#282a36"
   show BgLight     = "#3b4252"
+  show FgDark      = "#e5e9f0"
+  show FgLight     = "#f8f8f2"
   show BrightGreen = "#5af78e"
   show DimGreen    = "#1ef956"
   show DimBlue     = "#4d5b86"
@@ -128,6 +136,14 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
   ,("M-S-n", swapTo Next)
   ,("M-c", moveTo Next EmptyWS)
   ,("M-S-c", shiftTo Next EmptyWS)
+  -- Sublayouts
+  , ("M-C-h", sendMessage $ pushGroup L)
+  , ("M-C-l", sendMessage $ pushGroup R)
+  , ("M-C-k", sendMessage $ pushGroup U)
+  , ("M-C-j", sendMessage $ pushGroup D)
+  , ("M-C-m", withFocused (sendMessage . MergeAll))
+  , ("M-C-u", withFocused (sendMessage . UnMerge))
+  , ("M-C-/", withFocused (sendMessage . UnMergeAll))
   -- Audio controls
   ,("<XF86AudioRaiseVolume>", spawn "amixer set Master 1%+")
   ,("<XF86AudioLowerVolume>", spawn "amixer set Master 1%-")
@@ -244,11 +260,32 @@ appIcon = runQuery $ fromMaybe Fa.WindowMaximize . getFirst <$> composeAll
     (~~>) q i = q --> pure (First $ Just i)
     infix 0 ~~>
 
+
+
 myLayout = smartBorders
          $ avoidStruts
-         $ spacingRaw True (Border 0 0 0 0) True (Border 5 5 5 5) True
-         $ rzTiled ||| Mirror rzTiled ||| Full ||| Grid
-  where rzTiled = ResizableTall 1 (3/100) (1/2) []
+         $ rzTiled ||| Mirror rzTiled ||| full ||| grid
+  where rzTiled = configurableNavigation noNavigateBorders
+                $ addTabs shrinkText tabTheme
+                $ subLayout [] Simplest
+                $ spacingRaw True (Border 0 0 0 0) True (Border 5 5 5 5) True
+                $ ResizableTall 1 (3/100) (1/2) []
+        full = spacingRaw True (Border 0 0 0 0) True (Border 5 5 5 5) True
+               Full
+        grid = addTabs shrinkText tabTheme
+             $ subLayout [] Simplest
+             $ spacingRaw True (Border 0 0 0 0) True (Border 5 5 5 5) True
+               Grid
+        tabTheme = def
+                 { fontName            = "xft:Dejavu Sans Mono for Powerline:regular:size=9:antialias=true:hinting=true"
+                 , activeColor         = show Blue
+                 , inactiveColor       = show BgDark
+                 , activeBorderColor   = show BgDark
+                 , inactiveBorderColor = show BgDark
+                 , activeTextColor     = show BgDark
+                 , inactiveTextColor   = show FgDark
+                 }
+
 
 main :: IO ()
 main = do
@@ -261,8 +298,8 @@ main = do
     , manageHook         = myManageHook <+> manageHook def
     , modMask            = mod4Mask
     , terminal           = "alacritty"
-    , normalBorderColor  = "#4c566a"
-    , focusedBorderColor = "#bd93f9"
+    , normalBorderColor  = show BgLight
+    , focusedBorderColor = show Blue
     , layoutHook         = myLayout
     , logHook            = logWorkspaces workspaceLog
     , keys               = myKeys
