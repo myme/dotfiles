@@ -24,6 +24,7 @@ import           XMonad.Layout.Simplest
 import           XMonad.Layout.Spacing
 import           XMonad.Layout.SubLayouts
 import           XMonad.Layout.Tabbed
+import qualified XMonad.Layout.ThreeColumns as Three
 import           XMonad.Layout.WindowNavigation
 import qualified XMonad.StackSet as W
 import           XMonad.Util.Dmenu
@@ -75,7 +76,6 @@ confirm :: String -> X () -> X ()
 confirm msg action = do
   response <- menuArgs "rofi" ["-dmenu", "-p", msg] ["No", "Yes"]
   when ("Yes" `L.isPrefixOf` response) action
-
 
 -- | Keybindings
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
@@ -225,6 +225,7 @@ formatWS focused (tag, cls) =
 -- | Icons for current layout configuration
 layoutIcon :: String -> String
 layoutIcon desc | "Full" `L.isInfixOf` desc = Fa.icon Fa.WindowMaximize
+                | "Three" `L.isInfixOf` desc = Fa.icon Fa.Columns
                 | "Grid" `L.isInfixOf` desc = Fa.icon Fa.Th
                 | "Mirror" `L.isInfixOf` desc = Fa.icon Fa.ChevronDown
                 | "Tall" `L.isInfixOf` desc = Fa.icon Fa.ChevronRight
@@ -265,25 +266,33 @@ appIcon = runQuery $ fromMaybe Fa.WindowMaximize . getFirst <$> composeAll
     (~~>) q i = q --> pure (First $ Just i)
     infix 0 ~~>
 
-
-
 myLayout = BW.boringWindows
-         $ smartBorders
-         $ avoidStruts
-         $ rzTiled ||| Mirror rzTiled ||| full ||| grid
-  where rzTiled = configurableNavigation noNavigateBorders
+         $ rzTiled ||| three ||| full ||| grid
+  where rzTiled = smartBorders
+                $ avoidStruts
+                $ configurableNavigation noNavigateBorders
                 $ addTabs shrinkText tabTheme
                 $ subLayout [] Simplest
-                $ spacingRaw True (Border 0 0 0 0) True (Border 5 5 5 5) True
+                $ spacingRaw True (Border 20 20 20 20) True (Border 20 20 20 20) True
                 $ ResizableTall 1 (3/100) (1/2) []
-        full = spacingRaw True (Border 0 0 0 0) True (Border 5 5 5 5) True
+        three = smartBorders
+              $ avoidStruts
+              $ configurableNavigation noNavigateBorders
+              $ addTabs shrinkText tabTheme
+              $ subLayout [] Simplest
+              $ spacingRaw True (Border 20 20 20 20) True (Border 20 20 20 20) True
+              $ Three.ThreeCol 1 (3/100) (1/3)
+        full = noBorders
+             $ avoidStruts
                Full
-        grid = addTabs shrinkText tabTheme
+        grid = smartBorders
+             $ avoidStruts
+             $ addTabs shrinkText tabTheme
              $ subLayout [] Simplest
              $ spacingRaw True (Border 0 0 0 0) True (Border 5 5 5 5) True
                Grid
         tabTheme = def
-                 { fontName            = "xft:Dejavu Sans Mono for Powerline:regular:size=9:antialias=true:hinting=true"
+                 { fontName            = "xft:Dejavu Sans Mono for Powerline:regular:size=12:antialias=true:hinting=true"
                  , activeColor         = show Blue
                  , inactiveColor       = show BgDark
                  , activeBorderColor   = show BgDark
@@ -291,7 +300,6 @@ myLayout = BW.boringWindows
                  , activeTextColor     = show BgDark
                  , inactiveTextColor   = show FgDark
                  }
-
 
 main :: IO ()
 main = do
