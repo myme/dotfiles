@@ -267,20 +267,20 @@ appIcon = runQuery $ fromMaybe Fa.WindowMaximize . getFirst <$> composeAll
     infix 0 ~~>
 
 myLayout = BW.boringWindows
-         $ rzTiled ||| three ||| full ||| grid
-  where rzTiled = smartBorders
-                $ avoidStruts
-                $ configurableNavigation noNavigateBorders
-                $ addTabs shrinkText tabTheme
-                $ subLayout [] Simplest
-                $ spacingRaw True (Border 20 20 20 20) True (Border 20 20 20 20) True
-                $ ResizableTall 1 (3/100) (1/2) []
+         $ tall ||| three ||| full ||| grid
+  where tall = smartBorders
+             $ avoidStruts
+             $ configurableNavigation noNavigateBorders
+             $ addTabs shrinkText tabTheme
+             $ subLayout [] Simplest
+             $ spacingRaw False (Border 20 20 20 20) True (Border 20 20 20 20) True
+             $ ResizableTall 1 (3/100) (1/2) []
         three = smartBorders
               $ avoidStruts
               $ configurableNavigation noNavigateBorders
               $ addTabs shrinkText tabTheme
               $ subLayout [] Simplest
-              $ spacingRaw True (Border 20 20 20 20) True (Border 20 20 20 20) True
+              $ spacingRaw False (Border 20 20 20 20) True (Border 20 20 20 20) True
               $ Three.ThreeCol 1 (3/100) (1/3)
         full = noBorders
              $ avoidStruts
