@@ -16,6 +16,7 @@ import           XMonad.Actions.SwapWorkspaces (swapTo)
 import           XMonad.Hooks.DynamicLog hiding (wrap)
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.ManageDocks
+import qualified XMonad.Layout.BoringWindows as BW
 import           XMonad.Layout.Grid
 import           XMonad.Layout.NoBorders
 import           XMonad.Layout.ResizableTile
@@ -103,8 +104,9 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
   -- Float + Tiling
   ,("M-t", withFocused $ windows . W.sink)
   -- Focus + Swap
-  ,("M-j", windows W.focusDown)
-  ,("M-k", windows W.focusUp)
+  ,("M-m", windows W.focusMaster)
+  ,("M-j", BW.focusDown)
+  ,("M-k", BW.focusUp)
   ,("M-S-f", windows W.swapDown)
   ,("M-S-b", windows W.swapUp)
   -- Spaces
@@ -141,6 +143,8 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
   , ("M-C-l", sendMessage $ pushGroup R)
   , ("M-C-k", sendMessage $ pushGroup U)
   , ("M-C-j", sendMessage $ pushGroup D)
+  , ("M-C-,", onGroup W.focusUp')
+  , ("M-C-.", onGroup W.focusDown')
   , ("M-C-m", withFocused (sendMessage . MergeAll))
   , ("M-C-u", withFocused (sendMessage . UnMerge))
   , ("M-C-/", withFocused (sendMessage . UnMergeAll))
@@ -168,7 +172,8 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
 -- | To float or not to float
 myManageHook :: ManageHook
 myManageHook = composeAll
-  [ className =?  "Barrier"          --> doFloat
+  [ doF W.swapDown -- Insert new windows *after* the focused window
+  , className =?  "Barrier"          --> doFloat
   , className =?^ "Gimp"             --> doFloat
   , className =?  "Gnome-calculator" --> doFloat
   , className =?^ "davmail"          --> doFloat
@@ -262,7 +267,8 @@ appIcon = runQuery $ fromMaybe Fa.WindowMaximize . getFirst <$> composeAll
 
 
 
-myLayout = smartBorders
+myLayout = BW.boringWindows
+         $ smartBorders
          $ avoidStruts
          $ rzTiled ||| Mirror rzTiled ||| full ||| grid
   where rzTiled = configurableNavigation noNavigateBorders
