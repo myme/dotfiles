@@ -191,7 +191,7 @@ fmt (f:fs) txt = fmt fs (wrap f txt)
   where
     wrap (Fg color)  t = concat ["%{F", show color, "}", t, "%{F-}"]
     wrap (Bg color)  t = concat ["%{B", show color, "}", t, "%{B-}"]
-    wrap (Ul color)  t = concat ["%{u", show color, "}", t, "%{-u}"]
+    wrap (Ul color)  t = concat ["%{u", show color, "}%{+u}", t, "%{-u}"]
     wrap (A btn cmd) t = concat ["%{A", show $ btnIdx btn, ":", cmd, ":}", t, "%{A}"]
 
 xdo :: String -> String
