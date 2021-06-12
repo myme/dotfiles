@@ -100,7 +100,7 @@ in {
       enable = true;
       settings.time = {
         disabled = false;
-        format = "%T";
+        format = "[$time]($style) ";
       };
     };
     zsh.enable = true;
