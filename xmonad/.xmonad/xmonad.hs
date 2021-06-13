@@ -28,7 +28,8 @@ import qualified XMonad.Layout.ThreeColumns as Three
 import           XMonad.Layout.WindowNavigation
 import qualified XMonad.StackSet as W
 import           XMonad.Util.Dmenu
-import           XMonad.Util.EZConfig (mkKeymap, additionalKeysP)
+import           XMonad.Util.EZConfig (mkKeymap, additionalKeysP, mkNamedKeymap)
+import           XMonad.Util.NamedActions (noName, addName, submapName, NamedAction, addDescrKeys', xMessage)
 import           XMonad.Util.Run
 
 data Color = BgDark
@@ -78,87 +79,88 @@ confirm msg action = do
   when ("Yes" `L.isPrefixOf` response) action
 
 -- | Keybindings
-myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-myKeys conf@XConfig { XMonad.terminal = term } = mkKeymap conf (
+myKeys :: XConfig Layout -> [((KeyMask, KeySym), NamedAction)]
+myKeys conf@XConfig { XMonad.terminal = term } = mkNamedKeymap conf (
   -- Quit + kill
-  [("M-S-q", confirm "Really quit?" $ io exitSuccess)
-  ,("M-q", spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi")
-  ,("M-S-w", kill)
+  [("M-S-q", addName "Quit XMonad" $ confirm "Really quit?" $ io exitSuccess)
+  ,("M-q",   addName "Reload XMonad" $ spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi")
+  ,("M-S-w", addName "Close window" kill)
   -- Suspend/Lock
-  ,("C-M1-l", submap $ mkKeymap conf
-     [("l", spawn "loginctl lock-session")
-     ,("s", spawn "systemctl suspend")
+  ,("C-M1-l", submapName $ mkNamedKeymap conf
+     [("l", addName "Lock session" $ spawn "loginctl lock-session")
+     ,("s", addName "Suspend" $ spawn "systemctl suspend")
      ])
   -- Layout
-  ,("M-<Space>", sendMessage NextLayout)
-  ,("M-S-<Space>", setLayout $ XMonad.layoutHook conf)
-  ,("M-r", refresh)
+  ,("M-<Space>",   addName "Next layout" $ sendMessage NextLayout)
+  ,("M-S-<Space>", addName "Reset layout" $ setLayout $ XMonad.layoutHook conf)
+  ,("M-r",         addName "Refresh XMonad layout" refresh)
   -- Master area
-  ,("M-S-m", windows W.swapMaster)
-  ,("M-S-h", sendMessage Shrink)
-  ,("M-S-l", sendMessage Expand)
-  ,("M-S-j", sendMessage MirrorShrink)
-  ,("M-S-k", sendMessage MirrorExpand)
-  ,("M-,", sendMessage (IncMasterN 1))
-  ,("M-.", sendMessage (IncMasterN (-1)))
+  ,("M-S-m", addName "Swap master"  $ windows W.swapMaster)
+  ,("M-S-h", addName "Resize left"  $ sendMessage Shrink)
+  ,("M-S-l", addName "Resize right" $ sendMessage Expand)
+  ,("M-S-j", addName "Resize up"    $ sendMessage MirrorShrink)
+  ,("M-S-k", addName "Resize down"  $ sendMessage MirrorExpand)
+  ,("M-,",   addName "Increase master windows" $ sendMessage (IncMasterN 1))
+  ,("M-.",   addName "Decrease master windows" $ sendMessage (IncMasterN (-1)))
   -- Float + Tiling
-  ,("M-t", withFocused $ windows . W.sink)
+  ,("M-t", addName "Make focused window tiling" $ withFocused $ windows . W.sink)
   -- Focus + Swap
-  ,("M-m", windows W.focusMaster)
-  ,("M-j", BW.focusDown)
-  ,("M-k", BW.focusUp)
-  ,("M-S-f", windows W.swapDown)
-  ,("M-S-b", windows W.swapUp)
+  ,("M-m",   addName "Focus master window" $ windows W.focusMaster)
+  ,("M-j",   addName "Focus next window" BW.focusDown)
+  ,("M-k",   addName "Focus previous window" BW.focusUp)
+  ,("M-S-f", addName "Swap focused with next" $ windows W.swapDown)
+  ,("M-S-b", addName "Swap focused with previous" $ windows W.swapUp)
   -- Spaces
-  ,("M-=", incWindowSpacing 5)
-  ,("M--", decWindowSpacing 5)
-  ,("M-S-=", incScreenSpacing 5)
-  ,("M-S--", decScreenSpacing 5)
+  ,("M-=",   addName "Increase window spacing" $ incWindowSpacing 5)
+  ,("M--",   addName "Decrease window spacing" $ decWindowSpacing 5)
+  ,("M-S-=", addName "Increase screen spacing" $ incScreenSpacing 5)
+  ,("M-S--", addName "Decrease screen spacing" $ decScreenSpacing 5)
+  ,("M-w",   addName "Toggle smart spacing" toggleSmartSpacing)
   -- Terminal
-  ,("M-<Return>", spawn $ term <> " -e tmux")
-  ,("M-S-<Return>", spawn term)
+  ,("M-<Return>", addName "Spawn tmux terminal" $ spawn $ term <> " -e tmux")
+  ,("M-S-<Return>", addName "Spawn terminal" $ spawn term)
   -- Launcher
-  ,("M-d", spawn "rofi -show drun -show-icons")
-  ,("M-S-d", spawn "rofi -show combi -combi-modi run,drun")
-  ,("M-s", spawn "rofi -show ssh")
-  ,("M-S-s", spawn "rofi -show ssh -ssh-command '{terminal} -e mosh {host}'")
-  ,("M-<Tab>", spawn "rofi -show window -show-icons")
-  ,("M-x", spawn "nixon project")
-  ,("M-S-x", spawn "nixon run")
-  ,("M-e", spawn "rofimoji")
+  ,("M-d",     addName "Launch application" $ spawn "rofi -show drun -show-icons")
+  ,("M-S-d",   addName "Launch command" $ spawn "rofi -show combi -combi-modi run,drun")
+  ,("M-s",     addName "Launch SSH to host" $ spawn "rofi -show ssh")
+  ,("M-S-s",   addName "Launch mosh to host" $ spawn "rofi -show ssh -ssh-command '{terminal} -e mosh {host}'")
+  ,("M-<Tab>", addName "Select window" $ spawn "rofi -show window -show-icons")
+  ,("M-x",     addName "Nixon project command" $ spawn "nixon project")
+  ,("M-S-x",   addName "Nixon command" $ spawn "nixon run")
+  ,("M-e",     addName "Rofimoji (Emoji picker)" $ spawn "rofimoji")
   -- Struts...
-  ,("M-b", sendMessage $ ToggleStrut D)
+  ,("M-b", addName "Toggle struts (statusbar)" $ sendMessage $ ToggleStrut D)
     -- Screenshots
-  ,("<Print>", spawn "flameshot full -c")
-  ,("S-<Print>", spawn "flameshot gui")
+  ,("<Print>",   addName "Capture screenshot" $ spawn "flameshot full -c")
+  ,("S-<Print>", addName "Launch screenshot app" $ spawn "flameshot gui")
   -- Workspaces cycling
-  ,("M-p", moveTo Prev NonEmptyWS)
-  ,("M-n", moveTo Next NonEmptyWS)
-  ,("M-S-p", swapTo Prev)
-  ,("M-S-n", swapTo Next)
-  ,("M-c", moveTo Next EmptyWS)
-  ,("M-S-c", shiftTo Next EmptyWS)
+  ,("M-p",   addName "Move to next workspace" $ moveTo Prev NonEmptyWS)
+  ,("M-n",   addName "Move to previous workspace" $ moveTo Next NonEmptyWS)
+  ,("M-S-p", addName "Swap workspace with next" $ swapTo Prev)
+  ,("M-S-n", addName "Swap workspace with previous" $ swapTo Next)
+  ,("M-c",   addName "Select first empty workspace" $ moveTo Next EmptyWS)
+  ,("M-S-c", addName "Move window to next empty workspace" $ shiftTo Next EmptyWS)
   -- Sublayouts
-  , ("M-C-h", sendMessage $ pushGroup L)
-  , ("M-C-l", sendMessage $ pushGroup R)
-  , ("M-C-k", sendMessage $ pushGroup U)
-  , ("M-C-j", sendMessage $ pushGroup D)
-  , ("M-C-,", onGroup W.focusUp')
-  , ("M-C-.", onGroup W.focusDown')
-  , ("M-C-m", withFocused (sendMessage . MergeAll))
-  , ("M-C-u", withFocused (sendMessage . UnMerge))
-  , ("M-C-/", withFocused (sendMessage . UnMergeAll))
+  , ("M-C-h", addName "Tab group windows left" $ sendMessage $ pushGroup L)
+  , ("M-C-l", addName "Tab group windows right" $ sendMessage $ pushGroup R)
+  , ("M-C-k", addName "Tab group windows up" $ sendMessage $ pushGroup U)
+  , ("M-C-j", addName "Tab group windows down" $ sendMessage $ pushGroup D)
+  , ("M-C-,", addName "Focus previous tab" $ onGroup W.focusUp')
+  , ("M-C-.", addName "Focus next tab" $ onGroup W.focusDown')
+  , ("M-C-m", addName "Tab group all" $ withFocused (sendMessage . MergeAll))
+  , ("M-C-u", addName "Tab ungroup window" $ withFocused (sendMessage . UnMerge))
+  , ("M-C-/", addName "Tab ungroup all" $ withFocused (sendMessage . UnMergeAll))
   -- Audio controls
-  ,("<XF86AudioRaiseVolume>", spawn "amixer set Master 1%+")
-  ,("<XF86AudioLowerVolume>", spawn "amixer set Master 1%-")
-  ,("<XF86AudioMute>", spawn "amixer set Master toggle")
+  ,("<XF86AudioRaiseVolume>", addName "Audio volume up" $ spawn "amixer set Master 1%+")
+  ,("<XF86AudioLowerVolume>", addName "Audio volume down" $ spawn "amixer set Master 1%-")
+  ,("<XF86AudioMute>", addName "Audio volume mute" $ spawn "amixer set Master toggle")
   ] ++
   -- Workspaces navigation
   -- M-[1..9]   => Switch to workspace N
   -- M-S-[1..9] => Move client to workspace N
-  [(m <> [k], windows $ f i)
+  [(m <> [k], addName (d " " <> [k]) $ windows $ f i)
     | (i, k) <- zip (XMonad.workspaces conf) (['1' .. '9'] <> ['0'])
-    , (f, m) <- [(W.greedyView, "M-"), (W.shift, "M-S-")]]
+    , (d, f, m) <- [(("Switch to workspace" <>), W.greedyView, "M-"), (("Move to workspace" <>), W.shift, "M-S-")]]
   )
 
 -- | Match against start of Query
@@ -306,7 +308,11 @@ main = do
   logDir <- fromMaybe "/tmp" <$> lookupEnv "XDG_RUNTIME_DIR"
   let workspaceLog = logDir <> "/xmonad.log"
   safeSpawn "mkfifo" [workspaceLog]
-  xmonad $ ewmh $ docks def
+  xmonad
+    $ ewmh
+    $ docks
+    $ addDescrKeys' ((mod4Mask, xK_F1), xMessage) myKeys
+    $ def
     { borderWidth        = 2
     , handleEventHook    = handleEventHook def <+> fullscreenEventHook
     , manageHook         = myManageHook <+> manageHook def
@@ -316,6 +322,5 @@ main = do
     , focusedBorderColor = show Blue
     , layoutHook         = myLayout
     , logHook            = logWorkspaces workspaceLog
-    , keys               = myKeys
     , workspaces         = map show [1 .. 10 :: Int]
     }
