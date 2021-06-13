@@ -29,7 +29,7 @@ import           XMonad.Layout.WindowNavigation
 import qualified XMonad.StackSet as W
 import           XMonad.Util.Dmenu
 import           XMonad.Util.EZConfig (mkKeymap, additionalKeysP, mkNamedKeymap)
-import           XMonad.Util.NamedActions (noName, addName, submapName, NamedAction, addDescrKeys', xMessage)
+import           XMonad.Util.NamedActions (noName, addName, submapName, NamedAction, addDescrKeys', showKm)
 import           XMonad.Util.Run
 
 data Color = BgDark
@@ -303,6 +303,11 @@ myLayout = BW.boringWindows
                  , inactiveTextColor   = show FgDark
                  }
 
+rofiBindings :: [((KeyMask, KeySym), NamedAction)] -> X ()
+rofiBindings bindings = do
+  handle <- spawnPipe "rofi -dmenu -i"
+  liftIO $ hPutStrLn handle (unlines $ showKm bindings)
+
 main :: IO ()
 main = do
   logDir <- fromMaybe "/tmp" <$> lookupEnv "XDG_RUNTIME_DIR"
@@ -311,7 +316,7 @@ main = do
   xmonad
     $ ewmh
     $ docks
-    $ addDescrKeys' ((mod4Mask, xK_F1), xMessage) myKeys
+    $ addDescrKeys' ((mod4Mask, xK_F1), rofiBindings) myKeys
     $ def
     { borderWidth        = 2
     , handleEventHook    = handleEventHook def <+> fullscreenEventHook
