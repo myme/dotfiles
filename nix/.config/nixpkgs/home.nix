@@ -86,9 +86,9 @@ in {
     git = import ./home/git.nix;
     htop = {
       enable = true;
-      meters = {
-        left = [ "LeftCPUs2" "Memory" "Swap" ];
-        right = [ "RightCPUs2" "Tasks" "LoadAverage" "Uptime" ];
+      settings = {
+        left_meters = [ "LeftCPUs2" "Memory" "Swap" ];
+        right_meters = [ "RightCPUs2" "Tasks" "LoadAverage" "Uptime" ];
       };
     };
     prezto.enable = true;
