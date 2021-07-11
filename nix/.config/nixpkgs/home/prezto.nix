@@ -6,6 +6,7 @@ let
   cfg = config.programs.prezto;
   prezto = pkgs.zsh-prezto;
   starship = pkgs.starship;
+  runcoms = "${prezto}/share/zsh-prezto/runcoms";
 in
 
 {
@@ -34,7 +35,7 @@ in
     '';
 
     programs.zsh = with pkgs; {
-      envExtra     = ''source ${prezto}/runcoms/zshenv'';
+      envExtra     = ''source ${runcoms}/zshenv'';
       initExtraBeforeCompInit = ''
         if [[ $TERM == "dumb" ]]; then
           unsetopt zle
@@ -44,15 +45,15 @@ in
       '';
       initExtra    = (mkMerge [
         ''
-          source ${prezto}/runcoms/zshrc
+          source ${runcoms}/zshrc
 
           # Disable/remove right prompt
           export RPS1=""
         ''
       ]);
-      loginExtra   = ''source ${prezto}/runcoms/zlogin'';
-      logoutExtra  = ''source ${prezto}/runcoms/zlogout'';
-      profileExtra = ''source ${prezto}/runcoms/zprofile'';
+      loginExtra   = ''source ${runcoms}/zlogin'';
+      logoutExtra  = ''source ${runcoms}/zlogout'';
+      profileExtra = ''source ${runcoms}/zprofile'';
     };
   };
 }
