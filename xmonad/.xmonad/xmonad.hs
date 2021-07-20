@@ -88,6 +88,7 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkNamedKeymap conf (
   -- Suspend/Lock
   ,("C-M1-l", submapName $ mkNamedKeymap conf
      [("l", addName "Lock session" $ spawn "loginctl lock-session")
+     ,("h", addName "Hibernate" $ spawn "systemctl hibernate")
      ,("s", addName "Suspend" $ spawn "systemctl suspend")
      ])
   -- Layout
