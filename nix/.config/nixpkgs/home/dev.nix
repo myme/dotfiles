@@ -42,6 +42,11 @@ in {
     rust = {
       enable = mkEnableOption "Enable Rust development tools";
     };
+
+    # Shell options
+    shell = {
+      enable = mkEnableOption "Enable Shell script development tools";
+    };
   };
 
   config = {
@@ -93,6 +98,11 @@ in {
       # Rust
       (mkIf cfg.rust.enable (with pkgs; [
         rust-analyzer
+      ]))
+
+      # Shell
+      (mkIf cfg.shell.enable (with pkgs; [
+        shellcheck
       ]))
     ];
   };
