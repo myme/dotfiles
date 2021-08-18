@@ -2,7 +2,7 @@ import           Control.Monad (when)
 import           Data.List (sortOn)
 import qualified Data.List as L
 import qualified Data.Map as M
-import           Data.Maybe (fromMaybe)
+import           Data.Maybe (fromMaybe, isNothing)
 import           Data.Monoid (First(getFirst, First))
 import qualified FontAwesome as Fa
 import           System.Environment (lookupEnv)
@@ -16,6 +16,7 @@ import           XMonad.Actions.SwapWorkspaces (swapTo)
 import           XMonad.Hooks.DynamicLog hiding (wrap)
 import           XMonad.Hooks.EwmhDesktops
 import           XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.ManageHelpers
 import qualified XMonad.Layout.BoringWindows as BW
 import           XMonad.Layout.Grid
 import           XMonad.Layout.NoBorders
@@ -175,7 +176,7 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkNamedKeymap conf (
 -- | To float or not to float
 myManageHook :: ManageHook
 myManageHook = composeAll
-  [ doF W.swapDown -- Insert new windows *after* the focused window
+  [ isNothing <$> transientTo        --> doF W.swapDown -- Insert new windows *after* the focused window
   , className =?  "Barrier"          --> doFloat
   , className =?^ "Gimp"             --> doFloat
   , className =?  "Gnome-calculator" --> doFloat
