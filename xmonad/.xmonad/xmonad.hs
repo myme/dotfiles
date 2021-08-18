@@ -163,6 +163,12 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkNamedKeymap conf (
   [(m <> [k], addName (d " " <> [k]) $ windows $ f i)
     | (i, k) <- zip (XMonad.workspaces conf) (['1' .. '9'] <> ['0'])
     , (d, f, m) <- [(("Switch to workspace" <>), W.greedyView, "M-"), (("Move to workspace" <>), W.shift, "M-S-")]]
+  ++
+  -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
+  -- mod-shift-{w,e,r} %! Move client to screen 1, 2, or 3
+  [("M-" <> m <> k, addName (d " " <> show (s + 1)) $ screenWorkspace (fromIntegral s) >>= flip whenJust (windows . f))
+      | (k, s) <- zip ["u", "i", "o"] ([0..] :: [Int])
+      , (d, f, m) <- [(("Switch to screen" <>), W.view, ""), (("Move to screen" <>), W.shift, "S-")]]
   )
 
 -- | Match against start of Query
