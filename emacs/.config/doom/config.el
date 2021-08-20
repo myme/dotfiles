@@ -111,14 +111,6 @@
   (:prefix "F" :desc "Frame"
    :desc "Delete frame" :nv "d" #'delete-frame
    :desc "New frame" :nv "n" #'make-frame)
-  (:prefix "a" :desc "Apps"
-   :desc "Email" :nv "e" #'=mu4e
-   :desc "Processes" :nv "p" #'counsel-list-processes
-   (:prefix "s" :desc "Shells"
-    :desc "eshell" :nv "e" #'eshell
-    :desc "eshell" :nv "E" #'projectile-run-eshell)
-   (:after helm
-    :desc "helm-top" :nv "t" #'helm-top))
   (:prefix "b"
    :desc "Rename buffer" :nv "r" #'rename-buffer)
   (:prefix "c"
