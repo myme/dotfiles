@@ -94,7 +94,7 @@ in {
     prezto.enable = true;
     rofi = {
       enable = true;
-      theme = "Arc-Dark";
+      theme = ./home/rofi/dracula.rasi;
     };
     starship = {
       enable = true;
