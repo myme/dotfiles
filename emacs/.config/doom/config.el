@@ -62,6 +62,7 @@
 (setq-default
  ;; Look-and-feel
  doom-font (font-spec :family "DejaVu Sans Mono" :size 12)
+ doom-theme 'doom-dracula
 
  ;; Avy
  avy-all-windows 'all-frames
