@@ -127,8 +127,8 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkNamedKeymap conf (
   ,("M-s",     addName "Launch SSH to host" $ spawn "rofi -show ssh")
   ,("M-S-s",   addName "Launch mosh to host" $ spawn "rofi -show ssh -ssh-command '{terminal} -e mosh {host}'")
   ,("M-<Tab>", addName "Select window" $ spawn "rofi -show window -show-icons")
-  ,("M-x",     addName "Nixon project command" $ spawn "nixon project")
-  ,("M-S-x",   addName "Nixon command" $ spawn "nixon run")
+  ,("M-x",     addName "Nixon command" $ spawn "nixon run")
+  ,("M-S-x",   addName "Nixon project command" $ spawn "nixon project")
   ,("M-e",     addName "Rofimoji (Emoji picker)" $ spawn "rofimoji")
   -- Struts...
   ,("M-b", addName "Toggle struts (statusbar)" $ sendMessage $ ToggleStrut D)
