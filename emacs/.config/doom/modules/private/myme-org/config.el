@@ -69,8 +69,9 @@
 %U" :clock-in t :clock-resume t)
      ("jd" "Daily note" entry
       (file+olp+datetree "cisco/journal.org" "Journal")
-      "* Daily notes%? :NOTE:
-%t" :clock-in t :clock-resume t)
+      "* Daily notes :NOTE:
+%t
+%?" :clock-in t :clock-resume t)
      ("je" "Email + collab" entry
       (file+olp+datetree "cisco/journal.org" "Journal")
       "* Email + collab%? :EMAIL:MESSAGING:
