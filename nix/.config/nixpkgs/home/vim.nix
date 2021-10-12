@@ -46,7 +46,9 @@
         set nowrap
 
         " FZF
-        nmap <silent> <Leader>. :FZF<Return>
+        nmap <silent> <Leader>.  :Files<Return>
+        nmap <silent> <Leader><  :Buffers<Return>
+        nmap <silent> <Leader>sb :BLines<Return>
       '';
     };
   };
