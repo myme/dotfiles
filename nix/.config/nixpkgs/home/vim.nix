@@ -47,6 +47,7 @@
 
         " FZF
         nmap <silent> <Leader>.  :Files<Return>
+        nmap <silent> <Leader>g. :GitFiles<Return>
         nmap <silent> <Leader><  :Buffers<Return>
         nmap <silent> <Leader>sb :BLines<Return>
       '';
