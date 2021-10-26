@@ -70,6 +70,7 @@ in {
       use_nix = true;
     };
 
+    bash.enable = true;
     bat.enable = true;
     direnv = {
       enable = true;
