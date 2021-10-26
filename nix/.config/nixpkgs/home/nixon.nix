@@ -8,8 +8,8 @@ let
   nixon = import (pkgs.fetchFromGitHub {
     owner = "myme";
     repo = "nixon";
-    rev = "d048ee3fb44a3a3b20ad7e3e8f45164f70cc2643";
-    sha256 = "g6GTNRSZ/yISsxZ+Sdb9zRUaWZ55LiAV3jVzioWXv3E=";
+    rev = "2b8716f496e1f3b0e544ea15d662d905bc7af96a";
+    sha256 = "0lynwj94irf2fvlxcfps7hzv44f42yifb2yrflw2rhqmv36cczks";
   }) {};
 
 in {
