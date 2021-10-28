@@ -186,8 +186,6 @@ myManageHook = composeAll
   , className =?  "Barrier"          --> doFloat
   , className =?^ "Gimp"             --> doFloat
   , className =?  "Gnome-calculator" --> doFloat
-  , className =?^ "davmail"          --> doFloat
-  , className =?  "openconnect-sso"  --> doFloat
   ]
 
 myLog :: FilePath -> PP
@@ -270,7 +268,6 @@ appIcon = runQuery $ fromMaybe Fa.WindowMaximize . getFirst <$> composeAll
   , className =?  "Spotify"          ~~> Fa.Spotify
   , title     =?  "st"               ~~> Fa.Terminal
   , className =?  "vlc"              ~~> Fa.YoutubePlay
-  , className =?  "webex"            ~~> Fa.Comment
   ]
   where
     (~~>) q i = q --> pure (First $ Just i)
@@ -283,14 +280,14 @@ myLayout = BW.boringWindows
              $ configurableNavigation noNavigateBorders
              $ addTabs shrinkText tabTheme
              $ subLayout [] Simplest
-             $ spacingRaw False (Border 20 20 20 20) True (Border 20 20 20 20) True
+             $ spacingRaw True (Border spc spc spc spc) True (Border spc spc spc spc) True
              $ ResizableTall 1 (3/100) (1/2) []
         three = smartBorders
               $ avoidStruts
               $ configurableNavigation noNavigateBorders
               $ addTabs shrinkText tabTheme
               $ subLayout [] Simplest
-              $ spacingRaw False (Border 20 20 20 20) True (Border 20 20 20 20) True
+              $ spacingRaw True (Border spc spc spc spc) True (Border spc spc spc spc) True
               $ Three.ThreeCol 1 (3/100) (1/3)
         full = noBorders
              $ avoidStruts
@@ -301,8 +298,9 @@ myLayout = BW.boringWindows
              $ subLayout [] Simplest
              $ spacingRaw True (Border 0 0 0 0) True (Border 5 5 5 5) True
                Grid
+        spc = 5
         tabTheme = def
-                 { fontName            = "xft:Dejavu Sans Mono for Powerline:regular:size=12:antialias=true:hinting=true"
+                 { fontName            = "xft:Dejavu Sans Mono for Powerline:regular:size=10:antialias=true:hinting=true"
                  , activeColor         = show Blue
                  , inactiveColor       = show BgDark
                  , activeBorderColor   = show BgDark
