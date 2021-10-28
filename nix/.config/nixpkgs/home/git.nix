@@ -32,6 +32,7 @@
   };
   extraConfig = {
     branch.autosetuprebase = "remote";
+    init.defaultBranch = "main";
     init.templatedir = "~/.gittemplate";
     github.user = "myme";
     push = {
