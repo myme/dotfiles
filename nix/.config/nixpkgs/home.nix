@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 
 let
-  unstable = import <unstable> {};
-
   git-sync = pkgs.callPackage ./home/git-sync {};
   piddif = pkgs.callPackage (pkgs.fetchFromGitHub {
     owner = "myme";
@@ -35,9 +33,7 @@ in {
     tree
     unzip
     zip
-  ] ++ (with unstable; [
-    rofimoji
-  ]) ++ [
+  ] ++ [
     git-sync
     piddif
   ];
