@@ -186,6 +186,8 @@ myManageHook = composeAll
   , className =?  "Barrier"          --> doFloat
   , className =?^ "Gimp"             --> doFloat
   , className =?  "Gnome-calculator" --> doFloat
+  , className =?^ "davmail"          --> doFloat
+  , className =?  "openconnect-sso"  --> doFloat
   ]
 
 myLog :: FilePath -> PP
@@ -268,6 +270,7 @@ appIcon = runQuery $ fromMaybe Fa.WindowMaximize . getFirst <$> composeAll
   , className =?  "Spotify"          ~~> Fa.Spotify
   , title     =?  "st"               ~~> Fa.Terminal
   , className =?  "vlc"              ~~> Fa.YoutubePlay
+  , className =?  "webex"            ~~> Fa.Comment
   ]
   where
     (~~>) q i = q --> pure (First $ Just i)
