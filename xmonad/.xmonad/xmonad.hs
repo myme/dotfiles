@@ -184,6 +184,7 @@ myManageHook :: ManageHook
 myManageHook = composeAll
   [ isNothing <$> transientTo        --> doF W.swapDown -- Insert new windows *after* the focused window
   , className =?  "Barrier"          --> doFloat
+  , className =?  "Conky"            --> doFloat
   , className =?^ "Gimp"             --> doFloat
   , className =?  "Gnome-calculator" --> doFloat
   , className =?^ "davmail"          --> doFloat
