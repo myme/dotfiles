@@ -100,6 +100,8 @@ ${goto 12}${voffset 5}${color1}${top_mem name 1}$alignr$color${top_mem mem_res 1
 ${goto 12}${color1}${top_mem name 2}$alignr$color${top_mem mem_res 2}
 ${goto 12}${color1}${top_mem name 3}$alignr$color${top_mem mem_res 3}
 ${voffset 18}${color1}${alignc}XMONAD KEYBINDINGS${color}
+${color1}${hr}${color}
+${color1}M-F1${alignr}${color2}List keybindings${color}
 ${voffset 18}${color1}${alignc}WORKSPACES${color}
 ${color1}${hr}${color}
 ${color1}M-[1-0]${alignr}${color2}go to workspace${color}
@@ -109,6 +111,12 @@ ${color1}M-S-n${alignr}${color2}workspace forwards${color}
 ${color1}M-S-p${alignr}${color2}workspace backwards${color}
 ${color1}M-c${alignr}${color2}new empty workspace${color}
 ${color1}M-S-c${alignr}${color2}move to empty workspace${color}
+${voffset 18}${color1}${alignc}FOCUS${color}
+${color1}${hr}${color}
+${color1}M-j${alignr}${color2}focus next${color}
+${color1}M-k${alignr}${color2}focus prev${color}
+${color1}M-j${alignr}${color2}swap next${color}
+${color1}M-k${alignr}${color2}swap prev${color}
 ${voffset 18}${color1}${alignc}LAUNCH${color}
 ${color1}${hr}${color}
 ${color1}M-d${alignr}${color2}launch app${color}
