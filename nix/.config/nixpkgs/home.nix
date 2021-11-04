@@ -2,11 +2,12 @@
 
 let
   git-sync = pkgs.callPackage ./home/git-sync {};
+
   piddif = pkgs.callPackage (pkgs.fetchFromGitHub {
     owner = "myme";
     repo = "piddif";
-    rev = "8921849209abcb958d052eb3cfa3edd90030efb8";
-    sha256 = "15ry0imjjh3by2fbb6rv0rww5jq1gpi7viy10vxvi2b55b4kigr4";
+    rev = "d171dbb96fe284e08e31a2ce3eedd59c418eb76f";
+    sha256 = "bN9ZriYQTR1liy9Pu/JEvY2/bjKpmxrUy+LqHunR4EE=";
   }) {};
 
 in {
