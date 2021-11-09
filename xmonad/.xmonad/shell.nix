@@ -10,6 +10,7 @@ in pkgs.mkShell {
   buildInputs = [
     pkgs.cabal-install
     ghc
+    pkgs.hlint
 
     # keep this line if you use bash
     pkgs.bashInteractive
