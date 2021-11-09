@@ -19,6 +19,9 @@
         bind | split-window -h -c '#{pane_current_path}'
         bind - split-window -v -c '#{pane_current_path}'
 
+        # Toggle synchronize-panes for current window
+        bind C-s set-window-option synchronize-panes
+
         # Mouse support (shift + click for selection)
         set -g mouse on
 
@@ -33,8 +36,10 @@
         set -g status-justify "centre"
       '';
       plugins = with pkgs.tmuxPlugins; [
+        copycat
         sensible
         sessionist
+        urlview
         yank
       ];
     };
