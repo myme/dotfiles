@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 {
   config = {
+    home.packages = with pkgs; [
+      tmux-xpanes
+    ];
+
     programs.tmux = {
       enable = true;
       keyMode = "vi";
