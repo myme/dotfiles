@@ -31,6 +31,11 @@ in {
     # Python options
     python = {
       enable = mkEnableOption "Enable Python development tools";
+      interpreter = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Enable the Python interpreter";
+      };
     };
 
     # GitHub options
@@ -83,10 +88,10 @@ in {
 
       # Python
       (mkIf cfg.python.enable (with pkgs; [
-        (python3.withPackages (ps: with ps; [
+        (mkIf cfg.python.interpreter (python3.withPackages (ps: with ps; [
           black
           ipython
-        ]))
+        ])))
         python-language-server
       ]))
 
