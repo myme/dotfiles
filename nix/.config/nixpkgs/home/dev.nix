@@ -4,7 +4,6 @@ with lib;
 
 let
   cfg = config.myme.dev;
-  unstable = import <unstable> {};
 
 in {
   options.myme.dev = {
@@ -75,7 +74,7 @@ in {
       ]))
 
       # Haskell
-      (mkIf cfg.haskell.enable (with unstable; [
+      (mkIf cfg.haskell.enable (with pkgs; [
         haskell-language-server
       ]))
 
