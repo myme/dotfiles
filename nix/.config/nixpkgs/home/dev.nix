@@ -1,3 +1,6 @@
+# TODO: Pair programming setup using Docker/Podman + Tmate
+# Use a docker/pod with tmate and usual dev tools to share a tmux session with a peer.
+
 { config, lib, pkgs, ... }:
 
 with lib;
