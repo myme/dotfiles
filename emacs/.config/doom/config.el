@@ -80,7 +80,7 @@
 
  ;; Workspaces
  +workspaces-main "default"
- +workspaces-switch-project-function #'ignore
+ +workspaces-switch-project-function #'find-file
 
  ;; Info
  Info-additional-directory-list '("~/.cache/info"))
