@@ -125,6 +125,8 @@
    :desc "Test project" :nv "t" #'projectile-test-project)
   (:prefix "q"
    :desc "Kill emacs" :nv "k" #'save-buffers-kill-emacs)
+  (:prefix "s"
+   :desc "Consult complex commands" :nv "c" #'consult-complex-command)
   (:desc "theme" :prefix "T"
    :desc "Switch theme" :nv "T" #'load-theme)))
 
