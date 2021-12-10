@@ -6,9 +6,44 @@
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
+      coc = {
+        enable = true;
+        settings = {
+          "suggest.noselect" = true;
+          "suggest.enablePreview" = true;
+          "suggest.enablePreselect" = false;
+          "suggest.disableKind" = true;
+          languageserver = {
+            ccls = {
+              command = "ccls";
+              filetypes = ["c" "cc" "cpp" "c++" "objc" "objcpp"];
+              rootPatterns = [".ccls" "compile_commands.json" ".git/" ".hg/"];
+              # initializationOptions = {
+              #   cache = {
+              #     directory = "/tmp/ccls";
+              #   };
+              # };
+            };
+            haskell = {
+              command = "haskell-language-server-wrapper";
+              args = [ "--lsp" ];
+              rootPatterns = [
+                "*.cabal"
+                "stack.yaml"
+                "cabal.project"
+                "package.yaml"
+                "hie.yaml"
+              ];
+              filetypes = [ "haskell" "lhaskell" ];
+            };
+          };
+        };
+      };
       plugins = with pkgs.vimPlugins; [
         # TODO: Add coc stuff
-        ale
+        coc-nvim
+        coc-tsserver
+        coc-rust-analyzer
         fzf-vim
         gitv
         typescript-vim
@@ -28,6 +63,7 @@
         " set   cursorcolumn
         " set   cursorline
         set   expandtab
+        set nofoldenable
         set   foldlevel=1
         set   foldmethod=syntax
         set   laststatus=2
