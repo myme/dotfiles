@@ -15,9 +15,9 @@ in {
     ./home/alacritty
     ./home/bpytop.nix
     ./home/nixon.nix
-    ./home/prezto.nix
     ./home/tmux.nix
     ./home/vim.nix
+    ./home/zsh.nix
   ];
 
   home.packages = with pkgs; [
@@ -89,7 +89,6 @@ in {
         right_meters = [ "RightCPUs2" "Tasks" "LoadAverage" "Uptime" ];
       };
     };
-    prezto.enable = true;
     rofi = {
       enable = true;
       theme = ./home/rofi/dracula.rasi;
@@ -101,6 +100,5 @@ in {
         format = "[$time]($style) ";
       };
     };
-    zsh.enable = true;
   };
 }
