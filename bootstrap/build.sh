@@ -2,6 +2,7 @@
 
 NIX_BLK=sda
 NIX_NAME=nixos
+NIX_USER=myme
 
 echo "Creating partitions on /dev/${NIX_BLK}..."
 parted /dev/${NIX_BLK} -- mklabel gpt
@@ -27,5 +28,11 @@ nix-shell \
     -p git \
     --run "nixos-install --impure --no-root-password --flake .#${NIX_NAME}"
 
-echo "Copying installation files to user…"
-cp -av nixos /mnt/home/myme
+echo "Copying installation files to user /home/${NIX_USER}/src…"
+mkdir -p "/mnt/home/${NIX_USER}/src"
+cp -av . "/mnt/home/${NIX_USER}/src/nixos"
+
+echo
+echo "Installation complete!"
+echo
+echo 'Type "reboot" to boot into the fresh system…'
