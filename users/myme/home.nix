@@ -34,6 +34,7 @@
         enableFlakes = true;
       };
     };
+    emacs.enable = true;
     fzf.enable = true;
     starship = {
       enable = true;
