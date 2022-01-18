@@ -41,7 +41,7 @@ in {
       myme.alacritty = {
         enable = true;
         background_opacity = 0.95;
-        font_size = 6.0;
+        font_size = 11.0;
         theme = "dracula";
       };
 
@@ -75,7 +75,7 @@ in {
       myme.polybar = {
         enable = true;
         i3gaps = cfg.variant == "i3";
-        monitor = "eDP-1";
+        monitor = "Virtual-1";
       };
 
       # Wallpaper (feh)
