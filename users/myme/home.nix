@@ -45,6 +45,10 @@
     };
     emacs.enable = true;
     fzf.enable = true;
+    rofi = {
+      enable = true;
+      theme = ./rofi/dracula.rasi;
+    };
     starship = {
       enable = true;
       settings.time = {
