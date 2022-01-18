@@ -13,6 +13,6 @@ $ ./bootstrap/copy.sh
 ### Start NixOS installation
 
 ``` bash
-$ ./bootstrap/ssh.sh "cd nixos && ./bootstrap/build.sh"
+$ ./bootstrap/ssh.sh sudo ./nixos/bootstrap/build.sh
 ```
 
