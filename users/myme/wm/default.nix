@@ -9,6 +9,7 @@ let
 in {
   imports = [
     ./alacritty
+    ./fonts.nix
     ./i3
     ./polybar
     ./xmonad
