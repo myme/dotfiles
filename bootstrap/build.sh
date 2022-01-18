@@ -28,9 +28,8 @@ nix-shell \
     -p git \
     --run "nixos-install --impure --no-root-password --flake .#${NIX_NAME}"
 
-echo "Copying installation files to user /home/${NIX_USER}/src…"
-mkdir -p "/mnt/home/${NIX_USER}/src"
-cp -av . "/mnt/home/${NIX_USER}/src/nixos"
+echo "Copying installation files to user /home/${NIX_USER}/nixos…"
+cp -av . "/mnt/home/${NIX_USER}/nixos"
 
 echo
 echo "Installation complete!"
