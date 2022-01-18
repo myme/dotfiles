@@ -8,8 +8,9 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
+      name = "nixos";
     in {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.${name} = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
           ./machine
