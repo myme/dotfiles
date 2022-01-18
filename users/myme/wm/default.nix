@@ -8,9 +8,10 @@ let
 
 in {
   imports = [
+    ./alacritty
     ./i3
+    ./polybar
     ./xmonad
-    ../polybar
   ];
 
   options.myme.wm = {
@@ -33,6 +34,20 @@ in {
       myme.wm.i3 = {
         enable = cfg.variant == "i3";
         inherit lockCmd;
+      };
+
+      # Alacritty
+      myme.alacritty = {
+        enable = true;
+        background_opacity = 0.95;
+        font_size = 6.0;
+        theme = "dracula";
+      };
+
+      # Rofi
+      programs.rofi = {
+        enable = true;
+        theme = ./rofi/dracula.rasi;
       };
 
       # Compositor (picom)
