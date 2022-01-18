@@ -12,6 +12,7 @@ in {
     ./fonts.nix
     ./i3
     ./polybar
+    ./theme.nix
     ./xmonad
   ];
 
