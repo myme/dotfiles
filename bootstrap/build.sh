@@ -37,4 +37,9 @@ swapon /dev/disk/by-label/swap
 echo
 echo "Installation complete!"
 echo
-echo 'Type "reboot" to boot into the fresh system…'
+read -p "Reboot? [Y/n] " -n 1 -r
+echo    # (optional) move to a new line
+if [[ ! $REPLY =~ ^[Nn]$ ]]
+then
+    reboot
+fi
