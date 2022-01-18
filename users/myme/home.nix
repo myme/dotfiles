@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   imports = [
+    ./alacritty
     ./git.nix
     ./tmux.nix
     ./vim.nix
@@ -16,6 +17,14 @@
   home.keyboard = {
     layout = "us";
     variant = "alt-intl-unicode";
+  };
+
+  # Alacritty
+  myme.alacritty = {
+    enable = true;
+    background_opacity = 0.95;
+    font_size = 6.0;
+    theme = "dracula";
   };
 
   # Window manager
