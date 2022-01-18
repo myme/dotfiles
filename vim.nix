@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   config = {
     programs.neovim = {
       enable = true;
@@ -22,41 +21,41 @@
       extraConfig = ''
         let mapleader=" "
 
-	" Standard options
-	set   cmdheight=1
-	set nocursorcolumn
-	set nocursorline
-	set   laststatus=2
-	set   modeline
-	set   relativenumber
-	set   numberwidth=1
-	set   scrolloff=0
-	set   showcmd
+        " Standard options
+        set   cmdheight=1
+        set nocursorcolumn
+        set nocursorline
+        set   laststatus=2
+        set   modeline
+        set   relativenumber
+        set   numberwidth=1
+        set   scrolloff=0
+        set   showcmd
 
-	" Folds
-	set nofoldenable
-	set   foldlevel=1
-	set   foldmethod=syntax
+        " Folds
+        set nofoldenable
+        set   foldlevel=1
+        set   foldmethod=syntax
 
-	" Whitespace
-	set   expandtab
-	set   shiftwidth=4
-	set   tabstop=4
-	set nowrap
+        " Whitespace
+        set   expandtab
+        set   shiftwidth=4
+        set   tabstop=4
+        set nowrap
 
-        " Tab completion
-	set   wildchar=<tab>
-	set   wildmode=longest:full,full
+              " Tab completion
+        set   wildchar=<tab>
+        set   wildmode=longest:full,full
 
-        " Backup + Swap
-	set nobackup
-	set noswapfile
+              " Backup + Swap
+        set nobackup
+        set noswapfile
 
-	" FZF
-	nmap <silent> <Leader>.  :Files<Return>
-	nmap <silent> <Leader>g. :GitFiles<Return>
-	nmap <silent> <Leader><  :Buffers<Return>
-	nmap <silent> <Leader>sb :BLines<Return>
+        " FZF
+        nmap <silent> <Leader>.  :Files<Return>
+        nmap <silent> <Leader>g. :GitFiles<Return>
+        nmap <silent> <Leader><  :Buffers<Return>
+        nmap <silent> <Leader>sb :BLines<Return>
       '';
     };
   };

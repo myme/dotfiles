@@ -9,9 +9,7 @@
   networking.interfaces.ens33.useDHCP = true;
 
   # System packages
-  environment.systemPackages = with pkgs; [
-    vim
-  ];
+  environment.systemPackages = with pkgs; [ vim ];
 
   # SSH
   services.openssh.enable = true;
