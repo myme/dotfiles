@@ -52,7 +52,24 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "wallpapers": "wallpapers"
+      }
+    },
+    "wallpapers": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1639647132,
+        "narHash": "sha256-/azIBZSA2S4AtL4eCeBF+uThiuGzT6gW8szs01apTFA=",
+        "owner": "myme",
+        "repo": "wallpapers",
+        "rev": "eaffdac2c6891fe42dd7a66445bbb763326dc62c",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "myme",
+        "repo": "wallpapers",
+        "type": "gitlab"
       }
     }
   },

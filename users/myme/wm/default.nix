@@ -59,8 +59,13 @@ in {
       services.flameshot.enable = true;
 
       # XSession
-      xsession.enable = true;
-      xsession.scriptPath = ".hm-xsession";
+      xsession = {
+        enable = true;
+        scriptPath = ".hm-xsession";
+        initExtra = ''
+          ${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/alien-moon-nature.jpg
+        '';
+      };
     }
 
     # With KDE Plasma
