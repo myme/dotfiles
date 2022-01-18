@@ -6,7 +6,8 @@
 
   # Network configuration.
   networking.useDHCP = false;
-  networking.interfaces.ens33.useDHCP = true;
+  networking.interfaces.ens3.useDHCP = true;
+  # networking.interfaces.ens33.useDHCP = true;
 
   # System packages
   environment.systemPackages = with pkgs; [ vim ];
