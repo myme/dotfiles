@@ -1,7 +1,16 @@
 { pkgs, ... }: {
-  imports = [ ./git.nix ./tmux.nix ./vim.nix ];
+  imports = [
+    ./git.nix
+    ./tmux.nix
+    ./vim.nix
+  ];
 
-  home.packages = with pkgs; [ nixfmt ripgrep tree ];
+  home.packages = with pkgs; [
+    fd
+    nixfmt
+    ripgrep
+    tree
+  ];
 
   home.keyboard = {
     layout = "us";
