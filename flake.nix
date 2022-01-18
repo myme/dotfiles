@@ -13,7 +13,7 @@
       nixosConfigurations.${name} = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
-          ./machine
+          ./system
           ./users
           home-manager.nixosModules.home-manager
           {
