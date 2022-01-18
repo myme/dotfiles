@@ -2,6 +2,7 @@
 { pkgs, ... }: {
   imports = [
     ./hardware.nix
+    ./xserver.nix
   ];
 
   # Boot

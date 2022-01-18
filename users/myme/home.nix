@@ -3,6 +3,7 @@
     ./git.nix
     ./tmux.nix
     ./vim.nix
+    ./wm
   ];
 
   home.packages = with pkgs; [
@@ -15,6 +16,12 @@
   home.keyboard = {
     layout = "us";
     variant = "alt-intl-unicode";
+  };
+
+  # Window manager
+  myme.wm = {
+    enable = true;
+    variant = "xmonad";
   };
 
   programs = {
