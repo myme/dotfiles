@@ -17,6 +17,9 @@
   # System packages
   environment.systemPackages = with pkgs; [ vim ];
 
+  # For GTK stuff
+  programs.dconf.enable = true;
+
   # SSH
   services.openssh.enable = true;
 
