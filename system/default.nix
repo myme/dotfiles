@@ -18,7 +18,6 @@
 
   # SSH
   services.openssh.enable = true;
-  services.openssh.passwordAuthentication = true;
 
   # Nix
   nix.package = pkgs.nixUnstable;

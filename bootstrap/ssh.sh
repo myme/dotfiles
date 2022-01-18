@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
+set -eo pipefail
 
-NIX_HOST=${NIX_HOST:-localhost}
-NIX_PORT=${NIX_PORT:-2222}
-NIX_USER=${NIX_USER:-root}
-SSH_OPTS="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+source "$(dirname "$0")/setup.sh"
 
-ssh -tt $NIX_HOST -p$NIX_PORT -l$NIX_USER $SSH_OPTS "$@"
+ssh -tt "$NIX_INSTALL_HOST" -p"$NIX_INSTALL_PORT" -l"$NIX_INSTALL_USER" $SSH_OPTS "$@"
