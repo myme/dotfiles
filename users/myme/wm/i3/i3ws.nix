@@ -16,12 +16,7 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = (import (pkgs.fetchFromGitHub {
-        owner = "myme";
-        repo = "i3ws";
-        rev = "b8fc2104b4c66d54abf0837bff4ed83171af896d";
-        sha256 = "1hxh9w0d4jypylrivqsc61rk5ym024zha7q34acmp7h8hx3fa3r4";
-      }) {}).i3ws;
+      default = pkgs.haskellPackages.i3ws;
       description = "i3ws package";
     };
 

@@ -22,7 +22,7 @@ nixpkgs.lib.nixosSystem {
       # Pin flake nixpkgs
       nix.registry.nixpkgs.flake = nixpkgs;
 
-      nixpkgs.overlays = [ self.overlay ];
+      nixpkgs.overlays = self.overlays;
     }
   ];
 }

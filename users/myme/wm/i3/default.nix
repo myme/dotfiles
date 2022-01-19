@@ -59,10 +59,9 @@ in {
           urgent          = { border = "#2f343a"; background = "#900000"; text = "#ffffff"; indicator = "#900000"; childBorder = "#900000"; };
           placeholder     = { border = "#000000"; background = "#0c0c0c"; text = "#ffffff"; indicator = "#000000"; childBorder = "#0c0c0c"; };
         };
-        fonts = [
-          "Dejavu Sans Mono"
-          "FontAwesome 11"
-        ];
+        fonts = {
+          names = ["Dejavu Sans Mono" "FontAwesome 11"];
+        };
         gaps = {
           inner = 10;
           smartBorders = "on";
