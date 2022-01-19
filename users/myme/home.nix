@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./git.nix
+    ./nixon.nix
     ./tmux.nix
     ./vim.nix
     ./wm
@@ -30,6 +31,16 @@
     };
     emacs.enable = true;
     fzf.enable = true;
+    nixon = {
+      enable = true;
+      exact_match = true;
+      source_dirs = [
+        "~/nixos"
+        "~/src"
+      ];
+      use_direnv = true;
+      use_nix = true;
+    };
     starship = {
       enable = true;
       settings.time = {
