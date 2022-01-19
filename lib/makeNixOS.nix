@@ -8,6 +8,9 @@ nixpkgs.lib.nixosSystem {
     ../users
     home-manager.nixosModules.home-manager
     {
+      # Hostname
+      networking.hostName = name;
+
       # Home manager
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
