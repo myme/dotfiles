@@ -3,8 +3,8 @@
 with lib;
 
 let
-  cfg = config.myme.polybar;
   wm = config.myme.wm;
+  cfg = wm.polybar;
   polybar = config.services.polybar.package;
   themes = {
     dracula = import ./dracula-colors.nix;
@@ -14,7 +14,7 @@ let
 
 in {
   options = {
-    myme.polybar = {
+    myme.wm.polybar = {
       enable = mkEnableOption "Polybar - Window manager status bar.";
       i3gaps = mkEnableOption "Enable i3gaps support to polybar.";
       monitor = mkOption {

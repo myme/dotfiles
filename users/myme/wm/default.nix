@@ -78,7 +78,7 @@ in {
 
     # Without KDE Plasma
     (mkIf (!cfg.plasma) {
-      myme.polybar = {
+      myme.wm.polybar = {
         enable = true;
         i3gaps = cfg.variant == "i3";
         monitor = "Virtual-1";
