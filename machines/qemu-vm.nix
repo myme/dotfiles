@@ -4,7 +4,7 @@
     home-manager.users.myme = {
       myme.wm = {
         enable = true;
-        variant = "i3";
+        variant = "xmonad";
         conky = false;
         polybar.monitor = "Virtual-1";
       };
