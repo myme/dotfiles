@@ -14,6 +14,9 @@
   networking.interfaces.ens3.useDHCP = true;
   # networking.interfaces.ens33.useDHCP = true;
 
+  # Time
+  time.timeZone = "Europe/Oslo";
+
   # System packages
   environment.systemPackages = with pkgs; [ vim ];
 
