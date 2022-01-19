@@ -18,12 +18,6 @@
     variant = "alt-intl-unicode";
   };
 
-  # Window manager
-  myme.wm = {
-    enable = true;
-    variant = "xmonad";
-  };
-
   programs = {
     bat.enable = true;
     bash.enable = true;
