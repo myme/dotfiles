@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ./myme
+    ./myme.nix
   ];
 
   users = {
