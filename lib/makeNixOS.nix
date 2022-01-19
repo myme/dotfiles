@@ -3,6 +3,7 @@ nixpkgs.lib.nixosSystem {
   inherit system;
   modules = [
     ../system
+    ../machines
     ../users
     home-manager.nixosModules.home-manager
     {

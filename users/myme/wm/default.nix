@@ -23,6 +23,11 @@ in {
       default = "i3";
       description = "Window Manager flavor";
     };
+    conky = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Enable conky resource monitor";
+    };
     plasma = mkOption {
       type = types.bool;
       default = false;
@@ -81,14 +86,13 @@ in {
       myme.wm.polybar = {
         enable = true;
         i3gaps = cfg.variant == "i3";
-        monitor = "Virtual-1";
       };
 
       # Wallpaper (feh)
       programs.feh.enable = true;
 
       # Bluetooth/network
-      services.blueman-applet.enable = true;
+      services.blueman-applet.enable = config.myme.machine.role == "laptop";
 
       # Network manager
       services.network-manager-applet.enable = true;
@@ -100,7 +104,7 @@ in {
       };
 
       # Resource monitor (conky)
-      systemd.user.services.conky = {
+      systemd.user.services.conky = (mkIf cfg.conky {
         Unit = {
           Description = "Conky System Monitor";
           After = "graphical-session-pre.target";
@@ -115,7 +119,7 @@ in {
         Install = {
           WantedBy = [ "graphical-session.target" ];
         };
-      };
+      });
 
       # Notifications (dunst)
       services.dunst.enable = true;
