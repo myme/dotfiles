@@ -15,4 +15,12 @@ with lib;
       description = "Machine type";
     };
   };
+
+  config = {
+    home-manager.users.myme = {
+      myme.wm = {
+        bluetooth = config.myme.machine.role == "laptop";
+      };
+    };
+  };
 }

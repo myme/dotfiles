@@ -23,6 +23,11 @@ in {
       default = "i3";
       description = "Window Manager flavor";
     };
+    bluetooth = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Enable bluetooth applet";
+    };
     conky = mkOption {
       type = types.bool;
       default = true;
@@ -92,7 +97,7 @@ in {
       programs.feh.enable = true;
 
       # Bluetooth/network
-      services.blueman-applet.enable = config.myme.machine.role == "laptop";
+      services.blueman-applet.enable = cfg.bluetooth;
 
       # Network manager
       services.network-manager-applet.enable = true;

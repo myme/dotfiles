@@ -1,9 +1,10 @@
-name: { self, home-manager, nixpkgs, system }:
+name: machineFile: { self, home-manager, nixpkgs, system }:
 nixpkgs.lib.nixosSystem {
   inherit system;
   modules = [
     ../system
-    ../machines
+    ../machines/default.nix
+    machineFile
     ../users
     home-manager.nixosModules.home-manager
     {

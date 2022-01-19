@@ -11,5 +11,5 @@ let
 
 in builtins.listToAttrs (builtins.map (fname: rec {
   name = lib.strings.removeSuffix ".nix" fname;
-  value = import ./makeNixOS.nix name args;
+  value = import ./makeNixOS.nix name ../machines/${name}.nix args;
 }) nixFiles)
