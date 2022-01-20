@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+f: { pkgs, ... }: (f {
   imports = [
     ./git.nix
     ./nixon.nix
@@ -49,4 +49,4 @@
       };
     };
   };
-}
+})

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }@args:
 
 with lib;
 
@@ -97,7 +97,8 @@ in {
       programs.feh.enable = true;
 
       # Bluetooth/network
-      services.blueman-applet.enable = cfg.bluetooth;
+      services.blueman-applet.enable =
+        args.specialArgs.nixosConfig.myme.machine.role == "latop";
 
       # Network manager
       services.network-manager-applet.enable = true;

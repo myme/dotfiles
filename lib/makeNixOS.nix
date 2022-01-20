@@ -5,7 +5,6 @@ nixpkgs.lib.nixosSystem {
     ../system
     ../machines/default.nix
     machineFile
-    ../users
     home-manager.nixosModules.home-manager
     {
       # Hostname

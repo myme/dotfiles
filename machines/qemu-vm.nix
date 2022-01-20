@@ -1,13 +1,19 @@
 { config, lib, pkgs, ... }: {
+  imports = [
+    ../users
+    ../users/myme.nix
+  ];
+
   config = {
-    myme.machine = { role = "desktop"; };
-    home-manager.users.myme = {
-      myme.wm = {
-        enable = true;
-        variant = "xmonad";
-        conky = false;
-        polybar.monitor = "Virtual-1";
-      };
-    };
+    myme.machine.role = "desktop";
+    home-manager.users.myme =
+      import ../home-manager (attrs: attrs // {
+        myme.wm = {
+          enable = true;
+          variant = "xmonad";
+          conky = false;
+          polybar.monitor = "Virtual-1";
+        };
+      });
   };
 }
