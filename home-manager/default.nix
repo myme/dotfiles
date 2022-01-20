@@ -1,5 +1,6 @@
 f: { pkgs, ... }: (f {
   imports = [
+    ./dev.nix
     ./git.nix
     ./nixon.nix
     ./tmux.nix

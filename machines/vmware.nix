@@ -18,6 +18,16 @@
     home-manager.users.myme =
       import ../home-manager (attrs: attrs // {
         myme.alacritty.font_size = 15.0;
+
+        # Development tools
+        myme.dev = {
+          docs.enable = true;
+          haskell.enable = true;
+          nodejs.enable = true;
+          python.enable = true;
+          shell.enable = true;
+        };
+
         myme.wm = {
           enable = true;
           variant = "xmonad";
