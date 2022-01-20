@@ -52,7 +52,6 @@ in {
       myme.alacritty = {
         enable = true;
         background_opacity = 0.95;
-        font_size = 11.0;
         theme = "dracula";
       };
 

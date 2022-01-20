@@ -21,12 +21,27 @@ in {
         type = types.str;
         description = "Monitor on which to place the bar.";
       };
+      font_size = mkOption {
+        type = types.int;
+        default = 12;
+        description = "Polybar font size";
+      };
+      height = mkOption {
+        type = types.int;
+        default = 35;
+        description = "Polybar height";
+      };
     };
   };
 
-  config = {
+  config = let
+    font_size = builtins.toString cfg.font_size;
+    font_size_material =
+      builtins.toString (cfg.font_size + (cfg.font_size / 7));
+  in {
     systemd.user.services.polybar = {
-      Service.Environment = mkForce "PATH=${polybar}/bin:/run/wrappers/bin:${pkgs.xdotool}/bin";
+      Service.Environment =
+        mkForce "PATH=${polybar}/bin:/run/wrappers/bin:${pkgs.xdotool}/bin";
     };
     services.polybar = {
       enable = cfg.enable;
@@ -34,7 +49,7 @@ in {
       config = {
         defaults = {
           width = "100%";
-          height = 35;
+          height = cfg.height;
           fixed-center = true;
           bottom = true;
 
@@ -47,9 +62,9 @@ in {
           line-size = 3;
           line-color = theme.colors.urgent;
 
-          font-0 = "Dejavu Sans Mono for Powerline:pixelsize=11;1";
-          font-1 = "FontAwesome:size=11;1";
-          font-2 = "Material Icons:size=12;2";
+          font-0 = "Dejavu Sans Mono for Powerline:pixelsize=${font_size};1";
+          font-1 = "FontAwesome:size=${font_size};1";
+          font-2 = "Material Icons:size=${font_size_material};2";
 
           cursor-click = "pointer";
           cursor-scroll = "ns-resize";
@@ -64,7 +79,17 @@ in {
           modules-left =
             if wm.variant == "xmonad" then "xmonad" else "xworkspaces";
           modules-center = "xwindow";
-          modules-right = [ "alsa" "wlan" "eth" "battery" "backlight" "cpu" "memory" "filesystem" "date" ];
+          modules-right = [
+            "alsa"
+            "wlan"
+            "eth"
+            "battery"
+            "backlight"
+            "cpu"
+            "memory"
+            "filesystem"
+            "date"
+          ];
 
           tray-position = "right";
         };
@@ -74,8 +99,8 @@ in {
           monitor = "\${env:MONITOR:DP-2}";
           modules-left =
             if wm.variant == "xmonad" then "xmonad" else "xworkspaces";
-          modules-center = ["xwindow"];
-          modules-right = ["date"];
+          modules-center = [ "xwindow" ];
+          modules-right = [ "date" ];
         };
 
         "module/xmonad" = {

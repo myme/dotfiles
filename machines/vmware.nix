@@ -6,18 +6,24 @@
   ];
 
   config = {
-    # Network
-    networking.interfaces.ens3.useDHCP = true;
+    # Network + VM
+    networking.interfaces.ens33.useDHCP = true;
+    virtualisation.vmware.guest.enable = true;
 
     # User config
     myme.machine.role = "desktop";
     home-manager.users.myme =
       import ../home-manager (attrs: attrs // {
+        myme.alacritty.font_size = 15.0;
         myme.wm = {
           enable = true;
           variant = "xmonad";
           conky = false;
-          polybar.monitor = "Virtual-1";
+          polybar = {
+            font_size = 15;
+            height = 50;
+            monitor = "Virtual1";
+          };
         };
       });
   };
