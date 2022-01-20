@@ -22,7 +22,7 @@
         (final: prev: {
           myme = {
             inherit wallpapers;
-            lib.allMachines = final.callPackage ./lib/allMachines.nix {  };
+            lib = final.callPackage ./lib {  };
           };
         })
       ];
