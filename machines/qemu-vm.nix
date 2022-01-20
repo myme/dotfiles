@@ -9,6 +9,9 @@
     # Network
     networking.interfaces.ens3.useDHCP = true;
 
+    # Security
+    security.sudo.wheelNeedsPassword = false;
+
     # User config
     myme.machine.role = "desktop";
     home-manager.users.myme =
