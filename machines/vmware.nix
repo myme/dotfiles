@@ -10,6 +10,9 @@
     networking.interfaces.ens33.useDHCP = true;
     virtualisation.vmware.guest.enable = true;
 
+    # Security
+    security.sudo.wheelNeedsPassword = false;
+
     # User config
     myme.machine.role = "desktop";
     home-manager.users.myme =
