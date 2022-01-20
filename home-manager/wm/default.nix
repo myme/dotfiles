@@ -42,6 +42,10 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
+      home.packages = with pkgs; [
+        firefox
+      ];
+
       # Relay i3 config
       myme.wm.i3 = {
         enable = cfg.variant == "i3";
@@ -73,6 +77,10 @@ in {
         scriptPath = ".hm-xsession";
         initExtra = ''
           ${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/alien-moon-nature.jpg
+        '';
+        profileExtra = ''
+          export GDK_DPI_SCALE=1.25
+          export QT_SCALE_FACTOR=1.25
         '';
       };
     }

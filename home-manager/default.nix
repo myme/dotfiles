@@ -8,10 +8,15 @@ f: { pkgs, ... }: (f {
   ];
 
   home.packages = with pkgs; [
+    dua
     fd
+    jq
+    lsof
     nixfmt
     ripgrep
     tree
+    unzip
+    zip
   ];
 
   home.keyboard = {
