@@ -23,11 +23,6 @@ in {
       default = "i3";
       description = "Window Manager flavor";
     };
-    bluetooth = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Enable bluetooth applet";
-    };
     conky = mkOption {
       type = types.bool;
       default = true;
