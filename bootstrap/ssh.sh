@@ -3,4 +3,4 @@ set -eo pipefail
 
 source "$(dirname "$0")/setup.sh"
 
-ssh -tt "$NIX_INSTALL_HOST" -p"$NIX_INSTALL_PORT" -l"$NIX_INSTALL_USER" $SSH_OPTS "$@"
+ssh -tt -A "$NIX_INSTALL_HOST" -p"$NIX_INSTALL_PORT" -l"$NIX_INSTALL_USER" $SSH_OPTS "$@"
