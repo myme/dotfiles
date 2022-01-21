@@ -16,3 +16,9 @@ $ ./bootstrap/copy.sh
 $ ./bootstrap/ssh.sh sudo ./nixos/bootstrap/build.sh
 ```
 
+## Updating
+
+``` bash
+$ sudo nixos-rebuild <switch|test|build> --flake .
+```
+
