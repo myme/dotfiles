@@ -11,7 +11,9 @@
       home-manager.enable = true;
 
       bash.profileExtra = ''
-        if [ -e /home/myme/.nix-profile/etc/profile.d/nix.sh ]; then . /home/myme/.nix-profile/etc/profile.d/nix.sh; fi
+        if [ -e /home/myme/.nix-profile/etc/profile.d/nix.sh ]; then
+          . /home/myme/.nix-profile/etc/profile.d/nix.sh;
+        fi
       '';
 
       # SSH agent
