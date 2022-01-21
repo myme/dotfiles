@@ -22,3 +22,18 @@ $ ./bootstrap/ssh.sh sudo ./nixos/bootstrap/build.sh
 $ sudo nixos-rebuild <switch|test|build> --flake .
 ```
 
+## Windows Subsystem for Linux (WSL)
+
+### Install
+
+``` bash
+$ nix --experimental-features "nix-command flakes" build .#wsl
+$ ./result/activate
+```
+
+### Update
+
+``` bash
+$ home-manager <build|switch> --flake .#wsl
+```
+

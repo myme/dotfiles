@@ -15,7 +15,7 @@
     # User config
     myme.machine.role = "desktop";
     home-manager.users.myme =
-      import ../home-manager (attrs: attrs // {
+      import ../home-manager {
         myme.alacritty.font_size = 15.0;
 
         # Development tools
@@ -37,6 +37,6 @@
             monitor = "Virtual1";
           };
         };
-      });
+      };
   };
 }

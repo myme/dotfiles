@@ -12,13 +12,13 @@
     # User config
     myme.machine.role = "desktop";
     home-manager.users.myme =
-      import ../home-manager (attrs: attrs // {
+      import ../home-manager {
         myme.wm = {
           enable = true;
           variant = "xmonad";
           conky = false;
           polybar.monitor = "Virtual-1";
         };
-      });
+      };
   };
 }

@@ -10,6 +10,6 @@
 
     # User config
     myme.machine.role = "server";
-    home-manager.users.myme = import ../home-manager (attrs: attrs);
+    home-manager.users.myme = import ../home-manager { };
   };
 }

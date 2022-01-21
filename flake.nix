@@ -1,7 +1,10 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
-    home-manager.url = "github:nix-community/home-manager/release-21.11";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-21.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     doom-emacs = {
       url = "github:hlissner/doom-emacs";
       flake = false;
@@ -34,6 +37,16 @@
       nixosConfigurations = pkgs.myme.lib.allMachines {
         inherit self system nixpkgs home-manager;
       };
+
+      # Non-NixOS (Fedora, WSL, ++)
+      homeConfigurations = {
+        wsl = import ./machines/wsl.nix {
+          inherit home-manager system;
+          overlays = self.overlays;
+        };
+      };
+
+      wsl = self.homeConfigurations.wsl.activationPackage;
 
       devShell.${system} = pkgs.mkShell { };
     };
