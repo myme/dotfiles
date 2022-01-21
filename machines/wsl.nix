@@ -1,4 +1,4 @@
-{ home-manager, overlays, system }: home-manager.lib.homeManagerConfiguration {
+{ overlays, system }: {
   inherit system;
   homeDirectory = "/home/myme";
   username = "myme";

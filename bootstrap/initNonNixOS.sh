@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+
+if [ -z "$1" ]; then
+    echo "usage: $0 <machine>" >&2
+    exit 1
+fi
+
+nix --experimental-features "nix-command flakes" build ".#homeConfigurations.$1.activationPackage"
+./result/activate

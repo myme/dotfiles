@@ -34,19 +34,18 @@
         })
       ];
 
-      nixosConfigurations = pkgs.myme.lib.allMachines {
-        inherit self system nixpkgs home-manager;
-      };
+      # NixOS machines
+      nixosConfigurations = pkgs.myme.lib.allMachines (name: file:
+        pkgs.myme.lib.makeNixOS name file {
+          inherit self system nixpkgs home-manager;
+        });
 
-      # Non-NixOS (Fedora, WSL, ++)
-      homeConfigurations = {
-        wsl = import ./machines/wsl.nix {
-          inherit home-manager system;
+      # Non-NixOS machines (Fedora, WSL, ++)
+      homeConfigurations = pkgs.myme.lib.allMachines (_: file:
+        home-manager.lib.homeManagerConfiguration (import file {
+          inherit system;
           overlays = self.overlays;
-        };
-      };
-
-      wsl = self.homeConfigurations.wsl.activationPackage;
+        }));
 
       devShell.${system} = pkgs.mkShell { };
     };

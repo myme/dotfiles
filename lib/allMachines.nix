@@ -2,7 +2,7 @@
 
 { lib }:
 
-args:
+f:
 
 let
   isNixFile = p: lib.strings.hasSuffix ".nix" p && p != "default.nix";
@@ -11,5 +11,5 @@ let
 
 in builtins.listToAttrs (builtins.map (fname: rec {
   name = lib.strings.removeSuffix ".nix" fname;
-  value = import ./makeNixOS.nix name ../machines/${name}.nix args;
+  value = f name ../machines/${name}.nix;
 }) nixFiles)
