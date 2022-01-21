@@ -30,7 +30,8 @@ in {
     };
     plasma = mkOption {
       type = types.bool;
-      default = false;
+      default =
+        args.specialArgs.nixosConfig.myme.de.variant == "plasma";
       description = "Enable KDE Plasma integration";
     };
   };
