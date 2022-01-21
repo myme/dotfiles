@@ -6,8 +6,7 @@
   ];
 
   config = {
-    # Network + VM
-    networking.interfaces.ens33.useDHCP = true;
+    # VM
     virtualisation.vmware.guest.enable = true;
 
     # Security

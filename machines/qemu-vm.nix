@@ -6,9 +6,6 @@
   ];
 
   config = {
-    # Network
-    networking.interfaces.ens3.useDHCP = true;
-
     # Security
     security.sudo.wheelNeedsPassword = false;
 

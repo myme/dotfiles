@@ -8,9 +8,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Network configuration.
-  networking.useDHCP = false;
-
   # Time
   time.timeZone = "Europe/Oslo";
 
