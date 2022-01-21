@@ -35,8 +35,20 @@ f: { pkgs, ... }: (f {
         enableFlakes = true;
       };
     };
-    emacs.enable = true;
+    emacs = {
+      enable = true;
+      extraPackages = epkgs: with epkgs; [
+        vterm
+      ];
+    };
     fzf.enable = true;
+    htop = {
+      enable = true;
+      settings = {
+        left_meters = [ "LeftCPUs2" "Memory" "Swap" ];
+        right_meters = [ "RightCPUs2" "Tasks" "LoadAverage" "Uptime" ];
+      };
+    };
     nixon = {
       enable = true;
       exact_match = true;
@@ -53,6 +65,13 @@ f: { pkgs, ... }: (f {
         disabled = false;
         format = "[$time]($style) ";
       };
+    };
+  };
+
+  services = {
+    emacs = {
+      enable = true;
+      client.enable = true;
     };
   };
 })
