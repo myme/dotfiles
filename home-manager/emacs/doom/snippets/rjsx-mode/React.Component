@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: React.Component
+# key: comp
+# --
+import React from 'react';
+
+export default class $1 extends React.Component {
+  static propTypes = {
+  }
+
+  render() {
+    return (
+      <div>Component</div>
+    );
+  }
+}

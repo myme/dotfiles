@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: React.Component (func)
+# key: fncomp
+# --
+import React from 'react';
+
+export default function ${1:component}(${2:props}) {
+  return (
+    <div>${3:Component}</div>
+  );
+}

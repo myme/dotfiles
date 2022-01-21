@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "doom-emacs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1642277695,
+        "narHash": "sha256-RAxbJ1cYI0VUD8XJutTHYKFFE2e0OMGSj6d6DL+MSOM=",
+        "owner": "hlissner",
+        "repo": "doom-emacs",
+        "rev": "c7753adbb301dcb647dc96d182c28b228551890e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hlissner",
+        "repo": "doom-emacs",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1638122382,
@@ -99,6 +115,7 @@
     },
     "root": {
       "inputs": {
+        "doom-emacs": "doom-emacs",
         "home-manager": "home-manager",
         "i3ws": "i3ws",
         "nixpkgs": "nixpkgs_3",

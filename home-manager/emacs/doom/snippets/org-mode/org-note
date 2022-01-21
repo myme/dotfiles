@@ -1,0 +1,6 @@
+# key: <N
+# name: Org note
+# --
+#+BEGIN_NOTES
+$0
+#+END_NOTES

@@ -2,6 +2,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
     home-manager.url = "github:nix-community/home-manager/release-21.11";
+    doom-emacs = {
+      url = "github:hlissner/doom-emacs";
+      flake = false;
+    };
     i3ws.url = "github:myme/i3ws";
     wallpapers = {
       url = "gitlab:myme/wallpapers";
@@ -9,7 +13,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, i3ws, wallpapers }:
+  outputs = { self, nixpkgs, home-manager, ... }@args:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -18,10 +22,10 @@
       };
     in {
       overlays = [
-        i3ws.overlay
+        args.i3ws.overlay
         (final: prev: {
           myme = {
-            inherit wallpapers;
+            inherit (args) doom-emacs wallpapers;
             lib = final.callPackage ./lib {  };
           };
         })

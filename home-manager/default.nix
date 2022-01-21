@@ -1,6 +1,7 @@
 f: { pkgs, ... }: (f {
   imports = [
     ./dev.nix
+    ./emacs
     ./git.nix
     ./nixon.nix
     ./tmux.nix
@@ -34,12 +35,6 @@ f: { pkgs, ... }: (f {
         enable = true;
         enableFlakes = true;
       };
-    };
-    emacs = {
-      enable = true;
-      extraPackages = epkgs: with epkgs; [
-        vterm
-      ];
     };
     fzf.enable = true;
     htop = {

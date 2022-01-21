@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Before each
+# key: bef
+# --
+beforeEach(() => {
+  $1
+});
