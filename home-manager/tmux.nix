@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   config = {
     programs.tmux = {
       enable = true;
@@ -15,13 +15,18 @@
 
         # Mouse support
         # set -g mouse on
-
-        # Look and feel
-        set -g pane-border-style "fg=blue,bg=default"
-        set -g message-style "fg=white,bg=black,bright"
-        set -g status-style "fg=blue,bg=default"
-        set -g status-justify "centre"
       '';
+      plugins = with pkgs.tmuxPlugins; [
+        copycat
+        {
+          plugin = power-theme;
+          extraConfig = "set -g @tmux_power_theme 'violet'";
+        }
+        sensible
+        sessionist
+        urlview
+        yank
+      ];
     };
   };
 }
