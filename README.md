@@ -16,6 +16,20 @@ $ ./bootstrap/copy.sh
 $ ./bootstrap/ssh.sh sudo ./nixos/bootstrap/build.sh
 ```
 
+### Post-install
+
+Installing `emacs` dependencies:
+
+``` bash
+$ ~/.emacs.d/bin/doom sync
+```
+
+After launching `emacs`, install `all-the-icons`:
+
+``` emacs-lisp
+(all-the-icons-install-fonts t)
+```
+
 ## Updating
 
 ``` bash
