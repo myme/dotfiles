@@ -9,7 +9,7 @@ attrs: { lib, pkgs, ... }: ({
     ./wm
   ];
 
-  config = lib.mkMerge [attrs {
+  config = lib.mkMerge [{
     home.packages = with pkgs; [
       dua
       fd
@@ -70,5 +70,5 @@ attrs: { lib, pkgs, ... }: ({
         client.enable = true;
       };
     };
-  }];
+  } attrs];
 })
