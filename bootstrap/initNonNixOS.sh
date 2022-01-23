@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -e
 
+# Install nix
+# sh <(curl -L https://nixos.org/nix/install) --daemon
+
 if [ -z "$1" ]; then
     echo "usage: $0 <machine>" >&2
     exit 1
