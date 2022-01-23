@@ -1,3 +1,8 @@
+# VMWare
+#
+# Full graphical NixOS setup on VMWare.
+#
+
 { config, lib, pkgs, ... }: {
   imports = [
     ../system/xserver.nix
@@ -12,8 +17,10 @@
     # Security
     security.sudo.wheelNeedsPassword = false;
 
-    # User config
+    # Machine role
     myme.machine.role = "desktop";
+
+    # User config
     home-manager.users.myme =
       import ../home-manager {
         myme.alacritty.font_size = 15.0;

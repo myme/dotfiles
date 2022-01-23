@@ -1,8 +1,3 @@
-# Windows Subsystem for Linux (WSL)
-#
-# Primarily for WSL non-GUI user environment.
-#
-
 { overlays, system }: {
   inherit system;
   homeDirectory = "/home/myme";
@@ -23,12 +18,6 @@
           . /home/myme/.nix-profile/etc/profile.d/nix.sh;
         fi
       '';
-
-      # SSH agent
-      keychain = {
-        enable = true;
-        keys = [ "id_ed25519" ];
-      };
 
       tmux.secureSocket = false;
     };

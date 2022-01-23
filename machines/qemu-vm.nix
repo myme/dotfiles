@@ -1,3 +1,8 @@
+# QEmu
+#
+# Full graphical NixOS setup on QEmu.
+#
+
 { config, lib, pkgs, ... }: {
   imports = [
     ../system/xserver.nix
@@ -12,10 +17,12 @@
     # Security
     security.sudo.wheelNeedsPassword = false;
 
-    # User config
+    # Machine role + Desktop Environment
     myme.machine.role = "desktop";
     # myme.de.variant = "plasma";
     myme.de.variant = "wm";
+
+    # User config
     home-manager.users.myme =
       import ../home-manager {
         myme.wm = {
