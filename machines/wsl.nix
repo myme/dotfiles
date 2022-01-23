@@ -6,6 +6,9 @@
     nixpkgs.overlays = overlays;
     home.sessionVariables.LANG = "en_US.UTF-8";
 
+    # Non-NixOS
+    targets.genericLinux.enable = true;
+
     # programs = attrs.programs // {
     programs = {
       home-manager.enable = true;
