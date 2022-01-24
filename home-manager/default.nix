@@ -50,6 +50,7 @@ attrs: { lib, pkgs, ... }: ({
         exact_match = true;
         source_dirs = [
           "~/nixos"
+          "~/notes"
           "~/src"
         ];
         use_direnv = true;
