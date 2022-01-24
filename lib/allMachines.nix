@@ -5,11 +5,12 @@
 f:
 
 let
-  isNixFile = p: lib.strings.hasSuffix ".nix" p && p != "default.nix";
-  nixFiles = builtins.filter isNixFile
-    (builtins.attrNames (builtins.readDir ../machines));
+  isMachine = { name, type }: type == "directory" || (lib.strings.hasSuffix ".nix" name && name != "default.nix");
+  nixFiles = builtins.map (x: x.name) (builtins.filter isMachine
+    (lib.mapAttrsToList (name: type: { inherit name type; })
+      (builtins.readDir ../machines)));
 
 in builtins.listToAttrs (builtins.map (fname: rec {
   name = lib.strings.removeSuffix ".nix" fname;
-  value = f name ../machines/${name}.nix;
+  value = f name ../machines/${fname};
 }) nixFiles)

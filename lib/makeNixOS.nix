@@ -18,9 +18,8 @@ nixpkgs.lib.nixosSystem {
       # of this flake.
       system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
 
-      # Pin flake nixpkgs
-      nix.registry.nixpkgs.flake = nixpkgs;
-
+      # Nix + nixpkgs
+      nix.registry.nixpkgs.flake = nixpkgs;  # Pin flake nixpkgs
       nixpkgs.overlays = self.overlays;
     }
   ];
