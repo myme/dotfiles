@@ -69,6 +69,7 @@ in {
         generateCaches = true;
       };
     };
+
     home.packages = mkMerge [
       # Docs
       (mkIf cfg.docs.enable (with pkgs; [
@@ -116,6 +117,14 @@ in {
       (mkIf cfg.shell.enable (with pkgs; [
         shellcheck
       ]))
+    ];
+
+    home.file = mkMerge [
+      (mkIf cfg.haskell.enable {
+        ".ghci".text = ''
+          :set prompt "λ: "
+        '';
+      })
     ];
   };
 }
