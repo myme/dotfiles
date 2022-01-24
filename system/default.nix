@@ -6,7 +6,13 @@
 
   # Boot
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 30;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # Network
+  networking.networkmanager.enable = true;
+  networking.firewall.enable = false;
 
   # Time
   time.timeZone = "Europe/Oslo";
@@ -16,6 +22,9 @@
 
   # For GTK stuff
   programs.dconf.enable = true;
+
+  # Mosh
+  programs.mosh.enable = true;
 
   # SSH
   services.openssh.enable = true;
