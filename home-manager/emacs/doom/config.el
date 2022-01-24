@@ -259,6 +259,13 @@
   (add-to-list 'load-path "~/.nix-profile/share/emacs/site-lisp/mu4e"))
 
 
+;; Safe local variables
+(setq safe-local-variable-values
+      '((org-roam-dailies-directory . "./dailies")
+        (org-roam-db-location . "./org-roam.db")
+        (org-roam-directory . "~/notes/cisco")))
+
+
 (after! mu4e
   (require 'org-mu4e))
 
