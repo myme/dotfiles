@@ -114,7 +114,7 @@ in {
       programs.feh.enable = true;
 
       # Bluetooth/network
-      services.blueman-applet.enable = machine.role == "latop";
+      services.blueman-applet.enable = machine.role == "laptop";
 
       # Network manager
       services.network-manager-applet.enable = true;
