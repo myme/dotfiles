@@ -61,7 +61,7 @@ in {
       };
 
       # Alacritty
-      myme.alacritty = {
+      myme.alacritty = lib.mkDefault {
         enable = true;
         background_opacity = 0.95;
         font_size = if machine.highDPI then 12 else 6;

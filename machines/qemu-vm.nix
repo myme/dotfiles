@@ -25,6 +25,7 @@
     # User config
     home-manager.users.myme =
       import ../home-manager {
+        myme.alacritty.font_size = 10;
         myme.wm = {
           enable = true;
           variant = "xmonad";
