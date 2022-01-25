@@ -14,5 +14,10 @@ with lib;
       default = "desktop";
       description = "Machine type";
     };
+    highDPI = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Optimize for high DPI outputs (4k)";
+    };
   };
 }

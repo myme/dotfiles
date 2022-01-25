@@ -5,6 +5,7 @@ with lib;
 let
   lockCmd = "${./lock-wrapper.sh} ${pkgs.i3lock}/bin/i3lock -c 000000 -n";
   cfg = config.myme.wm;
+  machine = args.specialArgs.nixosConfig.myme.machine;
 
 in {
   imports = [
@@ -68,17 +69,21 @@ in {
       services.flameshot.enable = true;
 
       # XSession
-      xsession = {
-        enable = true;
-        scriptPath = ".hm-xsession";
-        initExtra = ''
-          ${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/alien-moon-nature.jpg
-        '';
-        profileExtra = ''
-          export GDK_DPI_SCALE=1.25
-          export QT_SCALE_FACTOR=1.25
-        '';
-      };
+      xsession = mkMerge [
+        {
+          enable = true;
+          scriptPath = ".hm-xsession";
+          initExtra = ''
+            ${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/alien-moon-nature.jpg
+          '';
+        }
+        (mkIf machine.highDPI {
+          profileExtra = ''
+            export GDK_DPI_SCALE=1.25
+            export QT_SCALE_FACTOR=1.25
+          '';
+        })
+      ];
     }
 
     # With KDE Plasma
@@ -91,17 +96,25 @@ in {
 
     # Without KDE Plasma
     (mkIf (!cfg.plasma) {
-      myme.wm.polybar = {
-        enable = true;
-        i3gaps = cfg.variant == "i3";
-      };
+      myme.wm.polybar = mkMerge [
+        {
+          enable = true;
+          i3gaps = cfg.variant == "i3";
+        }
+        (if machine.highDPI then {
+          font_size = 15;
+          height = 50;
+        } else {
+          font_size = 11;
+          height = 35;
+        })
+      ];
 
       # Wallpaper (feh)
       programs.feh.enable = true;
 
       # Bluetooth/network
-      services.blueman-applet.enable =
-        args.specialArgs.nixosConfig.myme.machine.role == "latop";
+      services.blueman-applet.enable = machine.role == "latop";
 
       # Network manager
       services.network-manager-applet.enable = true;

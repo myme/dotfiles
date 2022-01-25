@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, ... }@args:
 
 let
+  machine = args.specialArgs.nixosConfig.myme.machine;
+
   iconThemes = {
     numix-circle = {
       package = pkgs.numix-icon-theme;
@@ -11,7 +13,7 @@ let
     capitaine = {
       package = pkgs.capitaine-cursors;
       name = "capitaine-cursors";
-      size = 50;
+      size = if machine.highDPI then 64 else 50;
     };
     none = null;
     numix = {
