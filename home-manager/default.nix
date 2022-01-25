@@ -1,5 +1,6 @@
 attrs: { lib, pkgs, ... }: ({
   imports = [
+    ./barrier.nix
     ./dev.nix
     ./emacs
     ./git.nix
