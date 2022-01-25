@@ -39,10 +39,6 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      home.packages = with pkgs; [
-        firefox
-      ];
-
       # Relay i3 config
       myme.wm.i3 = {
         enable = cfg.variant == "i3";
