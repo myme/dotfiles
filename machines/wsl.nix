@@ -7,35 +7,41 @@
   inherit system;
   homeDirectory = "/home/myme";
   username = "myme";
-  configuration = (import ../home-manager {
-    nixpkgs.overlays = overlays;
-    home.sessionVariables.LANG = "en_US.UTF-8";
+  configuration = {
+    imports = [
+      ../home-manager
+    ];
 
-    # Non-NixOS
-    targets.genericLinux.enable = true;
+    config = {
+      nixpkgs.overlays = overlays;
+      home.sessionVariables.LANG = "en_US.UTF-8";
 
-    programs = {
-      home-manager.enable = true;
+      # Non-NixOS
+      targets.genericLinux.enable = true;
 
-      bash.profileExtra = ''
-        if [ -e /home/myme/.nix-profile/etc/profile.d/nix.sh ]; then
-          . /home/myme/.nix-profile/etc/profile.d/nix.sh;
-        fi
-      '';
+      programs = {
+        home-manager.enable = true;
 
-      # SSH agent
-      keychain = {
-        enable = true;
-        keys = [ "id_ed25519" ];
+        bash.profileExtra = ''
+          if [ -e /home/myme/.nix-profile/etc/profile.d/nix.sh ]; then
+            . /home/myme/.nix-profile/etc/profile.d/nix.sh;
+          fi
+        '';
+
+        # SSH agent
+        keychain = {
+          enable = true;
+          keys = [ "id_ed25519" ];
+        };
+
+        tmux.secureSocket = false;
       };
 
-      tmux.secureSocket = false;
+      # Enable flakes
+      xdg.configFile."nix/nix.conf".text = ''
+        experimental-features = nix-command flakes
+      '';
     };
-
-    # Enable flakes
-    xdg.configFile."nix/nix.conf".text = ''
-      experimental-features = nix-command flakes
-    '';
-  });
+  };
 }
 

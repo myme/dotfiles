@@ -1,4 +1,4 @@
-overrides: { lib, pkgs, ... }@args: ({
+{ lib, pkgs, ... }: ({
   imports = [
     ./barrier.nix
     ./dev.nix
@@ -10,7 +10,7 @@ overrides: { lib, pkgs, ... }@args: ({
     ./wm
   ];
 
-  config = lib.mkMerge [{
+  config = {
     home.packages = with pkgs; [
       dua
       fd
@@ -74,9 +74,5 @@ overrides: { lib, pkgs, ... }@args: ({
         client.enable = true;
       };
     };
-  } (
-    if builtins.isFunction overrides
-    then overrides args
-    else overrides
-  )];
+  };
 })

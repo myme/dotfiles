@@ -24,8 +24,12 @@
     };
 
     # User config
-    home-manager.users.myme =
-      import ../home-manager {
+    home-manager.users.myme = {
+      imports = [
+        ../home-manager
+      ];
+
+      config = {
         # Development tools
         myme.dev = {
           docs.enable = true;
@@ -42,5 +46,6 @@
           polybar.monitor = "Virtual1";
         };
       };
+    };
   };
 }

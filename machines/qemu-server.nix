@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }: {
   imports = [
     ../users
-    ../users/myme.nix
+    ../users/user.nix
   ];
 
   config = {
@@ -10,6 +10,8 @@
 
     # User config
     myme.machine.role = "server";
-    home-manager.users.myme = import ../home-manager { };
+    home-manager.users.user.imports = [
+      ../home-manager
+    ];
   };
 }

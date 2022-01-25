@@ -7,7 +7,7 @@
   imports = [
     ../system/xserver.nix
     ../users
-    ../users/myme.nix
+    ../users/user.nix
   ];
 
   config = {
@@ -23,8 +23,12 @@
     myme.de.variant = "wm";
 
     # User config
-    home-manager.users.myme =
-      import ../home-manager {
+    home-manager.users.user = {
+      imports = [
+        ../home-manager
+      ];
+
+      config = {
         myme.alacritty.font_size = 10;
         myme.wm = {
           enable = true;
@@ -34,5 +38,6 @@
           polybar.monitor = "Virtual-1";
         };
       };
+    };
   };
 }
