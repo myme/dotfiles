@@ -1,4 +1,4 @@
-name: machineFile: { self, home-manager, nixpkgs, system }:
+name: machineFile: { self, home-manager, nixpkgs, system, overlays }:
 nixpkgs.lib.nixosSystem {
   inherit system;
   modules = [
@@ -20,7 +20,7 @@ nixpkgs.lib.nixosSystem {
 
       # Nix + nixpkgs
       nix.registry.nixpkgs.flake = nixpkgs;  # Pin flake nixpkgs
-      nixpkgs.overlays = self.overlays;
+      nixpkgs.overlays = overlays;
     }
   ];
 }

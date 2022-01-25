@@ -45,7 +45,7 @@
       # NixOS machines
       nixosConfigurations = pkgs.myme.lib.allMachines (name: file:
         pkgs.myme.lib.makeNixOS name file {
-          inherit self system nixpkgs home-manager;
+          inherit self system nixpkgs home-manager overlays;
         });
 
       # Non-NixOS machines (Fedora, WSL, ++)
