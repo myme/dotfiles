@@ -55,6 +55,14 @@
           };
         }));
 
-      devShell.${system} = pkgs.mkShell { };
+      devShell.${system} = pkgs.mkShell {
+        buildInputs = [
+          # For hacking on XMonad
+          (pkgs.ghc.withPackages (ps: with ps; [
+            xmonad
+            xmonad-contrib
+          ]))
+        ];
+      };
     };
 }
