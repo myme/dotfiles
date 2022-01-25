@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+#
+# Build a Home Manager profile
+#
+
 set -e
 
 # Install nix
