@@ -12,11 +12,6 @@ fi
 nix --experimental-features "nix-command flakes" build ".#homeConfigurations.$1.activationPackage"
 
 echo
-echo "Build complete!"
+echo "Build complete! Apply to \$HOME by running:"
 echo
-read -p "Activate? [Y/n] " -n 1 -r
-echo    # (optional) move to a new line
-if [[ ! $REPLY =~ ^[Nn]$ ]]
-then
-    ./result/activate
-fi
+echo "  ./result/activate"
