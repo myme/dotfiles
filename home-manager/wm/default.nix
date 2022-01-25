@@ -53,6 +53,7 @@ in {
       myme.alacritty = {
         enable = true;
         background_opacity = 0.95;
+        font_size = if machine.highDPI then 12 else 6;
         theme = "dracula";
       };
 

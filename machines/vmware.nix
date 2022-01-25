@@ -18,13 +18,14 @@
     security.sudo.wheelNeedsPassword = false;
 
     # Machine role
-    myme.machine.role = "desktop";
+    myme.machine = {
+      role = "desktop";
+      highDPI = true;
+    };
 
     # User config
     home-manager.users.myme =
       import ../home-manager {
-        myme.alacritty.font_size = 15.0;
-
         # Development tools
         myme.dev = {
           docs.enable = true;
@@ -38,11 +39,7 @@
           enable = true;
           variant = "xmonad";
           conky = false;
-          polybar = {
-            font_size = 15;
-            height = 50;
-            monitor = "Virtual1";
-          };
+          polybar.monitor = "Virtual1";
         };
       };
   };

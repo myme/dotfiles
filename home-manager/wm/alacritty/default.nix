@@ -16,8 +16,8 @@ in {
       description = "Alacritty background opacity";
     };
     font_size = mkOption {
-      type = types.float;
-      default = 12.0;
+      type = types.int;
+      default = 12;
       description = "Alacritty font size";
     };
     theme = mkOption {
