@@ -9,6 +9,7 @@ import qualified FontAwesome as Fa
 import           System.Environment (lookupEnv)
 import           System.Exit
 import           Text.Read (readMaybe)
+import qualified Variables as Vars
 import           XMonad hiding (Color)
 import           XMonad.Actions.CopyWindow (copyToAll, kill1, killAllOtherCopies)
 import           XMonad.Actions.CycleWS
@@ -289,14 +290,14 @@ myLayout = BW.boringWindows
              $ configurableNavigation noNavigateBorders
              $ addTabs shrinkText tabTheme
              $ subLayout [] Simplest
-             $ spacingRaw True (Border spc spc spc spc) True (Border spc spc spc spc) True
+             $ spacingRaw Vars.smartBorder (Border spc spc spc spc) True (Border spc spc spc spc) True
              $ ResizableTall 1 (3/100) (1/2) []
         three = smartBorders
               $ avoidStruts
               $ configurableNavigation noNavigateBorders
               $ addTabs shrinkText tabTheme
               $ subLayout [] Simplest
-              $ spacingRaw True (Border spc spc spc spc) True (Border spc spc spc spc) True
+              $ spacingRaw Vars.smartBorder (Border spc spc spc spc) True (Border spc spc spc spc) True
               $ Three.ThreeCol 1 (3/100) (1/3)
         full = noBorders
              $ avoidStruts
@@ -307,9 +308,9 @@ myLayout = BW.boringWindows
              $ subLayout [] Simplest
              $ spacingRaw True (Border 0 0 0 0) True (Border 5 5 5 5) True
                Grid
-        spc = 5
+        spc = Vars.spaces
         tabTheme = def
-                 { fontName            = "xft:Dejavu Sans Mono for Powerline:regular:size=10:antialias=true:hinting=true"
+                 { fontName            = Vars.fontName
                  , activeColor         = show Blue
                  , inactiveColor       = show BgDark
                  , activeBorderColor   = show BgDark

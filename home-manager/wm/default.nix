@@ -49,6 +49,17 @@ in {
         inherit lockCmd;
       };
 
+      # XMonad config
+      myme.wm.xmonad = if machine.highDPI then {
+        fontSize = 12;
+        smartBorder = false;
+        spaces = 20;
+      } else {
+        fontSize = 10;
+        smartBorder = true;
+        spaces = 5;
+      };
+
       # Alacritty
       myme.alacritty = {
         enable = true;
