@@ -19,13 +19,15 @@
   outputs = { self, nixpkgs, home-manager, ... }@args:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = self.overlays;
-      };
-    in {
       overlays = [
         args.i3ws.overlay
+        self.overlay
+      ];
+      pkgs = import nixpkgs {
+        inherit system overlays;
+      };
+    in {
+      overlay =
         (final: prev: {
           myme = {
             inherit (args) doom-emacs wallpapers;
@@ -34,8 +36,7 @@
             };
             lib = final.callPackage ./lib {  };
           };
-        })
-      ];
+        });
 
       # NixOS machines
       nixosConfigurations = pkgs.myme.lib.allMachines (name: file:
@@ -46,8 +47,7 @@
       # Non-NixOS machines (Fedora, WSL, ++)
       homeConfigurations = pkgs.myme.lib.allMachines (_: file:
         home-manager.lib.homeManagerConfiguration (import file {
-          inherit system;
-          overlays = self.overlays;
+          inherit system overlays;
         } // {
           extraSpecialArgs = {
             # Shim NixOS config on non-NixOS systems
