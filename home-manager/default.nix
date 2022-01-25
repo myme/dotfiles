@@ -21,11 +21,8 @@ overrides: { lib, pkgs, ... }@args: ({
       tree
       unzip
       zip
-    ] ++ (let
-      git-sync = pkgs.callPackage ./git-sync {};
-    in [
-      git-sync
-    ]);
+      myme.apps.git-sync
+    ];
 
     home.keyboard = {
       layout = "us";
