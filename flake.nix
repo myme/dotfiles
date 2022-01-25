@@ -31,12 +31,16 @@
         (final: prev: {
           myme = {
             inherit (args) doom-emacs wallpapers;
-            apps = {
-              git-sync = final.callPackage ./apps/git-sync {  };
-            };
+            apps = builtins.listToAttrs (builtins.map (fname: {
+              name = final.lib.strings.removeSuffix ".nix" fname;
+              value = final.callPackage ./apps/${fname} { };
+            }) (final.myme.lib.allNixFiles ./apps));
             lib = final.callPackage ./lib {  };
           };
         });
+
+      # All packages under pkgs.myme.apps from the overlay
+      packages.${system} = pkgs.myme.apps;
 
       # NixOS machines
       nixosConfigurations = pkgs.myme.lib.allMachines (name: file:
