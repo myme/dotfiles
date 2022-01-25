@@ -29,6 +29,9 @@
         (final: prev: {
           myme = {
             inherit (args) doom-emacs wallpapers;
+            apps = {
+              git-sync = final.callPackage ./apps/git-sync {  };
+            };
             lib = final.callPackage ./lib {  };
           };
         })
