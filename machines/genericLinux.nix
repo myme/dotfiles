@@ -1,3 +1,10 @@
+# Generic Linux
+#
+# Intended for machines running non-NixOS (incomplete).
+#
+# Most likely needs NixGL to work nicely with OpenGL apps.
+#
+
 { overlays, system }: {
   inherit system;
   homeDirectory = "/home/myme";
@@ -9,7 +16,6 @@
     # Non-NixOS
     targets.genericLinux.enable = true;
 
-    # programs = attrs.programs // {
     programs = {
       home-manager.enable = true;
 
@@ -18,8 +24,6 @@
           . /home/myme/.nix-profile/etc/profile.d/nix.sh;
         fi
       '';
-
-      tmux.secureSocket = false;
     };
 
     # Enable flakes

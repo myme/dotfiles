@@ -14,7 +14,6 @@
     # Non-NixOS
     targets.genericLinux.enable = true;
 
-    # programs = attrs.programs // {
     programs = {
       home-manager.enable = true;
 
