@@ -144,8 +144,17 @@ in {
       });
 
       # Notifications (dunst)
-      services.dunst.enable = true;
-      xdg.configFile."dunst/dunstrc".source = ./dunstrc;
+      services.dunst = {
+        enable = true;
+        settings = import ./dunst.nix
+          (if machine.highDPI then {
+            font = "Dejavu Sans 15";
+            geometry = "500x5+30+20";
+          } else {
+            font = "Dejavu Sans 10";
+            geometry = "300x5-30+20";
+          });
+      };
     })
   ]);
 }
