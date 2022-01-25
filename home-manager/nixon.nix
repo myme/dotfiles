@@ -29,6 +29,12 @@ in {
       description = "Directories to search for projects.";
     };
 
+    ignore_case = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Ignore case sensitivity when searching.";
+    };
+
     exact_match = mkOption {
       type = types.bool;
       default = false;
@@ -58,7 +64,7 @@ in {
 
       ```json
       ${builtins.toJSON {
-        inherit (cfg) exact_match use_direnv use_nix;
+        inherit (cfg) exact_match ignore_case use_direnv use_nix;
         project_dirs = cfg.source_dirs;
         project_types = [
           { name = "cabal"; test = ["cabal.project"]; desc = "Cabal new-style project"; }

@@ -47,12 +47,13 @@ attrs: { lib, pkgs, ... }: ({
       };
       nixon = {
         enable = true;
-        exact_match = true;
         source_dirs = [
           "~/nixos"
           "~/notes"
           "~/src"
         ];
+        exact_match = true;
+        ignore_case = true;
         use_direnv = true;
         use_nix = true;
       };
