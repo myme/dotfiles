@@ -1,4 +1,4 @@
-attrs: { lib, pkgs, ... }: ({
+overrides: { lib, pkgs, ... }@args: ({
   imports = [
     ./barrier.nix
     ./dev.nix
@@ -73,5 +73,9 @@ attrs: { lib, pkgs, ... }: ({
         client.enable = true;
       };
     };
-  } attrs];
+  } (
+    if builtins.isFunction overrides
+    then overrides args
+    else overrides
+  )];
 })
