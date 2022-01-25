@@ -10,4 +10,13 @@ if [ -z "$1" ]; then
 fi
 
 nix --experimental-features "nix-command flakes" build ".#homeConfigurations.$1.activationPackage"
-./result/activate
+
+echo
+echo "Build complete!"
+echo
+read -p "Activate? [Y/n] " -n 1 -r
+echo    # (optional) move to a new line
+if [[ ! $REPLY =~ ^[Nn]$ ]]
+then
+    ./result/activate
+fi
