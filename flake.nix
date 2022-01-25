@@ -45,6 +45,14 @@
         home-manager.lib.homeManagerConfiguration (import file {
           inherit system;
           overlays = self.overlays;
+        } // {
+          extraSpecialArgs = {
+            # Shim NixOS config on non-NixOS systems
+            nixosConfig.myme.machine = {
+              role = "desktop";
+              highDPI = false;
+            };
+          };
         }));
 
       devShell.${system} = pkgs.mkShell { };
