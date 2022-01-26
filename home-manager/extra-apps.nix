@@ -5,7 +5,6 @@
     firefox
     chromium
     gimp
-    spotify
     vlc
 
     # Utils
