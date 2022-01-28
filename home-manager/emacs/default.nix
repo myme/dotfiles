@@ -17,5 +17,10 @@
         vterm
       ];
     };
+
+    # Additional packages
+    home.packages = with pkgs; [
+      nodePackages.mermaid-cli
+    ];
   };
 }
