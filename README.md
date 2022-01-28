@@ -12,8 +12,16 @@ $ ./bootstrap/copy.sh
 
 ### Start NixOS installation
 
+On console:
+
 ``` bash
-$ ./bootstrap/ssh.sh sudo ./nixos/bootstrap/build.sh
+$ sudo NIX_INSTALL_NAME=<machine> ./bootstrap/intall.sh
+```
+
+Remotely:
+
+``` bash
+$ ./bootstrap/ssh.sh sudo NIX_INSTALL_NAME=<machine> ./nixos/bootstrap/install.sh
 ```
 
 ### Post-install
@@ -41,10 +49,14 @@ $ sudo nixos-rebuild <switch|test|build> --flake .
 ### Install
 
 ``` bash
-$ ./bootstrap/initNonNixOS.sh <machine>
+$ ./bootstrap/build-home.sh <machine>
+$ ./result/activate
 ```
 
 ### Update
+
+Either use the ~build-home.sh~ script above or the following once ~home-manager~
+is installed:
 
 ``` bash
 $ home-manager <build|switch> --flake .#<machine>
