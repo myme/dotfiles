@@ -263,7 +263,8 @@
 (setq safe-local-variable-values
       '((org-roam-dailies-directory . "./dailies")
         (org-roam-db-location . "./org-roam.db")
-        (org-roam-directory . "~/notes/cisco")))
+        (org-roam-directory . "~/notes/cisco")
+        (org-roam-directory . "~/notes/personal/roam")))
 
 
 (after! mu4e
