@@ -274,6 +274,7 @@ appIcon = runQuery $ fromMaybe Fa.WindowMaximize . getFirst <$> composeAll
   , className =?  "Peek"             ~~> Fa.Camera
   , className =?  "qutebrowser"      ~~> Fa.Compass
   , className =?  "Seahorse"         ~~> Fa.Lock
+  , className =?  "Signal"           ~~> Fa.Comment
   , className =?  "Spotify"          ~~> Fa.Spotify
   , title     =?  "st"               ~~> Fa.Terminal
   , className =?  "vlc"              ~~> Fa.YoutubePlay
