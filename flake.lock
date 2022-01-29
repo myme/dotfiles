@@ -71,6 +71,24 @@
         "type": "github"
       }
     },
+    "nixon": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1643416772,
+        "narHash": "sha256-B9UdEU1KYLBbpOLI+P25vl9vEfS0TBVRQVLT5ta6OlM=",
+        "owner": "myme",
+        "repo": "nixon",
+        "rev": "6b50101444e892fdee3a53a635b7f67c1e7b9948",
+        "type": "github"
+      },
+      "original": {
+        "owner": "myme",
+        "repo": "nixon",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1642160200,
@@ -86,6 +104,22 @@
       }
     },
     "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1643247693,
+        "narHash": "sha256-rmShxIuNjYBz4l83J0J++sug+MURUY1koPCzX4F8hfo=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "6c4b9f1a2fd761e2d384ef86cff0d208ca27fdca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-21.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1642961095,
         "narHash": "sha256-RLatktZmvwFBOyqdoIk4qdS4OGKB7aKIvvs4ZP2L8D8=",
@@ -106,7 +140,8 @@
         "doom-emacs": "doom-emacs",
         "home-manager": "home-manager",
         "i3ws": "i3ws",
-        "nixpkgs": "nixpkgs_2",
+        "nixon": "nixon",
+        "nixpkgs": "nixpkgs_3",
         "wallpapers": "wallpapers"
       }
     },

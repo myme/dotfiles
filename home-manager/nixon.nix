@@ -5,20 +5,13 @@ with lib;
 let
   cfg = config.programs.nixon;
 
-  nixon = pkgs.callPackage (pkgs.fetchFromGitHub {
-    owner = "myme";
-    repo = "nixon";
-    rev = "2b8716f496e1f3b0e544ea15d662d905bc7af96a";
-    sha256 = "0lynwj94irf2fvlxcfps7hzv44f42yifb2yrflw2rhqmv36cczks";
-  }) {};
-
 in {
   options.programs.nixon = {
     enable = mkEnableOption "nixon";
 
     package = mkOption {
       type = types.package;
-      default = nixon;
+      default = pkgs.nixon;
       description = "Nixon package.";
     };
 

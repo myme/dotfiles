@@ -10,6 +10,7 @@
       flake = false;
     };
     i3ws.url = "github:myme/i3ws";
+    nixon.url = "github:myme/nixon";
     wallpapers = {
       url = "gitlab:myme/wallpapers";
       flake = false;
@@ -21,6 +22,7 @@
       system = "x86_64-linux";
       overlays = [
         args.i3ws.overlay
+        args.nixon.overlay
         self.overlay
       ];
       pkgs = import nixpkgs {
