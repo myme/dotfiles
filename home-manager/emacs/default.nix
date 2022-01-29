@@ -20,6 +20,11 @@
 
     # Additional packages
     home.packages = with pkgs; [
+      (aspellWithDicts (dicts: with dicts; [
+        en
+        en-computers
+        nb
+      ]))
       nodePackages.mermaid-cli
     ];
   };
