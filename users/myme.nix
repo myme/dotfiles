@@ -2,8 +2,7 @@
 {
   users.users.myme = {
     isNormalUser = true;
-    hashedPassword =
-      "$6$citENBeUFi0e2BS.$fmfM8KgHH3M1dUk4vFwCz.pr9B29Wg1QMWsbbS9r5fhrXTSER8Jx/KHMlSdu9zxW6iBD5teMjM3QwJRfGRXFr/";
+    initialPassword = "nixos";
     extraGroups = [ "wheel" "networkmanager" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH+9tnNlMesGrK/lDvycgzyS4pPrsGqcGQP6yLCsr/LN myme@Tuple"

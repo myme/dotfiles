@@ -6,7 +6,6 @@
 { config, lib, pkgs, ... }: {
   imports = [
     ../system/xserver.nix
-    ../users
     ../users/myme.nix
   ];
 
