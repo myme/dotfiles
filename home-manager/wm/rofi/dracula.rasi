@@ -1,3 +1,4 @@
+/* -*- mode: css; -*- */
 /* Dracula colors */
 /* Reference: https://www.reddit.com/r/unixporn/comments/arcofe/i3gaps_dracula_endgame/ */
 /* Source: https://gist.github.com/EgZvor/ea6343988d0a1d66481daa79b7de6fbd */
@@ -17,9 +18,9 @@
 * {
     normal-foreground:              @purple;
     urgent-foreground:              @red;
-    normal-background:              @gray;
+    normal-background:              @black;
     selected-normal-foreground:     @pink;
-    selected-normal-background:     @gray;
+    selected-normal-background:     @black;
     alternate-normal-background:    @normal-background;
     alternate-normal-foreground:    @normal-foreground;
     urgent-background:              @normal-background;
@@ -30,25 +31,26 @@
     alternate-active-background:    @normal-background;
     alternate-active-foreground:    @selected-active-foreground;
     alternate-active-background:    @selected-active-background;
-    border-color:                   @selected-normal-foreground;
+    /* border-color:                   @selected-normal-foreground; */
+    border-color:                   @purple;
     separatorcolor:                 @border-color;
-    spacing: 2;
+    spacing: 10;
     background-color: @normal-background;
+    font: "DejaVu Sans Mono for Powerline 13";
 }
 window {
-    background-color: transparent;
-    border:           0;
+    border:           2;
     padding:          0;
     margin: 0;
+    border-radius: 7px;
 }
 mainbox {
-    background-color: inherit;
     border:  0;
     padding: 0;
 }
 element {
     border:  0;
-    padding: 1px ;
+    padding: 0;
 }
 element-text {
     background-color: inherit;
@@ -101,24 +103,29 @@ inputbar {
     spacing:    0;
     text-color: @normal-foreground;
     background-color: @normal-background;
-    padding:    10px ;
-    margin: 5px ;
+    padding:    10px;
+    margin: 0;
     children: [prompt, textbox-prompt-colon, entry, case-indicator];
 }
 listview {
     padding: 10px;
-    margin: 5px;
+    margin: -10px 0 0;
+    scrollbar: true;
 }
 case-indicator {
     spacing:    0;
-    text-color: @normal-background;
+    text-color: @gray;
 }
 entry {
     spacing:    0;
+    padding: 10px 5px 10px 5px;
     text-color: @normal-foreground;
 }
 prompt {
     spacing:    0;
+    padding: 10px 5px 10px 5px;
+    background-color: @gray;
+    border-radius: 7px;
     text-color: @normal-foreground;
     enabled: true;
 }
@@ -126,5 +133,6 @@ textbox-prompt-colon {
      text-color: inherit;
      expand: false;
      margin: 0 0em 0em 0em;
-     str: ": ";
+     padding: 10px 5px 10px 5px;
+     str: " ❯ ";
 }
