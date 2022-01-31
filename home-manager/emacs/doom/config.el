@@ -261,10 +261,14 @@
 
 ;; Safe local variables
 (setq safe-local-variable-values
-      '((org-roam-dailies-directory . "./dailies")
-        (org-roam-db-location . "./org-roam.db")
-        (org-roam-directory . "~/notes/cisco")
-        (org-roam-directory . "~/notes/personal/roam")))
+      '((eval setq-local org-roam-db-location
+              (expand-file-name "org-roam.db" org-roam-directory))
+        (eval setq-local org-roam-directory
+              (expand-file-name
+               (concat (locate-dominating-file default-directory ".dir-locals.el")
+                       "roam")))
+        (eval setq-local org-roam-dailies-directory
+              (expand-file-name "dailies" org-roam-directory))))
 
 
 (after! mu4e
