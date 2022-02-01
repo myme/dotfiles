@@ -1,3 +1,0 @@
-#!/bin/bash
-(sleep 2 && xset dpms force off) &
-i3lock -n -f -e -c 000000

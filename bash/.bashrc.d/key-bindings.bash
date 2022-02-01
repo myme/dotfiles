@@ -1,1 +1,0 @@
-../../fzf/apps/fzf/shell/key-bindings.bash
