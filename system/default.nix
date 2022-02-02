@@ -12,7 +12,7 @@
 
   # Network
   networking.networkmanager.enable = true;
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # Time
   time.timeZone = "Europe/Oslo";
