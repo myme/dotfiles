@@ -7,14 +7,14 @@ let cfg = config.myme.de;
 in {
   options = {
     myme.de.variant = mkOption {
-      type = types.enum [ "plasma" "wm" ];
-      default = "wm";
+      type = types.enum [ "none" "plasma" "wm" ];
+      default = "none";
       description = "Desktop Environment flavor";
     };
   };
 
   config = mkMerge [
-    {
+    (mkIf (cfg.variant != "none") {
       services.xserver.enable = true;
       services.xserver.layout = "us";
       services.xserver.xkbVariant = "alt-intl-unicode";
@@ -22,7 +22,7 @@ in {
       # Enable touchpad support
       services.xserver.libinput.enable = true;
       services.xserver.libinput.touchpad.naturalScrolling = true;
-    }
+    })
     (mkIf (cfg.variant == "wm") {
       # Home manager xsession
       services.xserver.desktopManager.session = [{

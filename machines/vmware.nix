@@ -21,30 +21,5 @@
       role = "desktop";
       highDPI = true;
     };
-
-    # User config
-    home-manager.users.myme = {
-      imports = [
-        ../home-manager
-      ];
-
-      config = {
-        # Development tools
-        myme.dev = {
-          docs.enable = true;
-          haskell.enable = true;
-          nodejs.enable = true;
-          python.enable = true;
-          shell.enable = true;
-        };
-
-        myme.wm = {
-          enable = true;
-          variant = "xmonad";
-          conky = false;
-          polybar.monitor = "Virtual1";
-        };
-      };
-    };
   };
 }

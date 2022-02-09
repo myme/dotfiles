@@ -1,21 +1,15 @@
-# Generic Linux
+# Windows Subsystem for Linux (WSL)
 #
-# Intended for machines running non-NixOS (incomplete).
-#
-# Most likely needs NixGL to work nicely with OpenGL apps.
+# Primarily for WSL non-GUI user environment.
 #
 
-{ overlays, system }: {
-  inherit system;
-  homeDirectory = "/home/myme";
-  username = "myme";
-  configuration = {
+{
+  home-manager.users.myme = {
     imports = [
       ../home-manager
     ];
 
     config = {
-      nixpkgs.overlays = overlays;
       home.sessionVariables.LANG = "en_US.UTF-8";
 
       # Non-NixOS
@@ -29,6 +23,14 @@
             . /home/myme/.nix-profile/etc/profile.d/nix.sh;
           fi
         '';
+
+        # SSH agent
+        keychain = {
+          enable = true;
+          keys = [ "id_ed25519" ];
+        };
+
+        tmux.secureSocket = false;
       };
 
       # Enable flakes

@@ -45,24 +45,15 @@
       packages.${system} = pkgs.myme.apps;
 
       # NixOS machines
-      nixosConfigurations = pkgs.myme.lib.allMachines (name: file:
+      nixosConfigurations = pkgs.myme.lib.allProfiles ./machines (name: file:
         pkgs.myme.lib.makeNixOS name file {
           inherit self system nixpkgs home-manager overlays;
         });
 
       # Non-NixOS machines (Fedora, WSL, ++)
-      homeConfigurations = pkgs.myme.lib.allMachines (_: file:
-        home-manager.lib.homeManagerConfiguration (import file {
-          inherit system overlays;
-        } // {
-          extraSpecialArgs = {
-            # Shim NixOS config on non-NixOS systems
-            nixosConfig.myme.machine = {
-              role = "desktop";
-              highDPI = false;
-            };
-          };
-        }));
+      homeConfigurations = pkgs.myme.lib.hm ./users home-manager.lib.homeManagerConfiguration {
+        inherit system overlays;
+      };
 
       devShell.${system} = pkgs.mkShell {
         buildInputs = [

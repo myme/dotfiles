@@ -4,7 +4,6 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ../system
     ../users/root.nix
-    ../machines/default.nix
     machineFile
     home-manager.nixosModules.home-manager
     {
