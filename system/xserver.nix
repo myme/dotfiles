@@ -8,7 +8,7 @@ in {
   options = {
     myme.de.variant = mkOption {
       type = types.enum [ "none" "plasma" "wm" ];
-      default = "none";
+      default = if config.myme.machine.role == "server" then "none" else "wm";
       description = "Desktop Environment flavor";
     };
   };
