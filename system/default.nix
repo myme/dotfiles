@@ -1,5 +1,5 @@
 # Global system configuration
-{ lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
   imports = [
     ./hardware.nix
     ./xserver.nix
@@ -23,34 +23,70 @@
     };
   };
 
-  config = {
-    # Boot
-    boot.loader.systemd-boot.enable = true;
-    boot.loader.systemd-boot.configurationLimit = 30;
-    boot.loader.efi.canTouchEfiVariables = true;
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+  config = lib.mkMerge [
+    {
+      # Boot
+      boot.loader.systemd-boot.enable = true;
+      boot.loader.systemd-boot.configurationLimit = 30;
+      boot.loader.efi.canTouchEfiVariables = true;
+      boot.kernelPackages = pkgs.linuxPackages_latest;
 
-    # Network
-    networking.networkmanager.enable = true;
-    networking.firewall.enable = true;
+      # Network
+      networking.networkmanager.enable = true;
+      networking.firewall.enable = true;
 
-    # Time
-    time.timeZone = "Europe/Oslo";
+      # Man
+      documentation.man = {
+        enable = true;
+        generateCaches = true;
+      };
 
-    # System packages
-    environment.systemPackages = with pkgs; [ vim ];
+      # Time
+      time.timeZone = "Europe/Oslo";
 
-    # For GTK stuff
-    programs.dconf.enable = true;
+      # System packages
+      environment.systemPackages = with pkgs; [ vim ];
 
-    # Mosh
-    programs.mosh.enable = true;
+      # Mosh
+      programs.mosh.enable = true;
 
-    # SSH
-    services.openssh.enable = true;
+      # SSH
+      services.openssh.enable = true;
 
-    # Nix
-    nix.package = pkgs.nixUnstable;
-    nix.extraOptions = "experimental-features = nix-command flakes";
-  };
+      # GnuPG - enable if enabled for any user
+      programs.gnupg.agent = {
+        enable = with builtins;
+          any (x: x)
+            (map (x: x.services.gpg-agent.enable) (attrValues config.home-manager.users));
+        enableSSHSupport = true;
+      };
+
+      # Nix
+      nix.package = pkgs.nixUnstable;
+      nix.extraOptions = "experimental-features = nix-command flakes";
+    }
+    (lib.mkIf (config.myme.machine.role != "server") {
+      # For GTK stuff
+      programs.dconf.enable = true;
+
+      # Enable sound.
+      sound.enable = true;
+      hardware.pulseaudio.enable = true;
+    })
+    # Laptop configs
+    (lib.mkIf (config.myme.machine.role == "laptop") {
+      # Backlight
+      services.illum.enable = true;
+
+      # Bluetooth
+      hardware.bluetooth.enable = true;
+      services.blueman.enable = true;
+
+      # Media keys
+      sound.mediaKeys = {
+        enable = true;
+        volumeStep = "1%";
+      };
+    })
+  ];
 }
