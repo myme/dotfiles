@@ -15,6 +15,7 @@
         vim-sensible
         vim-surround
         vim-unimpaired
+        vim-vinegar
         # vim-which-key
       ];
 
@@ -43,11 +44,11 @@
         set   tabstop=4
         set nowrap
 
-              " Tab completion
+        " Tab completion
         set   wildchar=<tab>
         set   wildmode=longest:full,full
 
-              " Backup + Swap
+        " Backup + Swap
         set nobackup
         set noswapfile
 
