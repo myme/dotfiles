@@ -69,13 +69,6 @@
       };
     };
 
-    services = {
-      emacs = {
-        enable = true;
-        client.enable = true;
-      };
-    };
-
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {

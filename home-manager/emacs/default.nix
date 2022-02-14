@@ -18,6 +18,13 @@
       ];
     };
 
+    services = {
+      emacs = {
+        enable = true;
+        client.enable = true;
+      };
+    };
+
     # Additional packages
     home.packages = with pkgs; [
       (aspellWithDicts (dicts: with dicts; [
