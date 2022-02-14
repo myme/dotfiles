@@ -39,6 +39,7 @@
           enableFlakes = true;
         };
       };
+      fish.enable = true;
       fzf.enable = true;
       htop = {
         enable = true;
