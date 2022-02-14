@@ -32,6 +32,7 @@
       boot.kernelPackages = pkgs.linuxPackages_latest;
 
       # Network
+      networking.hostName = config.myme.machine.name;
       networking.networkmanager.enable = true;
       networking.firewall.enable = true;
 

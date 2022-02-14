@@ -32,6 +32,11 @@ in {
           waitPID=$!
         '';
       }];
+
+      # Session - gnome-keyring - https://github.com/jluttine/NiDE/blob/master/src/keyring.nix
+      programs.dconf.enable = true;
+      services.gnome.gnome-keyring.enable = true;
+      security.pam.services.xdm.enableGnomeKeyring = true;
     })
     (mkIf (cfg.variant == "plasma") {
       services.xserver.displayManager.sddm.enable = true;

@@ -10,9 +10,6 @@
   ];
 
   config = {
-    # Network
-    networking.networkmanager.enable = true;
-
     # Security
     security.sudo.wheelNeedsPassword = false;
 
