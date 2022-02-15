@@ -18,7 +18,10 @@
         bind - split-window -v -c '#{pane_current_path}'
 
         # Mouse support
-        # set -g mouse on
+        set -g mouse on
+
+        # Keep server running
+        set -g exit-empty off
       '';
       plugins = with pkgs.tmuxPlugins; [
         copycat
