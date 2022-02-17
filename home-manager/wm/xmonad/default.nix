@@ -6,6 +6,7 @@ let
 
 in {
   options.myme.wm.xmonad = {
+    enable = lib.mkEnableOption "XMonad - Dynamic tiling window manager";
     fontSize = lib.mkOption {
       type = lib.types.int;
       default = 12;
@@ -23,7 +24,7 @@ in {
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     # XMonad
     xsession.windowManager.xmonad = {
       enable = cfg.variant == "xmonad";

@@ -6,6 +6,11 @@ let cfg = config.myme.de;
 
 in {
   options = {
+    myme.machine.highDPI = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Optimize for high DPI outputs (4k)";
+    };
     myme.de.variant = mkOption {
       type = types.enum [ "none" "plasma" "wm" ];
       default = if config.myme.machine.role == "server" then "none" else "wm";

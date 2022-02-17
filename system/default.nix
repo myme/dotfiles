@@ -3,6 +3,7 @@
   imports = [
     ./hardware.nix
     ./xserver.nix
+    ./users.nix
   ];
 
   options.myme.machine = {
@@ -16,10 +17,10 @@
       default = "desktop";
       description = "Machine type";
     };
-    highDPI = lib.mkOption {
+    genericLinux = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Optimize for high DPI outputs (4k)";
+      description = "For non-NixOS hosts";
     };
   };
 
@@ -32,7 +33,7 @@
       boot.kernelPackages = pkgs.linuxPackages_latest;
 
       # Network
-      networking.hostName = config.myme.machine.name;
+      # networking.hostName = config.myme.machine.name;
       networking.networkmanager.enable = true;
       networking.firewall.enable = true;
 

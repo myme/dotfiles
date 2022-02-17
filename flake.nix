@@ -28,18 +28,11 @@
       pkgs = import nixpkgs {
         inherit system overlays;
       };
-    in {
-      overlay =
-        (final: prev: {
-          myme = {
-            inherit (args) doom-emacs wallpapers;
-            apps = builtins.listToAttrs (builtins.map (fname: {
-              name = final.lib.strings.removeSuffix ".nix" fname;
-              value = final.callPackage ./apps/${fname} { };
-            }) (final.myme.lib.allNixFiles ./apps));
-            lib = final.callPackage ./lib {  };
-          };
-        });
+    in rec {
+      overlay = import ./overlay.nix {
+        inherit home-manager;
+        inherit (args) doom-emacs wallpapers;
+      };
 
       # All packages under pkgs.myme.apps from the overlay
       packages.${system} = pkgs.myme.apps;
@@ -51,8 +44,8 @@
         });
 
       # Non-NixOS machines (Fedora, WSL, ++)
-      homeConfigurations = pkgs.myme.lib.hm ./users home-manager.lib.homeManagerConfiguration {
-        inherit system overlays;
+      homeConfigurations = pkgs.myme.lib.nixos2hm {
+        inherit overlays system nixosConfigurations;
       };
 
       devShell.${system} = pkgs.mkShell {

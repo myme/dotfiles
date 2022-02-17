@@ -36,7 +36,7 @@ in {
     };
   };
 
-  config = {
+  config = mkIf cfg.enable {
     # i3ws
     myme.i3ws = {
       enable = cfg.enable;

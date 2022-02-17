@@ -1,4 +1,4 @@
-{ pkgs, ... }@args:
+{ lib, pkgs, ... }@args:
 
 let
   machine = args.specialArgs.nixosConfig.myme.machine;
@@ -38,7 +38,7 @@ let
   };
 
 in {
-  config = {
+  config = lib.mkIf (machine.role != "server") {
     gtk = {
       enable = true;
       iconTheme = iconThemes.numix-circle;

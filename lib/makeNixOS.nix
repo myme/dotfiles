@@ -4,15 +4,11 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ../system
     ../users/root.nix
-    machineFile
     home-manager.nixosModules.home-manager
-    {
+    machineFile
+    ({ lib, ... }: {
       # Hostname
       networking.hostName = name;
-
-      # Home manager
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
 
       # Let 'nixos-version --json' know about the Git revision
       # of this flake.
@@ -21,6 +17,6 @@ nixpkgs.lib.nixosSystem {
       # Nix + nixpkgs
       nix.registry.nixpkgs.flake = nixpkgs;  # Pin flake nixpkgs
       nixpkgs.overlays = overlays;
-    }
+    })
   ];
 }

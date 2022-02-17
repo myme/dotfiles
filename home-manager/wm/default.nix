@@ -46,7 +46,7 @@ in {
       };
 
       # XMonad config
-      myme.wm.xmonad = if machine.highDPI then {
+      myme.wm.xmonad = { enable = true; } // (if machine.highDPI then {
         fontSize = 12;
         smartBorder = false;
         spaces = 20;
@@ -54,7 +54,7 @@ in {
         fontSize = 10;
         smartBorder = true;
         spaces = 5;
-      };
+      });
 
       # Alacritty
       myme.alacritty = lib.mkDefault {

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   config = {
     home.packages = with pkgs; [
@@ -9,6 +9,6 @@
     ];
 
     # For great fonts
-    fonts.fontconfig.enable = true;
+    fonts.fontconfig.enable = lib.mkForce true;
   };
 }
