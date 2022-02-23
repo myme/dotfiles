@@ -30,6 +30,7 @@
       (aspellWithDicts (dicts: with dicts; [
         en
         en-computers
+        it
         nb
       ]))
       nodePackages.mermaid-cli
