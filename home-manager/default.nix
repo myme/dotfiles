@@ -40,7 +40,13 @@
         };
       };
       fish.enable = true;
-      fzf.enable = true;
+      fzf = {
+        enable = true;
+        fileWidgetCommand = "fd --type f";
+        fileWidgetOptions = ["--preview 'head {}'"];
+        changeDirWidgetCommand = "fd --type d";
+        changeDirWidgetOptions = ["--preview 'tree -C {} | head -200'"];
+      };
       htop = {
         enable = true;
         settings = {
