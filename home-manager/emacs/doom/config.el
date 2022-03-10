@@ -276,3 +276,16 @@
 
 ;; PureScript
 (setq psc-ide-use-npm-bin t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Emacs on WSL open links in Windows web browser
+;; https://adam.kruszewski.name/2017/09/emacs-in-wsl-and-opening-links/
+;; https://gist.github.com/minorugh/1770a6aa93df5fe55f70b4d72091ff76
+(when (getenv "WSLENV")
+  (let ((cmd-exe "/mnt/c/Windows/System32/cmd.exe")
+        (cmd-args '("/c" "start")))
+    (when (file-exists-p cmd-exe)
+      (setq browse-url-generic-program  cmd-exe
+            browse-url-generic-args     cmd-args
+            browse-url-browser-function 'browse-url-generic
+            search-web-default-browser 'browse-url-generic))))
