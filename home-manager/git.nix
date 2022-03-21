@@ -20,13 +20,13 @@
         br = "branch -vv";
         bra = "branch -avv";
         ls = ''
-          !git --no-pager log --pretty=format:"%C(green)%h %Creset%s%C(yellow)%d %Creset%C(cyan)<%ae>%Creset" --graph -20'';
+          !git --no-pager log --pretty=format:"%C(green)%h %Creset%s%C(yellow)%d %Creset%C(cyan)<%aE>%Creset" --graph -20'';
         lsa = ''
-          log --pretty=format:"%C(green)%h %Creset%s%C(yellow)%d %Creset%C(cyan)<%ae>%Creset" --graph -20 --all'';
+          log --pretty=format:"%C(green)%h %Creset%s%C(yellow)%d %Creset%C(cyan)<%aE>%Creset" --graph -20 --all'';
         lg = ''
-          log --pretty=format:"%C(green)%h %C(blue)%ad %Creset%s%C(yellow)%d %Creset%C(cyan)<%an (%ae)>%Creset" --graph --date=short'';
+          log --pretty=format:"%C(green)%h %C(blue)%ad %Creset%s%C(yellow)%d %Creset%C(cyan)(%aN <%aE>)%Creset" --graph --date=short'';
         lga = ''
-          log --pretty=format:"%C(green)%h %C(blue)%ad %Creset%s%C(yellow)%d %Creset%C(cyan)<%an (%ae)>%Creset" --graph --date=short --all'';
+          log --pretty=format:"%C(green)%h %C(blue)%ad %Creset%s%C(yellow)%d %Creset%C(cyan)(%aN <%aE>)%Creset" --graph --date=short --all'';
         ff = "merge --ff-only @{u}";
         up = "remote update";
         rup = "rebase @{u}";
