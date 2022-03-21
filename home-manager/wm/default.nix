@@ -46,7 +46,7 @@ in {
       };
 
       # XMonad config
-      myme.wm.xmonad = { enable = true; } // (if machine.highDPI then {
+      myme.wm.xmonad = lib.mkDefault { enable = true; } // (if machine.highDPI then {
         fontSize = 12;
         smartBorder = false;
         spaces = 20;
