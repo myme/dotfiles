@@ -2,7 +2,7 @@
   config = {
     programs.git = {
       enable = true;
-      userName = "Martin Øinæs Myrseth";
+      userName = "Martin Myrseth";
       aliases = {
         ap = "add -p";
         au = "add -u";
