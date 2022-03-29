@@ -5,6 +5,7 @@
     ./emacs
     ./git.nix
     ./nixon.nix
+    ./spotify.nix
     ./tmux.nix
     ./vim.nix
     ./wm
