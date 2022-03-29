@@ -32,7 +32,10 @@
 
     programs = {
       bat.enable = true;
-      bash.enable = true;
+      bash = {
+        enable = true;
+        historyControl = ["erasedups" "ignoredups" "ignorespace"];
+      };
       direnv = {
         enable = true;
         nix-direnv = {
