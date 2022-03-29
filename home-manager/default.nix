@@ -61,6 +61,7 @@
       nixon = {
         enable = true;
         source_dirs = [
+          "~/code/*"
           "~/nixos"
           "~/notes"
           "~/src"
