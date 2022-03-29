@@ -100,7 +100,8 @@ in {
           black
           ipython
         ])))
-        python-language-server
+        # python-language-server
+        pyright
       ]))
 
       # GitHub
