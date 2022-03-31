@@ -162,6 +162,7 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkNamedKeymap conf (
   ,("<XF86AudioRaiseVolume>", addName "Audio volume up" $ spawn "amixer set Master 1%+")
   ,("<XF86AudioLowerVolume>", addName "Audio volume down" $ spawn "amixer set Master 1%-")
   ,("<XF86AudioMute>", addName "Audio volume mute" $ spawn "amixer set Master toggle")
+  ,("<XF86AudioMicMute>", addName "Audio mic mute" $ spawn "amixer set Capture toggle")
   ] ++
   -- Workspaces navigation
   -- M-[1..9]   => Switch to workspace N
