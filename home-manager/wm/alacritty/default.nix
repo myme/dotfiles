@@ -35,7 +35,7 @@ in {
     programs.alacritty = {
       enable = cfg.enable;
       settings = {
-        background_opacity = cfg.background_opacity;
+        window.opacity = cfg.background_opacity;
         env = {
           TERM = "xterm-256color";
         };
