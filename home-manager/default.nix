@@ -38,10 +38,7 @@
       };
       direnv = {
         enable = true;
-        nix-direnv = {
-          enable = true;
-          enableFlakes = true;
-        };
+        nix-direnv.enable = true;
       };
       fish.enable = true;
       fzf = {
