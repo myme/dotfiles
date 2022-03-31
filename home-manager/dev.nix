@@ -20,6 +20,11 @@ in {
       enable = mkEnableOption "Enable C/C++ development tools";
     };
 
+    # Elm
+    elm = {
+      enable = mkEnableOption "Enable Elm development tools";
+    };
+
     # Haskell options
     haskell = {
       enable = mkEnableOption "Enable Haskell development tools";
@@ -80,6 +85,11 @@ in {
       # C/C++
       (mkIf cfg.cpp.enable (with pkgs; [
         ccls
+      ]))
+
+      # Elm
+      (mkIf cfg.elm.enable (with pkgs; [
+        elmPackages.elm-language-server
       ]))
 
       # Haskell
