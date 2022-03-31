@@ -11,4 +11,8 @@ final: prev: {
       inherit home-manager;
     };
   };
+
+  # Avoid nvidia vaapi driver collisions with e.g. intel
+  # https://github.com/NixOS/nixpkgs/pull/165064
+  nvidia-vaapi-driver = prev.lib.hiPrio prev.nvidia-vaapi-driver;
 }
