@@ -24,6 +24,11 @@ in {
       default = "i3";
       description = "Window Manager flavor";
     };
+    dynamic_temp = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Dynamically change screen color temperature";
+    };
     conky = mkOption {
       type = types.bool;
       default = true;
@@ -70,11 +75,25 @@ in {
         theme = ./rofi/dracula.rasi;
       };
 
-      # Compositor (picom)
-      services.picom.enable = true;
+      services = mkMerge [
+        {
+          # Compositor (picom)
+          picom.enable = true;
 
-      # Screenshots (flameshot)
-      services.flameshot.enable = true;
+          # Screenshots (flameshot)
+          flameshot.enable = true;
+        }
+
+        # Dynamic temperature (redshift)
+        (mkIf cfg.dynamic_temp {
+          redshift = {
+            enable = true;
+            latitude = "59.777839";
+            longitude = "10.801630";
+            tray = true;
+          };
+        })
+      ];
 
       # XSession
       xsession = mkMerge [
