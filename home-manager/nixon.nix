@@ -45,6 +45,12 @@ in {
       default = false;
       description = "Evaluate shell.nix & default.nix files using nix-shell.";
     };
+
+    configExtra = mkOption {
+      type = types.str;
+      default = "";
+      description = "Configurations added to nixon.md";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -71,6 +77,8 @@ in {
         ];
       }}
       ```
+
+      ${cfg.configExtra}
     '';
 
     programs.bash.initExtra = (mkIf config.programs.bash.enable ''
