@@ -1,7 +1,6 @@
 # Global system configuration
 { config, lib, pkgs, ... }: {
   imports = [
-    ./hardware.nix
     ./sleep.nix
     ./xserver.nix
     ./users.nix
