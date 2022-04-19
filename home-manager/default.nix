@@ -4,6 +4,7 @@
     ./dev.nix
     ./emacs
     ./git.nix
+    ./irc.nix
     ./nixon.nix
     ./spotify.nix
     ./tmux.nix
