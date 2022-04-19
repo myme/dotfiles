@@ -10,6 +10,7 @@
       flake = false;
     };
     i3ws.url = "github:myme/i3ws";
+    annodate.url = "github:myme/annodate";
     nixon.url = "github:myme/nixon";
     wallpapers = {
       url = "gitlab:myme/wallpapers";
@@ -22,6 +23,7 @@
       system = "x86_64-linux";
       overlays = [
         args.i3ws.overlay
+        args.annodate.overlay
         args.nixon.overlay
         self.overlay
       ];

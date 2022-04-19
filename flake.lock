@@ -1,5 +1,23 @@
 {
   "nodes": {
+    "annodate": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1650389642,
+        "narHash": "sha256-zhTOzAOSoKvQ+Y7lO0iJMferU72iQVvbH+P0oHuW7m0=",
+        "owner": "myme",
+        "repo": "annodate",
+        "rev": "9a167034023eeba880232cd3d127d99cd85a3d00",
+        "type": "github"
+      },
+      "original": {
+        "owner": "myme",
+        "repo": "annodate",
+        "type": "github"
+      }
+    },
     "doom-emacs": {
       "flake": false,
       "locked": {
@@ -55,7 +73,7 @@
     "i3ws": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1642599084,
@@ -73,7 +91,7 @@
     },
     "nixon": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1643416772,
@@ -91,6 +109,20 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1650194139,
+        "narHash": "sha256-kurZsqeOw5fpqA/Ig+8tHvbjwzs5P9AE6WUKOX1m6qM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "bd4dffcdb7c577d74745bd1eff6230172bd176d5",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
         "lastModified": 1642160200,
         "narHash": "sha256-5mb1nvh2vWlnKvyJzGNKsL7AQRFk+H5E/Xh83fTzYG4=",
         "owner": "NixOS",
@@ -103,7 +135,7 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_2": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1643247693,
         "narHash": "sha256-rmShxIuNjYBz4l83J0J++sug+MURUY1koPCzX4F8hfo=",
@@ -119,7 +151,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1648390671,
         "narHash": "sha256-u69opCeHUx3CsdIerD0wVSR+DjfDQjnztObqfk9Trqc=",
@@ -137,11 +169,12 @@
     },
     "root": {
       "inputs": {
+        "annodate": "annodate",
         "doom-emacs": "doom-emacs",
         "home-manager": "home-manager",
         "i3ws": "i3ws",
         "nixon": "nixon",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "wallpapers": "wallpapers"
       }
     },

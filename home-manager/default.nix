@@ -22,6 +22,7 @@
       tree
       unzip
       zip
+      haskellPackages.annodate
       myme.apps.git-sync
     ];
 
