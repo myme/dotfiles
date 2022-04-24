@@ -1,15 +1,15 @@
 #
-# Tuple is a Windows 11 machine and this configuration is for WSL on that host.
+# `Tuple` is a Windows 11 machine and this configuration is for WSL on that host.
 #
 # Graphical apps are supported, but unfortunately not GL, see:
 #
 #   https://github.com/guibou/nixGL/issues/69
 #
 
-{
+{ pkgs, ... }: {
   myme.machine = {
     role = "desktop";
-    genericLinux = true;
+    flavor = "wsl";
     highDPI = true;
     user = {
       name = "myme";
@@ -30,6 +30,10 @@
 
         config = {
           home.sessionVariables.LANG = "en_US.UTF-8";
+
+          home.packages = with pkgs; [
+            mosh
+          ];
 
           programs = {
             home-manager.enable = true;

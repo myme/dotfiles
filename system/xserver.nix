@@ -2,7 +2,11 @@
 
 with lib;
 
-let cfg = config.myme.de;
+let
+  cfg = config.myme.de;
+  xserver = (
+    config.myme.machine.role != "server" &&
+    config.myme.machine.flavor != "wsl");
 
 in {
   options = {
@@ -13,7 +17,7 @@ in {
     };
     myme.de.variant = mkOption {
       type = types.enum [ "none" "plasma" "wm" ];
-      default = if config.myme.machine.role == "server" then "none" else "wm";
+      default = if xserver then "wm" else "none";
       description = "Desktop Environment flavor";
     };
   };

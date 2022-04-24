@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,13 +19,13 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@args:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
       overlays = [
-        args.i3ws.overlay
-        args.annodate.overlay
-        args.nixon.overlay
+        inputs.i3ws.overlay
+        inputs.annodate.overlay
+        inputs.nixon.overlay
         self.overlay
       ];
       pkgs = import nixpkgs {
@@ -33,7 +34,7 @@
     in rec {
       overlay = import ./overlay.nix {
         inherit home-manager;
-        inherit (args) doom-emacs wallpapers;
+        inherit (inputs) doom-emacs wallpapers;
       };
 
       # All packages under pkgs.myme.apps from the overlay
@@ -42,7 +43,7 @@
       # NixOS machines
       nixosConfigurations = pkgs.myme.lib.allProfiles ./machines (name: file:
         pkgs.myme.lib.makeNixOS name file {
-          inherit self system nixpkgs home-manager overlays;
+          inherit inputs system overlays;
         });
 
       # Non-NixOS machines (Fedora, WSL, ++)
@@ -51,9 +52,9 @@
       };
 
       devShell.${system} = pkgs.mkShell {
-        buildInputs = [
+        buildInputs = with pkgs; [
           # For hacking on XMonad
-          (pkgs.ghc.withPackages (ps: with ps; [
+          (ghc.withPackages (ps: with ps; [
             xmonad
             xmonad-contrib
           ]))

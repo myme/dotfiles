@@ -9,7 +9,7 @@
 { pkgs, ... }: {
   myme.machine = {
     role = "desktop";
-    genericLinux = true;
+    flavor = "wsl";
     highDPI = true;
     user = {
       name = "myme";

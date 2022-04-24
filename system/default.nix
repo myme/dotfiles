@@ -17,26 +17,15 @@
       default = "desktop";
       description = "Machine type";
     };
-    genericLinux = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "For non-NixOS hosts";
+    flavor = lib.mkOption {
+      type = lib.types.enum [ "nixos" "generic" "wsl" ];
+      default = "nixos";
+      description = "Linux flavor";
     };
   };
 
   config = lib.mkMerge [
     {
-      # Boot
-      boot.loader.systemd-boot.enable = true;
-      boot.loader.systemd-boot.configurationLimit = 30;
-      boot.loader.efi.canTouchEfiVariables = true;
-      boot.kernelPackages = pkgs.linuxPackages_latest;
-
-      # Network
-      # networking.hostName = config.myme.machine.name;
-      networking.networkmanager.enable = true;
-      networking.firewall.enable = true;
-
       # Man
       documentation.man = {
         enable = true;
@@ -67,6 +56,40 @@
       nix.package = pkgs.nixUnstable;
       nix.extraOptions = "experimental-features = nix-command flakes";
     }
+    # Disable boot + networking for WSL
+    (lib.mkIf (config.myme.machine.flavor != "wsl") {
+      # Boot
+      boot.loader.systemd-boot.enable = true;
+      boot.loader.systemd-boot.configurationLimit = 30;
+      boot.loader.efi.canTouchEfiVariables = true;
+      boot.kernelPackages = pkgs.linuxPackages_latest;
+
+      # Network
+      # networking.hostName = config.myme.machine.name;
+      networking.networkmanager.enable = true;
+      networking.firewall.enable = true;
+    })
+    # Enable NixOS-WSL module
+    (lib.mkIf (config.myme.machine.flavor == "wsl") {
+      wsl = {
+        enable = true;
+        automountPath = "/mnt";
+        defaultUser = config.myme.machine.user.name;
+        startMenuLaunchers = false; # Done below to include Home Manager apps
+      };
+
+      # Copied from https://github.com/nix-community/NixOS-WSL/blob/69783cf56b2ada7e0e8cc8d17907a346e8bd97b7/modules/wsl-distro.nix#L111
+      system.activationScripts.copy-home-launchers = lib.stringAfter [ ] ''
+        cd "$(mktemp -d)"
+        for x in applications icons; do
+          echo "Copying /usr/share/$x"
+          ${pkgs.rsync}/bin/rsync -ar $systemConfig/sw/share/$x/. ./$x
+          ${pkgs.rsync}/bin/rsync -ar /etc/profiles/per-user/${config.myme.machine.user.name}/share/$x/. ./$x
+          mkdir -p /usr/share/$x
+          ${pkgs.rsync}/bin/rsync -ar --delete ./$x/. /usr/share/$x
+        done
+      '';
+    })
     (lib.mkIf (config.myme.machine.role != "server") {
       # For GTK stuff
       programs.dconf.enable = true;

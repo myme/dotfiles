@@ -2,6 +2,7 @@
 
 let
   cfg = config.myme.machine;
+  genericLinux = cfg.flavor == "generic";
 
 in {
   options.myme.machine.user = {
@@ -25,15 +26,15 @@ in {
   config = {
     # Home manager
     home-manager.useGlobalPkgs = true;
-    home-manager.useUserPackages = !cfg.genericLinux;
+    home-manager.useUserPackages = !genericLinux;
 
     users.users.${cfg.user.name} = cfg.user.config;
     home-manager.users.${cfg.user.name} = lib.mkMerge [
       cfg.user.profile
       {
         config = {
-          submoduleSupport.enable = lib.mkForce (!cfg.genericLinux);
-          targets.genericLinux.enable = cfg.genericLinux;
+          submoduleSupport.enable = lib.mkForce (!genericLinux);
+          targets.genericLinux.enable = genericLinux;
         };
       }
     ];

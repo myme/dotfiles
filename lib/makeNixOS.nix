@@ -1,12 +1,17 @@
-name: machineFile: { self, home-manager, nixpkgs, system, overlays }:
-nixpkgs.lib.nixosSystem {
+name: machineFile: { inputs, overlays, system }:
+
+let
+  inherit (inputs) self home-manager nixpkgs nixos-wsl;
+
+in nixpkgs.lib.nixosSystem {
   inherit system;
   modules = [
     ../system
     ../users/root.nix
+    nixos-wsl.nixosModules.wsl
     home-manager.nixosModules.home-manager
     machineFile
-    ({ lib, ... }: {
+    {
       # Hostname
       networking.hostName = name;
 
@@ -17,6 +22,6 @@ nixpkgs.lib.nixosSystem {
       # Nix + nixpkgs
       nix.registry.nixpkgs.flake = nixpkgs;  # Pin flake nixpkgs
       nixpkgs.overlays = overlays;
-    })
+    }
   ];
 }
