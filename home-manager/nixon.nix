@@ -69,7 +69,7 @@ in {
           { name = "cabal"; test = ["cabal.project"]; desc = "Cabal new-style project"; }
           { name = "npm"; test = ["package.json"]; desc = "NPM project"; }
           { name = "yarn"; test = ["yarn.lock"]; desc = "Yarn project"; }
-          { name = "nix"; test = ["default.nix" "shell.nix"]; desc = "Nix project"; }
+          { name = "nix"; test = ["flake.nix" "default.nix" "shell.nix"]; desc = "Nix project"; }
           { name = "direnv"; test = [".envrc"]; desc = "Direnv project"; }
           { name = "git"; test = [".git"]; desc = "Git repository"; }
           { name = "hg"; test = [".hg"]; desc = "Mercurial project"; }
