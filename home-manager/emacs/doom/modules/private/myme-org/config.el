@@ -14,6 +14,9 @@
       ((tags "REFILE"
              ((org-agenda-overriding-header "Tasks to refile"))))
       nil nil)
+     ("P" "Projects"
+      ((tags "PROJECT"
+             ((org-agenda-overriding-header "Projects")))))
      ("p" "Pending items"
       ((todo "HOLD|WAITING"
              ((org-agenda-overriding-header "Pending items"))))
