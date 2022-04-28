@@ -40,7 +40,8 @@ in {
           TERM = "xterm-256color";
         };
         font = {
-          normal.family = "DejaVu Sans Mono for Powerline";
+          # normal.family = "DejaVu Sans Mono for Powerline";
+          normal.family = "NotoSansMono Nerd Font";
           size = cfg.font_size;
         };
         colors = theme;
