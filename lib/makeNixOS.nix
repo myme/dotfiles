@@ -1,13 +1,14 @@
 name: machineFile: { inputs, overlays, system }:
 
 let
-  inherit (inputs) self home-manager nixpkgs nixos-wsl;
+  inherit (inputs) self agenix home-manager nixpkgs nixos-wsl;
 
 in nixpkgs.lib.nixosSystem {
   inherit system;
   modules = [
     ../system
     ../users/root.nix
+    agenix.nixosModule
     nixos-wsl.nixosModules.wsl
     home-manager.nixosModules.home-manager
     machineFile

@@ -2,6 +2,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,6 +27,7 @@
     let
       system = "x86_64-linux";
       overlays = [
+        inputs.agenix.overlay
         inputs.i3ws.overlay
         inputs.annodate.overlay
         inputs.nixon.overlay
@@ -53,6 +58,7 @@
 
       devShell.${system} = pkgs.mkShell {
         buildInputs = with pkgs; [
+          agenix
           # For hacking on XMonad
           (ghc.withPackages (ps: with ps; [
             xmonad

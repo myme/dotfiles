@@ -6,7 +6,7 @@
 #   https://github.com/guibou/nixGL/issues/69
 #
 
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   myme.machine = {
     role = "desktop";
     flavor = "wsl";
@@ -39,9 +39,21 @@
               enable = true;
               keys = [ "id_ed25519" ];
             };
+
+            ssh = {
+              enable = true;
+              includes = [
+                config.age.secrets.ssh.path
+              ];
+            };
           };
         };
       };
     };
+  };
+
+  age.secrets.ssh = {
+    file = ./../secrets/ssh.age;
+    owner = config.myme.machine.user.name;
   };
 }
