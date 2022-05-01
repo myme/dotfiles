@@ -29,28 +29,17 @@
         ];
 
         config = {
-          home.sessionVariables.LANG = "en_US.UTF-8";
-
           home.packages = with pkgs; [
             mosh
           ];
 
           programs = {
-            home-manager.enable = true;
-
             # SSH agent
             keychain = {
               enable = true;
               keys = [ "id_ed25519" ];
             };
-
-            tmux.secureSocket = false;
           };
-
-          # Enable flakes
-          xdg.configFile."nix/nix.conf".text = ''
-            experimental-features = nix-command flakes
-          '';
         };
       };
     };
