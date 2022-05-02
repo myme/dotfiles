@@ -52,6 +52,9 @@
         set nobackup
         set noswapfile
 
+        " Git / fugitive
+        nmap <silent> <Leader>gg :Git<Return>
+
         " FZF
         nmap <silent> <Leader>.  :Files<Return>
         nmap <silent> <Leader>g. :GitFiles<Return>
