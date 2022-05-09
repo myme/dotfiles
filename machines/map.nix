@@ -10,7 +10,7 @@
   myme.machine = {
     role = "desktop";
     flavor = "wsl";
-    highDPI = true;
+    highDPI = false;
     user = {
       name = "myme";
 
