@@ -33,6 +33,9 @@
         it
         nb
       ]))
+      (pkgs.writeShellScriptBin "ec" ''
+        emacsclient -a ''' -c "$@"
+      '')
       nodePackages.mermaid-cli
     ];
   };
