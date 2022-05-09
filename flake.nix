@@ -1,4 +1,6 @@
 {
+  description = "myme's NixOS configuration with flakes";
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
