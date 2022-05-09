@@ -15,7 +15,7 @@ let
       name = "capitaine-cursors";
       size = if machine.highDPI then 64 else 50;
     };
-    none = null;
+    none = {};
     numix = {
       package = pkgs.numix-cursor-theme;
       name = "Numix-Cursor";
@@ -44,6 +44,9 @@ in {
       iconTheme = iconThemes.numix-circle;
       theme = themes.dracula;
     };
-    xsession.pointerCursor = cursorThemes.capitaine;
+    home.pointerCursor = {
+      gtk.enable = true;
+      x11.enable = true;
+    } // cursorThemes.capitaine;
   };
 }
