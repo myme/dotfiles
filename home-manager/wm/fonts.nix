@@ -2,15 +2,16 @@
 {
   config = {
     home.packages = with pkgs; [
-      # font-manager
+      # Font browser
       font-manager
 
-      # fonts
+      # Fonts
       dejavu_fonts
       font-awesome_4
       material-icons
       powerline-fonts
 
+      # Nerd fonts
       (nerdfonts.override { fonts = [ "DejaVuSansMono" "Noto" "SourceCodePro" ]; })
     ];
 
