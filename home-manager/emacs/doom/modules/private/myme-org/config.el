@@ -91,6 +91,7 @@
    org-clock-out-remove-zero-time-clocks t
    org-clock-report-include-clocking-task t
    org-clock-rounding-minutes 0
+   org-columns-default-format "%25ITEM %TAGS %PRIORITY %TODO %10Effort(Effort){:} %CLOCKSUM(Clock)"
    org-export-with-toc nil
    org-export-with-section-numbers nil
    org-footnote-section nil
