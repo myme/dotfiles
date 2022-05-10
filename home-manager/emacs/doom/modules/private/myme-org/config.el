@@ -42,6 +42,7 @@
    org-agenda-dim-blocked-tasks t
    org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'"
    org-agenda-files (quote ("~/notes/work" "~/notes/personal"))
+   org-agenda-persistent-filter t
    org-agenda-span 1
    org-agenda-start-day "Today"
    org-agenda-start-with-log-mode t
