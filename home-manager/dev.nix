@@ -28,6 +28,11 @@ in {
     # Haskell options
     haskell = {
       enable = mkEnableOption "Enable Haskell development tools";
+      lsp = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Enable haskell-language-server";
+      };
     };
 
     # Nodejs options
@@ -93,7 +98,7 @@ in {
       ]))
 
       # Haskell
-      (mkIf cfg.haskell.enable (with pkgs; [
+      (mkIf (cfg.haskell.enable && cfg.haskell.lsp) (with pkgs; [
         haskell-language-server
       ]))
 
