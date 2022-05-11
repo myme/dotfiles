@@ -47,6 +47,11 @@
               ];
             };
           };
+
+          myme.dev.haskell = {
+            enable = true;
+            lsp = false;
+          };
         };
       };
     };
