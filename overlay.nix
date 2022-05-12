@@ -1,8 +1,8 @@
-{ home-manager, doom-emacs, wallpapers }:
+{ home-manager, doomemacs, wallpapers }:
 
 final: prev: {
   myme = {
-    inherit doom-emacs wallpapers;
+    inherit doomemacs wallpapers;
     apps = builtins.listToAttrs (builtins.map (fname: {
       name = final.lib.strings.removeSuffix ".nix" fname;
       value = final.callPackage ./apps/${fname} { };

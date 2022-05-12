@@ -38,19 +38,19 @@
         "type": "github"
       }
     },
-    "doom-emacs": {
+    "doomemacs": {
       "flake": false,
       "locked": {
-        "lastModified": 1650938294,
-        "narHash": "sha256-Mlr+zPl5XN+xRsncU5oqkYCU59tQG4RiYK39YjFOGFY=",
-        "owner": "hlissner",
-        "repo": "doom-emacs",
-        "rev": "6bf725837def83acd140d9431d799c8b09abebf3",
+        "lastModified": 1652103812,
+        "narHash": "sha256-UKvsThMMycCBrnpDTCKOJd+Nc+by/u6Carl/MOEuQN8=",
+        "owner": "doomemacs",
+        "repo": "doomemacs",
+        "rev": "8a27eb99bec5a955833b6d23f431c5cc39e91f7f",
         "type": "github"
       },
       "original": {
-        "owner": "hlissner",
-        "repo": "doom-emacs",
+        "owner": "doomemacs",
+        "repo": "doomemacs",
         "type": "github"
       }
     },
@@ -257,7 +257,7 @@
       "inputs": {
         "agenix": "agenix",
         "annodate": "annodate",
-        "doom-emacs": "doom-emacs",
+        "doomemacs": "doomemacs",
         "home-manager": "home-manager",
         "i3ws": "i3ws",
         "nixon": "nixon",

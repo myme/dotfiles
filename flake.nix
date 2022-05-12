@@ -12,8 +12,8 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    doom-emacs = {
-      url = "github:hlissner/doom-emacs";
+    doomemacs = {
+      url = "github:doomemacs/doomemacs";
       flake = false;
     };
     i3ws.url = "github:myme/i3ws";
@@ -41,7 +41,7 @@
     in rec {
       overlay = import ./overlay.nix {
         inherit home-manager;
-        inherit (inputs) doom-emacs wallpapers;
+        inherit (inputs) doomemacs wallpapers;
       };
 
       # All packages under pkgs.myme.apps from the overlay

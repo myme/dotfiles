@@ -2,7 +2,7 @@
 {
   config = {
     # Doom Emacs (.emacs.d)
-    home.file.".emacs.d".source = pkgs.myme.doom-emacs;
+    home.file.".emacs.d".source = pkgs.myme.doomemacs;
 
     # Doom Emacs local files (~/.cache/doom)
     home.sessionVariables.DOOMLOCALDIR = "~/.cache/doom-emacs/";
