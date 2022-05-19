@@ -7,9 +7,6 @@ final: prev: {
       name = final.lib.strings.removeSuffix ".nix" fname;
       value = final.callPackage ./apps/${fname} { };
     }) (final.myme.lib.allNixFiles ./apps));
-    lib = final.callPackage ./lib {
-      inherit home-manager;
-    };
   };
 
   # Avoid nvidia vaapi driver collisions with e.g. intel

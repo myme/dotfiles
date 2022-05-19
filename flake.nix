@@ -35,6 +35,10 @@
         inputs.nixon.overlay
         self.overlay
       ];
+      lib = nixpkgs.lib.extend(final: prev: import ./lib {
+        inherit home-manager;
+        lib = final;
+      });
       pkgs = import nixpkgs {
         inherit system overlays;
       };
@@ -48,13 +52,13 @@
       packages.${system} = pkgs.myme.apps;
 
       # NixOS machines
-      nixosConfigurations = pkgs.myme.lib.allProfiles ./machines (name: file:
-        pkgs.myme.lib.makeNixOS name file {
+      nixosConfigurations = lib.allProfiles ./machines (name: file:
+        lib.makeNixOS name file {
           inherit inputs system overlays;
         });
 
       # Non-NixOS machines (Fedora, WSL, ++)
-      homeConfigurations = pkgs.myme.lib.nixos2hm {
+      homeConfigurations = lib.nixos2hm {
         inherit overlays system nixosConfigurations;
       };
 

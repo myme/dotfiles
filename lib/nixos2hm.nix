@@ -1,11 +1,11 @@
-{ home-manager, lib, pkgs }:
+{ home-manager, lib }:
 
 { overlays, system, nixosConfigurations }:
 
 let
   removeHostname = str: builtins.head (builtins.split "@" str);
   userAtHostConfig = { host, config }: (
-    pkgs.lib.mapAttrsToList
+    lib.mapAttrsToList
       (username: hmConfig: {
         name = "${username}@${host}";
         value = hmConfig.home;
@@ -14,7 +14,7 @@ let
   );
 
 in with builtins; (listToAttrs (concatMap userAtHostConfig
-  (pkgs.lib.mapAttrsToList (host: config: {
+  (lib.mapAttrsToList (host: config: {
     inherit host;
     inherit (config) config;
   }) nixosConfigurations)))

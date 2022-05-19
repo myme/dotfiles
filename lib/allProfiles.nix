@@ -1,11 +1,11 @@
 # Build NixOS configuration for all machines under ../machines
 
-{ lib, pkgs }:
+{ lib }:
 
 dir: f:
 
 let
-  allProfiles = builtins.filter (m: m != "default.nix") (pkgs.myme.lib.allNixFiles dir);
+  allProfiles = builtins.filter (m: m != "default.nix") (lib.allNixFiles dir);
 
 in builtins.listToAttrs (builtins.map (fname: rec {
   name = lib.strings.removeSuffix ".nix" fname;

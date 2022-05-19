@@ -1,7 +1,7 @@
-{ callPackage, home-manager }:
+{ lib, home-manager }:
 {
-  allNixFiles = callPackage ./allNixFiles.nix { };
-  allProfiles = callPackage ./allProfiles.nix { };
-  nixos2hm = callPackage ./nixos2hm.nix { inherit home-manager; };
+  allNixFiles = import ./allNixFiles.nix { inherit lib; };
+  allProfiles = import ./allProfiles.nix { inherit lib; };
+  nixos2hm = import ./nixos2hm.nix { inherit lib home-manager; };
   makeNixOS = import ./makeNixOS.nix;
 }
