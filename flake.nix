@@ -58,15 +58,23 @@
         inherit overlays system nixosConfigurations;
       };
 
-      devShell.${system} = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          agenix
-          # For hacking on XMonad
-          (ghc.withPackages (ps: with ps; [
-            xmonad
-            xmonad-contrib
-          ]))
-        ];
+      devShells.${system} = {
+        # Default dev shell (used by direnv)
+        default = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            agenix
+          ];
+        };
+
+        # For hacking on XMonad
+        xmonad = pkgs.mkShell {
+          buildInputs = with pkgs; [
+            (ghc.withPackages (ps: with ps; [
+              xmonad
+              xmonad-contrib
+            ]))
+          ];
+        };
       };
     };
 }
