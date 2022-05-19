@@ -1,4 +1,4 @@
-{ home-manager, doomemacs, wallpapers }:
+{ lib, home-manager, doomemacs, wallpapers }:
 
 final: prev: {
   myme = {
@@ -6,7 +6,7 @@ final: prev: {
     apps = builtins.listToAttrs (builtins.map (fname: {
       name = final.lib.strings.removeSuffix ".nix" fname;
       value = final.callPackage ./apps/${fname} { };
-    }) (final.myme.lib.allNixFiles ./apps));
+    }) (lib.myme.allNixFiles ./apps));
   };
 
   # Avoid nvidia vaapi driver collisions with e.g. intel

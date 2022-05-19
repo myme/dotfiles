@@ -72,6 +72,21 @@
     },
     "flake-utils": {
       "locked": {
+        "lastModified": 1652776076,
+        "narHash": "sha256-gzTw/v1vj4dOVbpBSJX4J0DwUR6LIyXo7/SuuTJp1kM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "04c1b180862888302ddfb2e3ad9eaa63afc60cf8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_2": {
+      "locked": {
         "lastModified": 1638122382,
         "narHash": "sha256-sQzZzAbvKEqN9s0bzWuYmRaA03v40gaJ4+iL1LXjaeI=",
         "owner": "numtide",
@@ -85,7 +100,7 @@
         "type": "github"
       }
     },
-    "flake-utils_2": {
+    "flake-utils_3": {
       "locked": {
         "lastModified": 1649676176,
         "narHash": "sha256-OWKJratjt2RW151VUlJPRALb7OU2S5s+f0vLj4o1bHM=",
@@ -123,7 +138,7 @@
     },
     "i3ws": {
       "inputs": {
-        "flake-utils": "flake-utils",
+        "flake-utils": "flake-utils_2",
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
@@ -146,19 +161,22 @@
       },
       "locked": {
         "lastModified": 1651096315,
-        "narHash": "sha256-So6HxFoHN8m34WdfkMRMek39XE+zmJoQh2HW0tpboMw=",
-        "type": "git",
-        "url": "file:///home/myme/code/nixon"
+        "narHash": "sha256-OWbldvkuLxmLpkB7MYRoRVcKEao/dVEiVsudQK0iCxs=",
+        "owner": "myme",
+        "repo": "nixon",
+        "rev": "d644c3a34ed0f7c29a4eeb4f7e837795383ed294",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/myme/code/nixon"
+        "owner": "myme",
+        "repo": "nixon",
+        "type": "github"
       }
     },
     "nixos-wsl": {
       "inputs": {
         "flake-compat": "flake-compat",
-        "flake-utils": "flake-utils_2",
+        "flake-utils": "flake-utils_3",
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
@@ -255,6 +273,7 @@
         "agenix": "agenix",
         "annodate": "annodate",
         "doomemacs": "doomemacs",
+        "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "i3ws": "i3ws",
         "nixon": "nixon",

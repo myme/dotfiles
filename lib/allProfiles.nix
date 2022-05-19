@@ -5,7 +5,7 @@
 dir: f:
 
 let
-  allProfiles = builtins.filter (m: m != "default.nix") (lib.allNixFiles dir);
+  allProfiles = builtins.filter (m: m != "default.nix") (lib.myme.allNixFiles dir);
 
 in builtins.listToAttrs (builtins.map (fname: rec {
   name = lib.strings.removeSuffix ".nix" fname;

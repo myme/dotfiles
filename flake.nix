@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    flake-utils.url = "github:numtide/flake-utils";
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,7 +26,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
       overlays = [
@@ -35,50 +36,41 @@
         inputs.nixon.overlay
         self.overlay
       ];
-      lib = nixpkgs.lib.extend(final: prev: import ./lib {
-        inherit home-manager;
-        lib = final;
-      });
-      pkgs = import nixpkgs {
-        inherit system overlays;
-      };
-    in rec {
+      lib = nixpkgs.lib.extend (final: prev:
+        import ./lib {
+          inherit home-manager;
+          lib = final;
+        });
+    in {
       overlay = import ./overlay.nix {
-        inherit home-manager;
+        inherit lib home-manager;
         inherit (inputs) doomemacs wallpapers;
       };
 
-      # All packages under pkgs.myme.apps from the overlay
-      packages.${system} = pkgs.myme.apps;
-
       # NixOS machines
-      nixosConfigurations = lib.allProfiles ./machines (name: file:
-        lib.makeNixOS name file {
-          inherit inputs system overlays;
-        });
+      nixosConfigurations = lib.myme.allProfiles ./machines (name: file:
+        lib.myme.makeNixOS name file { inherit inputs system overlays; });
 
       # Non-NixOS machines (Fedora, WSL, ++)
-      homeConfigurations = lib.nixos2hm {
-        inherit overlays system nixosConfigurations;
+      homeConfigurations = lib.myme.nixos2hm {
+        inherit (self) nixosConfigurations;
+        inherit overlays system;
       };
+    } // flake-utils.lib.eachDefaultSystem (system:
+      let pkgs = import nixpkgs { inherit system overlays; };
+      in {
+        # All packages under pkgs.myme.apps from the overlay
+        packages = pkgs.myme.apps;
 
-      devShells.${system} = {
-        # Default dev shell (used by direnv)
-        default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            agenix
-          ];
-        };
+        devShells = {
+          # Default dev shell (used by direnv)
+          default = pkgs.mkShell { buildInputs = with pkgs; [ agenix ]; };
 
-        # For hacking on XMonad
-        xmonad = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            (ghc.withPackages (ps: with ps; [
-              xmonad
-              xmonad-contrib
-            ]))
-          ];
+          # For hacking on XMonad
+          xmonad = pkgs.mkShell {
+            buildInputs = with pkgs;
+              [ (ghc.withPackages (ps: with ps; [ xmonad xmonad-contrib ])) ];
+          };
         };
-      };
-    };
+      });
 }
