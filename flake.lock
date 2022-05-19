@@ -107,11 +107,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1651886851,
-        "narHash": "sha256-kbXOJSf1uho0/7P54nZkJdJY3oAelIjyc6tfiRhaXJI=",
+        "lastModified": 1652913097,
+        "narHash": "sha256-hOs8Z5WYzCor+qP+JgSgrCJRC+UuN9pfTUnXqyRUBvY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "882bd8118bdbff3a6e53e5ced393932b351ce2f6",
+        "rev": "cb9f03d519cf96fcd7dfb990cc0e586a62ca6e69",
         "type": "github"
       },
       "original": {
@@ -145,17 +145,14 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1643416772,
-        "narHash": "sha256-B9UdEU1KYLBbpOLI+P25vl9vEfS0TBVRQVLT5ta6OlM=",
-        "owner": "myme",
-        "repo": "nixon",
-        "rev": "6b50101444e892fdee3a53a635b7f67c1e7b9948",
-        "type": "github"
+        "lastModified": 1651096315,
+        "narHash": "sha256-So6HxFoHN8m34WdfkMRMek39XE+zmJoQh2HW0tpboMw=",
+        "type": "git",
+        "url": "file:///home/myme/code/nixon"
       },
       "original": {
-        "owner": "myme",
-        "repo": "nixon",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/myme/code/nixon"
       }
     },
     "nixos-wsl": {
@@ -239,11 +236,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1651726670,
-        "narHash": "sha256-dSGdzB49SEvdOJvrQWfQYkAefewXraHIV08Vz6iDXWQ=",
+        "lastModified": 1652659998,
+        "narHash": "sha256-FqNrXC1EE6U2RACwXBlsAvg1lqQGLYpuYb6+W3DL9vA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c777cdf5c564015d5f63b09cc93bef4178b19b01",
+        "rev": "1d7db1b9e4cf1ee075a9f52e5c36f7b9f4207502",
         "type": "github"
       },
       "original": {
