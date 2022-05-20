@@ -161,16 +161,13 @@
       },
       "locked": {
         "lastModified": 1651096315,
-        "narHash": "sha256-OWbldvkuLxmLpkB7MYRoRVcKEao/dVEiVsudQK0iCxs=",
-        "owner": "myme",
-        "repo": "nixon",
-        "rev": "d644c3a34ed0f7c29a4eeb4f7e837795383ed294",
-        "type": "github"
+        "narHash": "sha256-So6HxFoHN8m34WdfkMRMek39XE+zmJoQh2HW0tpboMw=",
+        "type": "git",
+        "url": "file:///home/myme/code/nixon"
       },
       "original": {
-        "owner": "myme",
-        "repo": "nixon",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/myme/code/nixon"
       }
     },
     "nixos-wsl": {
