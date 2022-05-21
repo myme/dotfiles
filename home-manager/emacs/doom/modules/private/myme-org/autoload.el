@@ -80,3 +80,14 @@
       (let ((default-directory org-dir))
         (message "Syncing \"%s\"" (file-relative-name org-dir org-directory))
         (myme/git-auto-sync)))))
+
+
+;;;###autoload
+(defun myme/org-element-cache-reset-all ()
+  "Refresh the org element cache for all org buffers."
+  (interactive)
+  (dolist (buffer (org-buffer-list))
+    (with-current-buffer buffer
+      (message "Refreshing \"%s\"" (buffer-name buffer))
+      (org-element-cache-reset)))
+  (message "Done!"))
