@@ -84,7 +84,10 @@
  +workspaces-switch-project-function #'find-file
 
  ;; Info
- Info-additional-directory-list '("~/.nix-profile/share/info"))
+ Info-additional-directory-list '("~/.nix-profile/share/info")
+
+ ;; Reload buffers on file updates
+ global-auto-revert-mode t)
 
 ;; Ace window
 (after! ace-window
