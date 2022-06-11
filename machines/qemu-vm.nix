@@ -4,18 +4,37 @@
 #
 
 { config, lib, pkgs, ... }: {
-  imports = [
-    ../system/xserver.nix
-    ../users/user.nix
-  ];
+  myme.machine = {
+    role = "desktop";
+    flavor = "nixos";
+    user = {
+      name = "nixos";
 
-  config = {
-    # Security
-    security.sudo.wheelNeedsPassword = false;
+      # This maps to the `users.users.nixos` NixOS config
+      config = {
+        isNormalUser = true;
+        initialPassword = "nixos";
+        extraGroups = [ "wheel" ];
+      };
 
-    # Machine role + Desktop Environment
-    myme.machine.role = "desktop";
-    # myme.de.variant = "plasma";
-    myme.de.variant = "wm";
+      # This maps to the `home-manager.users.nixos` NixOS (HM module) config
+      profile = {
+        imports = [
+          ../home-manager
+        ];
+
+        config = {
+          myme.wm = {
+            enable = true;
+            variant = "xmonad";
+            conky = false;
+            polybar.monitor = "Virtual-1";
+          };
+        };
+      };
+    };
   };
+
+  # Security
+  security.sudo.wheelNeedsPassword = false;
 }
