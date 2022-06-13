@@ -57,4 +57,6 @@
     file = ./../secrets/ssh.age;
     owner = config.myme.machine.user.name;
   };
+
+  virtualisation.podman.enable = true;
 }
