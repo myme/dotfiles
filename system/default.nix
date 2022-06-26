@@ -93,6 +93,10 @@
           ${pkgs.rsync}/bin/rsync -ar --delete ./$x/. /usr/share/$x
         done
       '';
+
+      # Don't define any rules for systemd-tmpfiles:
+      # https://github.com/nix-community/NixOS-WSL/discussions/113
+      systemd.tmpfiles.packages = lib.mkForce [];
     })
     (lib.mkIf (config.myme.machine.role != "server") {
       # For GTK stuff
