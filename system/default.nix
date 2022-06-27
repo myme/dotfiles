@@ -94,9 +94,11 @@
         done
       '';
 
-      # Don't define any rules for systemd-tmpfiles:
-      # https://github.com/nix-community/NixOS-WSL/discussions/113
-      systemd.tmpfiles.packages = lib.mkForce [];
+      # Ensure /tmp/.X11-unix isn't cleaned by systemd-tmpfiles:
+      # https://github.com/nix-community/NixOS-WSL/issues/114
+      systemd.tmpfiles.rules = [
+        "d /tmp/.X11-unix 1777 root root"
+      ];
     })
     (lib.mkIf (config.myme.machine.role != "server") {
       # For GTK stuff
