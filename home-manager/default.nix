@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }: ({
+{ lib, pkgs, specialArgs, ... }: ({
   imports = [
     ./barrier.nix
     ./dev.nix
@@ -13,6 +13,9 @@
   ];
 
   config = {
+    # Pass stateVersion from NixOS config
+    home.stateVersion = specialArgs.nixosConfig.system.stateVersion;
+
     home.packages = with pkgs; [
       dua
       fd
