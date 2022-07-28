@@ -57,8 +57,8 @@
       nix.package = pkgs.nixUnstable;
       nix.extraOptions = "experimental-features = nix-command flakes";
 
-      # Defaults/compat from "22.05"
-      system.stateVersion = "22.05";
+      # Defaults/compat from "22.11"
+      system.stateVersion = "22.11";
     }
     # Disable boot + networking for WSL
     (lib.mkIf (config.myme.machine.flavor != "wsl") {
