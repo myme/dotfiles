@@ -105,6 +105,7 @@ in {
       # Nodejs
       (mkIf cfg.nodejs.enable (with pkgs; [
         (mkIf cfg.nodejs.interpreter nodejs)
+        nodePackages.typescript
         nodePackages.typescript-language-server
         nodePackages.prettier
       ]))
