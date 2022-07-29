@@ -62,4 +62,6 @@
     file = ./../secrets/ssh.age;
     owner = config.myme.machine.user.name;
   };
+
+  documentation.nixos.enable = true;
 }
