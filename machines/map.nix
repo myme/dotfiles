@@ -48,9 +48,10 @@
             };
           };
 
-          myme.dev.haskell = {
-            enable = true;
-            lsp = false;
+          myme.dev = {
+            docs.enable = true;
+            nodejs.enable = true;
+            haskell.enable = true;
           };
         };
       };
