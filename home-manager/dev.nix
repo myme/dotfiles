@@ -33,6 +33,11 @@ in {
         default = true;
         description = "Enable haskell-language-server";
       };
+      ormolu = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Install the Ormolu Haskell source code formatter";
+      };
     };
 
     # Nodejs options
@@ -98,8 +103,9 @@ in {
       ]))
 
       # Haskell
-      (mkIf (cfg.haskell.enable && cfg.haskell.lsp) (with pkgs; [
-        haskell-language-server
+      (mkIf (cfg.haskell.enable) (with pkgs; [
+        (mkIf cfg.haskell.lsp haskell-language-server)
+        (mkIf cfg.haskell.ormolu ormolu)
       ]))
 
       # Nodejs
