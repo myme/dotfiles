@@ -1,5 +1,5 @@
 {-# OPTIONS_GHC -Wno-deferred-type-errors #-}
-import           Control.Monad (when)
+import           Control.Monad (void, when)
 import           Data.List (sortOn)
 import qualified Data.List as L
 import qualified Data.Map as M
@@ -35,6 +35,7 @@ import           XMonad.Util.Dmenu
 import           XMonad.Util.EZConfig (mkKeymap, additionalKeysP, mkNamedKeymap)
 import           XMonad.Util.NamedActions (noName, addName, submapName, NamedAction, addDescrKeys', showKm)
 import           XMonad.Util.Run
+import           XMonad.Actions.Warp (warpToScreen, warpToWindow)
 
 data Color = BgDark
            | BgLight
@@ -135,6 +136,8 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkNamedKeymap conf (
   ,("M-x",     addName "Nixon command" $ spawn "nixon run")
   ,("M-S-x",   addName "Nixon project command" $ spawn "nixon project")
   ,("M-e",     addName "Rofimoji (Emoji picker)" $ spawn "rofimoji")
+  -- Mouse warp
+  ,("M-S-.", addName "Warp mouse to screen" $ warpToWindow 0.5 0.5)
   -- Struts...
   ,("M-b", addName "Toggle struts (statusbar)" $ sendMessage $ ToggleStrut D)
     -- Screenshots
@@ -173,10 +176,14 @@ myKeys conf@XConfig { XMonad.terminal = term } = mkNamedKeymap conf (
   ++
   -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
   -- mod-shift-{w,e,r} %! Move client to screen 1, 2, or 3
-  [("M-" <> m <> k, addName (d " " <> show (s + 1)) $ screenWorkspace (fromIntegral s) >>= flip whenJust (windows . f))
-      | (k, s) <- zip ["u", "i", "o"] ([0..] :: [Int])
-      , (d, f, m) <- [(("Switch to screen" <>), W.view, ""), (("Move to screen" <>), W.shift, "S-")]]
-  )
+  (
+    let withScreen screenId f = do
+          warpToScreen screenId 0.5 0.5
+          void $ fmap (windows . f) <$> screenWorkspace screenId
+    in [("M-" <> m <> k, addName (d <> " " <> show (s + 1)) $ withScreen s f)
+      | (k, s) <- zip ["u", "i", "o"] ([0..] :: [ScreenId])
+      , (d, f, m) <- [("Switch to screen", W.view, ""), ("Move to screen", W.shift, "S-")]]
+  ))
 
 -- | Match against start of Query
 (=?^) :: Eq a => Query [a] -> [a] -> Query Bool
