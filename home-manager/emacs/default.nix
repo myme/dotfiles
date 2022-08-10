@@ -22,6 +22,7 @@
       emacs = {
         enable = true;
         client.enable = true;
+        socketActivation.enable = true;
       };
     };
 
@@ -34,10 +35,10 @@
         nb
       ]))
       (pkgs.writeShellScriptBin "ec" ''
-        emacsclient -a ''' -c "$@"
+        emacsclient -c "$@"
       '')
       (pkgs.writeShellScriptBin "et" ''
-        emacsclient -a ''' -t "$@"
+        emacsclient -t "$@"
       '')
       nodePackages.mermaid-cli
     ];
