@@ -48,6 +48,10 @@
             };
 
           };
+
+          services = {
+            syncthing.enable = true;
+          };
         };
       };
     };
