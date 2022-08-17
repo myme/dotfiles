@@ -203,6 +203,8 @@ myManageHook = composeAll
   , className =?  "Gnome-calculator" --> doFloat
   , className =?^ "davmail"          --> doFloat
   , className =?  "openconnect-sso"  --> doFloat
+  , className =?  "plasmashell"      --> doIgnore
+  , className =?  "Plasma"           --> doIgnore
   ]
 
 myLog :: FilePath -> PP

@@ -38,6 +38,7 @@ in {
       # Disable xterm session
       services.xserver.desktopManager.xterm.enable = false;
     })
+    # WM
     (mkIf (cfg.variant == "wm") {
       # Home manager xsession
       services.xserver.desktopManager.session = [{
