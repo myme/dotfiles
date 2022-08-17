@@ -31,6 +31,9 @@ in {
       # Enable touchpad support
       services.xserver.libinput.enable = true;
       services.xserver.libinput.touchpad.naturalScrolling = true;
+
+      # LightDM Background image
+      services.xserver.displayManager.lightdm.background = "${pkgs.myme.wallpapers}/alien-moon-nature.jpg";
     })
     (mkIf (cfg.variant == "wm") {
       # Home manager xsession
