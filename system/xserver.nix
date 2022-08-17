@@ -16,7 +16,7 @@ in {
       description = "Optimize for high DPI outputs (4k)";
     };
     myme.de.variant = mkOption {
-      type = types.enum [ "none" "plasma" "wm" "xfce" ];
+      type = types.enum [ "none" "gnome" "plasma" "wm" "xfce" ];
       default = if xserver then "wm" else "none";
       description = "Desktop Environment flavor";
     };
@@ -53,6 +53,12 @@ in {
       services.gnome.gnome-keyring.enable = true;
       security.pam.services.xdm.enableGnomeKeyring = true;
     })
+    # Gnome
+    (mkIf (cfg.variant == "gnome") {
+      services.xserver.displayManager.gdm.enable = true;
+      services.xserver.desktopManager.gnome.enable = true;
+    })
+    # KDE Plasma
     (mkIf (cfg.variant == "plasma") {
       services.xserver.displayManager.sddm.enable = true;
       services.xserver.desktopManager.plasma5.enable = true;
