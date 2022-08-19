@@ -91,3 +91,13 @@
       (message "Refreshing \"%s\"" (buffer-name buffer))
       (org-element-cache-reset)))
   (message "Done!"))
+
+;;;###autoload
+(defun myme/org-visit-all ()
+  "Visit all org-mode agenda files"
+  (interactive)
+  (save-excursion
+    (dolist (file (org-agenda-files))
+      (message "Visiting \"%s\"" file)
+      (find-file-noselect file)))
+  (message "Done!"))

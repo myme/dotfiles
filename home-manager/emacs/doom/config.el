@@ -123,6 +123,10 @@
    :desc "Compile" :nv "k" #'kill-compilation)
   (:prefix "d"
    :desc "Ediff buffers" :nv "b" #'ediff-buffers)
+  (:prefix "o"
+   (:prefix "o"
+    :desc "Visit all org-mode files" :nv "r" #'myme/org-element-cache-reset-all
+    :desc "Visit all org-mode files" :nv "v" #'myme/org-visit-all))
   (:prefix "p"
    :desc "Open dired in project" :nv "d" #'projectile-dired
    :desc "Run async cmd in project" :nv "&" #'projectile-run-async-shell-command-in-root
