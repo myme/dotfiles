@@ -113,9 +113,9 @@ in {
       # Python
       (mkIf cfg.python.enable (with pkgs; [
         (mkIf cfg.python.interpreter (python3.withPackages (ps: with ps; [
-          black
           ipython
         ])))
+        black
         # python-language-server
         pyright
       ]))
