@@ -3,7 +3,7 @@
 with lib;
 
 let
-  lockCmd = "${./lock-wrapper.sh} ${pkgs.i3lock}/bin/i3lock -c 000000 -n";
+  lockCmd = "${pkgs.myme.apps.lockscreen}/bin/lockscreen";
   cfg = config.myme.wm;
   machine = args.specialArgs.nixosConfig.myme.machine;
 
