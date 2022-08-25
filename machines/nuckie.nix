@@ -68,6 +68,11 @@
         }];
       };
     };
+    firewall.allowedTCPPorts = [
+      8000
+      8080
+      8888
+    ];
   };
 
   environment.systemPackages = with pkgs; [
