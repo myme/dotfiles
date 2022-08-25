@@ -106,8 +106,8 @@
 (defun myme/org-select-project ()
   "Select org-mode related variables based on a projectile project"
   (interactive)
-  (let ((projects (projectile-relevant-known-projects))
-        (projectile-current-project-on-switch 'keep))
+  (let* ((projectile-current-project-on-switch 'keep)
+        (projects (projectile-relevant-known-projects)))
     (if projects
         (projectile-completing-read
          "Select org project: " projects
