@@ -101,3 +101,25 @@
       (message "Visiting \"%s\"" file)
       (find-file-noselect file)))
   (message "Done!"))
+
+;;;###autoload
+(defun myme/org-select-project ()
+  "Select org-mode related variables based on a projectile project"
+  (interactive)
+  (let ((projects (projectile-relevant-known-projects))
+        (projectile-current-project-on-switch 'keep))
+    (if projects
+        (projectile-completing-read
+         "Select org project: " projects
+         :action #'myme/org-set-project-dir)
+      (user-error "There are no known projects"))))
+
+(defun myme/org-set-project-dir (project)
+  "Set org-mode related variables based on project dir"
+  (setq
+   org-directory project
+   org-agenda-files (list project)
+   org-roam-directory (expand-file-name "roam" project)
+   org-roam-db-location (expand-file-name "org-roam.db" org-roam-directory)
+   org-roam-dailies-directory (expand-file-name "dailies" org-roam-directory))
+  (message "Set org project to %s" project))

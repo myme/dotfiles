@@ -125,6 +125,7 @@
    :desc "Ediff buffers" :nv "b" #'ediff-buffers)
   (:prefix "o"
    (:prefix "o"
+    :desc "Set org-mode variables to project" :nv "p" #'myme/org-select-project
     :desc "Visit all org-mode files" :nv "r" #'myme/org-element-cache-reset-all
     :desc "Visit all org-mode files" :nv "v" #'myme/org-visit-all))
   (:prefix "p"
