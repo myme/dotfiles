@@ -1,8 +1,5 @@
 ;;; private/myme-org/init.el -*- lexical-binding: t; -*-
 
-(setq
- org-directory "~/notes")
-
 ;; Org-mode
 (after! org
   (setq
@@ -41,7 +38,6 @@
      ))
    org-agenda-dim-blocked-tasks t
    org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'"
-   org-agenda-files (quote ("~/notes/work" "~/notes/personal"))
    org-agenda-persistent-filter t
    org-agenda-span 1
    org-agenda-start-day "Today"
@@ -64,28 +60,28 @@
 %a" :clock-in t :clock-resume t)
      ("j" "Journal")
      ("jj" "Entry" entry
-      (file+olp+datetree "work/journal.org" "Journal")
+      (file+olp+datetree "journal.org" "Journal")
       "* %?
 %U" :clock-in t :clock-resume t)
      ("jb" "Backlog/bug management" entry
-      (file+olp+datetree "work/journal.org" "Journal")
+      (file+olp+datetree "journal.org" "Journal")
       "* Backlog/bug management%? :BACKLOG:
 %U" :clock-in t :clock-resume t)
      ("jd" "Daily note" entry
-      (file+olp+datetree "work/journal.org" "Journal")
+      (file+olp+datetree "journal.org" "Journal")
       "* Daily notes :NOTE:
 %t
 %?" :clock-in t :clock-resume t)
      ("je" "Email + collab" entry
-      (file+olp+datetree "work/journal.org" "Journal")
+      (file+olp+datetree "journal.org" "Journal")
       "* Email + collab%? :EMAIL:MESSAGING:
 %U" :clock-in t :clock-resume t)
      ("jm" "Meeting" entry
-      (file+olp+datetree "work/journal.org" "Journal")
+      (file+olp+datetree "journal.org" "Journal")
       "* Meeting: %? :MEETING:
 %U" :clock-in t :clock-resume t)
      ("jr" "Review" entry
-      (file+olp+datetree "work/journal.org" "Journal")
+      (file+olp+datetree "journal.org" "Journal")
       "* Review: %? :REVIEW:
 %U" :clock-in t :clock-resume t)))
    org-clock-out-remove-zero-time-clocks t
