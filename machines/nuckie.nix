@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
   myme.machine = {
     role = "server";
     user = {
@@ -19,6 +19,16 @@
         ];
 
         myme.irc.enable = true;
+
+        programs = {
+          ssh = {
+            enable = true;
+            includes = [
+              config.age.secrets.ssh.path
+            ];
+          };
+
+        };
       };
     };
   };
@@ -73,6 +83,11 @@
       8080
       8888
     ];
+  };
+
+  age.secrets.ssh = {
+    file = ./../secrets/ssh.age;
+    owner = config.myme.machine.user.name;
   };
 
   environment.systemPackages = with pkgs; [
