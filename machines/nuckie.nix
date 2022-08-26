@@ -23,7 +23,7 @@
     };
   };
 
-  nix.binaryCachePublicKeys = [
+  nix.settings.trusted-public-keys = [
     "tuple:RLwVT0X7XUres7PkgkMLgsMfWhbHP0PYIfQmqJ2M6Ac="
   ];
 
