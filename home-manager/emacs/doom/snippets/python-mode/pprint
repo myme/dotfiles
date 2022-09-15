@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: pprint
+# key: pprint
+# uuid: pprint
+# group: debug
+# --
+import pprint; pprint.pprint($1)

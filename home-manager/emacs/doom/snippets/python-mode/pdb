@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: pdb trace
+# key: ptr
+# uuid: ptr
+# group: debug
+# --
+import pdb; pdb.set_trace()
