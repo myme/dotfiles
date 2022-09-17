@@ -145,9 +145,18 @@
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
+;; FIXME: See note adding this to doom-real-buffer-functions below
+(defun myme/is-org-agenda-p (buf)
+  "Returns non-nil if BUF is the Org Agenda buffer."
+  (provided-mode-derived-p (buffer-local-value 'major-mode buf)
+                           'org-agenda-mode))
+
 (after! org-agenda
   (setq
-   org-agenda-clockreport-parameter-plist (plist-put org-agenda-clockreport-parameter-plist :fileskip0 t)))
+   org-agenda-clockreport-parameter-plist (plist-put org-agenda-clockreport-parameter-plist :fileskip0 t))
+  ;; FIXME: This is a temporary hack to avoid the *Org Agenda* buffer(s) to be
+  ;; treated as "unreal" buffers. See: https://github.com/doomemacs/doomemacs/issues/6491
+  (push #'myme/is-org-agenda-p doom-real-buffer-functions))
 
 (load! "+keybindings")
 
