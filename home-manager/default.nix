@@ -5,7 +5,7 @@
     ./emacs
     ./git.nix
     ./irc.nix
-    ./nixon.nix
+    ./nixon
     ./spotify.nix
     ./tmux.nix
     ./vim.nix

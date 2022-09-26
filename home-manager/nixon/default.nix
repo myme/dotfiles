@@ -48,7 +48,7 @@ in {
 
     configExtra = mkOption {
       type = types.str;
-      default = "";
+      default = lib.readFile ./nixon.md;
       description = "Configurations added to nixon.md";
     };
   };
