@@ -23,7 +23,7 @@ let
   };
   themes = {
     adwaita = {
-      package = pkgs.gnome3.gnome_themes_standard;
+      package = pkgs.gnome.gnome_themes_standard;
       # name = "Adwaita";
       name = "Adwaita-dark";
     };

@@ -33,9 +33,11 @@
         background = "#88c0d0";
       };
   };
-  bar = {
-    background = "#434c5e";
-    foreground = "#d8dee9";
+  colors = {
+    footer_bar = {
+      background = "#434c5e";
+      foreground = "#d8dee9";
+    };
   };
   normal = {
     black = "#3b4252";

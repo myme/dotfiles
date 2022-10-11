@@ -89,7 +89,7 @@ in {
       # Docs
       (mkIf cfg.docs.enable (with pkgs; [
         man-pages
-        posix_man_pages
+        man-pages-posix
       ]))
 
       # C/C++
