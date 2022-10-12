@@ -58,6 +58,10 @@
             nodejs.enable = true;
             haskell.enable = true;
           };
+
+          services = {
+            syncthing.enable = true;
+          };
         };
       };
     };
