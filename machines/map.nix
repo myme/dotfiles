@@ -33,6 +33,11 @@
             mosh
           ];
 
+          home.sessionVariables = {
+            EDITOR = "et";
+            XDG_RUNTIME_DIR = "/run/user/$(id -u)";
+          };
+
           programs = {
             # SSH agent
             keychain = {
