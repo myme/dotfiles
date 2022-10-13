@@ -123,6 +123,10 @@ in {
 
     # Without KDE Plasma
     (mkIf (!cfg.plasma) {
+      home.packages = with pkgs; [
+        pkgs.pavucontrol
+      ];
+
       myme.wm.polybar = mkMerge [
         {
           enable = true;
