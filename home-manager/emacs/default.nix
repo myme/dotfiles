@@ -5,7 +5,10 @@
     home.file.".emacs.d".source = pkgs.myme.doomemacs;
 
     # Doom Emacs local files (~/.cache/doom)
-    home.sessionVariables.DOOMLOCALDIR = "~/.cache/doom-emacs/";
+    home.sessionVariables = {
+      DOOMLOCALDIR = "~/.cache/doomemacs/";
+      DOOMPROFILELOADFILE = "~/.cache/doomemacs/load.el";
+    };
 
     # Doom Emacs configuration (~/.config/doom)
     xdg.configFile.doom.source = ./doom;
