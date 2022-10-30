@@ -1,6 +1,19 @@
 # NixOS Configuration
 
-## Installation
+This repository contains the [NixOS](https://nixos.org/) system and user profile
+configuration files for my machines. For an overview and more thorough
+description, read [NixOS: Confederation
+(myme.no)](https://myme.no/posts/2022-06-14-nixos-confederation.html).
+
+I rarely install new machines and thus haven't really invested the time to
+automate this process in a good way. The steps under
+[Installation](#installation-experimentalbroken) are most likely borken or
+incomplete. Your best bet is to [download and
+install](https://nixos.org/download.html#nixos-iso) `NixOS` following the
+regular documentation, then simply [build and update](#updating) using
+`nixos-rebuild switch --flake .`.
+
+## Installation (experimental/broken)
 
 Ensure the machine is running and has a `root` password.
 
@@ -15,7 +28,7 @@ $ ./bootstrap/copy.sh
 On console:
 
 ``` bash
-$ sudo NIX_INSTALL_NAME=<machine> ./bootstrap/intall.sh
+$ sudo NIX_INSTALL_NAME=<machine> ./bootstrap/install.sh
 ```
 
 Remotely:
