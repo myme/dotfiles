@@ -48,6 +48,7 @@
         };
         rerere.enabled = true;
       };
+      iniContent.user.useConfigOnly = true;
       ignores = [ ".dir-locals.el" ".direnv" ".envrc" ];
     };
   };
