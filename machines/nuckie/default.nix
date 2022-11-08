@@ -15,10 +15,13 @@
       };
       profile = {
         imports = [
-          ../home-manager
+          ../../home-manager
         ];
 
-        myme.irc.enable = true;
+        myme.irc = {
+          enable = true;
+          service = true;
+        };
 
         programs = {
           ssh = {
@@ -85,9 +88,15 @@
     ];
   };
 
-  age.secrets.ssh = {
-    file = ./../secrets/ssh.age;
-    owner = config.myme.machine.user.name;
+  age.secrets = {
+    ssh = {
+      file = ./../../secrets/ssh.age;
+      owner = config.myme.machine.user.name;
+    };
+    weechat = {
+      file = ./weechat.age;
+      owner = config.myme.machine.user.name;
+    };
   };
 
   environment.systemPackages = with pkgs; [
