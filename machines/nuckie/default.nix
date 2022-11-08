@@ -18,6 +18,10 @@
           ../../home-manager
         ];
 
+        home.sessionVariables = {
+          EDITOR = "et";
+        };
+
         myme.irc = {
           enable = true;
           service = true;
