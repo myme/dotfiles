@@ -3,23 +3,26 @@
 # Full graphical NixOS setup on VMWare.
 #
 
-{ config, lib, pkgs, ... }: {
-  imports = [
-    ../system/xserver.nix
-    ../users/myme.nix
-  ];
+{
+  system = "x86_64-linux";
+  config = { config, lib, pkgs, ... }: {
+    imports = [
+      ../system/xserver.nix
+      ../users/myme.nix
+    ];
 
-  config = {
-    # VM
-    virtualisation.vmware.guest.enable = true;
+    config = {
+      # VM
+      virtualisation.vmware.guest.enable = true;
 
-    # Security
-    security.sudo.wheelNeedsPassword = false;
+      # Security
+      security.sudo.wheelNeedsPassword = false;
 
-    # Machine role
-    myme.machine = {
-      role = "desktop";
-      highDPI = true;
+      # Machine role
+      myme.machine = {
+        role = "desktop";
+        highDPI = true;
+      };
     };
   };
 }

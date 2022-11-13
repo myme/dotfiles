@@ -9,5 +9,5 @@ let
 
 in builtins.listToAttrs (builtins.map (fname: rec {
   name = lib.strings.removeSuffix ".nix" fname;
-  value = f name /${dir}/${fname};
+  value = f name (import /${dir}/${fname});
 }) allProfiles)

@@ -1,6 +1,6 @@
-{ home-manager, lib }:
+{ lib }:
 
-{ overlays, system, nixosConfigurations }:
+{ nixosConfigurations }:
 
 let
   removeHostname = str: builtins.head (builtins.split "@" str);

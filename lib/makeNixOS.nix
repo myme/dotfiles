@@ -1,17 +1,19 @@
-name: machineFile: { inputs, overlays, system }:
+{ inputs, overlays }:
+
+name: host:
 
 let
   inherit (inputs) self agenix home-manager nixpkgs nixos-wsl;
 
 in nixpkgs.lib.nixosSystem {
-  inherit system;
+  inherit (host) system;
   modules = [
     ../system
     ../users/root.nix
     agenix.nixosModule
     nixos-wsl.nixosModules.wsl
     home-manager.nixosModules.home-manager
-    machineFile
+    host.config
     {
       # Hostname
       networking.hostName = name;

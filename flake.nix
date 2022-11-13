@@ -27,9 +27,8 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
     let
-      system = "x86_64-linux";
       overlays = [
         inputs.agenix.overlay
         inputs.i3ws.overlay
@@ -39,23 +38,22 @@
       ];
       lib = nixpkgs.lib.extend (final: prev:
         import ./lib {
-          inherit home-manager;
+          inherit inputs overlays;
           lib = final;
         });
     in {
+      # Personal overlays
       overlay = import ./overlay.nix {
-        inherit lib home-manager;
-        inherit (inputs) doomemacs wallpapers;
+        inherit lib;
+        inherit (inputs) doomemacs home-manager wallpapers;
       };
 
       # NixOS machines
-      nixosConfigurations = lib.myme.allProfiles ./machines (name: file:
-        lib.myme.makeNixOS name file { inherit inputs system overlays; });
+      nixosConfigurations = lib.myme.allProfiles ./machines lib.myme.makeNixOS;
 
       # Non-NixOS machines (Fedora, WSL, ++)
       homeConfigurations = lib.myme.nixos2hm {
         inherit (self) nixosConfigurations;
-        inherit overlays system;
       };
     } // flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system overlays; };
