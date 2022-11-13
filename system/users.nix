@@ -31,12 +31,15 @@ in {
     users.users.${cfg.user.name} = cfg.user.config;
     home-manager.users.${cfg.user.name} = lib.mkMerge [
       cfg.user.profile
-      {
+      ({ specialArgs, ... }: {
         config = {
+          # Pass stateVersion from NixOS config
+          home.stateVersion = specialArgs.nixosConfig.system.stateVersion;
+
           submoduleSupport.enable = lib.mkForce (!genericLinux);
           targets.genericLinux.enable = genericLinux;
         };
-      }
+      })
     ];
   };
 }

@@ -13,9 +13,6 @@
   ];
 
   config = {
-    # Pass stateVersion from NixOS config
-    home.stateVersion = specialArgs.nixosConfig.system.stateVersion;
-
     home.packages = with pkgs; [
       dua
       fd
