@@ -2,17 +2,16 @@
 
 let
   cfg = config.myme.irc;
-  myme-weechat = pkgs.buildEnv {
-    name = "weechat";
-    paths = with pkgs; [
-      irc
-      weechat
-      weechatScripts.wee-slack
-      weechatScripts.weechat-matrix
-    ];
+  weechat = pkgs.weechat.override {
+    configure = { availablePlugins, ... }: {
+      scripts = with pkgs.weechatScripts; [
+        wee-slack
+        weechat-matrix
+      ];
+    };
   };
   tmuxCmd = "${pkgs.tmux}/bin/tmux -L weechat";
-  weechatCmd = "${myme-weechat}/bin/weechat";
+  weechatCmd = "${weechat}/bin/weechat";
   irc = pkgs.writeShellScriptBin "irc" ''
     # Attach to WeeChat running in a systemd tmux session
     ${tmuxCmd} attach-session -t weechat
@@ -26,7 +25,8 @@ in {
 
   config = {
     home.packages = lib.mkIf cfg.enable [
-      myme-weechat
+      irc
+      weechat
     ];
 
     systemd.user.services.weechat = lib.mkIf (cfg.enable && cfg.service) {

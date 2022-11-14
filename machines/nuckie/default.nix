@@ -1,4 +1,8 @@
 { config, lib, pkgs, ... }: {
+  imports = [
+    ./nginx.nix
+  ];
+
   myme.machine = {
     role = "server";
     user = {
@@ -86,11 +90,11 @@
       };
     };
     firewall.allowedTCPPorts = [
+      80
+      443
       8000
       8080
       8888
-      # WeeChat SSL relay
-      9001
     ];
   };
 
