@@ -28,7 +28,7 @@ in {
   };
 
   config = {
-    home.packages = [
+    home.packages = lib.mkIf cfg.enable [
       terminal
     ];
 
