@@ -49,7 +49,7 @@
       };
 
       # NixOS machines
-      nixosConfigurations = lib.myme.allProfiles ./machines lib.myme.makeNixOS;
+      nixosConfigurations = lib.myme.allProfiles lib.myme.makeNixOS;
 
       # Non-NixOS machines (Fedora, WSL, ++)
       homeConfigurations = lib.myme.nixos2hm {
