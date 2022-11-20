@@ -68,6 +68,8 @@
       };
     };
 
+    boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
     age.secrets.ssh = {
       file = ./../secrets/ssh.age;
       owner = config.myme.machine.user.name;

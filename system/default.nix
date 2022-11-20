@@ -1,5 +1,5 @@
 # Global system configuration
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, system, ... }: {
   imports = [
     ./sleep.nix
     ./xserver.nix
@@ -63,10 +63,10 @@
     # Disable boot + networking for WSL
     (lib.mkIf (config.myme.machine.flavor != "wsl") {
       # Boot
-      boot.loader.systemd-boot.enable = true;
-      boot.loader.systemd-boot.configurationLimit = 30;
-      boot.loader.efi.canTouchEfiVariables = true;
-      boot.kernelPackages = pkgs.linuxPackages_latest;
+      boot.loader.systemd-boot.enable = lib.mkDefault true;
+      boot.loader.systemd-boot.configurationLimit = lib.mkDefault 30;
+      boot.loader.efi.canTouchEfiVariables = lib.mkDefault true;
+      boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
       # Network
       # networking.hostName = config.myme.machine.name;

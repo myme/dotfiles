@@ -51,6 +51,7 @@
       "tuple:RLwVT0X7XUres7PkgkMLgsMfWhbHP0PYIfQmqJ2M6Ac="
     ];
 
+    # TODO: Remove, set in `system/default.nix`
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
