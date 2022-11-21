@@ -161,11 +161,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1667434596,
-        "narHash": "sha256-oAPrIvy3aLa+JPyCSyMXjt4MBvCuCq4uJKwd+iDF8e0=",
+        "lastModified": 1667905301,
+        "narHash": "sha256-PC1vpaj7cG1S2ogwOAxBMGs0G5yTPZ4Hw18tsXtVCZs=",
         "owner": "myme",
         "repo": "nixon",
-        "rev": "5e0701327bf7e7f2ebeb913e5035ab7f20d43d11",
+        "rev": "d2c1a65da2485327aed32b5787376d51a1d43515",
         "type": "github"
       },
       "original": {
