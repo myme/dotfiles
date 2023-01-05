@@ -1,4 +1,4 @@
-{ lib, pkgs, specialArgs, ... }: ({
+{ config, lib, pkgs, specialArgs, ... }: ({
   imports = [
     ./barrier.nix
     ./dev.nix
@@ -72,6 +72,13 @@
         ignore_case = true;
         use_direnv = true;
         use_nix = true;
+      };
+      nushell = {
+        enable = true;
+        # Patch broken `term size -c` from `startship init`
+        extraEnv = ''
+          sed -ir 's_term size -c_term size_' "${config.xdg.cacheHome}/starship/init.nu"
+        '';
       };
       starship = {
         enable = true;
