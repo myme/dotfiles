@@ -73,13 +73,7 @@
         use_direnv = true;
         use_nix = true;
       };
-      nushell = {
-        enable = true;
-        # Patch broken `term size -c` from `startship init`
-        extraEnv = ''
-          sed -ir 's_term size -c_term size_' "${config.xdg.cacheHome}/starship/init.nu"
-        '';
-      };
+      nushell.enable = true;
       starship = {
         enable = true;
         settings.time = {
