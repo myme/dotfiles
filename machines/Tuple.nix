@@ -38,6 +38,11 @@
             XDG_RUNTIME_DIR = "/run/user/$(id -u)";
           };
 
+          myme.dev = {
+            haskell.enable = true;
+            nodejs.enable = true;
+          };
+
           programs = {
             # SSH agent
             keychain = {
