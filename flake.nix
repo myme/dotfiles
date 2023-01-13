@@ -36,7 +36,7 @@
         inputs.i3ws.overlay
         inputs.annodate.overlay
         inputs.nixon.overlay
-        self.overlay
+        self.overlays.default
       ];
       lib = nixpkgs.lib.extend (final: prev:
         import ./lib {
@@ -45,7 +45,7 @@
         });
     in {
       # Personal overlays
-      overlay = import ./overlay.nix {
+      overlays.default = import ./overlay.nix {
         inherit lib;
         inherit (inputs) doomemacs home-manager wallpapers;
       };
