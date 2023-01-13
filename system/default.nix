@@ -90,6 +90,7 @@
         in {
           enable = true;
           defaultUser = username;
+          interop.register = true;
           loginShell =
             let shell = config.users.users.${username}.shell;
                 shellPath = "${shell}${shell.shellPath}";
