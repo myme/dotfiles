@@ -1,5 +1,5 @@
 # Global system configuration
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, system, ... }: {
   imports = [
     ./sleep.nix
     ./xserver.nix
@@ -54,8 +54,16 @@
       };
 
       # Nix
-      nix.package = pkgs.nixUnstable;
-      nix.extraOptions = "experimental-features = nix-command flakes";
+      nix = {
+        package = pkgs.nixUnstable;
+        extraOptions = "experimental-features = nix-command flakes";
+        settings = {
+          trusted-users = [ "root" config.myme.machine.user.name ];
+          trusted-public-keys = [
+            "Tuple:FRwemNd0zmxD24+XgQRibsfNH5Vl32rOdc0NWvtJLYE="
+          ];
+        };
+      };
 
       # Defaults/compat from "22.11"
       system.stateVersion = "22.11";
@@ -63,10 +71,10 @@
     # Disable boot + networking for WSL
     (lib.mkIf (config.myme.machine.flavor != "wsl") {
       # Boot
-      boot.loader.systemd-boot.enable = true;
-      boot.loader.systemd-boot.configurationLimit = 30;
-      boot.loader.efi.canTouchEfiVariables = true;
-      boot.kernelPackages = pkgs.linuxPackages_latest;
+      boot.loader.systemd-boot.enable = lib.mkDefault true;
+      boot.loader.systemd-boot.configurationLimit = lib.mkDefault 30;
+      boot.loader.efi.canTouchEfiVariables = lib.mkDefault true;
+      boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
       # Network
       # networking.hostName = config.myme.machine.name;

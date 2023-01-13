@@ -14,6 +14,7 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    deploy-rs.url = "github:serokell/deploy-rs";
     doomemacs = {
       url = "github:doomemacs/doomemacs";
       flake = false;
@@ -31,6 +32,7 @@
     let
       overlays = [
         inputs.agenix.overlay
+        inputs.deploy-rs.overlay
         inputs.i3ws.overlay
         inputs.annodate.overlay
         inputs.nixon.overlay
@@ -51,10 +53,33 @@
       # NixOS machines
       nixosConfigurations = lib.myme.allProfiles lib.myme.makeNixOS;
 
+      # Deploy nodes
+      deploy.nodes =
+        lib.myme.allProfilesIf (_: host: host ? deployTo) (name: host: {
+          hostname = host.deployTo;
+          profiles.system = {
+            sshUser = "myme";
+            sshOpts = [ "-t" ];
+            magicRollback = false;
+            path = inputs.deploy-rs.lib."${host.system}".activate.nixos self.nixosConfigurations."${name}";
+            user = "root";
+          };
+        });
+
+      # Deploy checks
+      checks = builtins.mapAttrs
+        (system: deployLib: deployLib.deployChecks self.deploy)
+        inputs.deploy-rs.lib;
+
       # Non-NixOS machines (Fedora, WSL, ++)
       homeConfigurations = lib.myme.nixos2hm {
         inherit (self) nixosConfigurations;
       };
+
+      # Installation mediums
+      sdImages = builtins.mapAttrs
+        (name: config: config.config.system.build.sdImage)
+        self.nixosConfigurations;
     } // flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system overlays; };
       in {
@@ -63,7 +88,12 @@
 
         devShells = {
           # Default dev shell (used by direnv)
-          default = pkgs.mkShell { buildInputs = with pkgs; [ agenix ]; };
+          default = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              agenix
+              deploy-rs.deploy-rs
+            ];
+          };
 
           # For hacking on XMonad
           xmonad = pkgs.mkShell {
