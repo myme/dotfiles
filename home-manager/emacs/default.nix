@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   config = {
     # Doom Emacs (.emacs.d)
@@ -15,7 +15,7 @@
 
     # Stock emacs
     programs.emacs = {
-      enable = true;
+      enable = lib.mkDefault true;
       extraPackages = epkgs: with epkgs; [
         vterm
       ];

@@ -13,11 +13,23 @@ install](https://nixos.org/download.html#nixos-iso) `NixOS` following the
 regular documentation, then simply [build and update](#updating) using
 `nixos-rebuild switch --flake .`.
 
-## Installation (experimental/broken)
+## Installation
 
-Ensure the machine is running and has a `root` password.
+### Install SSH keys on machine
+
+Use a local keyboard and mouse or remote console to start up a shell on the
+machine. Then add public keys as desired to `.ssh/authorized_keys` for remote
+access.
+
+``` bash
+$ mkdir .ssh
+$ curl -o .ssh/authorized_keys https://github.com/myme.keys
+```
 
 ### Copy installation files to host
+
+The following command will prompt for one of the `deploy.nodes` hosts to copy
+the installation files to.
 
 ``` bash
 $ ./bootstrap/copy.sh
@@ -25,17 +37,14 @@ $ ./bootstrap/copy.sh
 
 ### Start NixOS installation
 
-On console:
+Begin the installation by invoking the install script, either on console or over
+`SSH`:
 
 ``` bash
-$ sudo NIX_INSTALL_NAME=<machine> ./bootstrap/install.sh
+$ sudo ./bootstrap/install.sh
 ```
 
-Remotely:
-
-``` bash
-$ ./bootstrap/ssh.sh sudo NIX_INSTALL_NAME=<machine> ./nixos/bootstrap/install.sh
-```
+The command will prompt for a system profile to install.
 
 ### Post-install
 
