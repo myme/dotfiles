@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: React Functional Component
+# key: fncomp
+# condition: t
+# --
+export function ${1:Component}() {
+  return (
+    $0
+  );
+}
