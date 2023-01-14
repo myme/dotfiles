@@ -83,6 +83,18 @@
     } // flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system overlays; };
       in {
+        # Apps for `nix run .#<app>`
+        apps = {
+          agenix = {
+            type = "app";
+            program = "${pkgs.agenix}/bin/agenix";
+          };
+          deploy = {
+            type = "app";
+            program = "${pkgs.deploy-rs.deploy-rs}/bin/deploy";
+          };
+        };
+
         # All packages under pkgs.myme.apps from the overlay
         packages = pkgs.myme.apps;
 
