@@ -25,7 +25,14 @@ in {
       };
     };
 
-    services.openssh.ports = [ 22345 ];
+    # SSH
+    services.openssh = {
+      allowSFTP = false;
+      passwordAuthentication = false;
+      ports = [ 22345 ];
+      permitRootLogin = "no";
+      startWhenNeeded = true;
+    };
 
     # Boot
     boot.loader.grub.enable = true;

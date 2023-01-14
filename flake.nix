@@ -59,7 +59,7 @@
           hostname = host.deployTo;
           profiles.system = {
             sshUser = "myme";
-            sshOpts = [ "-t" ];
+            sshOpts = [ "-t" "-p" "22345" ];
             magicRollback = false;
             path = inputs.deploy-rs.lib."${host.system}".activate.nixos self.nixosConfigurations."${name}";
             user = "root";
