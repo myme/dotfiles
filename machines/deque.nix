@@ -25,6 +25,8 @@ in {
       };
     };
 
+    services.openssh.ports = [ 22345 ];
+
     # Boot
     boot.loader.grub.enable = true;
     boot.loader.grub.version = 2;
