@@ -25,6 +25,15 @@ in {
       };
     };
 
+    # Security
+    security = {
+      sudo.execWheelOnly = true;
+      pam = {
+        enableSSHAgentAuth = true;
+        services.sudo.sshAgentAuth = true;
+      };
+    };
+
     # SSH
     services.openssh = {
       allowSFTP = false;
