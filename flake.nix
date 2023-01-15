@@ -80,7 +80,7 @@
       sdImages = builtins.mapAttrs
         (name: config: config.config.system.build.sdImage)
         self.nixosConfigurations;
-    } // flake-utils.lib.eachDefaultSystem (system:
+    } // flake-utils.lib.eachSystem ["aarch64-linux" "x86_64-linux"] (system:
       let pkgs = import nixpkgs { inherit system overlays; };
       in {
         # Apps for `nix run .#<app>`
