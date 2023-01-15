@@ -5,7 +5,7 @@
 
 {
   system = "x86_64-linux";
-  config = { ... }: {
+  config = {
     myme.machine = {
       role = "server";
       flavor = "nixos";
@@ -16,11 +16,21 @@
           initialPassword = "nixos";
           extraGroups = [ "wheel" ];
         };
-        profile = { };
+        profile = {
+          imports = [
+            ../home-manager
+          ];
+        };
       };
     };
 
     # Security
     security.sudo.wheelNeedsPassword = false;
+
+    # Mock FS
+    fileSystems."/" = {
+      device = "/dev/null";
+      fsType = "ext4";
+    };
   };
 }

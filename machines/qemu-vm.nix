@@ -39,5 +39,11 @@
 
     # Security
     security.sudo.wheelNeedsPassword = false;
+
+    # Mock FS
+    fileSystems."/" = {
+      device = "/dev/null";
+      fsType = "ext4";
+    };
   };
 }
