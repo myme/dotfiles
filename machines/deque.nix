@@ -1,7 +1,12 @@
-let system = "x86_64-linux";
+let
+  system = "x86_64-linux";
+  sshPort = 22345;
 in {
   inherit system;
-  deployTo = "deque.myme.no";
+  deploy = {
+    host = "deque.myme.no";
+    sshOpts = [ "-A" "-p" (builtins.toString sshPort) ];
+  };
   config = { config, lib, modulesPath, pkgs, ... }: {
     myme.machine = {
       role = "server";
@@ -38,7 +43,7 @@ in {
     services.openssh = {
       allowSFTP = false;
       passwordAuthentication = false;
-      ports = [ 22345 ];
+      ports = [ sshPort ];
       permitRootLogin = "no";
       startWhenNeeded = true;
     };

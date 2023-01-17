@@ -1,7 +1,10 @@
 let system = "aarch64-linux";
 in {
   inherit system;
-  deployTo = "192.168.1.7";
+  deploy = {
+    host = "192.168.1.7";
+    sshOpts = [ "-t" ];
+  };
   config = { config, lib, modulesPath, pkgs, ... }: {
     # TODO: Fix native cross-compilation to aarch64
     # nixpkgs.buildPlatform = "x86_64-linux";
@@ -25,12 +28,8 @@ in {
           ];
         };
         profile = {
-          imports = [
-            ../home-manager
-          ];
-          home.sessionVariables = {
-            EDITOR = "et";
-          };
+          imports = [ ../home-manager ];
+          home.sessionVariables = { EDITOR = "et"; };
         };
       };
     };
