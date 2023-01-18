@@ -35,7 +35,6 @@ in {
     programs.alacritty = {
       enable = cfg.enable;
       settings = {
-        window.opacity = cfg.background_opacity;
         env = {
           TERM = "xterm-256color";
         };
@@ -45,6 +44,10 @@ in {
           size = cfg.font_size;
         };
         colors = theme;
+        window = {
+          opacity = cfg.background_opacity;
+          padding = { x = 10; y = 5; };
+        };
       };
     };
   };
