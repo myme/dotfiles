@@ -30,6 +30,34 @@ in {
       };
     };
 
+    # Network
+    networking.firewall.allowedTCPPorts = [ 80 443 ];
+
+    # Nginx
+    services.nginx = {
+      enable = true;
+      upstreams.rtcp.servers = { "127.0.0.1:8000" = { }; };
+      virtualHosts = {
+        "rtcp.myme.no" = {
+          enableACME = true;
+          forceSSL = true;
+          locations."/" = {
+            proxyPass = "http://rtcp";
+            proxyWebsockets = true;
+          };
+        };
+      };
+    };
+
+    # ACME
+    security.acme = {
+      acceptTerms = true;
+      defaults.email = "mm@myme.no";
+    };
+
+    # OCI
+    virtualisation.podman.enable = true;
+
     # Security
     security = {
       sudo.execWheelOnly = true;
