@@ -10,6 +10,7 @@
     ./tmux.nix
     ./vim.nix
     ./wm
+    ./wsl.nix
   ];
 
   config = {
