@@ -48,6 +48,11 @@
       (file+headline "refile.org" "Bookmarks")
       "* [[%^{url|%x}][%^{title|}]]%? :BOOKMARK:
 %U")
+     ("c" "Capture" entry
+      (file+headline "refile.org" "Bookmarks")
+      "* %:annotation%? :BOOKMARK:
+%i
+%U")
      ("n" "A generic note" entry
       (file "refile.org")
       "* %? :NOTE:
