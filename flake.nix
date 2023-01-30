@@ -97,6 +97,12 @@
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
               agenix
+            ];
+          };
+
+          # Deployment to other nodes
+          deploy = pkgs.mkShell {
+            buildInputs = with pkgs; [
               deploy-rs.deploy-rs
             ];
           };
