@@ -33,6 +33,9 @@
       variant = "alt-intl-unicode";
     };
 
+    # But of course!
+    myme.emacs.enable = true;
+
     programs = {
       bat.enable = true;
       bash = {

@@ -36,9 +36,13 @@ in {
     };
     plasma = mkOption {
       type = types.bool;
-      default =
-        args.specialArgs.nixosConfig.myme.de.variant == "plasma";
+      default = args.specialArgs.nixosConfig.myme.de.variant == "plasma";
       description = "Enable KDE Plasma integration";
+    };
+    theme = mkOption {
+      type = types.enum [ "light" "dark" ];
+      default = "dark";
+      description = "System look and feel";
     };
   };
 
@@ -67,8 +71,12 @@ in {
         enable = true;
         background_opacity = 0.95;
         font_size = if machine.highDPI then 12 else 6;
-        theme = "dracula";
+        theme = if cfg.theme == "dark" then "dracula" else "one-light";
       };
+
+      # Emacs theme
+      myme.emacs.theme =
+        if cfg.theme == "dark" then "doom-dracula" else "doom-one-light";
 
       # Rofi
       programs.rofi = {

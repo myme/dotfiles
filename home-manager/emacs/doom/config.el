@@ -62,8 +62,8 @@
 (setq-default
  ;; Look-and-feel
  ;; doom-font (font-spec :family "DejaVu Sans Mono for Powerline" :size 14)
- doom-font (font-spec :family "NotoSansMono Nerd Font" :size 14)
- doom-theme 'doom-dracula
+ doom-font (font-spec :family @doomFontFamily@ :size @doomFontSize@)
+ doom-theme '@doomTheme@
 
  ;; Avy
  avy-all-windows 'all-frames

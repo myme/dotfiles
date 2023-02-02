@@ -1,6 +1,30 @@
-{ lib, pkgs, ... }:
-{
-  config = {
+{ config, lib, pkgs, ... }:
+
+let cfg = config.myme.emacs;
+
+in {
+  options.myme.emacs = {
+    enable = lib.mkEnableOption "Emacs";
+    font = {
+      family = lib.mkOption {
+        type = lib.types.str;
+        default = "NotoSansMono Nerd Font";
+        description = "Doom font family";
+      };
+      size = lib.mkOption {
+        type = lib.types.int;
+        default = 14;
+        description = "Doom font size";
+      };
+    };
+    theme = lib.mkOption {
+      type = lib.types.str;
+      default = "doom-dracula";
+      description = "Doom theme";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
     # Doom Emacs (.emacs.d)
     home.file.".emacs.d".source = pkgs.myme.doomemacs;
 
@@ -11,7 +35,22 @@
     };
 
     # Doom Emacs configuration (~/.config/doom)
-    xdg.configFile.doom.source = ./doom;
+    xdg.configFile.doom.source = pkgs.stdenv.mkDerivation {
+      name = "doom-emacs-src";
+      src = ./doom;
+      doomFontFamily = pkgs.lib.strings.escapeNixString cfg.font.family;
+      doomFontSize = cfg.font.size;
+      doomTheme = cfg.theme;
+      installPhase = ''
+        cp -av $src $out
+      '';
+      postFixup = ''
+        substituteInPlace $out/config.el \
+          --subst-var doomFontFamily \
+          --subst-var doomFontSize \
+          --subst-var doomTheme
+      '';
+    };
 
     # Stock emacs
     programs.emacs = {
