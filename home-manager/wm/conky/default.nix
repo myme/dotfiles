@@ -8,13 +8,17 @@ let
     dontUnpack = true;
     conkyFontFamily = cfg.font.family;
     conkyFontSize = cfg.font.size;
+    conkyMinWidth = cfg.minWidth;
+    conkyMaxWidth = cfg.maxWidth;
     installPhase = ''
       cp -av "$srcs" "$out"
     '';
     postFixup = ''
       substituteInPlace $out \
         --subst-var conkyFontFamily \
-        --subst-var conkyFontSize
+        --subst-var conkyFontSize \
+        --subst-var conkyMinWidth \
+        --subst-var conkyMaxWidth
     '';
   };
 
@@ -32,6 +36,16 @@ in {
         default = 10;
         description = "Conky font size";
       };
+    };
+    minWidth = lib.mkOption {
+      type = lib.types.int;
+      default = 300;
+      description = "Conky minimum width";
+    };
+    maxWidth = lib.mkOption {
+      type = lib.types.int;
+      default = 300;
+      description = "Conky maximum width";
     };
   };
 
