@@ -84,5 +84,17 @@ in {
       '')
       nodePackages.mermaid-cli
     ];
+
+    xdg.desktopEntries = {
+      org-capture = {
+        name = "Org Capture";
+        genericName = "Emacs Org-Mode Capture";
+        exec = "ec %u";
+        icon = "emacs";
+        terminal = false;
+        categories = [ "Development" "TextEditor" ];
+        mimeType = [ "x-scheme-handler/org-protocol" ];
+      };
+    };
   };
 }
