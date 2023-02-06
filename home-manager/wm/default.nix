@@ -10,6 +10,7 @@ let
 in {
   imports = [
     ./alacritty
+    ./conky
     ./fonts.nix
     ./i3
     ./polybar
@@ -29,11 +30,6 @@ in {
       type = types.bool;
       default = true;
       description = "Dynamically change screen color temperature";
-    };
-    conky = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Enable conky resource monitor";
     };
     plasma = mkOption {
       type = types.bool;
@@ -162,24 +158,6 @@ in {
         enable = true;
         lockCmd = "${lockCmd}";
       };
-
-      # Resource monitor (conky)
-      systemd.user.services.conky = (mkIf cfg.conky {
-        Unit = {
-          Description = "Conky System Monitor";
-          After = "graphical-session-pre.target";
-          PartOf = "graphical-session.target";
-        };
-
-        Service = {
-          ExecStart = "${pkgs.conky}/bin/conky -c ${./conkyrc}";
-          Restart = "on-failure";
-        };
-
-        Install = {
-          WantedBy = [ "graphical-session.target" ];
-        };
-      });
 
       # Notifications (dunst)
       services.dunst = {

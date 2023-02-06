@@ -43,7 +43,7 @@ conky.config = {
 	default_bar_width = 260,					-- default is 0 - full width
 	default_bar_height = 10,					-- default is 6
 	default_gauge_height = 25,					-- default is 25
-	default_gauge_width =40,					-- default is 40
+	default_gauge_width = 40,					-- default is 40
 	default_graph_height = 40,					-- default is 25
 	default_graph_width = 153,					-- default is 0 - full width
 	default_shade_color = '#000000',			-- default shading colour
@@ -56,8 +56,7 @@ conky.config = {
 
 	--Textual
 	format_human_readable = true,				  -- KiB, MiB rather then number of bytes
-	-- font = 'DejaVu Sans Mono:bold:size=10',  	-- font for complete conky unless in code defined
-	font = 'NotoSansMono Nerd Font:bold:size=10',  	-- font for complete conky unless in code defined
+	font = '@conkyFontFamily@:bold:size=@conkyFontSize@', -- font for complete conky unless in code defined
 	max_text_width = 0,							-- 0 will make sure line does not get broken if width too smal
 	max_user_text = 16384,						-- max text in conky default 16384
 	override_utf8_locale = true,				-- force UTF8 requires xft
