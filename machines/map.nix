@@ -36,8 +36,6 @@
             ];
 
             home.sessionVariables = {
-              # TODO: Move this into home-manager config
-              EDITOR = "et";
               # TODO: Base this on WSL config
               XDG_RUNTIME_DIR = "/run/user/$(id -u)";
             };

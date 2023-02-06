@@ -25,7 +25,6 @@ in {
         profile = {
           imports = [ ../home-manager ];
           programs.emacs.enable = false;
-          home.sessionVariables = { EDITOR = "et"; };
         };
       };
     };

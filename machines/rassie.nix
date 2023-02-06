@@ -29,7 +29,6 @@ in {
         };
         profile = {
           imports = [ ../home-manager ];
-          home.sessionVariables = { EDITOR = "et"; };
         };
       };
     };

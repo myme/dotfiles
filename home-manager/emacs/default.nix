@@ -1,6 +1,13 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, specialArgs, ... }:
 
-let cfg = config.myme.emacs;
+let
+  cfg = config.myme.emacs;
+  ec = (pkgs.writeShellScriptBin "ec" ''
+    emacsclient -c "$@"
+  '');
+  et = (pkgs.writeShellScriptBin "et" ''
+    emacsclient -t "$@"
+  '');
 
 in {
   options.myme.emacs = {
@@ -32,6 +39,10 @@ in {
     home.sessionVariables = {
       DOOMLOCALDIR = "~/.cache/doomemacs/";
       DOOMPROFILELOADFILE = "~/.cache/doomemacs/load.el";
+      EDITOR = if specialArgs.nixosConfig.myme.machine.role == "server" then
+        "${et}/bin/et"
+      else
+        "${ec}/bin/ec";
     };
 
     # Doom Emacs configuration (~/.config/doom)
@@ -76,12 +87,8 @@ in {
         it
         nb
       ]))
-      (pkgs.writeShellScriptBin "ec" ''
-        emacsclient -c "$@"
-      '')
-      (pkgs.writeShellScriptBin "et" ''
-        emacsclient -t "$@"
-      '')
+      ec
+      et
       nodePackages.mermaid-cli
     ];
 
