@@ -40,8 +40,7 @@
     separatorcolor:                 @border-color;
     spacing: 10;
     background-color: @normal-background;
-    /* font: "DejaVu Sans Mono for Powerline 13"; */
-    font: "NotoSansMono Nerd Font 13";
+    font: "@rofiFontFamily@ @rofiFontSize@";
 }
 window {
     border:           2;

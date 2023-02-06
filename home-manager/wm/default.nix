@@ -13,6 +13,7 @@ in {
     ./fonts.nix
     ./i3
     ./polybar
+    ./rofi
     ./theme.nix
     ./xmonad
   ];
@@ -79,10 +80,7 @@ in {
         if cfg.theme == "dark" then "doom-dracula" else "doom-one-light";
 
       # Rofi
-      programs.rofi = {
-        enable = true;
-        theme = ./rofi/dracula.rasi;
-      };
+      myme.rofi.enable = true;
 
       services = mkMerge [
         {
