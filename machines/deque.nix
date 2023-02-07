@@ -69,9 +69,9 @@ in {
     # SSH
     services.openssh = {
       allowSFTP = false;
-      passwordAuthentication = false;
       ports = [ sshPort ];
-      permitRootLogin = "no";
+      settings.PasswordAuthentication = false;
+      settings.PermitRootLogin = "no";
       startWhenNeeded = true;
     };
 
