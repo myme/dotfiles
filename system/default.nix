@@ -91,10 +91,6 @@
           enable = true;
           defaultUser = username;
           interop.register = true;
-          loginShell =
-            let shell = config.users.users.${username}.shell;
-                shellPath = "${shell}${shell.shellPath}";
-            in "${shellPath} --login -c";
           startMenuLaunchers = false; # Done below to include Home Manager apps
           wslConf.automount.root = "/mnt";
         };
