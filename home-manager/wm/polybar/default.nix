@@ -45,7 +45,6 @@ in {
     };
     services.polybar = {
       enable = cfg.enable;
-      package = pkgs.polybar.override { i3GapsSupport = cfg.i3gaps; };
       config = {
         defaults = {
           width = "100%";
