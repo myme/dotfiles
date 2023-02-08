@@ -8,6 +8,10 @@ let
   et = (pkgs.writeShellScriptBin "et" ''
     emacsclient -t "$@"
   '');
+  EDITOR = if specialArgs.nixosConfig.myme.machine.role == "server" then
+    "${et}/bin/et"
+  else
+    "${ec}/bin/ec";
 
 in {
   options.myme.emacs = {
@@ -39,10 +43,7 @@ in {
     home.sessionVariables = {
       DOOMLOCALDIR = "~/.cache/doomemacs/";
       DOOMPROFILELOADFILE = "~/.cache/doomemacs/load.el";
-      EDITOR = if specialArgs.nixosConfig.myme.machine.role == "server" then
-        "${et}/bin/et"
-      else
-        "${ec}/bin/ec";
+      inherit EDITOR;
     };
 
     # Doom Emacs configuration (~/.config/doom)
@@ -96,7 +97,7 @@ in {
       org-capture = {
         name = "Org Capture";
         genericName = "Emacs Org-Mode Capture";
-        exec = "ec %u";
+        exec = "${EDITOR} %u";
         icon = "emacs";
         terminal = false;
         categories = [ "Development" "TextEditor" ];
