@@ -42,7 +42,7 @@
       defaults = {
         email = "mm@myme.no";
         dnsProvider = "domeneshop";
-        credentialsFile = "/var/nginx/domeneshop.env";
+        credentialsFile = config.age.secrets.acme.path;
         group = "nginx";
       };
       certs."nuckie.myme.no" = { };
@@ -99,6 +99,10 @@
       ssh = {
         file = ./../../secrets/ssh.age;
         owner = config.myme.machine.user.name;
+      };
+      acme = {
+        file = ./acme.age;
+        owner = "nginx";
       };
       weechat = {
         file = ./weechat.age;

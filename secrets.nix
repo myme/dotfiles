@@ -20,5 +20,6 @@ let
 in {
   "./secrets/ssh.age".publicKeys =
     [ hostKeys.map hostKeys.nuckie hostKeys.tuple userKeys.map userKeys.nuckie userKeys.tuple ];
+  "./machines/nuckie/acme.age".publicKeys = [ hostKeys.nuckie userKeys.nuckie ];
   "./machines/nuckie/weechat.age".publicKeys = [ hostKeys.nuckie userKeys.nuckie ];
 }
