@@ -1,6 +1,12 @@
 { lib, home-manager, doomemacs, wallpapers }:
 
 final: prev: {
+  agenix = prev.agenix.override {
+    # `age` works better than `rage` for editing .age files with SSH keys with
+    # passphrases as of 2023-02-16.
+    ageBin = "${prev.age}/bin/age";
+  };
+
   myme = {
     inherit doomemacs wallpapers;
     apps = builtins.listToAttrs (builtins.map (fname: {
