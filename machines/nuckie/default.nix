@@ -1,9 +1,7 @@
 {
   system = "x86_64-linux";
   config = { config, lib, pkgs, ... }: {
-    imports = [
-      ./nginx.nix
-    ];
+    imports = [ ./nginx.nix ];
 
     myme.machine = {
       role = "server";
@@ -21,9 +19,7 @@
           ];
         };
         profile = {
-          imports = [
-            ../../home-manager
-          ];
+          imports = [ ../../home-manager ];
 
           myme.irc = {
             enable = true;
@@ -33,11 +29,8 @@
           programs = {
             ssh = {
               enable = true;
-              includes = [
-                config.age.secrets.ssh.path
-              ];
+              includes = [ config.age.secrets.ssh.path ];
             };
-
           };
         };
       };
@@ -52,47 +45,43 @@
         credentialsFile = "/var/nginx/domeneshop.env";
         group = "nginx";
       };
-      certs = {
-        "nuckie.myme.no" = {};
-      };
+      certs."nuckie.myme.no" = { };
     };
 
-    nix.settings.trusted-public-keys = [
-      "tuple:RLwVT0X7XUres7PkgkMLgsMfWhbHP0PYIfQmqJ2M6Ac="
-    ];
+    nix.settings.trusted-public-keys =
+      [ "tuple:RLwVT0X7XUres7PkgkMLgsMfWhbHP0PYIfQmqJ2M6Ac=" ];
 
     # TODO: Remove, set in `system/default.nix`
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
-    boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
+    boot.initrd.availableKernelModules =
+      [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
     boot.initrd.kernelModules = [ ];
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
-    fileSystems."/" =
-      { device = "/dev/disk/by-uuid/663eb7a2-61a1-497e-8e25-2a9138fbe41c";
-        fsType = "ext4";
-      };
+    fileSystems."/" = {
+      device = "/dev/disk/by-uuid/663eb7a2-61a1-497e-8e25-2a9138fbe41c";
+      fsType = "ext4";
+    };
 
-    fileSystems."/boot" =
-      { device = "/dev/disk/by-uuid/60EC-0B67";
-        fsType = "vfat";
-      };
+    fileSystems."/boot" = {
+      device = "/dev/disk/by-uuid/60EC-0B67";
+      fsType = "vfat";
+    };
 
     swapDevices =
-      [ { device = "/dev/disk/by-uuid/a7610703-0458-4de9-92dd-229d69dc8936"; }
-      ];
+      [{ device = "/dev/disk/by-uuid/a7610703-0458-4de9-92dd-229d69dc8936"; }];
 
     powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
     # high-resolution display
     hardware.video.hidpi.enable = lib.mkDefault true;
 
-
     networking = {
       defaultGateway = "192.168.1.1";
       nameservers = [ "8.8.8.8" ];
-      bridges.br0.interfaces = ["eno1"];
+      bridges.br0.interfaces = [ "eno1" ];
       interfaces = {
         # wlp0s20f3.useDHCP = true;
         br0 = {
@@ -103,13 +92,7 @@
           }];
         };
       };
-      firewall.allowedTCPPorts = [
-        80
-        443
-        8000
-        8080
-        8888
-      ];
+      firewall.allowedTCPPorts = [ 80 443 8000 8080 8888 ];
     };
 
     age.secrets = {
@@ -123,9 +106,7 @@
       };
     };
 
-    environment.systemPackages = with pkgs; [
-      virt-manager
-    ];
+    environment.systemPackages = with pkgs; [ virt-manager ];
 
     services.tailscale.enable = true;
 
