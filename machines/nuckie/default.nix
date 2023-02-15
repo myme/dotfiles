@@ -43,6 +43,20 @@
       };
     };
 
+    # Certificates
+    security.acme = {
+      acceptTerms = true;
+      defaults = {
+        email = "mm@myme.no";
+        dnsProvider = "domeneshop";
+        credentialsFile = "/var/nginx/domeneshop.env";
+        group = "nginx";
+      };
+      certs = {
+        "nuckie.myme.no" = {};
+      };
+    };
+
     nix.settings.trusted-public-keys = [
       "tuple:RLwVT0X7XUres7PkgkMLgsMfWhbHP0PYIfQmqJ2M6Ac="
     ];

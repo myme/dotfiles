@@ -4,7 +4,7 @@
   # Glowing Bear WeeChat Relay Client
   services.nginx = {
     enable = true;
-    virtualHosts."nuckie.mermaid-map.ts.net" = {
+    virtualHosts."nuckie.myme.no" = {
       forceSSL = true;
 
       locations."^~ /weechat" = {
@@ -14,9 +14,7 @@
 
       locations."/".root = pkgs.glowing-bear;
 
-      # enableACME = true;
-      sslCertificate = "/var/nginx/nuckie.mermaid-map.ts.net.crt";
-      sslCertificateKey = "/var/nginx/nuckie.mermaid-map.ts.net.key";
+      useACMEHost = "nuckie.myme.no";
     };
   };
 }
