@@ -6,6 +6,7 @@ let
   lockCmd = "${./lock-wrapper.sh} ${pkgs.myme.apps.lockscreen}/bin/lockscreen";
   cfg = config.myme.wm;
   machine = args.specialArgs.nixosConfig.myme.machine;
+  noDM = machine.de.variant != "wm";
 
 in {
   imports = [
@@ -28,12 +29,12 @@ in {
     };
     dynamic_temp = mkOption {
       type = types.bool;
-      default = true;
+      default = !noDM;
       description = "Dynamically change screen color temperature";
     };
     plasma = mkOption {
       type = types.bool;
-      default = args.specialArgs.nixosConfig.myme.de.variant == "plasma";
+      default = machine.de.variant == "plasma";
       description = "Enable KDE Plasma integration";
     };
     theme = mkOption {
@@ -80,9 +81,6 @@ in {
 
       services = mkMerge [
         {
-          # Compositor (picom)
-          picom.enable = true;
-
           # Screenshots (flameshot)
           flameshot.enable = true;
         }
@@ -124,11 +122,9 @@ in {
       '';
     })
 
-    # Without KDE Plasma
-    (mkIf (!cfg.plasma) {
-      home.packages = with pkgs; [
-        pkgs.pavucontrol
-      ];
+    # Without a Desktop Environment
+    (mkIf (!noDM) {
+      home.packages = with pkgs; [ pkgs.pavucontrol ];
 
       myme.wm.polybar = mkMerge [
         {
@@ -153,6 +149,9 @@ in {
       # Network manager
       services.network-manager-applet.enable = true;
 
+      # Compositor (picom)
+      services.picom.enable = true;
+
       # Screen locking
       services.screen-locker = {
         enable = true;
@@ -162,14 +161,13 @@ in {
       # Notifications (dunst)
       services.dunst = {
         enable = true;
-        settings = import ./dunst.nix
-          (if machine.highDPI then {
-            font = "Dejavu Sans 15";
-            geometry = "500x5+30+20";
-          } else {
-            font = "Dejavu Sans 10";
-            geometry = "300x5-30+20";
-          });
+        settings = import ./dunst.nix (if machine.highDPI then {
+          font = "Dejavu Sans 15";
+          geometry = "500x5+30+20";
+        } else {
+          font = "Dejavu Sans 10";
+          geometry = "300x5-30+20";
+        });
       };
     })
   ]);

@@ -4,7 +4,7 @@ with lib;
 
 let
   machine = config.myme.machine;
-  cfg = config.myme.de;
+  cfg = machine.de;
   xserver = (
     config.myme.machine.role != "server" &&
     config.myme.machine.flavor != "wsl");
@@ -16,7 +16,7 @@ in {
       default = false;
       description = "Optimize for high DPI outputs (4k)";
     };
-    myme.de.variant = mkOption {
+    myme.machine.de.variant = mkOption {
       type = types.enum [ "none" "gnome" "plasma" "wm" "xfce" ];
       default = if xserver then "wm" else "none";
       description = "Desktop Environment flavor";
