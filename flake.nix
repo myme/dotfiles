@@ -88,8 +88,8 @@
           };
         };
 
-        # All packages under pkgs.myme.apps from the overlay
-        packages = pkgs.myme.apps;
+        # All packages under pkgs.myme.pkgs from the overlay
+        packages = pkgs.myme.pkgs;
 
         devShells = {
           # Default dev shell (used by direnv)

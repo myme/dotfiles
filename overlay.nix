@@ -9,10 +9,10 @@ final: prev: {
 
   myme = {
     inherit doomemacs wallpapers;
-    apps = builtins.listToAttrs (builtins.map (fname: {
+    pkgs = builtins.listToAttrs (builtins.map (fname: {
       name = final.lib.strings.removeSuffix ".nix" fname;
-      value = final.callPackage ./apps/${fname} { };
-    }) (lib.myme.allNixFiles ./apps));
+      value = final.callPackage ./pkgs/${fname} { };
+    }) (lib.myme.allNixFiles ./pkgs));
   };
 
   # Avoid nvidia vaapi driver collisions with e.g. intel
