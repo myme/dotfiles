@@ -127,9 +127,6 @@
     })
     # Laptop configs
     (lib.mkIf (config.myme.machine.role == "laptop") {
-      # Backlight
-      services.illum.enable = true;
-
       # Bluetooth
       hardware.bluetooth.enable = true;
       services.blueman.enable = true;

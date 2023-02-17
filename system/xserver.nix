@@ -3,6 +3,7 @@
 with lib;
 
 let
+  machine = config.myme.machine;
   cfg = config.myme.de;
   xserver = (
     config.myme.machine.role != "server" &&
@@ -53,6 +54,10 @@ in {
       programs.dconf.enable = true;
       services.gnome.gnome-keyring.enable = true;
       security.pam.services.xdm.enableGnomeKeyring = true;
+    })
+    (mkIf (machine.role == "laptop" && cfg.variant == "wm") {
+      # Backlight
+      services.illum.enable = true;
     })
     # Gnome
     (mkIf (cfg.variant == "gnome") {
