@@ -38,7 +38,8 @@
      ))
    org-agenda-dim-blocked-tasks t
    org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'"
-   org-agenda-persistent-filter t
+   ;; Persist Org Agenda filters
+   ;; org-agenda-persistent-filter t
    org-agenda-span 1
    org-agenda-start-day "Today"
    org-agenda-start-with-log-mode t
