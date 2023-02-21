@@ -29,7 +29,7 @@
             myme.wm = {
               enable = true;
               variant = "xmonad";
-              conky = false;
+              conky.enable = false;
               polybar.monitor = "Virtual-1";
             };
           };
