@@ -35,6 +35,12 @@
               mosh
             ];
 
+            home.sessionVariables = {
+              # Override WSL runtime dir, for the most part
+              # TODO: Base this on WSL config
+              XDG_RUNTIME_DIR = "/run/user/$(id -u)";
+            };
+
             programs = {
               # SSH agent
               keychain = {
