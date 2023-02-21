@@ -51,7 +51,7 @@ jq '.scripts | to_entries | map({ title: (.key + " → " + .value), value: .key 
 ### `npm-run ${npm-scripts}`
 
 ```bash
-npm run "$npm_scripts"
+npm run "$1"
 ```
 
 ### `npm-install`
@@ -65,7 +65,7 @@ npm install
 ### `yarn-run ${npm-scripts}`
 
 ```bash
-yarn run "$npm_scripts"
+yarn run "$1"
 ```
 
 ### `yarn-install`
@@ -125,6 +125,6 @@ rg --files
 ### `vim-file ${rg-files}`
 
 ```bash
-vim "$rg_files"
+vim "$1"
 ```
 
