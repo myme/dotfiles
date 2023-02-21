@@ -55,7 +55,7 @@ in {
     };
 
     # OCI
-    virtualisation.podman.enable = true;
+    virtualisation.docker.enable = true;
 
     # Security
     security = {
