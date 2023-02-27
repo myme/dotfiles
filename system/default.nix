@@ -91,6 +91,7 @@
           enable = true;
           defaultUser = username;
           interop.register = true;
+          nativeSystemd = true;
           startMenuLaunchers = false; # Done below to include Home Manager apps
           wslConf.automount.root = "/mnt";
         };
