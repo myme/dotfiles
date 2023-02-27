@@ -20,6 +20,11 @@ let
     '/mnt/c/Program Files/VcXsrv/vcxsrv.exe' -multiwindow -clipboard -wgl -auth "$user_profile\.Xauthority" > ~/.VcXsrv.log 2>&1 &
     disown
   '';
+  init = pkgs.writeShellScriptBin "init-wsl" ''
+    # Load ENV vars into systemd
+    systemctl --user import-environment DISPLAY SSH_AUTH_SOCK XDG_DATA_DIRS XDG_RUNTIME_DIR WSLENV
+    ${startx}/bin/startx
+  '';
 
 in {
   config = lib.mkIf isWsl {
@@ -29,6 +34,7 @@ in {
     };
 
     home.packages = [
+      init
       startx
     ];
 
