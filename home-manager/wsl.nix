@@ -1,9 +1,10 @@
-{ lib, pkgs, specialArgs, ... }:
+{ config, lib, pkgs, specialArgs, ... }:
 
 let
   machine = specialArgs.nixosConfig.myme.machine;
   isWsl = machine.flavor == "wsl";
   xauth = "${pkgs.xorg.xauth}/bin/xauth";
+  kbdCfg = config.home.keyboard;
   startx = pkgs.writeShellScriptBin "startx" ''
     # Start vcxsrv
     # See: https://sourceforge.net/p/vcxsrv/wiki/VcXsrv%20%26%20Win10/#windows-10-pro-version-20h2-setup-for-wsl2
@@ -24,6 +25,7 @@ let
     # Load ENV vars into systemd
     systemctl --user import-environment DISPLAY SSH_AUTH_SOCK XDG_DATA_DIRS XDG_RUNTIME_DIR WSLENV
     ${startx}/bin/startx
+    ${pkgs.xorg.setxkbmap}/bin/setxkbmap ${kbdCfg.layout} -variant ${kbdCfg.variant}
   '';
 
 in {
