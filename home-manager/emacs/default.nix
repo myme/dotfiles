@@ -67,9 +67,7 @@ in {
     # Stock emacs
     programs.emacs = {
       enable = lib.mkDefault true;
-      extraPackages = epkgs: with epkgs; [
-        vterm
-      ];
+      extraPackages = epkgs: with epkgs; [ vterm ];
     };
 
     services = {
@@ -82,12 +80,7 @@ in {
 
     # Additional packages
     home.packages = with pkgs; [
-      (aspellWithDicts (dicts: with dicts; [
-        en
-        en-computers
-        it
-        nb
-      ]))
+      (aspellWithDicts (dicts: with dicts; [ en en-computers it nb ]))
       ec
       et
       nodePackages.mermaid-cli
