@@ -25,7 +25,7 @@
       unzip
       zip
       haskellPackages.annodate
-      myme.apps.git-sync
+      myme.pkgs.git-sync
     ];
 
     home.keyboard = {
