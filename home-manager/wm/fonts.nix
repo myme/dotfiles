@@ -1,6 +1,14 @@
-{ lib, pkgs, ... }:
-{
-  config = {
+{ config, lib, pkgs, ... }:
+
+let
+  cfg = config.myme.wm.fonts;
+
+in {
+  options.myme.wm.fonts = {
+    enable = lib.mkEnableOption "WM Fonts";
+  };
+
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       # Font browser
       font-manager

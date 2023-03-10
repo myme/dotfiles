@@ -38,7 +38,7 @@ in {
     font_size = builtins.toString cfg.font_size;
     font_size_material =
       builtins.toString (cfg.font_size + (cfg.font_size / 7));
-  in {
+  in mkIf cfg.enable {
     systemd.user.services.polybar = {
       Service.Environment =
         mkForce "PATH=${polybar}/bin:/run/wrappers/bin:${pkgs.xdotool}/bin";
