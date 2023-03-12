@@ -12,7 +12,6 @@ in {
   imports = [
     ./alacritty
     ./conky
-    ./fonts.nix
     ./i3
     ./polybar
     ./rofi

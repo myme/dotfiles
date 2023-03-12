@@ -3,6 +3,7 @@
     ./barrier.nix
     ./dev.nix
     ./emacs
+    ./fonts.nix
     ./git.nix
     ./irc.nix
     ./nixon
