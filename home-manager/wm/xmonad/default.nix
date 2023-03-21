@@ -7,10 +7,17 @@ let
 in {
   options.myme.wm.xmonad = {
     enable = lib.mkEnableOption "XMonad - Dynamic tiling window manager";
-    fontSize = lib.mkOption {
-      type = lib.types.int;
-      default = 12;
-      description = "XMonad font size";
+    font = {
+      family = lib.mkOption {
+        type = lib.types.str;
+        default = "NotoSansMono Nerd Font";
+        description = "XMonad font family";
+      };
+      size = lib.mkOption {
+        type = lib.types.int;
+        default = 12;
+        description = "XMonad font size";
+      };
     };
     smartBorder = lib.mkOption {
       type = lib.types.bool;
@@ -34,7 +41,7 @@ in {
         "FontAwesome.hs" = ./lib/FontAwesome.hs;
         "Variables.hs" = pkgs.writeText "Variables.hs" ''
           module Variables where
-          fontName = "xft:Dejavu Sans Mono for Powerline:regular:size=${builtins.toString cfg.xmonad.fontSize}:antialias=true:hinting=true"
+          fontName = "xft:${cfg.xmonad.font.family}:regular:size=${builtins.toString cfg.xmonad.font.size}:antialias=true:hinting=true"
           smartBorder = ${if cfg.xmonad.smartBorder then "True" else "False"}
           spaces = ${builtins.toString cfg.xmonad.spaces}
         '';
