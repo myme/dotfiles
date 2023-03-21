@@ -41,7 +41,7 @@ in {
     ];
 
     # Install fonts
-    myme.wm.fonts.enable = true;
+    myme.fonts.enable = true;
 
     # TODO: Tweak this systemd unit. The `startx` script ran with issues.
     # systemd.user.services.vcxsrv = {

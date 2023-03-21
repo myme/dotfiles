@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.myme.wm.fonts;
+  cfg = config.myme.fonts;
 
 in {
-  options.myme.wm.fonts = {
+  options.myme.fonts = {
     enable = lib.mkEnableOption "WM Fonts";
   };
 

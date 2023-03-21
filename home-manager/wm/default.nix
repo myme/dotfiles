@@ -46,7 +46,7 @@ in {
   config = mkIf cfg.enable (mkMerge [
     {
       # Install fonts
-      myme.wm.fonts.enable = true;
+      myme.fonts.enable = true;
 
       # Relay i3 config
       myme.wm.i3 = {
