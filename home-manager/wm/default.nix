@@ -22,7 +22,7 @@ in {
   options.myme.wm = {
     enable = mkEnableOption "WM - My personal Window Manager setup";
     variant = mkOption {
-      type = types.enum [ "i3" "xmonad" ];
+      type = types.enum [ "i3" "leftwm" "xmonad" ];
       default = "i3";
       description = "Window Manager flavor";
     };
@@ -107,6 +107,10 @@ in {
             ${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/alien-moon-nature.jpg
           '';
         }
+        (mkIf (cfg.variant == "leftwm") {
+          windowManager.command = "${pkgs.leftwm}/bin/leftwm";
+          # windowManager.command = "${pkgs.i3}/bin/i3";
+        })
         (mkIf machine.highDPI {
           profileExtra = ''
             export GDK_DPI_SCALE=1.25
