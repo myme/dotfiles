@@ -25,6 +25,8 @@ in {
 
   config = mkMerge [
     (mkIf (cfg.variant != "none") {
+      hardware.video.hidpi.enable = machine.highDPI;
+
       services.xserver.enable = true;
       services.xserver.layout = "us";
       services.xserver.xkbVariant = "alt-intl-unicode";
