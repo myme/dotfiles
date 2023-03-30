@@ -9,15 +9,7 @@ let
   noDM = machine.de.variant != "wm";
 
 in {
-  imports = [
-    ./alacritty
-    ./conky
-    ./i3
-    ./polybar
-    ./rofi
-    ./theme.nix
-    ./xmonad
-  ];
+  imports = [ ./alacritty ./conky ./i3 ./polybar ./rofi ./theme.nix ./xmonad ];
 
   options.myme.wm = {
     enable = mkEnableOption "WM - My personal Window Manager setup";
@@ -57,8 +49,8 @@ in {
       };
 
       # XMonad config
-      myme.wm.xmonad = lib.mkDefault { enable = cfg.variant == "xmonad"; } // (
-        if machine.highDPI then {
+      myme.wm.xmonad = lib.mkDefault { enable = cfg.variant == "xmonad"; }
+        // (if machine.highDPI then {
           fontSize = 12;
           smartBorder = false;
           spaces = 20;
