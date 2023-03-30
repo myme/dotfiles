@@ -45,6 +45,8 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
+      home.packages = [ pkgs.xclip ];
+
       # Install fonts
       myme.fonts.enable = true;
 
