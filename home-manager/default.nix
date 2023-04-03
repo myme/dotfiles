@@ -20,6 +20,7 @@
       fd
       jq
       lsof
+      nix-tree
       nixfmt
       ripgrep
       tree
