@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.programs.nixon;
+let cfg = config.programs.nixon;
 
 in {
   options.programs.nixon = {
@@ -17,7 +16,7 @@ in {
 
     source_dirs = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       defaultText = literalExample ''[ "~/src" "~/projects" ]'';
       description = "Directories to search for projects.";
     };
@@ -66,14 +65,45 @@ in {
         inherit (cfg) exact_match ignore_case use_direnv use_nix;
         project_dirs = cfg.source_dirs;
         project_types = [
-          { name = "cabal"; test = ["cabal.project"]; desc = "Cabal new-style project"; }
-          { name = "npm"; test = ["package.json"]; desc = "NPM project"; }
-          { name = "yarn"; test = ["yarn.lock"]; desc = "Yarn project"; }
-          { name = "nix"; test = ["flake.nix" "default.nix" "shell.nix"]; desc = "Nix project"; }
-          { name = "direnv"; test = [".envrc"]; desc = "Direnv project"; }
-          { name = "git"; test = [".git"]; desc = "Git repository"; }
-          { name = "hg"; test = [".hg"]; desc = "Mercurial project"; }
-          { name = "project"; desc = "Generic project"; }
+          {
+            name = "cabal";
+            test = [ "cabal.project" ];
+            desc = "Cabal new-style project";
+          }
+          {
+            name = "npm";
+            test = [ "package.json" ];
+            desc = "NPM project";
+          }
+          {
+            name = "yarn";
+            test = [ "yarn.lock" ];
+            desc = "Yarn project";
+          }
+          {
+            name = "nix";
+            test = [ "flake.nix" "default.nix" "shell.nix" ];
+            desc = "Nix project";
+          }
+          {
+            name = "direnv";
+            test = [ ".envrc" ];
+            desc = "Direnv project";
+          }
+          {
+            name = "git";
+            test = [ ".git" ];
+            desc = "Git repository";
+          }
+          {
+            name = "hg";
+            test = [ ".hg" ];
+            desc = "Mercurial project";
+          }
+          {
+            name = "project";
+            desc = "Generic project";
+          }
         ];
       }}
       ```
