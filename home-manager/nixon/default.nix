@@ -114,6 +114,11 @@ in {
     programs.bash.initExtra = (mkIf config.programs.bash.enable ''
       # Nixon
       alias n=nixon
+      alias px="nixon project"
+
+      source ${pkgs.complete-alias}/bin/complete_alias
+      complete -F _complete_alias n
+      complete -F _complete_alias px
 
       # Nixon (p: project cd)
       p () {
@@ -123,11 +128,6 @@ in {
               return
           fi
           cd "$project"
-      }
-
-      # Nixon (px: project execute)
-      px () {
-          nixon project "$@"
       }
 
       source ${cfg.package}/share/nixon/nixon-widget.bash
