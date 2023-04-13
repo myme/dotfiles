@@ -197,11 +197,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1673483997,
-        "narHash": "sha256-0h5t82+XiIpWwsC8nFtOFMXI700Nd2ZcHytzxL/fTbA=",
+        "lastModified": 1681373888,
+        "narHash": "sha256-Kxcn2N0aGyWuqwHEKugbyflRjWdtN6M9BuWmHgnPfgg=",
         "owner": "myme",
         "repo": "nixon",
-        "rev": "1a61b1fa28a75c7f3f261baa654bf109d15aa913",
+        "rev": "ab131b6af33dc8e98c68339892dde174a55634fe",
         "type": "github"
       },
       "original": {
