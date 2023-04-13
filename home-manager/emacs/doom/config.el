@@ -142,6 +142,10 @@
   (:desc "theme" :prefix "T"
    :desc "Switch theme" :nv "T" #'load-theme)))
 
+;; Doom pop-ups
+(set-popup-rule! "^\\*info\\*$" :slot 2 :vslot 2 :size 0.45 :select t :side 'right)
+(+popup-cleanup-rules-h)
+
 (after! magit
   (map!
    (:mode
