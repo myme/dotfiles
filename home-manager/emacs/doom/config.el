@@ -97,19 +97,21 @@
 (after! evil
   (map! :leader
         (:desc "jump" :prefix "j"
-          :desc "Jump to current clock" :nv "C" #'org-clock-goto
-          :desc "Jump to character" :nv "c" #'evil-avy-goto-char
-          :desc "Jump to function" :nv "f" #'find-function
-          :desc "Jump to line" :nv "l" #'evil-avy-goto-line
-          :desc "Jump to variable" :nv "v" #'find-variable)))
+         :desc "Jump to current clock" :nv "C" #'org-clock-goto
+         :desc "Jump to character" :nv "c" #'evil-avy-goto-char
+         :desc "Jump to function" :nv "f" #'find-function
+         :desc "Jump to line" :nv "l" #'evil-avy-goto-line
+         :desc "Jump to variable" :nv "v" #'find-variable)))
 
 
 ;; Custom leader bindings
 (map!
- (:prefix "C-c i"
+ (:prefix
+  "C-c i"
   (:desc "Insert today's date" "d" #'myme/insert-date)
   (:desc "Insert current timestamp" "t" #'myme/insert-timestamp))
- (:prefix "g z"
+ (:prefix
+  "g z"
   (:desc "Skip and goto next match" :nv "s" #'evil-mc-skip-and-goto-next-match)
   (:desc "Skip and goto prev match" :nv "S" #'evil-mc-skip-and-goto-prev-match))
  (:leader
@@ -131,12 +133,19 @@
    :desc "Kill emacs" :nv "k" #'save-buffers-kill-emacs)
   (:prefix "s"
    :desc "Consult complex commands" :nv "c" #'consult-complex-command)
+  (:prefix ("t" . "toggle")
+   :desc "Fill Column Indicator"        "C" #'global-display-fill-column-indicator-mode
+   :desc "Flymake"                      "c" #'flymake-mode
+   (:when (modulep! :checkers syntax)
+     :desc "Flycheck"                   "c" #'flycheck-mode)
+   :desc "Toggle buffer auto-formatting" :nv "f" #'format-all-mode)
   (:desc "theme" :prefix "T"
    :desc "Switch theme" :nv "T" #'load-theme)))
 
 (after! magit
   (map!
-   (:mode magit-status-mode
+   (:mode
+    magit-status-mode
     (:leader
      (:prefix "g"
       :desc "Toggle magit todos" :nv "T" #'myme/toggle-magit-todos)))))
@@ -150,7 +159,7 @@
 (after! mu4e
   (map!
    (:mode mu4e-main-mode
-     :desc "Update index" :nv "U" #'mu4e-update-index)
+    :desc "Update index" :nv "U" #'mu4e-update-index)
    (:mode mu4e-view-mode
     :desc "Fill long lines" :nv "M-Q" #'mu4e-view-fill-long-lines)
    (:mode mu4e-headers-mode
@@ -204,7 +213,8 @@
 ;; LSP
 (after! lsp-mode
   (map!
-   (:mode lsp-mode
+   (:mode
+    lsp-mode
     (:leader
      :desc "LSP execute code action" :nv "ca" #'lsp-execute-code-action)))
   (setq lsp-file-watch-ignored-directories (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\_build$"))
@@ -266,7 +276,7 @@
 ;; Safe local variables
 (setq safe-local-variable-values
       '((eval setq-local org-roam-db-location
-              (expand-file-name "org-roam.db" org-roam-directory))
+         (expand-file-name "org-roam.db" org-roam-directory))
         (eval setq-local org-roam-directory
               (expand-file-name
                (concat (locate-dominating-file default-directory ".dir-locals.el")
