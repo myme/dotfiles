@@ -155,41 +155,12 @@
                               ("wwwin-github.cisco.com" "wwwin-github.cisco.com/api/v3" "wwwin-github.cisco.com" forge-github-repository))
                             forge-alist)))
 
-;; Email
-(after! mu4e
-  (map!
-   (:mode mu4e-main-mode
-    :desc "Update index" :nv "U" #'mu4e-update-index)
-   (:mode mu4e-view-mode
-    :desc "Fill long lines" :nv "M-Q" #'mu4e-view-fill-long-lines)
-   (:mode mu4e-headers-mode
-    :desc "Rerun search" :nv "gr" #'mu4e-headers-rerun-search))
-  (setq mu4e-compose-mode-hook '(org-mu4e-compose-org-mode)
-        mu4e-compose-format-flowed nil
-        mu4e-maildir-shortcuts
-        '((:maildir "/cisco/INBOX" :key ?i)
-          (:maildir "/cisco/Archive" :key ?a)
-          (:maildir "/cisco/Bugs" :key ?b)
-          (:maildir "/cisco/Patches" :key ?p)
-          (:maildir "/cisco/Review" :key ?r)
-          (:maildir "/cisco/XAPI" :key ?x))
-        mu4e-use-fancy-chars nil)
-  (advice-add #'org~mu4e-mime-switch-headers-or-body
-              :after
-              (lambda ()
-                (if (eq major-mode 'org-mode) (setq fill-column 66)))))
-
-(after! org-mu4e
-  (setq org-mu4e-convert-to-html nil))
-
 ;; Links
 (setq ace-link-fallback-function
       (lambda ()
         "Add ace-link functions for additional modes."
         (interactive)
-        (cond ((eq major-mode 'mu4e-view-mode)
-               (ace-link-mu4e))
-              ((eq major-mode 'Man-mode)
+        (cond ((eq major-mode 'Man-mode)
                (ace-link-woman))
               (t
                (myme/avy-open-url)))))
@@ -254,25 +225,6 @@
 ;;     (add-hook 'js2-mode-hook 'pretter-js-mode t)))
 
 
-;; Email
-(set-email-account!
- "cisco"
-  '((mu4e-sent-folder        . "/cisco/Sent")
-    (mu4e-drafts-folder      . "/cisco/Drafts")
-    (mu4e-trash-folder       . "/cisco/Trash")
-    (mu4e-refile-folder      . "/cisco/Inbox")
-    (smtpmail-smtp-server    . "outbound.cisco.com")
-    (smtpmail-smtp-user      . "mmyrseth@cisco.com")
-    (user-mail-address       . "mmyrseth@cisco.com")
-    (mu4e-compose-signature  . "Martin"))
-  t)
-
-
-;; mu4e
-(when (not (featurep 'org-mu4e))
-  (add-to-list 'load-path "~/.nix-profile/share/emacs/site-lisp/mu4e"))
-
-
 ;; Safe local variables
 (setq safe-local-variable-values
       '((eval setq-local org-roam-db-location
@@ -283,10 +235,6 @@
                        "roam")))
         (eval setq-local org-roam-dailies-directory
               (expand-file-name "dailies" org-roam-directory))))
-
-
-(after! mu4e
-  (require 'org-mu4e))
 
 ;; PureScript
 (setq psc-ide-use-npm-bin t)
