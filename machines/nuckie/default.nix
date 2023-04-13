@@ -75,8 +75,6 @@
       [{ device = "/dev/disk/by-uuid/a7610703-0458-4de9-92dd-229d69dc8936"; }];
 
     powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-    # high-resolution display
-    hardware.video.hidpi.enable = lib.mkDefault true;
 
     networking = {
       defaultGateway = "192.168.1.1";
