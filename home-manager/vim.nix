@@ -7,15 +7,37 @@
       vimdiffAlias = true;
 
       plugins = with pkgs.vimPlugins; [
-        fzf-vim
+        # Completions + LSP (lsp-zero)
+        lsp-zero-nvim
+        nvim-cmp
+        cmp-nvim-lsp
+        nvim-lspconfig
+        luasnip
+
+        # Git
         gitv
-        vim-airline
         vim-fugitive
+
+        # Telescope (fuzzy)
+        telescope-fzf-native-nvim
+        telescope-nvim
+
+        # Theme
+        dracula-nvim
+        rose-pine
+        vim-airline
+        vim-airline-themes
+
+        # Languages
         vim-nix
+
+        # Tpope
         vim-sensible
         vim-surround
         vim-unimpaired
         vim-vinegar
+
+        # Utils
         # vim-which-key
       ];
 
@@ -55,11 +77,31 @@
         " Git / fugitive
         nmap <silent> <Leader>gg :Git<Return>
 
-        " FZF
-        nmap <silent> <Leader>.  :Files<Return>
-        nmap <silent> <Leader>g. :GitFiles<Return>
-        nmap <silent> <Leader><  :Buffers<Return>
-        nmap <silent> <Leader>sb :BLines<Return>
+        " Telescope
+        nnoremap <leader>. <cmd>Telescope find_files<cr>
+        nnoremap <leader>, <cmd>Telescope buffers<cr>
+        nnoremap <leader>g. <cmd>Telescope git_files<cr>
+        nnoremap <leader>sd <cmd>Telescope live_grep<cr>
+        nnoremap <leader>sb <cmd>Telescope current_buffer_fuzzy_find<cr>
+
+        " Themes
+        colorscheme dracula
+        let g:airline_theme='base16_dracula'
+      '';
+
+      extraLuaConfig = ''
+
+        local lsp = require('lsp-zero').preset({})
+
+        lsp.on_attach(function(client, bufnr)
+          lsp.default_keymaps({buffer = bufnr})
+        end)
+
+        -- When you don't have mason.nvim installed
+        -- You'll need to list the servers installed in your system
+        lsp.setup_servers({'tsserver', 'eslint'})
+
+        lsp.setup()
       '';
     };
   };
