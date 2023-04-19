@@ -16,7 +16,7 @@ let
 
     # Copy .Xauthority to C:\Users\<user>
     user_profile="$(/mnt/c/Windows/System32/cmd.exe /C "echo %USERPROFILE%" | tr -d '\r\n')"
-    cp ~/.Xauthority "$(wslpath $user_profile)"
+    cp ~/.Xauthority "$(/bin/wslpath $user_profile)"
 
     '/mnt/c/Program Files/VcXsrv/vcxsrv.exe' -multiwindow -clipboard -wgl -auth "$user_profile\.Xauthority" > ~/.VcXsrv.log 2>&1 &
     disown
