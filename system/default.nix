@@ -43,7 +43,13 @@
       programs.mosh.enable = true;
 
       # SSH
-      services.openssh.enable = true;
+      services.openssh = {
+        enable = true;
+        settings = {
+          PasswordAuthentication = false;
+          PermitRootLogin = "no";
+        };
+      };
 
       # GnuPG - enable if enabled for any user
       programs.gnupg.agent = {
