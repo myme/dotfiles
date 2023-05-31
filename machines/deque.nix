@@ -24,7 +24,8 @@ in {
         };
         profile = {
           imports = [ ../home-manager ];
-          programs.emacs.enable = false;
+          myme.emacs.enable = false;
+          programs.nixon.enable = false;
         };
       };
     };

@@ -36,7 +36,7 @@
     };
 
     # But of course!
-    myme.emacs.enable = true;
+    myme.emacs.enable = lib.mkDefault true;
 
     programs = {
       bat.enable = true;
@@ -64,7 +64,7 @@
         };
       };
       nixon = {
-        enable = true;
+        enable = lib.mkDefault true;
         source_dirs = [
           "~/code/*"
           "~/nixos"
