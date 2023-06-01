@@ -1,4 +1,9 @@
-{ config, lib, pkgs, specialArgs, ... }: ({
+{ config, lib, pkgs, specialArgs, ... }:
+
+let
+  defaultPrograms = config.myme.defaultPrograms;
+
+in ({
   imports = [
     ./barrier.nix
     ./dev.nix
@@ -14,8 +19,10 @@
     ./wsl.nix
   ];
 
+  options.myme.defaultPrograms = lib.mkEnableOption "Default programs";
+
   config = {
-    home.packages = with pkgs; [
+    home.packages = lib.mkIf defaultPrograms (with pkgs; [
       dua
       fd
       jq
@@ -28,7 +35,7 @@
       zip
       haskellPackages.annodate
       myme.pkgs.git-sync
-    ];
+    ]);
 
     home.keyboard = {
       layout = "us";
@@ -36,35 +43,35 @@
     };
 
     # But of course!
-    myme.emacs.enable = lib.mkDefault true;
+    myme.emacs.enable = lib.mkDefault defaultPrograms;
 
     programs = {
-      bat.enable = true;
+      bat.enable = lib.mkDefault defaultPrograms;
       bash = {
         enable = true;
         historyControl = ["erasedups" "ignoredups" "ignorespace"];
       };
       direnv = {
-        enable = true;
+        enable = lib.mkDefault defaultPrograms;
         nix-direnv.enable = true;
       };
-      fish.enable = true;
+      fish.enable = lib.mkDefault defaultPrograms;
       fzf = {
-        enable = true;
+        enable = lib.mkDefault defaultPrograms;
         fileWidgetCommand = "fd --type f";
         fileWidgetOptions = ["--preview 'bat {}'"];
         changeDirWidgetCommand = "fd --type d";
         changeDirWidgetOptions = ["--preview 'tree -C {} | head -200'"];
       };
       htop = {
-        enable = true;
+        enable = lib.mkDefault defaultPrograms;
         settings = {
           left_meters = [ "LeftCPUs2" "Memory" "Swap" ];
           right_meters = [ "RightCPUs2" "Tasks" "LoadAverage" "Uptime" ];
         };
       };
       nixon = {
-        enable = lib.mkDefault true;
+        enable = lib.mkDefault defaultPrograms;
         source_dirs = [
           "~/code/*"
           "~/nixos"
@@ -76,7 +83,7 @@
         use_direnv = true;
         use_nix = true;
       };
-      nushell.enable = true;
+      nushell.enable = lib.mkDefault defaultPrograms;
       starship = {
         enable = true;
         settings.time = {
