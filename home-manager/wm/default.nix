@@ -98,7 +98,7 @@ in {
           enable = true;
           scriptPath = ".hm-xsession";
           initExtra = ''
-            ${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/alien-moon-nature.jpg
+            ${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/pink-purple-planet.jpg
           '';
         }
         (mkIf (cfg.variant == "leftwm") {
