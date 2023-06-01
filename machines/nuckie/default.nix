@@ -1,5 +1,9 @@
 {
   system = "x86_64-linux";
+  deploy = {
+    host = "192.168.1.5";
+    sshOpts = [ "-tt" ];
+  };
   config = { config, lib, pkgs, ... }: {
     imports = [ ./nginx.nix ];
 
