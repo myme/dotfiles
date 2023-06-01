@@ -24,8 +24,17 @@ in {
         };
         profile = {
           imports = [ ../home-manager ];
-          myme.emacs.enable = false;
-          programs.nixon.enable = false;
+          # Avoid installing unnecessary and large programs.
+          myme.defaultPrograms = false;
+          home.packages = with pkgs; [
+            btop
+            dua
+            fd
+            jq
+            lsof
+            tree
+          ];
+          programs.fzf.enable = true;
         };
       };
     };
