@@ -19,7 +19,11 @@ in ({
     ./wsl.nix
   ];
 
-  options.myme.defaultPrograms = lib.mkEnableOption "Default programs";
+  options.myme.defaultPrograms = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = "Include a default set of programs and services.";
+  };
 
   config = {
     home.packages = lib.mkIf defaultPrograms (with pkgs; [
