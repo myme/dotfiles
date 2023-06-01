@@ -29,6 +29,16 @@ in {
         };
         profile = {
           imports = [ ../home-manager ];
+          # Avoid installing unnecessary and large programs.
+          myme.defaultPrograms = false;
+          home.packages = with pkgs; [
+            btop
+            dua
+            fd
+            jq
+            lsof
+            tree
+          ];
         };
       };
     };
