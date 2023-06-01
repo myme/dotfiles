@@ -48,16 +48,29 @@
 
 ;;;###autoload
 (defun myme/org-skip-non-archive-tasks ()
-  "Skip tasks not ready for archiving"
+  "Skip tasks not ready for archiving.
+
+Notes ready for archiving are todo items that are moved to a done
+state and marked as closed more than 60 days ago.
+
+This function jumps to the next sibling headline if the current
+headline is a todo item that is not ready for archive. If it's
+not a todo item it descends into the headline's subtree looking
+for nested todo items."
   (save-restriction
     (widen)
-    (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
-      (if (and (member (org-get-todo-state) org-done-keywords)
-               (let ((days-ago 60)
-                     (closed (org-entry-get nil "CLOSED")))
-                 (and closed (> (- days-ago) (org-time-stamp-to-now closed)))))
-          nil
-        next-headline))))
+    (let* ((next-headline (save-excursion (or (outline-next-heading) (point-max))))
+           (next-sibling (save-excursion (or (outline-get-next-sibling) (point))))
+           (state (org-get-todo-state)))
+      (if (member state org-todo-keywords-1)
+          (if (and (member state org-done-keywords)
+                   (let ((days-ago 60)
+                         (closed (org-entry-get nil "CLOSED")))
+                     (and closed (> (- days-ago) (org-time-stamp-to-now closed)))))
+              nil
+            next-sibling)
+        next-headline)
+      )))
 
 ;;;###autoload
 (defun myme/git-auto-sync ()
