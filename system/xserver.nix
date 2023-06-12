@@ -34,7 +34,8 @@ in {
       services.xserver.libinput.touchpad.naturalScrolling = true;
 
       # LightDM Background image
-      services.xserver.displayManager.lightdm.background = "${pkgs.myme.wallpapers}/pink-purple-planet.jpg";
+      services.xserver.displayManager.lightdm.background =
+        "${pkgs.myme.wallpapers}/pink-purple-planet.jpg";
 
       # Disable xterm session
       services.xserver.desktopManager.xterm.enable = false;
