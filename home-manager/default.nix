@@ -37,7 +37,7 @@ in ({
       tree
       unzip
       zip
-      haskellPackages.annodate
+      annodate
       myme.pkgs.git-sync
     ]);
 
