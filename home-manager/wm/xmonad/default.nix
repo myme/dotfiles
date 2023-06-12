@@ -10,7 +10,7 @@ in {
     font = {
       family = lib.mkOption {
         type = lib.types.str;
-        default = "NotoSansMono Nerd Font";
+        default = "Noto Mono for Powerline";
         description = "XMonad font family";
       };
       size = lib.mkOption {

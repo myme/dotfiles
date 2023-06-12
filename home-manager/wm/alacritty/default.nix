@@ -40,7 +40,7 @@ in {
         };
         font = {
           # normal.family = "DejaVu Sans Mono for Powerline";
-          normal.family = "NotoSansMono Nerd Font";
+          normal.family = "Noto Mono for Powerline";
           size = cfg.font_size;
         };
         colors = theme;
