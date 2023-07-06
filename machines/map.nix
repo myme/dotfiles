@@ -21,19 +21,15 @@
           isNormalUser = true;
           initialPassword = "nixos";
           extraGroups = [ "wheel" "networkmanager" ];
-          openssh.authorizedKeys.keys = [];
+          openssh.authorizedKeys.keys = [ ];
         };
 
         # This maps to the `home-manager.users.myme` NixOS (HM module) config
         profile = {
-          imports = [
-            ../home-manager
-          ];
+          imports = [ ../home-manager ];
 
           config = {
-            home.packages = with pkgs; [
-              mosh
-            ];
+            home.packages = with pkgs; [ mosh ];
 
             home.sessionVariables = {
               # TODO: Base this on WSL config
@@ -49,9 +45,7 @@
 
               ssh = {
                 enable = true;
-                includes = [
-                  config.age.secrets.ssh.path
-                ];
+                includes = [ config.age.secrets.ssh.path ];
               };
             };
 
@@ -61,9 +55,7 @@
               haskell.enable = true;
             };
 
-            services = {
-              syncthing.enable = true;
-            };
+            services = { syncthing.enable = true; };
           };
         };
       };
@@ -77,4 +69,4 @@
     documentation.nixos.enable = true;
     virtualisation.podman.enable = true;
   };
- }
+}

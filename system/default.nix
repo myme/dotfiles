@@ -85,7 +85,6 @@
     # Enable NixOS-WSL module
     (lib.mkIf (config.myme.machine.flavor == "wsl") {
       wsl = let username = config.myme.machine.user.name;
-
       in {
         enable = true;
         defaultUser = username;
