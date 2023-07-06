@@ -52,6 +52,7 @@
             myme.dev = {
               docs.enable = true;
               nodejs.enable = true;
+              shell.enable = true;
             };
 
             services = { syncthing.enable = true; };
