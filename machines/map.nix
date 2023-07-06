@@ -52,7 +52,6 @@
             myme.dev = {
               docs.enable = true;
               nodejs.enable = true;
-              haskell.enable = true;
             };
 
             services = { syncthing.enable = true; };
