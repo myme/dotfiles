@@ -31,11 +31,6 @@
           config = {
             home.packages = with pkgs; [ mosh ];
 
-            home.sessionVariables = {
-              # TODO: Base this on WSL config
-              XDG_RUNTIME_DIR = "/run/user/$(id -u)";
-            };
-
             programs = {
               # SSH agent
               keychain = {
