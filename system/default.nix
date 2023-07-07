@@ -90,6 +90,7 @@
         defaultUser = username;
         interop.register = true;
         nativeSystemd = true;
+        startMenuLaunchers = true;
       };
     })
     (lib.mkIf (config.myme.machine.role != "server") {
