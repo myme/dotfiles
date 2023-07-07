@@ -5,11 +5,23 @@ let
   isWsl = machine.flavor == "wsl";
   xauth = "${pkgs.xorg.xauth}/bin/xauth";
   kbdCfg = config.home.keyboard;
+  cmdExe = "/mnt/c/Windows/System32/cmd.exe";
+
+  # X commands
+  stopx = "${cmdExe} /C taskkill /F /IM vcxsrv.exe";
   startx = pkgs.writeShellScriptBin "startx" ''
     # Start vcxsrv
     # See: https://sourceforge.net/p/vcxsrv/wiki/VcXsrv%20%26%20Win10/#windows-10-pro-version-20h2-setup-for-wsl2
 
     export PATH=$PATH:/run/current-system/sw/bin
+    export DISPLAY="$(awk '/nameserver/ { print $2; }' /etc/resolv.conf):0.0";
+    export WSLENV=1
+
+    # Load ENV vars into systemd
+    systemctl --user import-environment DISPLAY WSLENV
+
+    # Stop possibly running server
+    ${stopx}
 
     rm -vf ~/.Xauthority
     touch ~/.Xauthority
@@ -17,20 +29,18 @@ let
     ${xauth} add "$DISPLAY" . "$magiccookie"
 
     # Copy .Xauthority to C:\Users\<user>
-    user_profile="$(/mnt/c/Windows/System32/cmd.exe /C "echo %USERPROFILE%" | tr -d '\r\n')"
-    cp ~/.Xauthority "$(/bin/wslpath $user_profile)"
+    user_profile="$(${cmdExe} /C "echo %USERPROFILE%" | tr -d '\r\n')"
+    xauth_path="$(/bin/wslpath $user_profile)"
+    cp ~/.Xauthority "$xauth_path"
 
-    '/mnt/c/Program Files/VcXsrv/vcxsrv.exe' -multiwindow -clipboard -wgl -auth "$user_profile\.Xauthority" > ~/.VcXsrv.log 2>&1 &
-    disown
+    '/mnt/c/Program Files/VcXsrv/vcxsrv.exe' -multiwindow -clipboard -wgl -auth "$user_profile\.Xauthority" > ~/.VcXsrv.log 2>&1
   '';
-  init = pkgs.writeShellScriptBin "init-wsl" ''
-    # Load ENV vars into systemd
+
+  # Keyboard layout
+  setxkbmap = pkgs.writeShellScriptBin "setxkbmap" ''
     export PATH=$PATH:/run/current-system/sw/bin
     export DISPLAY="$(awk '/nameserver/ { print $2; }' /etc/resolv.conf):0.0";
-    export WSLENV=1
-    systemctl --user import-environment DISPLAY WSLENV
-    ${startx}/bin/startx
-    ${pkgs.xorg.setxkbmap}/bin/setxkbmap ${kbdCfg.layout} -variant ${kbdCfg.variant}
+    ${pkgs.xorg.setxkbmap}/bin/setxkbmap ${kbdCfg.layout} -variant ${kbdCfg.variant};
   '';
 
 in {
@@ -40,21 +50,33 @@ in {
       DISPLAY = "$(awk '/nameserver/ { print $2; }' /etc/resolv.conf):0.0";
     };
 
-    home.packages = [
-      init
-    ];
-
     # Install fonts
     myme.fonts.enable = true;
 
-    # TODO: Tweak this systemd unit. The `startx` script ran with issues.
+    # Start a 3rd party Xserver (VcXsrv)
     systemd.user.services.vcxsrv = {
       Unit = {
         Description = "VcXsrv";
         Documentation = "https://sourceforge.net/projects/vcxsrv/";
       };
       Service = {
-        ExecStart = "${init}/bin/init-wsl";
+        ExecStart = "${startx}/bin/startx";
+        ExecStop = stopx;
+        Type = "exec";
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+    };
+
+    # Set the preferred keyboard layout
+    systemd.user.services.setxkbmap = {
+      Unit = {
+        Description = "setxkbmap";
+        Requires = [ "vcxsrv.service" ];
+      };
+      Service = {
+        ExecStart = "${setxkbmap}/bin/setxkbmap";
         Type = "oneshot";
       };
       Install = {
