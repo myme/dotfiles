@@ -11,7 +11,7 @@
     :desc "Org Clock Out" :nv "o" #'org-clock-out
     :desc "Set org-mode variables to project" :nv "p" #'myme/org-select-project
     :desc "Visit all org-mode files" :nv "r" #'myme/org-element-cache-reset-all
-    :desc "Open Org-Roam UI" :nv "u" #'org-roam-ui-open
+    :desc "Open Org-Roam UI" :nv "u" #'myme/org-roam-ui-open
     :desc "Stop Org-Roam UI" :nv "U" (lambda () (interactive) (org-roam-ui-mode 0))
     :desc "Visit all org-mode files" :nv "v" #'myme/org-visit-all)
    (:prefix "s" :desc "Org Sync"

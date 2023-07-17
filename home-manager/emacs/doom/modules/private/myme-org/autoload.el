@@ -127,6 +127,13 @@ for nested todo items."
          :action #'myme/org-set-project-dir)
       (user-error "There are no known projects"))))
 
+;;;###autoload
+(defun myme/org-roam-ui-open ()
+  (interactive)
+  (let ((org-roam-ui-open-on-start nil))
+    (org-roam-ui-open)))
+
+;;;###autoload
 (defun myme/org-set-project-dir (project)
   "Set org-mode related variables based on project dir"
   (setq
