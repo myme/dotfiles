@@ -26,7 +26,7 @@
 
         # This maps to the `home-manager.users.myme` NixOS (HM module) config
         profile = {
-          imports = [ ../home-manager ];
+          imports = [ ../../home-manager ];
 
           config = {
             home.packages = with pkgs; [ mosh ];
@@ -57,9 +57,15 @@
       };
     };
 
-    age.secrets.ssh = {
-      file = ./../secrets/ssh.age;
-      owner = config.myme.machine.user.name;
+    age.secrets = {
+      authinfo = {
+        file = ./authinfo.age;
+        owner = config.myme.machine.user.name;
+      };
+      ssh = {
+        file = ../../secrets/ssh.age;
+        owner = config.myme.machine.user.name;
+      };
     };
 
     documentation.nixos.enable = true;
