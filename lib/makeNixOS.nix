@@ -7,6 +7,7 @@ let
 
 in nixpkgs.lib.nixosSystem {
   inherit (host) system;
+  specialArgs = { inherit inputs; };
   modules = [
     ../system
     ../users/root.nix

@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     flake-utils.url = "github:numtide/flake-utils";
     agenix = {
