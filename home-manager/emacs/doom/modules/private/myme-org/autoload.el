@@ -129,6 +129,7 @@ for nested todo items."
 
 ;;;###autoload
 (defun myme/org-roam-ui-open ()
+  "Launch org-roam-ui without opening multiple browser tabs"
   (interactive)
   (let ((org-roam-ui-open-on-start nil))
     (org-roam-ui-open)))
