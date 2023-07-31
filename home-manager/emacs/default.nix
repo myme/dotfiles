@@ -67,6 +67,7 @@ in {
     # Stock emacs
     programs.emacs = {
       enable = lib.mkDefault true;
+      package = pkgs.emacs29;
       extraPackages = epkgs: with epkgs; [ vterm ];
     };
 
