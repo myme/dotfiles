@@ -8,6 +8,10 @@ let
   et = (pkgs.writeShellScriptBin "et" ''
     emacsclient -t "$@"
   '');
+  # FIXME: Hack to avoid hang on gpg save: https://dev.gnupg.org/T6481
+  epg = (pkgs.writeShellScriptBin "epg" ''
+    PATH="${pkgs.gnupg240}/bin:$PATH" emacs "$@"
+  '');
   EDITOR = if specialArgs.nixosConfig.myme.machine.role == "server" then
     "${et}/bin/et"
   else
@@ -84,6 +88,7 @@ in {
       (aspellWithDicts (dicts: with dicts; [ en en-computers it nb ]))
       ec
       et
+      epg
       nodePackages.mermaid-cli
     ];
 

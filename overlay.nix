@@ -7,6 +7,17 @@ final: prev: {
     ageBin = "${prev.age}/bin/age";
   };
 
+  gnupg240 = let
+    pname = "gnupg";
+    version = "2.4.0";
+  in prev.gnupg.overrideAttrs {
+    inherit pname version;
+    src = prev.fetchurl {
+      url = "mirror://gnupg/gnupg/${pname}-${version}.tar.bz2";
+      hash = "sha256-HXkVjdAdmSQx3S4/rLif2slxJ/iXhOosthDGAPsMFIM=";
+    };
+  };
+
   myme = {
     inherit doomemacs wallpapers;
     pkgs = builtins.listToAttrs (builtins.map (fname: {
