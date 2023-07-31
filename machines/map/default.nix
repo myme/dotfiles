@@ -51,6 +51,10 @@
               shell.enable = true;
             };
 
+            myme.emacs.configExtra = ''
+              (add-to-list 'auth-sources "${config.age.secrets.authinfo.path}" t)
+            '';
+
             services = { syncthing.enable = true; };
           };
         };
