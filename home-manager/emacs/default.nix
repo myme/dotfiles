@@ -20,6 +20,11 @@ let
 in {
   options.myme.emacs = {
     enable = lib.mkEnableOption "Emacs";
+    configExtra = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "Additional commands to add to config.el";
+    };
     font = {
       family = lib.mkOption {
         type = lib.types.str;
@@ -54,6 +59,7 @@ in {
     xdg.configFile.doom.source = pkgs.stdenv.mkDerivation {
       name = "doom-emacs-src";
       src = ./doom;
+      doomConfigExtra = cfg.configExtra;
       doomFontFamily = pkgs.lib.strings.escapeNixString cfg.font.family;
       doomFontSize = cfg.font.size;
       doomTheme = cfg.theme;
@@ -62,6 +68,7 @@ in {
       '';
       postFixup = ''
         substituteInPlace $out/config.el \
+          --subst-var doomConfigExtra \
           --subst-var doomFontFamily \
           --subst-var doomFontSize \
           --subst-var doomTheme
