@@ -270,7 +270,7 @@
 (use-package! chatgpt-shell
   :config
   (setq chatgpt-shell-openai-key
-        (auth-source-pick-first-password :host "api.openai.com")))
+        (lambda () (auth-source-pick-first-password :host "api.openai.com"))))
 
 ;; Additional configurations interpolated by nix
 @doomConfigExtra@
