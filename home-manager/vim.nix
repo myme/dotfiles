@@ -83,6 +83,7 @@
         nnoremap <leader>g. <cmd>Telescope git_files<cr>
         nnoremap <leader>sd <cmd>Telescope live_grep<cr>
         nnoremap <leader>sb <cmd>Telescope current_buffer_fuzzy_find<cr>
+        nnoremap <leader>hW <cmd>Telescope man_pages<cr>
 
         " Themes
         colorscheme dracula
