@@ -161,16 +161,6 @@ in {
       # Notifications (dunst)
       services.dunst = {
         enable = true;
-        # TODO: Clean this up once https://github.com/dunst-project/dunst/pull/1164 has been released
-        package = pkgs.dunst.overrideAttrs (_: {
-          version = "1.9.1-gf394f16";
-          src = pkgs.fetchFromGitHub {
-            owner = "dunst-project";
-            repo = "dunst";
-            rev = "f394f161edb96e185a05cba20502f610f8b9e696";
-            sha256 = "sha256-5LAoDdh/P/osPo+ZxrK5I6PeZJqGVmHFzxPTzlZuS7o=";
-          };
-        });
         settings = import ./dunst.nix (if machine.highDPI then {
           font = "Dejavu Sans 15";
           geometry = "500x5+30+20";
