@@ -139,6 +139,7 @@ in {
       # Shell
       (mkIf cfg.shell.enable (with pkgs; [
         shellcheck
+        shfmt
       ]))
     ];
 
