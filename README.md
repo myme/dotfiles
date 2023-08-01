@@ -77,8 +77,8 @@ $ ./result/activate
 
 ### Update
 
-Either use the ~build-home.sh~ script above or the following once ~home-manager~
-is installed:
+Either use the `build-home.sh` script above or the following once [Home
+Manager](https://github.com/nix-community/home-manager) is installed:
 
 ``` bash
 $ home-manager <build|switch> --flake .#<machine>
