@@ -11,7 +11,7 @@ in nixpkgs.lib.nixosSystem {
   modules = [
     ../system
     ../users/root.nix
-    agenix.nixosModule
+    agenix.nixosModules.default
     nixos-wsl.nixosModules.wsl
     home-manager.nixosModules.home-manager
     host.config

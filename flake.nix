@@ -31,7 +31,7 @@
   outputs = { self, nixpkgs, flake-utils, ... }@inputs:
     let
       overlays = [
-        inputs.agenix.overlay
+        inputs.agenix.overlays.default
         inputs.deploy-rs.overlay
         inputs.i3ws.overlay
         inputs.annodate.overlay
