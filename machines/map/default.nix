@@ -30,6 +30,7 @@
 
           config = {
             home.packages = with pkgs; [ mosh ];
+            home.pointerCursor.size = 25;
 
             programs = {
               # SSH agent

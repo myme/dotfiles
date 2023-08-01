@@ -13,7 +13,7 @@ let
     capitaine = {
       package = pkgs.capitaine-cursors;
       name = "capitaine-cursors";
-      size = if machine.highDPI then 64 else 50;
+      size = lib.mkDefault (if machine.highDPI then 64 else 50);
     };
     none = {};
     numix = {
