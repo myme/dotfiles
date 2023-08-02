@@ -52,8 +52,8 @@
      ("c" "Capture" entry
       (file+headline "refile.org" "Bookmarks")
       "* %:annotation%? :BOOKMARK:
-%i
-%U")
+%U
+%i")
      ("n" "A generic note" entry
       (file "refile.org")
       "* %? :NOTE:
