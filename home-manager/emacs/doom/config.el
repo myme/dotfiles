@@ -125,6 +125,9 @@
    :desc "Compile" :nv "k" #'kill-compilation)
   (:prefix "d"
    :desc "Ediff buffers" :nv "b" #'ediff-buffers)
+  (:prefix "o"
+   (:prefix "m" :desc "Maps"
+    :desc "Search maps" :nv "s" #'osm-search))
   (:prefix "p"
    :desc "Open dired in project" :nv "d" #'projectile-dired
    :desc "Run async cmd in project" :nv "&" #'projectile-run-async-shell-command-in-root
@@ -271,6 +274,13 @@
   :config
   (setq chatgpt-shell-openai-key
         (lambda () (auth-source-pick-first-password :host "api.openai.com"))))
+
+;; Open Street Maps
+(use-package! osm
+  :init
+  ;; Load Org link support
+  (with-eval-after-load 'org
+    (require 'osm-ol)))
 
 ;; Additional configurations interpolated by nix
 @doomConfigExtra@

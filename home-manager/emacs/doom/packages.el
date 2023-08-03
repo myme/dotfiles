@@ -11,5 +11,8 @@
 ;; JavaScript
 (package! prettier-js)
 
+;; Open Street Maps
+(package! osm)
+
 ;; Python
 (package! pyvenv)
