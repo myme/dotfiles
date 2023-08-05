@@ -60,6 +60,7 @@ in {
     xdg.configFile.doom.source = pkgs.stdenv.mkDerivation {
       name = "doom-emacs-src";
       src = ./doom;
+      nodeExecutable = "${pkgs.nodejs}/bin/node";
       doomConfigExtra = cfg.configExtra;
       doomFontFamily = pkgs.lib.strings.escapeNixString cfg.font.family;
       doomFontSize = cfg.font.size;
@@ -69,6 +70,7 @@ in {
       '';
       postFixup = ''
         substituteInPlace $out/config.el \
+          --subst-var nodeExecutable \
           --subst-var doomConfigExtra \
           --subst-var doomFontFamily \
           --subst-var doomFontSize \

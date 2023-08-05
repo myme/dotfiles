@@ -267,7 +267,9 @@
               ("<tab>" . 'copilot-accept-completion)
               ("TAB" . 'copilot-accept-completion)
               ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word)))
+              ("C-<tab>" . 'copilot-accept-completion-by-word))
+  :config
+  (setq copilot-node-executable "@nodeExecutable@"))
 
 ;; ChatGPT integration
 (use-package! chatgpt-shell
