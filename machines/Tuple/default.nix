@@ -27,7 +27,7 @@
         # This maps to the `home-manager.users.myme` NixOS (HM module) config
         profile = {
           imports = [
-            ../home-manager
+            ../../home-manager
           ];
 
           config = {
@@ -65,6 +65,10 @@
               haskell.enable = true;
               nodejs.enable = true;
             };
+
+            myme.emacs.configExtra = ''
+              (add-to-list 'auth-sources "${config.age.secrets.authinfo.path}" t)
+            '';
           };
         };
       };
@@ -72,9 +76,15 @@
 
     boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-    age.secrets.ssh = {
-      file = ./../secrets/ssh.age;
-      owner = config.myme.machine.user.name;
+    age.secrets = {
+      authinfo = {
+        file = ./authinfo.age;
+        owner = config.myme.machine.user.name;
+      };
+      ssh = {
+        file = ../../secrets/ssh.age;
+        owner = config.myme.machine.user.name;
+      };
     };
 
     networking.firewall.enable = false;
