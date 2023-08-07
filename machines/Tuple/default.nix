@@ -64,6 +64,7 @@
             myme.dev = {
               haskell.enable = true;
               nodejs.enable = true;
+              shell.enable = true;
             };
 
             myme.emacs.configExtra = ''
