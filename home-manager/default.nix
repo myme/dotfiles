@@ -73,7 +73,6 @@ in ({
           theme = "dracula";
           editor = {
             line-number = "relative";
-            true-color = true;
           };
         };
       };
