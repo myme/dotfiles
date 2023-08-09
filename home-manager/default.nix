@@ -67,6 +67,16 @@ in ({
         changeDirWidgetCommand = "fd --type d";
         changeDirWidgetOptions = ["--preview 'tree -C {} | head -200'"];
       };
+      helix = {
+        enable = true;
+        settings = {
+          theme = "dracula";
+          editor = {
+            line-number = "relative";
+            true-color = true;
+          };
+        };
+      };
       htop = {
         enable = lib.mkDefault defaultPrograms;
         settings = {
