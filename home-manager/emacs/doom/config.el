@@ -122,7 +122,8 @@
    :desc "Rename buffer" :nv "r" #'rename-buffer)
   (:prefix "c"
    :desc "Compile" :nv "c" #'compile
-   :desc "Compile" :nv "k" #'kill-compilation)
+   :desc "Compile" :nv "k" #'kill-compilation
+   :desc "Hints"   :nv "h" #'eglot-inlay-hints-mode)
   (:prefix "d"
    :desc "Ediff buffers" :nv "b" #'ediff-buffers)
   (:prefix "o"
