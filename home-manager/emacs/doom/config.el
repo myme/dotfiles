@@ -127,7 +127,7 @@
   (:prefix "d"
    :desc "Ediff buffers" :nv "b" #'ediff-buffers)
   (:prefix "o"
-   (:prefix "m" :desc "Maps"
+   (:prefix "M" :desc "Maps"
     :desc "Search maps" :nv "s" #'osm-search))
   (:prefix "p"
    :desc "Open dired in project" :nv "d" #'projectile-dired
