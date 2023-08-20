@@ -29,6 +29,7 @@ in ({
     home.packages = lib.mkIf defaultPrograms (with pkgs; [
       dua
       fd
+      httpie
       jq
       lsof
       nix-tree
