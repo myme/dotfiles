@@ -138,9 +138,10 @@ for nested todo items."
 (defun myme/org-set-project-dir (project)
   "Set org-mode related variables based on project dir"
   (setq
-   org-directory project
-   org-agenda-files (list project)
+   org-directory (expand-file-name project)
    org-roam-directory (expand-file-name "roam" project)
    org-roam-db-location (expand-file-name "org-roam.db" org-roam-directory)
-   org-roam-dailies-directory (expand-file-name "dailies" org-roam-directory))
+   org-roam-dailies-directory (expand-file-name "dailies" org-roam-directory)
+   org-agenda-files (list org-directory org-roam-directory org-roam-dailies-directory)
+  (make-directory org-jira-working-dir t)
   (message "Set org project to %s" project))
