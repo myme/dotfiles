@@ -43,9 +43,26 @@ test
 switch
 ```
 
+### `home-manager-list-generations`
+
+```bash
+nix-env --profile $HOME/.local/state/nix/profiles/home-manager --list-generations
+```
+
+### `home-manager-delete-generations ${home-manager-list-generations:1m}`
+
+```bash
+nix-env --profile $HOME/.local/state/nix/profiles/home-manager --delete-generations "$@"
+```
+
 ### `nixos-list-generations`
 
 ```bash
-sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
+sudo nix-env --profile /nix/var/nix/profiles/system --list-generations
 ```
 
+### `nixos-delete-generations ${nixos-list-generations:1m}`
+
+```bash
+sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations "$@"
+```
