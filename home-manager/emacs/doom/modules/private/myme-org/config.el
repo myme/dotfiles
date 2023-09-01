@@ -90,6 +90,40 @@
       (file+olp+datetree "journal.org" "Journal")
       "* Review: %? :REVIEW:
 %U" :clock-in t :clock-resume t)))
+   org-roam-capture-templates
+   (quote
+    (("d" "default" plain "%?" :target
+      (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)))
+   org-roam-dailies-capture-templates
+   (quote
+    (("d" "Default entry" entry
+      "* %?"
+      :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))
+     ("b" "Backlog/bug management" entry
+      "* Backlog/bug management%? :BACKLOG:
+%U"
+      :target (file+head  "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))
+     ("n" "Note" entry
+      "* Note :NOTE:
+%t
+%?"
+      :target (file+head  "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))
+     ("e" "Email + collab" entry
+      "* Email + collab%? :EMAIL:MESSAGING:
+%U"
+      :target (file+head  "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
+      :clock-in t :clock-resume t)
+     ("m" "Meeting" entry
+      "* Meeting: %? :MEETING:
+%U"
+      :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
+      :clock-in t :clock-resume t)
+     ("r" "Review" entry
+      "* Review: %? :REVIEW:
+%U"
+      :target (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
+      :clock-in t :clock-resume t)))
    org-clock-out-remove-zero-time-clocks t
    org-clock-report-include-clocking-task t
    org-clock-rounding-minutes 0
@@ -171,6 +205,7 @@
 (use-package! websocket
   :after org-roam)
 
+;; Org roam UI
 (use-package! org-roam-ui
   :after org-roam ;; or :after org
   ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
