@@ -58,7 +58,7 @@
       # Nix
       nix = {
         package = pkgs.nixUnstable;
-        extraOptions = "experimental-features = nix-command flakes";
+        extraOptions = "experimental-features = nix-command flakes repl-flake";
         nixPath = ["nixpkgs=flake:nixpkgs"];
         settings = {
           trusted-users = [ "root" config.myme.machine.user.name ];
