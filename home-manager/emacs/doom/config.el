@@ -158,11 +158,6 @@
      (:prefix "g"
       :desc "Toggle magit todos" :nv "T" #'myme/toggle-magit-todos)))))
 
-(after! forge
-  (setq forge-alist (append '(("sqbu-github.cisco.com" "sqbu-github.cisco.com/api/v3" "sqbu-github.cisco.com" forge-github-repository)
-                              ("wwwin-github.cisco.com" "wwwin-github.cisco.com/api/v3" "wwwin-github.cisco.com" forge-github-repository))
-                            forge-alist)))
-
 ;; Links
 (setq ace-link-fallback-function
       (lambda ()
