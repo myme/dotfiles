@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     flake-utils.url = "github:numtide/flake-utils";
@@ -13,6 +14,10 @@
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    home-manager-stable = {
+      url = "github:nix-community/home-manager/release-23.05";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     deploy-rs.url = "github:serokell/deploy-rs";
     doomemacs = {
