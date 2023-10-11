@@ -5,6 +5,7 @@ in {
     host = "192.168.1.7";
     sshOpts = [ "-t" ];
   };
+  stable = true;
   config = { config, lib, modulesPath, pkgs, ... }: {
     # TODO: Fix native cross-compilation to aarch64
     # nixpkgs.buildPlatform = "x86_64-linux";
