@@ -7,6 +7,7 @@ in {
     host = "deque.myme.no";
     sshOpts = [ "-A" "-p" (builtins.toString sshPort) ];
   };
+  stable = true;
   config = { config, lib, modulesPath, pkgs, ... }: {
     myme.machine = {
       role = "server";
