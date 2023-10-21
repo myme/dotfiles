@@ -4,11 +4,11 @@ let
   cfg = config.myme.irc;
   weechat = pkgs.weechat.override {
     configure = { availablePlugins, ... }: {
-      scripts =
-        let ps = pkgs.weechatScripts;
-        in [
-          ps.wee-slack
-          (ps.weechat-matrix.overrideAttrs (attrs: attrs // {
+      scripts = let ps = pkgs.weechatScripts;
+      in [
+        ps.wee-slack
+        (ps.weechat-matrix.overrideAttrs (attrs:
+          attrs // {
             version = "0.3.0-patched";
             src = pkgs.fetchFromGitHub {
               owner = "poljar";
@@ -16,9 +16,9 @@ let
               rev = "feae9fda26ea9de98da9cd6733980a203115537e";
               hash = "sha256-flv1XF0tZgu3qoMFfJZ2MzeHYI++t12nkq3jJkRiCQ0=";
             };
-            patches = [];
+            patches = [ ];
           }))
-        ];
+      ];
     };
   };
   tmuxCmd = "${pkgs.tmux}/bin/tmux -L weechat";
@@ -35,10 +35,7 @@ in {
   };
 
   config = {
-    home.packages = lib.mkIf cfg.enable [
-      irc
-      weechat
-    ];
+    home.packages = lib.mkIf cfg.enable [ irc weechat ];
 
     systemd.user.services.weechat = lib.mkIf (cfg.enable && cfg.service) {
       Unit = {
@@ -49,15 +46,13 @@ in {
       Service = {
         Type = "forking";
         RemainAfterExit = "yes";
-        ExecStart = ''${tmuxCmd} new-session -d -s weechat ${weechatCmd}'';
-        ExecStop = ''${tmuxCmd} kill-session -t weechat'';
+        ExecStart = "${tmuxCmd} new-session -d -s weechat ${weechatCmd}";
+        ExecStop = "${tmuxCmd} kill-session -t weechat";
         Environment = "PATH=${pkgs.coreutils}/bin";
         Restart = "on-failure";
       };
 
-      Install = {
-        WantedBy = [ "default.target" ];
-      };
+      Install = { WantedBy = [ "default.target" ]; };
     };
   };
 }
