@@ -14,7 +14,7 @@ let
   weechatCmd = "${weechat}/bin/weechat";
   irc = pkgs.writeShellScriptBin "irc" ''
     # Attach to WeeChat running in a systemd tmux session
-    ${tmuxCmd} attach-session -t weechat
+    TMUX_TMPDIR= ${tmuxCmd} attach-session -t weechat
   '';
 
 in {
