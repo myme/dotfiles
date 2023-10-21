@@ -4,10 +4,21 @@ let
   cfg = config.myme.irc;
   weechat = pkgs.weechat.override {
     configure = { availablePlugins, ... }: {
-      scripts = with pkgs.weechatScripts; [
-        wee-slack
-        weechat-matrix
-      ];
+      scripts =
+        let ps = pkgs.weechatScripts;
+        in [
+          ps.wee-slack
+          (ps.weechat-matrix.overrideAttrs (attrs: attrs // {
+            version = "0.3.0-patched";
+            src = pkgs.fetchFromGitHub {
+              owner = "poljar";
+              repo = "weechat-matrix";
+              rev = "feae9fda26ea9de98da9cd6733980a203115537e";
+              hash = "sha256-flv1XF0tZgu3qoMFfJZ2MzeHYI++t12nkq3jJkRiCQ0=";
+            };
+            patches = [];
+          }))
+        ];
     };
   };
   tmuxCmd = "${pkgs.tmux}/bin/tmux -L weechat";
