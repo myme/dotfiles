@@ -40,6 +40,7 @@ in {
         RemainAfterExit = "yes";
         ExecStart = ''${tmuxCmd} new-session -d -s weechat ${weechatCmd}'';
         ExecStop = ''${tmuxCmd} kill-session -t weechat'';
+        Environment = "PATH=${pkgs.coreutils}/bin";
         Restart = "on-failure";
       };
 
