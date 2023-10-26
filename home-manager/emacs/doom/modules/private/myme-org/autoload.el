@@ -139,6 +139,7 @@ for nested todo items."
   "Set org-mode related variables based on project dir"
   (setq
    org-directory (expand-file-name project)
+   org-id-locations-file (expand-file-name ".org-ids" project)
    org-roam-directory (expand-file-name "roam" project)
    org-roam-db-location (expand-file-name "org-roam.db" org-roam-directory)
    org-roam-dailies-directory (expand-file-name "dailies" org-roam-directory)
