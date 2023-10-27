@@ -43,3 +43,11 @@
       (magit-todos-mode -1)
     (magit-todos-mode arg))
   (magit-refresh))
+
+
+;;;###autoload
+(defun myme/lsp-inlay-hints-mode ()
+  (interactive)
+  (if (modulep! :tools lsp +eglot)
+      (eglot-inlay-hints-mode)
+    (lsp-inlay-hints-mode)))

@@ -123,7 +123,7 @@
   (:prefix "c"
    :desc "Compile" :nv "c" #'compile
    :desc "Compile" :nv "k" #'kill-compilation
-   :desc "Hints"   :nv "h" #'eglot-inlay-hints-mode)
+   :desc "Hints"   :nv "h" #'myme/lsp-inlay-hints-mode)
   (:prefix "d"
    :desc "Ediff buffers" :nv "b" #'ediff-buffers)
   (:prefix "o"
