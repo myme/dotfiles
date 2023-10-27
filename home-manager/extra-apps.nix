@@ -8,6 +8,7 @@
     vlc
 
     # Utils
+    lnav
     peek
     rofimoji
 
