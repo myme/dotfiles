@@ -5,9 +5,8 @@ with lib;
 let
   machine = config.myme.machine;
   cfg = machine.de;
-  xserver = (
-    config.myme.machine.role != "server" &&
-    config.myme.machine.flavor != "wsl");
+  xserver = (config.myme.machine.role != "server" && config.myme.machine.flavor
+    != "wsl");
 
 in {
   options = {
@@ -63,7 +62,19 @@ in {
     # Gnome
     (mkIf (cfg.variant == "gnome") {
       services.xserver.displayManager.gdm.enable = true;
-      services.xserver.desktopManager.gnome.enable = true;
+      services.xserver.desktopManager.gnome = {
+        enable = true;
+        flashback.customSessions = [{
+          wmName = "hmxsession";
+          wmLabel = "HomeManager XSession";
+          wmCommand = let
+            wmCommand = pkgs.writeShellScript "hm-xsession" ''
+              $HOME/.hm-xsession
+            '';
+          in "${wmCommand}";
+          enableGnomePanel = false;
+        }];
+      };
     })
     # KDE Plasma
     (mkIf (cfg.variant == "plasma") {
