@@ -37,6 +37,7 @@ in ({
       ripgrep
       tree
       unzip
+      yq
       zip
       annodate
       myme.pkgs.git-sync
