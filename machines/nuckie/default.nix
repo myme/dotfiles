@@ -98,13 +98,13 @@
     };
 
     age.secrets = {
-      ssh = {
-        file = ./../../secrets/ssh.age;
-        owner = config.myme.machine.user.name;
-      };
       acme = {
         file = ./acme.age;
         owner = "nginx";
+      };
+      ssh = {
+        file = ./../../secrets/ssh.age;
+        owner = config.myme.machine.user.name;
       };
       weechat = {
         file = ./weechat.age;
