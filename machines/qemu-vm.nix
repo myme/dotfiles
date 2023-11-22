@@ -22,16 +22,16 @@
         # This maps to the `home-manager.users.nixos` NixOS (HM module) config
         profile = {
           imports = [
-            ../home-manager
+            # ../home-manager
           ];
 
           config = {
-            myme.wm = {
-              enable = true;
-              variant = "xmonad";
-              conky.enable = false;
-              polybar.monitor = "Virtual-1";
-            };
+            # myme.wm = {
+            #   enable = true;
+            #   variant = "xmonad";
+            #   conky.enable = false;
+            #   polybar.monitor = "Virtual-1";
+            # };
           };
         };
       };
