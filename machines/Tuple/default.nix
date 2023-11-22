@@ -78,8 +78,7 @@
       };
     };
 
-    networking.firewall.enable = false;
-
+    documentation.nixos.enable = true;
     virtualisation.podman.enable = true;
   };
 }
