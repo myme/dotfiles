@@ -1,4 +1,3 @@
-#
 # `Tuple` is a Windows 11 machine and this configuration is for WSL on that host.
 #
 # Graphical apps are supported, but unfortunately not GL, see:
@@ -21,19 +20,15 @@
           isNormalUser = true;
           initialPassword = "nixos";
           extraGroups = [ "wheel" "networkmanager" ];
-          openssh.authorizedKeys.keys = [];
+          openssh.authorizedKeys.keys = [ ];
         };
 
         # This maps to the `home-manager.users.myme` NixOS (HM module) config
         profile = {
-          imports = [
-            ../../home-manager
-          ];
+          imports = [ ../../home-manager ];
 
           config = {
-            home.packages = with pkgs; [
-              mosh
-            ];
+            home.packages = with pkgs; [ mosh ];
 
             home.sessionVariables = {
               # Override WSL runtime dir, for the most part
@@ -50,16 +45,11 @@
 
               ssh = {
                 enable = true;
-                includes = [
-                  config.age.secrets.ssh.path
-                ];
+                includes = [ config.age.secrets.ssh.path ];
               };
-
             };
 
-            services = {
-              syncthing.enable = true;
-            };
+            services.syncthing.enable = true;
 
             myme.dev = {
               haskell.enable = true;
