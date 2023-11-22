@@ -56,6 +56,23 @@ in {
       };
     };
 
+    # Security
+    security = {
+      sudo.execWheelOnly = true;
+      pam = {
+        enableSSHAgentAuth = true;
+        services.sudo.sshAgentAuth = true;
+      };
+    };
+
+    # SSH
+    services.openssh = {
+      allowSFTP = false;
+      settings.PasswordAuthentication = false;
+      settings.PermitRootLogin = "no";
+      startWhenNeeded = true;
+    };
+
     boot.loader.systemd-boot.enable = false;
     boot.kernelPackages = pkgs.linuxPackages;
   };
