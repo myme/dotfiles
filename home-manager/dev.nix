@@ -143,12 +143,18 @@ in {
       ]))
     ];
 
+    # Ghci configuration
     home.file = mkMerge [
       (mkIf cfg.haskell.enable {
         ".ghci".text = ''
           :set prompt "λ: "
         '';
       })
+    ];
+
+    # Neovim plugins
+    programs.neovim.plugins = mkIf cfg.haskell.enable [
+      pkgs.vimPlugins.haskell-tools-nvim
     ];
   };
 }
