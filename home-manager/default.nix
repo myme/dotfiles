@@ -60,6 +60,7 @@ in ({
       direnv = {
         enable = lib.mkDefault defaultPrograms;
         nix-direnv.enable = true;
+        stdlib = builtins.readFile ./direnvrc;
       };
       fish.enable = lib.mkDefault defaultPrograms;
       fzf = {
