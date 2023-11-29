@@ -9,6 +9,10 @@ let
   cfg = config.myme.dev;
 
 in {
+  imports = [
+    ./vscode.nix
+  ];
+
   options.myme.dev = {
     # Documentation (Man, info, ++)
     docs = {
