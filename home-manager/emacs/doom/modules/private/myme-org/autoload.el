@@ -140,6 +140,7 @@ for nested todo items."
   (setq
    org-directory (expand-file-name project)
    org-id-locations-file (expand-file-name ".org-ids" project)
+   org-attach-id-dir (expand-file-name ".attach" project)
    org-roam-directory (expand-file-name "roam" project)
    org-roam-db-location (expand-file-name "org-roam.db" org-roam-directory)
    org-roam-dailies-directory (expand-file-name "dailies" org-roam-directory)
