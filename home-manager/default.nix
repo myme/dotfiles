@@ -59,6 +59,7 @@ in ({
       };
       direnv = {
         enable = lib.mkDefault defaultPrograms;
+        enableNushellIntegration = true;
         nix-direnv.enable = true;
         stdlib = builtins.readFile ./direnvrc;
       };
