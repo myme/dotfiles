@@ -143,6 +143,33 @@ for nested todo items."
    org-attach-id-dir (expand-file-name ".attach" project)
    org-roam-directory (expand-file-name "roam" project)
    org-roam-db-location (expand-file-name "org-roam.db" org-roam-directory)
-   org-roam-dailies-directory (expand-file-name "dailies" org-roam-directory)
-   org-agenda-files (list org-directory org-roam-directory org-roam-dailies-directory))
+   org-roam-dailies-directory (expand-file-name "dailies" org-roam-directory))
+  (myme/org-update-agenda-files nil)
+  (make-directory org-jira-working-dir t)
   (message "Set org project to %s" project))
+
+;;;###autoload
+(defun myme/org-update-agenda-files (days-backwards)
+  "Update org-agenda-files based on org-roam-dailies-directory"
+  (interactive "P")
+  (let ((default-days 60))
+    (setq
+     org-agenda-files
+     (append (list org-directory) (myme/org-last-dailies (or days-backwards default-days)))))
+  (message "Updated org-agenda-files to %s" org-agenda-files))
+
+;;;###autoload
+(defun myme/org-last-dailies (days-backwards)
+  "Expand to <count> last Org-Roam daily files. The special value -1 expands to all files."
+  (seq-filter
+   #'file-regular-p
+   (if (= days-backwards -1)
+       (directory-files org-roam-dailies-directory t)
+     (seq-map
+      (lambda (i)
+        (expand-file-name
+         (format-time-string
+          "%Y-%m-%d.org"
+          (time-subtract nil (days-to-time i)))
+         org-roam-dailies-directory))
+      (number-sequence 1 days-backwards)))))
