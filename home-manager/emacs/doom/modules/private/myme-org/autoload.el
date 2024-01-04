@@ -120,7 +120,7 @@ for nested todo items."
   "Select org-mode related variables based on a projectile project"
   (interactive)
   (let* ((projectile-current-project-on-switch 'keep)
-        (projects (projectile-relevant-known-projects)))
+         (projects (projectile-relevant-known-projects)))
     (if projects
         (projectile-completing-read
          "Select org project: " projects
