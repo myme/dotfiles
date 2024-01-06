@@ -145,7 +145,6 @@ for nested todo items."
    org-roam-db-location (expand-file-name "org-roam.db" org-roam-directory)
    org-roam-dailies-directory (expand-file-name "dailies" org-roam-directory))
   (myme/org-update-agenda-files nil)
-  (make-directory org-jira-working-dir t)
   (message "Set org project to %s" project))
 
 ;;;###autoload
