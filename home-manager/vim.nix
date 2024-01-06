@@ -30,6 +30,7 @@
 
         # Languages
         vim-nix
+        rustaceanvim
 
         # Tpope
         vim-sensible
@@ -92,18 +93,38 @@
       '';
 
       extraLuaConfig = ''
+        local lsp_zero = require('lsp-zero').preset({})
 
-        local lsp = require('lsp-zero').preset({})
-
-        lsp.on_attach(function(client, bufnr)
-          lsp.default_keymaps({buffer = bufnr})
+        lsp_zero.on_attach(function(client, bufnr)
+          lsp_zero.default_keymaps({buffer = bufnr})
         end)
 
         -- When you don't have mason.nvim installed
         -- You'll need to list the servers installed in your system
-        lsp.setup_servers({'tsserver', 'eslint'})
+        lsp_zero.setup_servers({'tsserver', 'eslint', 'rust-analyzer'})
 
-        lsp.setup()
+        lsp_zero.setup()
+
+        -- Completions
+        local cmp = require('cmp')
+        local cmp_select = {behavior = cmp.SelectBehavior.Select}
+
+        cmp.setup({
+          sources = {
+            {name = 'path'},
+            {name = 'nvim_lsp'},
+            {name = 'nvim_lua'},
+            {name = 'luasnip', keyword_length = 2},
+            {name = 'buffer', keyword_length = 3},
+          },
+          formatting = lsp_zero.cmp_format(),
+          mapping = cmp.mapping.preset.insert({
+            ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+            ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+            ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+            ['<C-Space>'] = cmp.mapping.complete(),
+          }),
+        })
       '';
     };
   };
