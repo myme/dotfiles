@@ -274,11 +274,7 @@
         (lambda () (auth-source-pick-first-password :host "api.openai.com"))))
 
 ;; Open Street Maps
-(use-package! osm
-  :init
-  ;; Load Org link support
-  (with-eval-after-load 'org
-    (require 'osm-ol)))
+(use-package! osm)
 
 ;; Additional configurations interpolated by nix
 @doomConfigExtra@
