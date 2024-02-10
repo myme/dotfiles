@@ -22,6 +22,38 @@
         "type": "github"
       }
     },
+    "alacritty-catppuccin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1705368763,
+        "narHash": "sha256-ypYaxlsDjI++6YNcE+TxBSnlUXKKuAMmLQ4H74T/eLw=",
+        "owner": "catppuccin",
+        "repo": "alacritty",
+        "rev": "f2da554ee63690712274971dd9ce0217895f5ee0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "alacritty",
+        "type": "github"
+      }
+    },
+    "alacritty-dracula": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1695650175,
+        "narHash": "sha256-MgRH5Lc8wyZ6AQZweyL1QzO5eBzVdjbOPQeRs/Mf51M=",
+        "owner": "dracula",
+        "repo": "alacritty",
+        "rev": "9ae0fdedd423803f0401f6e7a23cd2bb88c175b2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dracula",
+        "repo": "alacritty",
+        "type": "github"
+      }
+    },
     "annodate": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -417,6 +449,8 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "alacritty-catppuccin": "alacritty-catppuccin",
+        "alacritty-dracula": "alacritty-dracula",
         "annodate": "annodate",
         "deploy-rs": "deploy-rs",
         "doomemacs": "doomemacs",

@@ -1,11 +1,19 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, flake-inputs, ... }:
 
 with lib;
 
 let
   cfg = config.myme.alacritty;
   terminal = pkgs.writeShellScriptBin "x-terminal-emulator" ''${pkgs.alacritty}/bin/alacritty "$@"'';
-  theme = import (./. + "/${cfg.theme}-theme.nix");
+  readTheme = input: theme: builtins.fromTOML (builtins.readFile "${input}/${theme}.toml");
+  catppuccin = flake-inputs.alacritty-catppuccin;
+  theme = {
+    catppuccin-frappe = readTheme catppuccin "catppuccin-frappe";
+    catppuccin-latte = readTheme catppuccin "catppuccin-latte";
+    catppuccin-macchiato = readTheme catppuccin "catppuccin-macchiato";
+    catppuccin-mocha = readTheme catppuccin "catppuccin-mocha";
+    dracula = readTheme flake-inputs.alacritty-dracula "dracula";
+  }.${cfg.theme};
 
 in {
   options.myme.alacritty = {
@@ -34,7 +42,7 @@ in {
 
     programs.alacritty = {
       enable = cfg.enable;
-      settings = {
+      settings = theme // {
         env = {
           TERM = "xterm-256color";
         };
@@ -43,7 +51,6 @@ in {
           normal.family = "Noto Mono for Powerline";
           size = cfg.font_size;
         };
-        colors = theme;
         window = {
           opacity = cfg.background_opacity;
           padding = { x = 10; y = 5; };

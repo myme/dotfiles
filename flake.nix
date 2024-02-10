@@ -34,6 +34,16 @@
       url = "gitlab:myme/wallpapers";
       flake = false;
     };
+
+    # Themes
+    alacritty-catppuccin = {
+      url = "github:catppuccin/alacritty";
+      flake = false;
+    };
+    alacritty-dracula = {
+      url = "github:dracula/alacritty";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, flake-utils, ... }@inputs:
