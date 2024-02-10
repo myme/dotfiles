@@ -14,6 +14,19 @@
         nvim-lspconfig
         luasnip
 
+        # Dev
+        neotest
+        neotest-haskell
+        neotest-python
+        neotest-rust
+        nvim-dap
+        nvim-dap-ui
+
+        # UI
+        dashboard-nvim
+        neo-tree-nvim
+        nvim-web-devicons
+
         # Git
         gitv
         vim-fugitive
@@ -23,14 +36,17 @@
         telescope-nvim
 
         # Theme
+        catppuccin-nvim
         dracula-nvim
         rose-pine
         vim-airline
         vim-airline-themes
 
         # Languages
+        haskell-tools-nvim
         vim-nix
         rustaceanvim
+        nvim-treesitter
 
         # Tpope
         vim-sensible
@@ -78,6 +94,9 @@
         " Git / fugitive
         nmap <silent> <Leader>gg :Git<Return>
 
+        " Neotree
+        nnoremap <leader>op <cmd>Neotree toggle<cr>
+
         " Telescope
         nnoremap <leader>. <cmd>Telescope find_files<cr>
         nnoremap <leader>, <cmd>Telescope buffers<cr>
@@ -88,11 +107,14 @@
         nnoremap <leader>hW <cmd>Telescope man_pages<cr>
 
         " Themes
+        set termguicolors
         colorscheme dracula
         let g:airline_theme='base16_dracula'
       '';
 
       extraLuaConfig = ''
+        require('dashboard').setup({})
+
         local lsp_zero = require('lsp-zero').preset({})
 
         lsp_zero.on_attach(function(client, bufnr)
@@ -101,13 +123,55 @@
 
         -- When you don't have mason.nvim installed
         -- You'll need to list the servers installed in your system
-        lsp_zero.setup_servers({'tsserver', 'eslint', 'rust-analyzer'})
+        lsp_zero.setup_servers({'tsserver', 'eslint'})
 
         lsp_zero.setup()
+
+        ---
+        -- Setup haskell LSP
+        ---
+
+        vim.g.haskell_tools = {
+          hls = {
+            capabilities = lsp_zero.get_capabilities()
+          }
+        }
+
+        -- Autocmd that will actually be in charging of starting hls
+        local hls_augroup = vim.api.nvim_create_augroup('haskell-lsp', {clear = true})
+        vim.api.nvim_create_autocmd('FileType', {
+          group = hls_augroup,
+          pattern = {'haskell'},
+          callback = function()
+            ---
+            -- Suggested keymaps from the quick setup section:
+            -- https://github.com/mrcjkb/haskell-tools.nvim#quick-setup
+            ---
+
+            local ht = require('haskell-tools')
+            local bufnr = vim.api.nvim_get_current_buf()
+            local def_opts = { noremap = true, silent = true, buffer = bufnr, }
+            -- haskell-language-server relies heavily on codeLenses,
+            -- so auto-refresh (see advanced configuration) is enabled by default
+            vim.keymap.set('n', '<space>ca', vim.lsp.codelens.run, opts)
+            -- Hoogle search for the type signature of the definition under the cursor
+            vim.keymap.set('n', '<space>hs', ht.hoogle.hoogle_signature, opts)
+            -- Evaluate all code snippets
+            vim.keymap.set('n', '<space>ea', ht.lsp.buf_eval_all, opts)
+            -- Toggle a GHCi repl for the current package
+            vim.keymap.set('n', '<leader>rr', ht.repl.toggle, opts)
+            -- Toggle a GHCi repl for the current buffer
+            vim.keymap.set('n', '<leader>rf', function()
+              ht.repl.toggle(vim.api.nvim_buf_get_name(0))
+            end, def_opts)
+            vim.keymap.set('n', '<leader>rq', ht.repl.quit, opts)
+          end
+        })
 
         -- Completions
         local cmp = require('cmp')
         local cmp_select = {behavior = cmp.SelectBehavior.Select}
+
 
         cmp.setup({
           sources = {
