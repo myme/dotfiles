@@ -9,9 +9,9 @@ let
     emacsclient -t "$@"
   '');
   # FIXME: Hack to avoid hang on gpg save: https://dev.gnupg.org/T6481
-  epg = (pkgs.writeShellScriptBin "epg" ''
-    PATH="${pkgs.gnupg240}/bin:$PATH" emacs "$@"
-  '');
+  epg = if lib.versionOlder pkgs.gnupg.version "2.4.4" then (pkgs.writeShellScriptBin "epg" ''
+    PATH="${pkgs.gnupg24}/bin:$PATH" emacs "$@"
+  '') else null;
   flavor = specialArgs.nixosConfig.myme.machine.flavor;
   EDITOR = if specialArgs.nixosConfig.myme.machine.role == "server" then
     "${et}/bin/et"
@@ -98,9 +98,8 @@ in {
       (aspellWithDicts (dicts: with dicts; [ en en-computers it nb ]))
       ec
       et
-      epg
       nodePackages.mermaid-cli
-    ];
+    ] ++ (if epg != null then [epg] else []);
 
     xdg.desktopEntries = {
       org-capture = {
