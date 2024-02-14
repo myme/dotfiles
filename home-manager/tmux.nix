@@ -10,10 +10,14 @@
       shortcut = "a";
       baseIndex = 1;
       escapeTime = 0;
-      terminal = "screen-256color";
+      terminal = "tmux-256color";
       customPaneNavigationAndResize = true;
       # resizeAmount = 5;
       extraConfig = ''
+        # True color (24-bit) support
+        # https://gist.github.com/andersevenrud/015e61af2fd264371032763d4ed965b6#tmux
+        set -ag terminal-overrides ",xterm-256color:RGB"
+
         bind | split-window -h -c '#{pane_current_path}'
         bind - split-window -v -c '#{pane_current_path}'
 
