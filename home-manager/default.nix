@@ -90,7 +90,7 @@ in ({
       nixon = {
         enable = lib.mkDefault defaultPrograms;
         source_dirs = [
-          "~/code/**/*"
+          "~/code/*"
           "~/nixos"
           "~/notes"
           "~/src"
