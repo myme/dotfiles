@@ -44,6 +44,11 @@ in {
       };
     };
 
+    # Nix options
+    nix = {
+      enable = mkEnableOption "Enable Nix development tools";
+    };
+
     # Nodejs options
     nodejs = {
       enable = mkEnableOption "Enable JavaScript development tools";
@@ -110,6 +115,11 @@ in {
       (mkIf (cfg.haskell.enable) (with pkgs; [
         (mkIf cfg.haskell.lsp haskell-language-server)
         (mkIf cfg.haskell.ormolu ormolu)
+      ]))
+
+      # Nix
+      (mkIf (cfg.nix.enable) (with pkgs; [
+        nil
       ]))
 
       # Nodejs
