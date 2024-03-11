@@ -34,7 +34,7 @@ in {
 
       # LightDM Background image
       services.xserver.displayManager.lightdm.background =
-        "${pkgs.myme.wallpapers}/pink-purple-planet.jpg";
+        "${pkgs.myme.wallpapers}/alien-moon-nature.jpg";
 
       # Disable xterm session
       services.xserver.desktopManager.xterm.enable = false;

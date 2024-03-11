@@ -7,6 +7,7 @@ let
   cfg = config.myme.wm;
   machine = args.specialArgs.nixosConfig.myme.machine;
   noDM = machine.de.variant != "wm";
+  wallpaperCmd = "${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/alien-moon-nature.jpg";
 
 in {
   imports = [ ./alacritty ./conky ./i3 ./polybar ./rofi ./theme.nix ./xmonad ];
@@ -92,14 +93,17 @@ in {
         })
       ];
 
+      # Home manager activation
+      home.activation = {
+        setWallpaper = lib.hm.dag.entryAfter ["writeBoundary"] wallpaperCmd;
+      };
+
       # XSession
       xsession = mkMerge [
         {
           enable = true;
           scriptPath = ".hm-xsession";
-          initExtra = ''
-            ${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/pink-purple-planet.jpg
-          '';
+          initExtra = wallpaperCmd;
         }
         (mkIf (cfg.variant == "leftwm") {
           windowManager.command = "${pkgs.leftwm}/bin/leftwm";
