@@ -2,6 +2,9 @@
 
 let
   cfg = config.myme.emacs;
+  doom = (pkgs.writeShellScriptBin "doom" ''
+    ~/.emacs.d/bin/doom "$@"
+  '');
   ec = (pkgs.writeShellScriptBin "ec" ''
     emacsclient -c "$@"
   '');
@@ -96,6 +99,7 @@ in {
     # Additional packages
     home.packages = with pkgs; [
       (aspellWithDicts (dicts: with dicts; [ en en-computers it nb ]))
+      doom
       ec
       et
       nodePackages.mermaid-cli
