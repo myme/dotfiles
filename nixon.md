@@ -43,6 +43,12 @@ test
 switch
 ```
 
+### `nixos-switch`
+
+```bash
+nixos-rebuild switch --use-remote-sudo --flake .
+```
+
 ### `home-manager-list-generations`
 
 ```bash
