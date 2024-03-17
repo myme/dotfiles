@@ -26,6 +26,15 @@ Run `org-capture` from [doomemacs](https://github.com/doomemacs/doomemacs).
 
 ## nix stuff
 
+### `flakenv`
+
+Setup direnv for a flake-based project in the current directory.
+
+```bash
+echo 'use flake' > .envrc
+direnv allow
+```
+
 ### `nix-build`
 
 ```bash
