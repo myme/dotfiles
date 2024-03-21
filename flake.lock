@@ -300,11 +300,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1708082067,
-        "narHash": "sha256-EJpL6ZNYMTekRtykqPyI+axdRFahgnZlVM4ha/SeO7Y=",
+        "lastModified": 1710633910,
+        "narHash": "sha256-LU9SGw61WqPSAFKEKUwrptIfNfUU7AUWmJ+NVNJaoR8=",
         "owner": "myme",
         "repo": "nixon",
-        "rev": "e47ee67004ce76b39c9cd25879be846ad5b3a2c2",
+        "rev": "0d2c35f9423de03f2b02b5b323aec9f261c45002",
         "type": "github"
       },
       "original": {
