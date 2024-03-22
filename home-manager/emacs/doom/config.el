@@ -276,5 +276,9 @@
 ;; Open Street Maps
 (use-package! osm)
 
+;; Formatting
+;; See: https://github.com/doomemacs/doomemacs/issues/7438
+(use-package! apheleia)
+
 ;; Additional configurations interpolated by nix
 @doomConfigExtra@
