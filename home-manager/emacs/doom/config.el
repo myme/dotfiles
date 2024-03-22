@@ -265,7 +265,11 @@
               ("C-TAB" . 'copilot-accept-completion-by-word)
               ("C-<tab>" . 'copilot-accept-completion-by-word))
   :config
-  (setq copilot-node-executable "@nodeExecutable@"))
+  (setq
+   copilot-node-executable "@nodeExecutable@"
+   ;; Avoid annoying copilot "unable to determine indentation" warnings
+   copilot-indent-offset-warning-disable t
+   ))
 
 ;; ChatGPT integration
 (use-package! chatgpt-shell
