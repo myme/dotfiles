@@ -8,6 +8,7 @@
 
       plugins = with pkgs.vimPlugins; [
         # Completions + LSP (lsp-zero)
+        copilot-vim
         lsp-zero-nvim
         nvim-cmp
         cmp-nvim-lsp
@@ -110,6 +111,10 @@
         set termguicolors
         colorscheme dracula
         let g:airline_theme='base16_dracula'
+
+        " Filetype plugins
+        filetype plugin on
+        filetype indent on
       '';
 
       extraLuaConfig = ''
