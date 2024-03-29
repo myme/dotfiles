@@ -44,6 +44,7 @@
         vim-airline-themes
 
         # Languages
+        go-nvim
         haskell-tools-nvim
         vim-nix
         rustaceanvim
@@ -120,6 +121,10 @@
       extraLuaConfig = ''
         require('dashboard').setup({})
 
+        ---
+        -- LSP Zero
+        ---
+
         local lsp_zero = require('lsp-zero').preset({})
 
         lsp_zero.on_attach(function(client, bufnr)
@@ -129,8 +134,14 @@
         -- When you don't have mason.nvim installed
         -- You'll need to list the servers installed in your system
         lsp_zero.setup_servers({'tsserver', 'eslint'})
-
         lsp_zero.setup()
+
+        ---
+        -- Setup Go nvim
+        ---
+
+        require('go').setup()
+        require('lspconfig').gopls.setup{}
 
         ---
         -- Setup haskell LSP
