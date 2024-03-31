@@ -13,6 +13,7 @@ let
     catppuccin-macchiato = readTheme catppuccin "catppuccin-macchiato";
     catppuccin-mocha = readTheme catppuccin "catppuccin-mocha";
     dracula = readTheme flake-inputs.alacritty-dracula "dracula";
+    nord.colors = import ./nord-theme.nix;
   }.${cfg.theme};
 
 in {
