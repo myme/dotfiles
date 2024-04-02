@@ -8,7 +8,8 @@ let
   i3cfg = config.xsession.windowManager.i3.config;
   iconFlag = if cfg.icons then "-i" else "";
   separator = ''-s "${cfg.separator}"'';
-  cmd = "${cfg.package}/bin/i3ws ${iconFlag} ${separator}";
+  renumberFlag = "--no-renumber";
+  cmd = "${cfg.package}/bin/i3ws ${iconFlag} ${separator} ${renumberFlag}";
 
 in {
   options.myme.i3ws = {

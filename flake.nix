@@ -27,7 +27,10 @@
       url = "github:doomemacs/doomemacs";
       flake = false;
     };
-    i3ws.url = "github:myme/i3ws";
+    i3ws = {
+      url = "github:myme/i3ws";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     annodate.url = "github:myme/annodate";
     nixon.url = "github:myme/nixon";
     wallpapers = {
