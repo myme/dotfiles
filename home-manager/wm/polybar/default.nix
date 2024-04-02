@@ -115,14 +115,17 @@ in {
           label-active = "%name%";
           label-active-background = theme.colors.background-alt;
           label-active-underline = theme.colors.primary;
-          label-active-padding = 2;
+          label-active-padding = 1;
+
+          label-occupied = "%name%";
+          label-occupied-padding = 1;
 
           label-empty = "%name%";
-          label-empty-padding = 2;
+          label-empty-padding = 1;
 
           label-urgent = "%name%";
           label-urgent-background = theme.colors.alert;
-          label-urgent-padding = 2;
+          label-urgent-padding = 1;
         };
 
         "module/xwindow" = {
