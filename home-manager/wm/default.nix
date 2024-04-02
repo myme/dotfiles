@@ -107,7 +107,6 @@ in {
         }
         (mkIf (cfg.variant == "leftwm") {
           windowManager.command = "${pkgs.leftwm}/bin/leftwm";
-          # windowManager.command = "${pkgs.i3}/bin/i3";
         })
         (mkIf machine.highDPI {
           profileExtra = ''

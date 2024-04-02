@@ -1,8 +1,7 @@
-{ config, lib, pkgs, ... }@args:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.myme.wm;
-  machine = args.specialArgs.nixosConfig.myme.machine;
 
 in {
   options.myme.wm.xmonad = {

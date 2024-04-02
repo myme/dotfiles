@@ -1,7 +1,5 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
   cfg = config.myme.wm.i3;
   modifier = config.xsession.windowManager.i3.config.modifier;
@@ -22,21 +20,21 @@ in {
   ];
 
   options.myme.wm.i3 = {
-    enable = mkEnableOption "i3 - The tiling window manager.";
+    enable = lib.mkEnableOption "i3 - The tiling window manager.";
 
-    plasma = mkOption {
-      type = types.bool;
+    plasma = lib.mkOption {
+      type = lib.types.bool;
       default = false;
       description = "Enable KDE Plasma integration";
     };
 
-    lockCmd = mkOption {
-      type = types.str;
+    lockCmd = lib.mkOption {
+      type = lib.types.str;
       description = "Screen locking command";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     # i3ws
     myme.i3ws = {
       enable = cfg.enable;
@@ -71,7 +69,7 @@ in {
           { class = "^davmail"; }
           { class = "^openconnect-sso"; }
         ];
-        keybindings = mkOptionDefault (
+        keybindings = lib.mkOptionDefault (
           {
             # Disable default exit
             "${modifier}+Shift+e" = null;
@@ -161,7 +159,7 @@ in {
             }
           )
         );
-        modes = mkIf (!cfg.plasma) (mkOptionDefault {
+        modes = lib.mkIf (!cfg.plasma) (lib.mkOptionDefault {
           "${lockMode}" = {
             l = ''exec --no-startup-id "${lockCmd}", mode default'';
             e = ''exec --no-startup-id "${exitCmd}", mode default'';
