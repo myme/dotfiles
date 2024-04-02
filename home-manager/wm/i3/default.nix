@@ -11,7 +11,7 @@ let
   shutdownCmd = "i3-nagbar -t warning -m 'Do you want to shutdown?' -b 'Yes' 'systemctl poweroff'";
   lockMode = "(l) lock | (e) logout | (s) suspend | (h) hibernate | (r) reboot | (p) shutdown";
   # backlight = "${pkgs.light}/bin/light -s sysfs/backlight/intel_backlight";
-  pactl = "${pkgs.pulseaudio}/bin/pactl";
+  amixer = "${pkgs.alsa-utils}/bin/amixer";
   nixonCfg = config.programs.nixon;
 
 in {
@@ -73,6 +73,10 @@ in {
           {
             # Disable default exit
             "${modifier}+Shift+e" = null;
+
+            # Terminal
+            "${modifier}+Return" = "exec x-terminal-emulator -e tmux";
+            "${modifier}+Shift+Return" = "exec x-terminal-emulator";
 
             # Command
             "${modifier}+Shift+semicolon" = "exec --no-startup-id i3-input -P 'Command: '";
@@ -139,8 +143,8 @@ in {
           } // (
             if ! nixonCfg.enable then {} else {
               # Nixon
-              "${modifier}+x" = "exec --no-startup-id ${nixonCfg.package}/bin/nixon project";
-              "${modifier}+Shift+x" = "exec --no-startup-id ${nixonCfg.package}/bin/nixon run";
+              "${modifier}+x" = "exec --no-startup-id ${nixonCfg.package}/bin/nixon run";
+              "${modifier}+Shift+x" = "exec --no-startup-id ${nixonCfg.package}/bin/nixon project";
             }
           ) // (
             # Sans Plasma
@@ -149,9 +153,10 @@ in {
               "Control+Mod1+l" = ''mode "${lockMode}"'';
 
               # Audio controls
-              # "XF86AudioRaiseVolume" = "exec --no-startup-id ${pactl} set-sink-volume 1 +5%";
-              # "XF86AudioLowerVolume" = "exec --no-startup-id ${pactl} set-sink-volume 1 -5%";
-              # "XF86AudioMute"        = "exec --no-startup-id ${pactl} set-sink-mute 1 toggle";
+              "XF86AudioRaiseVolume" = "exec --no-startup-id ${amixer} set Master 1%+";
+              "XF86AudioLowerVolume" = "exec --no-startup-id ${amixer} set Master 1%-";
+              "XF86AudioMute"        = "exec --no-startup-id ${amixer} set Master toggle";
+              "XF86AudioMicMute"     = "exec --no-startup-id ${amixer} set Capture toggle";
 
               # Brightness
               # "XF86MonBrightnessUp"   = "exec ${backlight} -A 10";
