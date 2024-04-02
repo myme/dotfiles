@@ -197,20 +197,24 @@ in {
           { command = "systemctl --user restart i3ws.service"; always = true; notification = false; }
           { command = "sleep 2; systemctl --user restart qsyncthingtray.service"; always = true; notification = false; }
         ]);
-        window.commands = if (!cfg.plasma) then [] else [
-          # Kill Plasma desktop
-          { criteria = { title = "Desktop — Plasma"; }; command = "kill; floating enable; border none"; }
+        window = {
+          # Disable title bar
+          titlebar = false;
+          commands = if (!cfg.plasma) then [] else [
+            # Kill Plasma desktop
+            { criteria = { title = "Desktop — Plasma"; }; command = "kill; floating enable; border none"; }
 
-          # Plasma popus shouldn't be tiled
-          { criteria = { class = "plasmashell"; };      command = "floating enable"; }
-          { criteria = { class = "Plasma"; };           command = "floating enable; border none"; }
-          { criteria = { title = "plasma-desktop"; };   command = "floating enable; border none"; }
-          { criteria = { title = "win7"; };             command = "floating enable; border none"; }
-          { criteria = { class = "krunner"; };          command = "floating enable; border none"; }
-          { criteria = { class = "Kmix"; };             command = "floating enable; border none"; }
-          { criteria = { class = "Klipper"; };          command = "floating enable; border none"; }
-          { criteria = { class = "Plasmoidviewer"; };   command = "floating enable; border none"; }
-        ];
+            # Plasma popus shouldn't be tiled
+            { criteria = { class = "plasmashell"; };      command = "floating enable"; }
+            { criteria = { class = "Plasma"; };           command = "floating enable; border none"; }
+            { criteria = { title = "plasma-desktop"; };   command = "floating enable; border none"; }
+            { criteria = { title = "win7"; };             command = "floating enable; border none"; }
+            { criteria = { class = "krunner"; };          command = "floating enable; border none"; }
+            { criteria = { class = "Kmix"; };             command = "floating enable; border none"; }
+            { criteria = { class = "Klipper"; };          command = "floating enable; border none"; }
+            { criteria = { class = "Plasmoidviewer"; };   command = "floating enable; border none"; }
+          ];
+        };
       };
     };
   };
