@@ -175,7 +175,7 @@ in {
               Escape = "mode default";
             };
           }
-          (lib.mkIf (!cfg.plasma) (lib.mkOptionDefault {
+          (lib.mkIf (!cfg.plasma) {
             "${lockMode}" = {
               l = ''exec --no-startup-id "${lockCmd}", mode default'';
               e = ''exec --no-startup-id "${exitCmd}", mode default'';
@@ -186,7 +186,7 @@ in {
               Return = "mode default";
               Escape = "mode default";
             };
-          }))
+          })
         ];
         startup = [
           { command = "~/.fehbg"; notification = false; }
