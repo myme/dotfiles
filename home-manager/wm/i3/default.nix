@@ -71,9 +71,6 @@ in {
         ];
         keybindings = lib.mkOptionDefault (
           {
-            # Disable default exit
-            "${modifier}+Shift+e" = null;
-
             # Terminal
             "${modifier}+Return" = "exec x-terminal-emulator -e tmux";
             "${modifier}+Shift+Return" = "exec x-terminal-emulator";
@@ -136,6 +133,9 @@ in {
             "${modifier}+Shift+d" = ''exec "rofi -show combi -combi-modi run,drun"'';
             "${modifier}+Shift+s" = ''exec "rofi -show ssh"'';
             "${modifier}+Tab" = ''exec "rofi -show window"'';
+
+            # Rofimoji
+            "${modifier}+Shift+e" = ''exec "${pkgs.rofimoji}/bin/rofimoji"'';
 
             # Restart/reload
             "${modifier}+r" = "reload";
