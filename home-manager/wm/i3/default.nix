@@ -164,18 +164,30 @@ in {
             }
           )
         );
-        modes = lib.mkIf (!cfg.plasma) (lib.mkOptionDefault {
-          "${lockMode}" = {
-            l = ''exec --no-startup-id "${lockCmd}", mode default'';
-            e = ''exec --no-startup-id "${exitCmd}", mode default'';
-            h = ''exec --no-startup-id "${hibernateCmd}", mode default'';
-            s = ''exec --no-startup-id "${suspendCmd}", mode default'';
-            r = ''exec --no-startup-id "${rebootCmd}", mode default'';
-            p = ''exec --no-startup-id "${shutdownCmd}", mode default'';
-            Return = "mode default";
-            Escape = "mode default";
-          };
-        });
+        modes = lib.mkMerge [
+          {
+            "resize" = {
+              h = "resize shrink width 10 px or 10 ppt";
+              j = "resize grow height 10 px or 10 ppt";
+              k = "resize shrink height 10 px or 10 ppt";
+              l = "resize grow width 10 px or 10 ppt";
+              Return = "mode default";
+              Escape = "mode default";
+            };
+          }
+          (lib.mkIf (!cfg.plasma) (lib.mkOptionDefault {
+            "${lockMode}" = {
+              l = ''exec --no-startup-id "${lockCmd}", mode default'';
+              e = ''exec --no-startup-id "${exitCmd}", mode default'';
+              h = ''exec --no-startup-id "${hibernateCmd}", mode default'';
+              s = ''exec --no-startup-id "${suspendCmd}", mode default'';
+              r = ''exec --no-startup-id "${rebootCmd}", mode default'';
+              p = ''exec --no-startup-id "${shutdownCmd}", mode default'';
+              Return = "mode default";
+              Escape = "mode default";
+            };
+          }))
+        ];
         startup = [
           { command = "~/.fehbg"; notification = false; }
         ] ++ (if (cfg.plasma) then [
