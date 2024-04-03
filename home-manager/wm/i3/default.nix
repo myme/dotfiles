@@ -137,6 +137,10 @@ in {
             # Rofimoji
             "${modifier}+Shift+e" = ''exec "${pkgs.rofimoji}/bin/rofimoji"'';
 
+            # Flameshot
+            "Print" = ''exec "${pkgs.flameshot}/bin/flameshot full -c"'';
+            "Shift+Print" = ''exec "${pkgs.flameshot}/bin/flameshot gui"'';
+
             # Restart/reload
             "${modifier}+r" = "reload";
             "${modifier}+Shift+r" = "restart";
