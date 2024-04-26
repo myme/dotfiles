@@ -432,6 +432,40 @@
         "type": "github"
       }
     },
+    "nixpkgs_5": {
+      "locked": {
+        "lastModified": 1692414505,
+        "narHash": "sha256-sSTuyR9JYSxmUcYcj0Jvw1hIq1tz/Canw9mK0hEJvnE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "4cdad15f34e6321a2f789b99d42815b9142ac2ba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-23.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "piddif": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_5"
+      },
+      "locked": {
+        "lastModified": 1692553131,
+        "narHash": "sha256-4qP3Fk/FWMB0/vIMnsNkRSJTaEvujevj+XNWwxTuBTc=",
+        "owner": "myme",
+        "repo": "piddif",
+        "rev": "66ff1df229c2520842d74d218da298719aae33a7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "myme",
+        "repo": "piddif",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -449,6 +483,7 @@
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-stable": "nixpkgs-stable",
+        "piddif": "piddif",
         "wallpapers": "wallpapers"
       }
     },

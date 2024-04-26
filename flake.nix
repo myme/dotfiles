@@ -33,6 +33,7 @@
     };
     annodate.url = "github:myme/annodate";
     nixon.url = "github:myme/nixon";
+    piddif.url = "github:myme/piddif";
     wallpapers = {
       url = "gitlab:myme/wallpapers";
       flake = false;
@@ -57,6 +58,7 @@
         inputs.i3ws.overlay
         inputs.annodate.overlay
         inputs.nixon.overlay
+        inputs.piddif.overlay
         self.overlays.default
       ];
       lib = nixpkgs.lib.extend (final: prev:
