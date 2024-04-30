@@ -131,6 +131,7 @@
             buildInputs = with pkgs; [
               agenix
               disko
+              pkgs.myme.pkgs.nixos-bootstrap
             ];
           };
 

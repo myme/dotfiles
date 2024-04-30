@@ -1,17 +1,15 @@
-#!/usr/bin/env nix-shell
-#! nix-shell -i bash -p gum -p jq
-#! nix-shell -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-22.11.tar.gz
+#!/usr/bin/env bash
 
 set -eo pipefail
 
-source "$(dirname "$0")/setup.sh"
+source ../lib/setup.sh
 
 promptFormat() {
     echo "Choose disk to format"
-    local disk="$(gum choose "$(lsblk -pl | grep disk | awk '{print $1}')")"
+    local disk="$(@GUM@ choose "$(lsblk -pl | grep disk | awk '{print $1}')")"
 
     if [ "$disk" != "none" ]; then
-        gum confirm "Are you sure you want to format '$disk'?" && doFormat "$disk" || echo "Skipping format!"
+        @GUM@ confirm "Are you sure you want to format '$disk'?" && doFormat "$disk" || echo "Skipping format!"
     fi
 }
 
@@ -30,16 +28,16 @@ doFormat() {
 }
 
 if ! findmnt /mnt > /dev/null; then
-    gum confirm "No /mnt, format disk?" && promptFormat
+    @GUM@ confirm "No /mnt, format disk?" && promptFormat
 fi
 
-gum confirm "Proceed with NixOS installation?" || exit 1
+@GUM@ confirm "Proceed with NixOS installation?" || exit 1
 
 (
     cd "$(dirname "$0")/.."
 
     echo "Choose system profile to install:"
-    host="$(gum choose $(nixos_hosts))"
+    host="$(@GUM@ choose $(nixos_hosts))"
 
     echo "Building NixOS installation…"
     # nixos-install --impure --no-root-password --flake .#${NIX_INSTALL_NAME}
@@ -50,4 +48,4 @@ gum confirm "Proceed with NixOS installation?" || exit 1
     cp -av . "/mnt/home/${user}/nixos"
 )
 
-gum confirm "Installation complete! Reboot?" && reboot
+@GUM@ confirm "Installation complete! Reboot?" && reboot

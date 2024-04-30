@@ -31,3 +31,8 @@ nixos_user() {
         --extra-experimental-features 'nix-command flakes' \
         ".#nixosConfigurations.${host}.config.myme.machine.user.name"
 }
+
+nixos_ssh() {
+    local host="${NIX_INSTALL_HOST:-$1}"
+    ssh $SSH_OPTS $NIX_INSTALL_USER@$host -p $NIX_INSTALL_PORT
+}
