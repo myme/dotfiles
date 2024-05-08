@@ -24,13 +24,16 @@ in {
 
   config = mkMerge [
     (mkIf (cfg.variant != "none") {
-      services.xserver.enable = true;
-      services.xserver.layout = "us";
-      services.xserver.xkbVariant = "alt-intl-unicode";
+      services.xserver = {
+        enable = true;
+        xkb = { layout = "us"; variant = "alt-intl-unicode"; };
+      };
 
       # Enable touchpad support
-      services.xserver.libinput.enable = true;
-      services.xserver.libinput.touchpad.naturalScrolling = true;
+      services.libinput = {
+        enable = true;
+        touchpad.naturalScrolling = true;
+      };
 
       # LightDM Background image
       services.xserver.displayManager.lightdm.background =
