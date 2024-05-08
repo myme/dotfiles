@@ -27,6 +27,7 @@ in ({
 
   config = {
     home.packages = lib.mkIf defaultPrograms (with pkgs; [
+      btop
       dua
       fd
       httpie
