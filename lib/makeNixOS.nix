@@ -22,6 +22,7 @@ in nixpkgs.lib.nixosSystem {
       # Pass flake inputs to Home Manager
       home-manager.users.${config.myme.machine.user.name}._module.args = {
         flake-inputs = inputs;
+        nixos-config = config;
       };
     })
     host.config

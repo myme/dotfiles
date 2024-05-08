@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, nixos-config, ... }:
 
 let
   defaultPrograms = config.myme.defaultPrograms;
@@ -57,6 +57,10 @@ in ({
       bash = {
         enable = true;
         historyControl = ["erasedups" "ignoredups" "ignorespace"];
+        initExtra = lib.mkIf nixos-config.virtualisation.docker.enable ''
+          # Docker
+          alias dc="docker compose"
+        '';
       };
       direnv = {
         enable = lib.mkDefault defaultPrograms;
