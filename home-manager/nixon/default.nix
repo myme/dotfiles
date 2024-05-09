@@ -46,14 +46,23 @@ in {
     };
 
     configExtra = mkOption {
-      type = types.str;
-      default = lib.readFile ./nixon.md;
+      type = types.lines;
+      default = "";
       description = "Configurations added to nixon.md";
+    };
+
+    defaultCommands = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Add default commands to the configuration.";
     };
   };
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
+
+    # Add default commands
+    programs.nixon.configExtra = lib.mkIf cfg.defaultCommands (lib.readFile ./nixon.md);
 
     xdg.configFile."nixon.md".text = ''
       # Nixon
