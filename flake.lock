@@ -302,11 +302,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1715378422,
-        "narHash": "sha256-B+2hYQqZM0xVXZWnl84mjYNFkcHpOJcDCr+Z0wp13ag=",
+        "lastModified": 1715380391,
+        "narHash": "sha256-mJKexXUzfPGm21IlmzyLWzxgL4yS6iG0n+ccEZYU8W0=",
         "owner": "myme",
         "repo": "nixon",
-        "rev": "bf71c2cb4505ef8eec2ea70c0bcb2c78c644b7be",
+        "rev": "3a460aa8096b4856e3b8bb00050ae502a9e6fce1",
         "type": "github"
       },
       "original": {
