@@ -57,7 +57,7 @@
 
       # Nix
       nix = {
-        package = pkgs.nixVersions.latest;
+        package = if pkgs.nixVersions ? "latest" then pkgs.nixVersions.latest else pkgs.nixUnstable;
         extraOptions = "experimental-features = nix-command flakes";
         nixPath = ["nixpkgs=flake:nixpkgs"];
         settings = {
