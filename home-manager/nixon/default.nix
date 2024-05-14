@@ -62,7 +62,8 @@ in {
     home.packages = [ cfg.package ];
 
     # Add default commands
-    programs.nixon.configExtra = lib.mkIf cfg.defaultCommands (lib.readFile ./nixon.md);
+    programs.nixon.configExtra =
+      lib.mkIf cfg.defaultCommands (lib.readFile ./nixon.md);
 
     xdg.configFile."nixon.md".text = ''
       # Nixon
@@ -88,6 +89,11 @@ in {
             name = "yarn";
             test = [ "yarn.lock" ];
             desc = "Yarn project";
+          }
+          {
+            name = "rust";
+            test = [ "Cargo.toml" ];
+            desc = "Rust project";
           }
           {
             name = "nix";

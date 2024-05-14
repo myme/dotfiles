@@ -109,6 +109,24 @@ cabal run
 cabal test
 ```
 
+## Rust stuff {type="rust"}
+
+### `cargo-build`
+
+Run `cargo build`.
+
+```sh
+cargo build
+```
+
+### `cargo-test`
+
+Run `cargo test`.
+
+```sh
+cargo test
+```
+
 ## Git stuff {type="git"}
 
 ### `git-log`
