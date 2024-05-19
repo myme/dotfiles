@@ -103,9 +103,11 @@
         nnoremap <leader>. <cmd>Telescope find_files<cr>
         nnoremap <leader>, <cmd>Telescope buffers<cr>
         nnoremap <leader>g. <cmd>Telescope git_files<cr>
+        nnoremap <leader>s" <cmd>Telescope registers<cr>
         nnoremap <leader>sd <cmd>Telescope live_grep<cr>
         nnoremap <leader>sb <cmd>Telescope current_buffer_fuzzy_find<cr>
         nnoremap <leader>si <cmd>Telescope lsp_workspace_symbols<cr>
+        nnoremap <leader>sk <cmd>Telescope keymaps<cr>
         nnoremap <leader>sp <cmd>Telescope grep_string<cr>
         nnoremap <leader>hW <cmd>Telescope man_pages<cr>
 
