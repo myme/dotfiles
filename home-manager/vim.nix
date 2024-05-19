@@ -57,7 +57,7 @@
         vim-vinegar
 
         # Utils
-        # vim-which-key
+        which-key-nvim
       ];
 
       extraConfig = ''
@@ -121,6 +121,11 @@
 
       extraLuaConfig = ''
         require('dashboard').setup({})
+
+        -- Which key
+        vim.o.timeout = true
+        vim.o.timeoutlen = 300
+        require('which-key').setup()
 
         ---
         -- LSP Zero
