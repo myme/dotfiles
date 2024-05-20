@@ -41,6 +41,12 @@ direnv allow
 nix build
 ```
 
+### `nix-repl`
+
+```bash
+nix repl
+```
+
 ### `nix-shell`
 
 ```bash
@@ -49,7 +55,7 @@ nix develop
 
 ## npm stuff {type="npm"}
 
-### `npm-scripts` {.json}
+### `npm-scripts`
 
 List all `npm` scripts in a `package.json`.
 
@@ -57,7 +63,7 @@ List all `npm` scripts in a `package.json`.
 jq '.scripts | to_entries | map({ title: (.key + " → " + .value), value: .key })' package.json
 ```
 
-### `npm-run ${npm-scripts}`
+### `npm-run ${npm-scripts | json}`
 
 ```bash
 npm run "$1"
