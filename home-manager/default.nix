@@ -34,7 +34,7 @@ in ({
       jq
       lsof
       nix-tree
-      nixfmt
+      nixfmt-rfc-style
       ripgrep
       tree
       unzip

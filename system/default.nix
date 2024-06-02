@@ -67,7 +67,7 @@
         };
       };
 
-      system.stateVersion = "23.11";
+      system.stateVersion = "24.05";
     }
     # Disable boot + networking for WSL
     (lib.mkIf (config.myme.machine.flavor != "wsl") {
