@@ -172,3 +172,10 @@ for nested todo items."
           (time-subtract nil (days-to-time i)))
          org-roam-dailies-directory))
       (number-sequence 0 days-backwards)))))
+
+;;;###autoload
+(defun myme/org-paste-html-clipboard ()
+  "Paste HTML from clipboard into org-mode buffer (https://emacs.stackexchange.com/a/12124)"
+  (interactive)
+  (kill-new (shell-command-to-string "xclip-to-org"))
+  (yank))

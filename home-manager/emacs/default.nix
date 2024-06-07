@@ -20,6 +20,7 @@ let
     "${et}/bin/et"
   else
     "${ec}/bin/ec";
+  xclip-to-org = pkgs.writeShellScriptBin "xclip-to-org" (builtins.readFile ./xclip-to-org.sh);
 
 in {
   options.myme.emacs = {
@@ -103,6 +104,7 @@ in {
       ec
       et
       nodePackages.mermaid-cli
+      xclip-to-org
     ] ++ (if epg != null then [epg] else []);
 
     xdg.desktopEntries = {
