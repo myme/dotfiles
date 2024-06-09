@@ -6,7 +6,7 @@ let
   lockCmd = "${./lock-wrapper.sh} ${pkgs.myme.pkgs.lockscreen}/bin/lockscreen";
   cfg = config.myme.wm;
   machine = args.specialArgs.nixosConfig.myme.machine;
-  noDM = machine.de.variant != "wm";
+  withDM = machine.de.variant != "wm";
   wallpaperCmd = "${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/alien-moon-nature.jpg";
 
 in {
@@ -15,13 +15,13 @@ in {
   options.myme.wm = {
     enable = mkEnableOption "WM - My personal Window Manager setup";
     variant = mkOption {
-      type = types.enum [ "i3" "leftwm" "xmonad" ];
-      default = "i3";
+      type = types.enum [ "none" "i3" "leftwm" "xmonad" ];
+      default = "none";
       description = "Window Manager flavor";
     };
     dynamic_temp = mkOption {
       type = types.bool;
-      default = !noDM;
+      default = !withDM;
       description = "Dynamically change screen color temperature";
     };
     plasma = mkOption {
@@ -126,7 +126,7 @@ in {
     })
 
     # Without a Desktop Environment
-    (mkIf (!noDM) {
+    (mkIf (!withDM) {
       home.packages = with pkgs; [ pkgs.pavucontrol ];
 
       myme.wm.polybar = mkMerge [
