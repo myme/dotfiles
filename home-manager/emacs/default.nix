@@ -16,6 +16,7 @@ let
     PATH="${pkgs.gnupg24}/bin:$PATH" emacs "$@"
   '') else null;
   flavor = specialArgs.nixosConfig.myme.machine.flavor;
+  deVariant = specialArgs.nixosConfig.myme.machine.de.variant;
   EDITOR = if specialArgs.nixosConfig.myme.machine.role == "server" then
     "${et}/bin/et"
   else
@@ -85,7 +86,7 @@ in {
     # Stock emacs
     programs.emacs = {
       enable = lib.mkDefault true;
-      package = if flavor == "wsl" then pkgs.emacs29-pgtk else pkgs.emacs29;
+      package = if flavor == "wsl" || deVariant == "gnome" then pkgs.emacs29-pgtk else pkgs.emacs29;
       extraPackages = epkgs: with epkgs; [ vterm ];
     };
 
