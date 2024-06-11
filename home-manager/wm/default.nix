@@ -10,7 +10,7 @@ let
   wallpaperCmd = "${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/alien-moon-nature.jpg";
 
 in {
-  imports = [ ./alacritty ./conky ./i3 ./polybar ./rofi ./theme.nix ./xmonad ];
+  imports = [ ./alacritty ./conky ./gnome.nix ./i3 ./polybar ./rofi ./theme.nix ./xmonad ];
 
   options.myme.wm = {
     enable = mkEnableOption "WM - My personal Window Manager setup";
