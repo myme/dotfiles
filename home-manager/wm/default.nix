@@ -95,7 +95,7 @@ in {
 
       # Home manager activation
       home.activation = {
-        setWallpaper = lib.hm.dag.entryAfter ["writeBoundary"] wallpaperCmd;
+        setWallpaper = lib.mkIf (!withDM) (lib.hm.dag.entryAfter ["writeBoundary"] wallpaperCmd);
       };
 
       # XSession
