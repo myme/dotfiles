@@ -127,7 +127,7 @@ in {
 
     # Without a Desktop Environment
     (mkIf (!withDM) {
-      home.packages = with pkgs; [ pkgs.pavucontrol ];
+      home.packages = [ pkgs.pavucontrol ];
 
       myme.wm.polybar = mkMerge [
         {
