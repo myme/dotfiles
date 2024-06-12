@@ -6,6 +6,11 @@ let
 in {
   config = lib.mkIf gnome.enable {
     dconf.settings = {
+      # Gnome interface
+      "org/gnome/desktop/interface" = {
+        enable-animations = false;
+      };
+
       # Preferences
       "org/gnome/desktop/wm/preferences" = {
         # Workspaces
