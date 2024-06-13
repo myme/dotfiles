@@ -1,3 +1,17 @@
+# Misc Gnome settings
+#
+# Primarily keybindings for Gnome Shell and more
+#
+# It's not always trivial to find where a binding is bound. Using `gsettings`
+# it's possible to list all bindings and their values.
+#
+# Example:
+#
+#   for schema in $(gsettings list-schemas | grep -E 'keybindings|media-keys')
+#   do
+#       gsettings list-recursively $schema
+#   done
+
 { lib, specialArgs, ... }:
 
 let
@@ -59,10 +73,14 @@ in {
       # Mutter
       "org/gnome/mutter" = {
         check-alive-timeout = 60000;
+        dynamic-workspaces = false;
       };
 
       # Gnome shell
       "org/gnome/shell/keybindings" = {
+        # Disable default bindings
+        focus-active-notification = [];
+        # I don't wanna launch pinned apps
         switch-to-application-1 = [];
         switch-to-application-2 = [];
         switch-to-application-3 = [];
