@@ -20,6 +20,43 @@ in
 {
   config = lib.mkIf gnome.enable {
     dconf.settings = {
+      "org.gnome.settings-daemon.plugins.media-keys" = {
+        custom-keybindings = [
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
+        ];
+      };
+
+      # Launch Alacritty in Tmux
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+        binding = "<Super>Return";
+        command = "alacritty -e tmux";
+        name = "Terminal (tmux)";
+      };
+
+      # Launch Alacritty
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+        binding = "<Shift><Super>Return";
+        command = "alacritty";
+        name = "Terminal";
+      };
+
+      # Launch `nixon run`
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+        binding = "<Super>x";
+        command = "nixon";
+        name = "Nixon";
+      };
+
+      # Launch `nixon project`
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
+        binding = "<Shift><Super>x";
+        command = "nixon project";
+        name = "Nixon";
+      };
+
       # Gnome interface
       "org/gnome/desktop/interface" = {
         enable-animations = false;
