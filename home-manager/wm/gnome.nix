@@ -50,6 +50,15 @@ in {
         # Relative switch
         switch-to-workspace-left = ["<Super>p"];
         switch-to-workspace-right = ["<Super>n"];
+
+        # Disable input source switching bindings
+        switch-input-source = [];
+        switch-input-source-backward = [];
+      };
+
+      # Mutter
+      "org/gnome/mutter" = {
+        check-alive-timeout = 60000;
       };
 
       # Gnome shell
