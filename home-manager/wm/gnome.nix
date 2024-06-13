@@ -33,6 +33,9 @@ in
 
       # Keybindings
       "org/gnome/desktop/wm/keybindings" = {
+        # Disable annoying window context menu binding
+        activate-window-menu = [ ];
+
         # Move windows to workspace
         move-to-workspace-1 = [ "<Shift><Super>1" ];
         move-to-workspace-2 = [ "<Shift><Super>2" ];
