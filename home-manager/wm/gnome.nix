@@ -26,6 +26,7 @@ in
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/"
         ];
       };
 
@@ -55,6 +56,12 @@ in
         binding = "<Shift><Super>x";
         command = "nixon project";
         name = "Nixon";
+      };
+
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4" = {
+        binding = "<Shift><Super>s";
+        command = "rofi -show ssh -normal-window";
+        name = "Rofi SSH";
       };
 
       # Gnome interface
