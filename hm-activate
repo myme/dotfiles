@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#
+# Description:
+#
+#   Build and activate a Home Manager $USER profile for a $HOST.
+#   Defaults to the current $USER and $(hostname).
+#
+# Usage:
+#
+#   ./hm-activate
+#   HOST=generic ./hm-activate
+#   HOST=generic USER=some-user ./hm-activate
+
+set -eo pipefail
+
+HOST=${HOST:-$(hostname)}
+PROFILE="${USER:-}@$HOST"
+
+# Build and activate new generation
+nix shell ".#homeConfigurations.$PROFILE.activationPackage" -c home-manager-generation
