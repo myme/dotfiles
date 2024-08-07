@@ -17,4 +17,5 @@ HOST=${HOST:-$(hostname)}
 PROFILE="${USER:-}@$HOST"
 
 # Build and activate new generation
+echo "Building Home Manager profile $PROFILE..."
 nix shell ".#homeConfigurations.$PROFILE.activationPackage" -c home-manager-generation
