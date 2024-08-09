@@ -77,7 +77,7 @@ in ({
         changeDirWidgetOptions = ["--preview 'tree -C {} | head -200'"];
       };
       helix = {
-        enable = true;
+        enable = lib.mkDefault defaultPrograms;
         settings = {
           theme = "dracula";
           editor = {
