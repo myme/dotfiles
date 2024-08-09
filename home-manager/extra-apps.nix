@@ -13,10 +13,10 @@
     rofimoji
 
     # Gnome
-    gnome.gnome-calculator
-    gnome.nautilus
-    gnome.evince
-    gnome.seahorse
+    gnome-calculator
+    nautilus
+    evince
+    seahorse
   ];
 
   xdg.mimeApps = {
