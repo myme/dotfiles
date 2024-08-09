@@ -98,7 +98,6 @@
       programs.dconf.enable = true;
 
       # Enable sound.
-      sound.enable = true;
       hardware.pulseaudio.enable = true;
     })
     # Laptop configs
@@ -106,12 +105,6 @@
       # Bluetooth
       hardware.bluetooth.enable = true;
       services.blueman.enable = true;
-
-      # Media keys
-      sound.mediaKeys = {
-        enable = true;
-        volumeStep = "1%";
-      };
     })
   ];
 }
