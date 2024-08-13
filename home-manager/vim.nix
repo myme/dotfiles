@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
   config = {
     programs.neovim = {
       enable = true;
@@ -8,7 +8,7 @@
 
       plugins = with pkgs.vimPlugins; [
         # Completions + LSP (lsp-zero)
-        copilot-vim
+        (lib.mkIf config.myme.dev.copilot.enable copilot-vim)
         lsp-zero-nvim
         nvim-cmp
         cmp-nvim-lsp
