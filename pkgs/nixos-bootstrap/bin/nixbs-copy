@@ -18,5 +18,5 @@ rsync \
     -av --delete \
     -e "ssh $SSH_OPTS $SSH_HOST_OPTS -p$NIX_INSTALL_PORT" \
     --exclude .git \
-    "$root_dir" \
+    "$root_dir/" \
     "$NIX_INSTALL_USER@$hostname:nixos"

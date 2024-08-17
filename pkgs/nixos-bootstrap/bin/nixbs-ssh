@@ -4,4 +4,8 @@ set -eo pipefail
 
 source ../lib/setup.sh
 
-ssh -tt -A "$NIX_INSTALL_HOST" -p"$NIX_INSTALL_PORT" -l"$NIX_INSTALL_USER" $SSH_OPTS "$@"
+host="$(@GUM@ choose $(nixos_hosts))"
+hostname="$(nix eval --raw .#deploy.nodes."$host".hostname)"
+SSH_HOST_OPTS="$(nix eval  .#deploy.nodes."$host".profiles.system.sshOpts | jq -r .[])"
+
+ssh $SSH_HOST_OPTS "$NIX_INSTALL_USER@$hostname"
