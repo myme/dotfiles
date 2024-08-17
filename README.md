@@ -26,13 +26,45 @@ $ mkdir .ssh
 $ curl -o .ssh/authorized_keys https://github.com/myme.keys
 ```
 
+### Jump into dev shell
+
+``` bash
+# shorthand for `nix develop` (with --extra-experimental-features)
+./dev
+```
+
 ### Copy installation files to host
 
 The following command will prompt for one of the `deploy.nodes` hosts to copy
 the installation files to.
 
 ``` bash
-$ ./bootstrap/copy.sh
+$ nixbs-copy
+```
+
+Alternatively export `NIX_INSTALL_HOST` in the environment to override:
+
+``` bash
+$ NIX_INSTALL_HOST=10.20.30.40 nixbs-copy
+```
+
+### SSH to remote host
+
+``` bash
+$ nixbs-ssh
+```
+
+### Drop into dev shell
+
+``` bash
+$ cd nixos
+$ ./dev
+```
+
+### Format disks with `disko`
+
+``` bash
+$ sudo disko ./machine/<hostname>/disk.nix
 ```
 
 ### Start NixOS installation
@@ -41,7 +73,7 @@ Begin the installation by invoking the install script, either on console or over
 `SSH`:
 
 ``` bash
-$ sudo ./bootstrap/install.sh
+$ sudo nixbs-install
 ```
 
 The command will prompt for a system profile to install.
@@ -71,7 +103,7 @@ $ sudo nixos-rebuild <switch|test|build> --flake .
 ### Install
 
 ``` bash
-$ ./bootstrap/build-home.sh <machine>
+$ nixbs-build-home <machine>
 $ ./result/activate
 ```
 

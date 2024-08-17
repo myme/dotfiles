@@ -114,6 +114,26 @@
         "type": "github"
       }
     },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1723426710,
+        "narHash": "sha256-yrS9al6l3fYfFfvovnyBWnyELDQOdfKyai4K/jKgoBw=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "0d510fe40b56ed74907a021d7e1ffd0042592914",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "doomemacs": {
       "flake": false,
       "locked": {
@@ -473,6 +493,7 @@
         "alacritty-dracula": "alacritty-dracula",
         "annodate": "annodate",
         "deploy-rs": "deploy-rs",
+        "disko": "disko",
         "doomemacs": "doomemacs",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager_2",

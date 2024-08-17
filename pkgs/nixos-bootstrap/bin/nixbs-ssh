@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+source ../lib/setup.sh
+
+host="$(@GUM@ choose $(nixos_hosts))"
+hostname="$(nix eval --raw .#deploy.nodes."$host".hostname)"
+SSH_HOST_OPTS="$(nix eval  .#deploy.nodes."$host".profiles.system.sshOpts | jq -r .[])"
+
+ssh $SSH_HOST_OPTS "$NIX_INSTALL_USER@$hostname"

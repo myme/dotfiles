@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+source ../lib/setup.sh
+
+@GUM@ confirm "Proceed with NixOS installation?" || exit 1
+
+(
+    echo "Choose system profile to install:"
+    host="$(@GUM@ choose $(nixos_hosts))"
+
+    echo "Building NixOS installation…"
+    # nixos-install --impure --no-root-password --flake .#${NIX_INSTALL_NAME}
+    nixos-install --no-root-password --flake ".#${host}"
+
+    if @GUM@ confirm "Copy nixos configuration to /home/${user}?"; then
+        user="$(nixos_user "$host")"
+        echo "Copying installation files to user /home/${user}/nixos…"
+        cp -av . "/mnt/home/${user}/nixos"
+    fi
+)
+
+@GUM@ confirm "Installation complete! Reboot?" && reboot

@@ -3,7 +3,7 @@
 name: host:
 
 let
-  inherit (inputs) self agenix nixos-wsl;
+  inherit (inputs) self agenix disko nixos-wsl;
   use_stable = host ? stable && host.stable;
   nixpkgs = if use_stable then inputs.nixpkgs-stable else inputs.nixpkgs;
   home-manager =
@@ -18,6 +18,7 @@ in nixpkgs.lib.nixosSystem {
     agenix.nixosModules.default
     nixos-wsl.nixosModules.wsl
     home-manager.nixosModules.home-manager
+    disko.nixosModules.default
     ({ config, ... }: {
       # Pass flake inputs to Home Manager
       home-manager.users.${config.myme.machine.user.name}._module.args = {

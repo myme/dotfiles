@@ -13,7 +13,7 @@ nixos_hosts() {
         --json \
         --extra-experimental-features 'nix-command flakes' \
         .#nixosConfigurations \
-        --apply builtins.attrNames | jq -r '.[]'
+        --apply builtins.attrNames | @JQ@ -r '.[]'
 }
 
 nixos_nodes() {
@@ -21,7 +21,7 @@ nixos_nodes() {
         --json \
         --extra-experimental-features 'nix-command flakes' \
         .#deploy.nodes \
-        --apply builtins.attrNames | jq -r '.[]'
+        --apply builtins.attrNames | @JQ@ -r '.[]'
 }
 
 nixos_user() {
@@ -30,4 +30,9 @@ nixos_user() {
         --raw \
         --extra-experimental-features 'nix-command flakes' \
         ".#nixosConfigurations.${host}.config.myme.machine.user.name"
+}
+
+nixos_ssh() {
+    local host="${NIX_INSTALL_HOST:-$1}"
+    ssh $SSH_OPTS $NIX_INSTALL_USER@$host -p $NIX_INSTALL_PORT
 }

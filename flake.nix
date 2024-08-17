@@ -11,6 +11,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Disko
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Home manager
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -124,6 +130,8 @@
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
               agenix
+              disko
+              pkgs.myme.pkgs.nixos-bootstrap
             ];
           };
 

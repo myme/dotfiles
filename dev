@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+nix --extra-experimental-features 'nix-command flakes' develop
