@@ -4,8 +4,6 @@ set -eo pipefail
 
 source ../lib/setup.sh
 
-root_dir="$(git rev-parse --show-toplevel)"
-
 echo "Choose host to copy to:"
 host="$(@GUM@ choose "${NIX_INSTALL_HOST}" $(nixos_nodes))"
 hostname="$(nix eval --raw .#deploy.nodes."$host".hostname)"
@@ -15,8 +13,10 @@ SSH_HOST_OPTS="$(nix eval  .#deploy.nodes."$host".profiles.system.sshOpts | jq -
 ssh $SSH_HOST_OPTS "$NIX_INSTALL_USER@$hostname" "sudo nix-env -iA nixos.rsync"
 
 # Copy the configuration to the remote host
+root_dir="$(git rev-parse --show-toplevel)"
 rsync \
     -av --delete \
     -e "ssh $SSH_OPTS $SSH_HOST_OPTS -p$NIX_INSTALL_PORT" \
-    "$root_dir/.." \
+    --exclude .git \
+    "$root_dir" \
     "$NIX_INSTALL_USER@$hostname:nixos"

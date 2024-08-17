@@ -43,9 +43,11 @@ fi
     # nixos-install --impure --no-root-password --flake .#${NIX_INSTALL_NAME}
     nixos-install --no-root-password --flake ".#${host}"
 
-    user="$(nixos_user "$host")"
-    echo "Copying installation files to user /home/${user}/nixos…"
-    cp -av . "/mnt/home/${user}/nixos"
+    if @GUM@ confirm "Copy nixos configuration to /home/${user}?"; then
+        user="$(nixos_user "$host")"
+        echo "Copying installation files to user /home/${user}/nixos…"
+        cp -av . "/mnt/home/${user}/nixos"
+    fi
 )
 
 @GUM@ confirm "Installation complete! Reboot?" && reboot
