@@ -144,12 +144,20 @@
         lsp_zero.setup_servers({'tsserver', 'eslint'})
         lsp_zero.setup()
 
+        lspconfig = require('lspconfig')
+
+        ---
+        -- Setup Pyright LSP
+        ---
+
+        lspconfig.pyright.setup{}
+
         ---
         -- Setup Go nvim
         ---
 
         require('go').setup()
-        require('lspconfig').gopls.setup{}
+        lspconfig.gopls.setup{}
 
         ---
         -- Setup haskell LSP
