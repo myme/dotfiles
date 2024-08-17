@@ -4,38 +4,9 @@ set -eo pipefail
 
 source ../lib/setup.sh
 
-promptFormat() {
-    echo "Choose disk to format"
-    local disk="$(@GUM@ choose "$(lsblk -pl | grep disk | awk '{print $1}')")"
-
-    if [ "$disk" != "none" ]; then
-        @GUM@ confirm "Are you sure you want to format '$disk'?" && doFormat "$disk" || echo "Skipping format!"
-    fi
-}
-
-doFormat() {
-    local disk="$1"
-    echo "Formatting '$disk'"
-
-    sgdisk -d 1 "$disk"
-    sgdisk -N 1 "$disk"
-    partprobe "$disk"
-
-    local part1="${disk}1"
-    mkfs.ext4 -F "$part1" # wipes all data!
-
-    mount "$part1" /mnt
-}
-
-if ! findmnt /mnt > /dev/null; then
-    @GUM@ confirm "No /mnt, format disk?" && promptFormat
-fi
-
 @GUM@ confirm "Proceed with NixOS installation?" || exit 1
 
 (
-    cd "$(dirname "$0")/.."
-
     echo "Choose system profile to install:"
     host="$(@GUM@ choose $(nixos_hosts))"
 

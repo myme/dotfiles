@@ -13,7 +13,7 @@ nixos_hosts() {
         --json \
         --extra-experimental-features 'nix-command flakes' \
         .#nixosConfigurations \
-        --apply builtins.attrNames | jq -r '.[]'
+        --apply builtins.attrNames | @JQ@ -r '.[]'
 }
 
 nixos_nodes() {
@@ -21,7 +21,7 @@ nixos_nodes() {
         --json \
         --extra-experimental-features 'nix-command flakes' \
         .#deploy.nodes \
-        --apply builtins.attrNames | jq -r '.[]'
+        --apply builtins.attrNames | @JQ@ -r '.[]'
 }
 
 nixos_user() {
