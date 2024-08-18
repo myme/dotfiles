@@ -14,7 +14,7 @@ in ({
     ./nixon
     ./spotify.nix
     ./tmux.nix
-    ./vim.nix
+    ./vim
     ./wm
     ./wsl.nix
   ];
