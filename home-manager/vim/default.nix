@@ -123,6 +123,7 @@
         " Lua configs
         luafile ${./config.lua}
         luafile ${./lsp.lua}
+        luafile ${./testing.lua}
         luafile ${./completions.lua}
       '';
     };
