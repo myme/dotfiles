@@ -31,6 +31,11 @@ in {
       default = "";
       description = "Additional commands to add to config.el";
     };
+    default-editor = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Set emacs as $EDITOR";
+    };
     font = {
       family = lib.mkOption {
         type = lib.types.str;
@@ -55,11 +60,15 @@ in {
     home.file.".emacs.d".source = pkgs.myme.doomemacs;
 
     # Doom Emacs local files (~/.cache/doom)
-    home.sessionVariables = {
-      DOOMLOCALDIR = "~/.cache/doomemacs/";
-      DOOMPROFILELOADFILE = "~/.cache/doomemacs/load.el";
-      inherit EDITOR;
-    };
+    home.sessionVariables = lib.mkMerge [
+      {
+        DOOMLOCALDIR = "~/.cache/doomemacs/";
+        DOOMPROFILELOADFILE = "~/.cache/doomemacs/load.el";
+      }
+      (lib.mkIf cfg.default-editor {
+        inherit EDITOR;
+      })
+    ];
 
     # Doom Emacs configuration (~/.config/doom)
     xdg.configFile.doom.source = pkgs.stdenv.mkDerivation {
