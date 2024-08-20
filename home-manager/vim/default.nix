@@ -1,5 +1,24 @@
-{ config, lib, pkgs, ... }: {
-  config = {
+{ config, lib, pkgs, ... }:
+
+let
+  cfg = config.myme.vim;
+
+in
+{
+  options.myme.vim = {
+    enable = lib.mkEnableOption "(Neo)Vim";
+    default-editor = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Set vim as $EDITOR";
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    home.sessionVariables = lib.mkIf cfg.default-editor {
+      EDITOR = "vim";
+    };
+
     programs.neovim = {
       enable = true;
       viAlias = true;

@@ -51,6 +51,7 @@ in ({
 
     # But of course!
     myme.emacs.enable = lib.mkDefault defaultPrograms;
+    myme.vim.enable = lib.mkDefault defaultPrograms;
 
     programs = {
       bat.enable = lib.mkDefault defaultPrograms;
