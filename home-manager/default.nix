@@ -30,7 +30,6 @@ in ({
       btop
       dua
       fd
-      httpie
       jq
       lsof
       nix-tree
@@ -38,6 +37,7 @@ in ({
       ripgrep
       tree
       unzip
+      xh
       yq
       zip
       annodate
