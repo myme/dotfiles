@@ -12,13 +12,17 @@
 #       gsettings list-recursively $schema
 #   done
 
-{ lib, specialArgs, ... }:
+{ lib, pkgs, specialArgs, ... }:
 
 let
   gnome = specialArgs.nixosConfig.services.xserver.desktopManager.gnome;
 in
 {
   config = lib.mkIf gnome.enable {
+    home.packages = [
+      pkgs.wl-clipboard
+    ];
+
     dconf.settings = {
       "org.gnome.settings-daemon.plugins.media-keys" = {
         custom-keybindings = [
