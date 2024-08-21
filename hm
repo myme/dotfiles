@@ -17,11 +17,21 @@ PROFILE="${USER:-}@$HOST"
 
 activate() {
     # Build and activate new generation
-    echo "Building Home Manager profile $PROFILE..."
-    nix shell ".#homeConfigurations.$PROFILE.activationPackage" -c home-manager-generation
+    local profile="${1:-$PROFILE}"
+    echo "Activating Home Manager profile $profile..."
+    nix shell ".#homeConfigurations.$profile.activationPackage" -c home-manager-generation
+}
+
+build() {
+    # Build new generation
+    local profile="${1:-$PROFILE}"
+    echo "Building Home Manager profile $profile..."
+    nix build ".#homeConfigurations.$profile.activationPackage"
 }
 
 deploy() {
+    # Build new generation
+    echo "Deploying Home Manager profile $2 to $1..."
     local nix_path
     nix_path="$(nix build ".#homeConfigurations.$2.activationPackage" --print-out-paths --no-link)"
     nix-copy-closure --to "$1" "$nix_path"
@@ -45,10 +55,13 @@ fi
 
 # Main script logic
 case $cmd in
-    activate)  # Build and activate a Home Manager profile locally.
-        activate
+    activate)  # [profile]        - Build and activate a Home Manager profile locally.
+        activate "$@"
         ;;
-    deploy)    # Build, copy and activate a Home Manager profile on a remote host.
+    build)     # [profile]        - Build a Home Manager profile locally.
+        build "$@"
+        ;;
+    deploy)    # [host [profile]] - Build, copy and activate a Home Manager profile on a remote host.
         deploy "$1" "${2:-$PROFILE}"
         ;;
     *)
