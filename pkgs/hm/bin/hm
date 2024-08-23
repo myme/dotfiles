@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+#
+# Description:
+#
+#   Build and activate a Home Manager $USER profile for a $HOST.
+#   Defaults to the current $USER and $(hostname).
+#
+# Usage:
+#
+#   ./hm activate
+#   ./hm deploy some-host user@some-host
+
+set -eo pipefail
+
+HOST=${HOST:-$(hostname)}
+PROFILE="${USER:-}@$HOST"
+
+activate() {
+    # Build and activate new generation
+    local profile="${1:-$PROFILE}"
+    echo "Activating Home Manager profile $profile..."
+    nix shell ".#homeConfigurations.$profile.activationPackage" -c home-manager-generation
+}
+
+build() {
+    # Build new generation
+    local profile="${1:-$PROFILE}"
+    echo "Building Home Manager profile $profile..."
+    nix build ".#homeConfigurations.$profile.activationPackage"
+}
+
+deploy() {
+    # Build new generation
+    echo "Deploying Home Manager profile $2 to $1..."
+    local nix_path
+    nix_path="$(nix build ".#homeConfigurations.$2.activationPackage" --print-out-paths --no-link)"
+    nix-copy-closure --to "$1" "$nix_path"
+    # shellcheck disable=SC2029
+    ssh "$1" "$nix_path/activate"
+}
+
+
+usage() {
+    echo "Usage: ./hm <command>"
+    echo "Where command is one the following:"
+    grep -E "^ +[a-z_]+)" "$0" | sed 's/)//' | sort
+    exit 1
+}
+
+# Convert `-` to `_` in command names
+if [[ "$#" -gt 0 ]]; then
+    cmd=$(echo "$1" | sed -e's/-/_/g')
+    shift
+fi
+
+# Main script logic
+case $cmd in
+    activate)  # [profile]        - Build and activate a Home Manager profile locally.
+        activate "$@"
+        ;;
+    build)     # [profile]        - Build a Home Manager profile locally.
+        build "$@"
+        ;;
+    deploy)    # [host [profile]] - Build, copy and activate a Home Manager profile on a remote host.
+        deploy "$1" "${2:-$PROFILE}"
+        ;;
+    *)
+        usage
+        ;;
+esac
