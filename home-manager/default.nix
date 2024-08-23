@@ -42,6 +42,7 @@ in ({
       zip
       annodate
       myme.pkgs.git-sync
+      myme.pkgs.hm
     ]);
 
     home.keyboard = {
