@@ -69,6 +69,14 @@ Activate a Home Manager profile without doing a full `nixos-rebuild`.
 hm activate
 ```
 
+### `hm-profiles`
+
+List Home Manager profiles.
+
+```bash
+nix eval .#homeConfigurations --apply builtins.attrNames --json | jq -r .[]
+```
+
 ### `nixos-list-generations`
 
 ```bash
