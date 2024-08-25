@@ -116,3 +116,19 @@ Manager](https://github.com/nix-community/home-manager) is installed:
 $ home-manager <build|switch> --flake .#<machine>
 ```
 
+## Troubleshooting
+
+### Gnome
+
+Some `dconf` settings seem to not be applied correctly. Particularly the custom
+binding
+[<Shift>p](https://github.com/myme/dotfiles/blob/5b2c37b5a9a7a69d6b7de786abba0a320df1202a/home-manager/wm/gnome.nix#L112)
+to swith to the workspace on the left.
+
+Running the following resolves this (but is obviously annoying):
+
+``` sh
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left '[]'
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-left "['<Super>p']"
+```
+
