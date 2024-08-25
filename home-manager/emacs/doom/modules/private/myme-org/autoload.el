@@ -158,20 +158,26 @@ for nested todo items."
   (message "Updated org-agenda-files to %s" org-agenda-files))
 
 ;;;###autoload
-(defun myme/org-last-dailies (days-backwards)
-  "Expand to <count> last Org-Roam daily files. The special value -1 expands to all files."
-  (seq-filter
-   #'file-regular-p
-   (if (= days-backwards -1)
-       (directory-files org-roam-dailies-directory t)
-     (seq-map
-      (lambda (i)
-        (expand-file-name
-         (format-time-string
-          "%Y-%m-%d.org"
-          (time-subtract nil (days-to-time i)))
-         org-roam-dailies-directory))
-      (number-sequence 0 days-backwards)))))
+(defun myme/org-last-dailies (days-backwards &optional ignore-future)
+  "Expand to <count> last Org-Roam daily files.
+
+DAYS-BACKWARDS: Number of days to look back. The special value -1 expands to all
+                files.
+IGNORE-FUTURE: When non-nil, exclude files with dates in the future."
+  (let* ((current-time (current-time))
+         (cutoff-time (time-subtract current-time (days-to-time days-backwards)))
+         (daily-regexp  "\\`[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\.org\\'")
+         (all-files (directory-files org-roam-dailies-directory t daily-regexp)))
+    (seq-filter
+     (lambda (file)
+       (let* ((filename (file-name-nondirectory file))
+              (date-string (substring filename 0 10))
+              (file-time (date-to-time date-string)))
+         (and (or (= days-backwards -1)
+                  (time-less-p cutoff-time file-time))
+              (or (not ignore-future)
+                  (time-less-p file-time current-time)))))
+     all-files)))
 
 ;;;###autoload
 (defun myme/org-paste-html-clipboard ()
