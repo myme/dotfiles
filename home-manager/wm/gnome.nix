@@ -31,6 +31,7 @@ in
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/"
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/"
         ];
       };
 
@@ -52,20 +53,26 @@ in
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
         binding = "<Super>x";
         command = "nixon";
-        name = "Nixon";
+        name = "Nixon Run";
       };
 
       # Launch `nixon project`
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
         binding = "<Shift><Super>x";
         command = "nixon project";
-        name = "Nixon";
+        name = "Nixon Prodject Run";
       };
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4" = {
         binding = "<Shift><Super>s";
         command = "rofi -show ssh -normal-window";
         name = "Rofi SSH";
+      };
+
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5" = {
+        binding = "<Super>d";
+        command = "rofi -show drun -normal-window";
+        name = "Rofi";
       };
 
       # Gnome interface
