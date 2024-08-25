@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation {
   pname = "nixos-bootstrap";
-  version = "0.0.1";
+  version = "0.1.0";
   src = ./.;
   GUM = "${gum}/bin/gum";
   JQ = "${jq}/bin/jq";
