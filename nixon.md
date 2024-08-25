@@ -61,6 +61,14 @@ nix-env --profile $HOME/.local/state/nix/profiles/home-manager --list-generation
 nix-env --profile $HOME/.local/state/nix/profiles/home-manager --delete-generations "$@"
 ```
 
+### `hm-activate`
+
+Activate a Home Manager profile without doing a full `nixos-rebuild`.
+
+```bash
+hm activate
+```
+
 ### `nixos-list-generations`
 
 ```bash
