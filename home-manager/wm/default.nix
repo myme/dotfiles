@@ -10,12 +10,12 @@ let
   wallpaperCmd = "${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/alien-moon-nature.jpg";
 
 in {
-  imports = [ ./alacritty ./conky ./gnome.nix ./i3 ./polybar ./rofi ./theme.nix ./xmonad ];
+  imports = [ ./alacritty ./conky ./gnome.nix ./hyprland ./i3 ./polybar ./rofi ./theme.nix ./xmonad ];
 
   options.myme.wm = {
     enable = mkEnableOption "WM - My personal Window Manager setup";
     variant = mkOption {
-      type = types.enum [ "none" "i3" "leftwm" "xmonad" ];
+      type = types.enum [ "none" "i3" "leftwm" "hyprland" "xmonad" ];
       default = "none";
       description = "Window Manager flavor";
     };
@@ -42,6 +42,8 @@ in {
 
       # Install fonts
       myme.fonts.enable = true;
+
+      myme.wm.hyprland.enable = cfg.variant == "hyprland";
 
       # Relay i3 config
       myme.wm.i3 = {
@@ -105,6 +107,9 @@ in {
           scriptPath = ".hm-xsession";
           initExtra = wallpaperCmd;
         }
+        (mkIf (cfg.variant == "hyprland") {
+          windowManager.command = "${pkgs.hyprland}/bin/hyprland";
+        })
         (mkIf (cfg.variant == "leftwm") {
           windowManager.command = "${pkgs.leftwm}/bin/leftwm";
         })
