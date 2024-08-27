@@ -67,6 +67,15 @@
         };
       };
 
+      # build-vm configs
+      virtualisation.vmVariant.virtualisation = {
+        forwardPorts = [{
+          from = "host";
+          host.port = 2222;
+          guest.port = 22;
+        }];
+      };
+
       system.stateVersion = "24.05";
     }
     # Disable boot + networking for WSL
