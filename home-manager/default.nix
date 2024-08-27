@@ -6,6 +6,7 @@ let
 in ({
   imports = [
     ./barrier.nix
+    ./btop.nix
     ./dev.nix
     ./emacs
     ./fonts.nix
@@ -27,7 +28,6 @@ in ({
 
   config = {
     home.packages = lib.mkIf defaultPrograms (with pkgs; [
-      btop
       dua
       fd
       jq
