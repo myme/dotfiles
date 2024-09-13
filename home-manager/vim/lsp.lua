@@ -5,8 +5,24 @@
 local lsp_zero = require('lsp-zero').preset({})
 
 lsp_zero.on_attach(function(client, bufnr)
-  lsp_zero.default_keymaps({buffer = bufnr})
+  lsp_zero.default_keymaps({
+      buffer = bufnr,
+      preserve_mappings = false
+  })
 end)
+
+vim.g.rustaceanvim = function()
+  return {
+    server = {
+      on_attach = function (client,bufnr)
+          lsp_zero.default_keymaps({
+              buffer = bufnr,
+              preserve_mappings = false
+          })
+      end
+    }
+  }
+end
 
 -- When you don't have mason.nvim installed
 -- You'll need to list the servers installed in your system
