@@ -109,7 +109,7 @@ in ({
       };
       nushell.enable = lib.mkDefault defaultPrograms;
       starship = {
-        enable = true;
+        enable = lib.mkDefault defaultPrograms;
         settings.time = {
           disabled = false;
           format = "[$time]($style) ";
