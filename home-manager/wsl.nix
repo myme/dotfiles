@@ -8,5 +8,8 @@ in {
   config = lib.mkIf isWsl {
     # Install fonts
     myme.fonts.enable = true;
+
+    # Force "true-color" for Helix on WSL
+    programs.helix.settings.editor.true-color = true;
   };
 }
