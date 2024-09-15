@@ -1,6 +1,6 @@
 # Global system configuration
 { config, lib, pkgs, system, ... }: {
-  imports = [ ./sleep.nix ./xserver.nix ./users.nix ];
+  imports = [ ./sleep.nix ./xserver.nix ./users.nix ./docker-desktop-fix.nix ];
 
   options.myme.machine = {
     name = lib.mkOption {
@@ -100,7 +100,9 @@
         interop.register = true;
         nativeSystemd = true;
         startMenuLaunchers = true;
+        docker-desktop.enable = true;
       };
+      fix.docker-desktop.enable = true;
     })
     (lib.mkIf (config.myme.machine.role != "server") {
       # For GTK stuff
