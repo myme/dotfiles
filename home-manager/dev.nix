@@ -49,6 +49,11 @@ in {
       };
     };
 
+    # Network options
+    net = {
+      enable = mkEnableOption "Enable network development & diagnostics tools";
+    };
+
     # Nix options
     nix = {
       enable = mkEnableOption "Enable Nix development tools";
@@ -120,6 +125,15 @@ in {
       (mkIf (cfg.haskell.enable) (with pkgs; [
         (mkIf cfg.haskell.lsp haskell-language-server)
         (mkIf cfg.haskell.ormolu ormolu)
+      ]))
+
+      # Network
+      (mkIf cfg.net.enable (with pkgs; [
+        dig
+        inetutils
+        mtr
+        nmap
+        wireshark
       ]))
 
       # Nix
