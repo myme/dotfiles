@@ -38,6 +38,7 @@
         save =
           ''!git add -u && git commit -m "WIP: $(git show -q --oneline HEAD)"'';
       };
+      delta.enable = true;
       extraConfig = {
         branch.autosetuprebase = "remote";
         init.defaultBranch = "main";
