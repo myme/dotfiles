@@ -26,7 +26,7 @@ end
 
 -- When you don't have mason.nvim installed
 -- You'll need to list the servers installed in your system
-lsp_zero.setup_servers({'tsserver', 'eslint'})
+lsp_zero.setup_servers({'ts_ls', 'eslint'})
 lsp_zero.setup()
 
 lspconfig = require('lspconfig')
