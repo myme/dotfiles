@@ -53,6 +53,21 @@ nix repl
 nix develop
 ```
 
+### `flake-inputs`
+
+List flake inputs from `flake.lock` sorted by last modified.
+
+```bash
+jq -r '
+    .nodes |
+    map_values(.locked.lastModified) |
+    to_entries |
+    sort_by(.value).[] |
+    select(.value) |
+    .key + " " + (.value|todate)
+' flake.lock | column -t
+```
+
 ## npm stuff {type="npm"}
 
 ### `npm-scripts`
