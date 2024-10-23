@@ -88,3 +88,27 @@ sudo nix-env --profile /nix/var/nix/profiles/system --list-generations
 ```bash
 sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations "$@"
 ```
+
+## WSL
+
+### `wsl-setup`
+
+WSL struggles with a startup delay for SystemD where it's not immediately ready
+when the WSL distro boots up. Consequently, the user services are not started at
+all automatically when starting the login shell.
+
+
+See: https://github.com/nix-community/NixOS-WSL/issues/375#issuecomment-2346390863
+
+```bash
+echo "Waiting for systemd..."
+until systemctl &>/dev/null; do sleep 1; done
+
+if ! systemctl --user &>/dev/null; then
+    echo "Restarting user services..."
+    sudo systemctl restart "user@$(id -u)"
+fi
+
+echo "Propagate WSLENV..."
+systemctl --user set-environment WSLENV="$WSLENV"
+```
