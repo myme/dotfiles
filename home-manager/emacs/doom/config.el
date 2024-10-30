@@ -284,5 +284,10 @@
 ;; See: https://github.com/doomemacs/doomemacs/issues/7438
 (use-package! apheleia)
 
+;; mu4e
+(after! mu4e
+  ;; FIXME: Broken in `doomemacs' due to `mu4e--view-gather-mime-parts' is removed in `mu4e'
+  (map! :map mu4e-view-mode-map :desc "" :nv "A" #'mu4e-view-mime-part-action))
+
 ;; Additional configurations interpolated by nix
 @doomConfigExtra@
