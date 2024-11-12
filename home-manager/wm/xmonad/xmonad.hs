@@ -23,6 +23,7 @@ import           XMonad.Hooks.ManageHelpers
 import qualified XMonad.Layout.BoringWindows as BW
 import           XMonad.Layout.Grid
 import           XMonad.Layout.NoBorders
+import           XMonad.Layout.Reflect
 import           XMonad.Layout.ResizableTile
 import           XMonad.Layout.Simplest
 import           XMonad.Layout.Spacing
@@ -255,7 +256,9 @@ layoutIcon desc | "Full" `L.isInfixOf` desc = Fa.icon Fa.WindowMaximize
                 | "Three" `L.isInfixOf` desc = Fa.icon Fa.Columns
                 | "Grid" `L.isInfixOf` desc = Fa.icon Fa.Th
                 | "Mirror" `L.isInfixOf` desc = Fa.icon Fa.ChevronDown
-                | "Tall" `L.isInfixOf` desc = Fa.icon Fa.ChevronRight
+                | "Tall" `L.isInfixOf` desc = if "ReflectX" `L.isInfixOf` desc
+                  then Fa.icon Fa.ChevronLeft
+                  else Fa.icon Fa.ChevronRight
                 | otherwise = Fa.icon Fa.Question
 
 workspaceIcons :: W.Workspace WorkspaceId l Window  -> X (String, [String])
@@ -297,7 +300,7 @@ appIcon = runQuery $ fromMaybe Fa.WindowMaximize . getFirst <$> composeAll
     infix 0 ~~>
 
 myLayout = BW.boringWindows
-         $ tall ||| three ||| full ||| grid
+         $ tall ||| full ||| reflect ||| three ||| grid
   where tall = smartBorders
              $ avoidStruts
              $ configurableNavigation noNavigateBorders
@@ -305,6 +308,10 @@ myLayout = BW.boringWindows
              $ subLayout [] Simplest
              $ spacingRaw Vars.smartBorder (Border spc spc spc spc) True (Border spc spc spc spc) True
              $ ResizableTall 1 (3/100) (1/2) []
+        full = noBorders
+             $ avoidStruts
+               Full
+        reflect = reflectHoriz tall
         three = smartBorders
               $ avoidStruts
               $ configurableNavigation noNavigateBorders
@@ -312,9 +319,6 @@ myLayout = BW.boringWindows
               $ subLayout [] Simplest
               $ spacingRaw Vars.smartBorder (Border spc spc spc spc) True (Border spc spc spc spc) True
               $ Three.ThreeCol 1 (3/100) (1/3)
-        full = noBorders
-             $ avoidStruts
-               Full
         grid = smartBorders
              $ avoidStruts
              $ addTabs shrinkText tabTheme
