@@ -49,6 +49,13 @@
         };
         rerere.enabled = true;
       };
+      includes = [
+        # Git config for personal stuff
+        {
+          condition = "gitdir:~/code/myme/";
+          contents.user.email = "mm@myme.no";
+        }
+      ];
       iniContent.user.useConfigOnly = true;
       ignores = [ ".dir-locals.el" ".direnv" ".envrc" ];
     };
