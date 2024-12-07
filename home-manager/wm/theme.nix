@@ -2,6 +2,7 @@
 
 let
   machine = args.specialArgs.nixosConfig.myme.machine;
+  enable = config.myme.wm.enable || machine.flavor == "wsl";
 
   iconThemes = {
     numix-circle = {
@@ -38,7 +39,7 @@ let
   };
 
 in {
-  config = lib.mkIf config.myme.wm.enable {
+  config = lib.mkIf enable {
     gtk = {
       enable = true;
       iconTheme = iconThemes.numix-circle;
