@@ -20,7 +20,9 @@ in {
       powerline-fonts
 
       # Nerd fonts
-      (nerdfonts.override { fonts = [ "DejaVuSansMono" "Noto" "SourceCodePro" ]; })
+      nerd-fonts.dejavu-sans-mono
+      nerd-fonts.noto
+      nerd-fonts.sauce-code-pro
     ];
 
     # For great fonts
