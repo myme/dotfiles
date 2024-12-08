@@ -1,7 +1,7 @@
 let
   hostKeys = {
     map =
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILaNxtQ37YaiXRXx+Ff3sPEbzsjA2i934r0Bl+eXVh3P root@map";
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBjM7kTCk6FHI7Z2EZDGAMOwl/YaIa6aK2+3QwgkiaTN root@map";
     nuckie =
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEg58ogznntO3aCpRs8t991VUUyHQvqs2VsuecqkktAv root@nuckie";
     tuple =
