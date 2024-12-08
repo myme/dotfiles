@@ -81,7 +81,7 @@ in {
     security = {
       sudo.execWheelOnly = true;
       pam = {
-        enableSSHAgentAuth = true;
+        sshAgentAuth.enable = true;
         services.sudo.sshAgentAuth = true;
       };
     };
