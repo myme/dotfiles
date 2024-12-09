@@ -574,11 +574,11 @@
     "wallpapers": {
       "flake": false,
       "locked": {
-        "lastModified": 1639647132,
-        "narHash": "sha256-/azIBZSA2S4AtL4eCeBF+uThiuGzT6gW8szs01apTFA=",
+        "lastModified": 1733737548,
+        "narHash": "sha256-LhpuVTvZR4cSjoniHC9nrLCohZCFMLxQgADMNeXqryM=",
         "owner": "myme",
         "repo": "wallpapers",
-        "rev": "eaffdac2c6891fe42dd7a66445bbb763326dc62c",
+        "rev": "d1b317efcd3b97e4b107efe6552abaf56dbc0321",
         "type": "gitlab"
       },
       "original": {
