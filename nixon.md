@@ -17,6 +17,19 @@ systemctl --user start emacs.socket
 
 ## NixOS
 
+### `nix-pkgs`
+
+```bash
+nix eval --json -f '<nixpkgs>' --apply 'pkgs: builtins.attrNames (pkgs {})' \
+  | jq -r .[]
+```
+
+### `nrun`
+
+```bash ${nix-pkgs}
+nix run "nixpkgs#$1"
+```
+
 ### `_nixos-configurations`
 
 ```bash
