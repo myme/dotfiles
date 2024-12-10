@@ -7,7 +7,7 @@ let
   cfg = config.myme.wm;
   machine = args.specialArgs.nixosConfig.myme.machine;
   withDM = machine.de.variant != "wm";
-  wallpaperCmd = "${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/nebula-abstract.jpg";
+  wallpaperCmd = "${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/nebula-abstract.jpg || true";
 
 in {
   imports = [ ./alacritty ./conky ./gnome.nix ./hyprland ./i3 ./polybar ./rofi ./theme.nix ./xmonad ];
