@@ -10,7 +10,7 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = pkgs.nixon;
+      default = pkgs.myme.pkgs.nixon;
       description = "Nixon package.";
     };
 
