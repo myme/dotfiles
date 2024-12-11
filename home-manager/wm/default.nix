@@ -139,13 +139,13 @@ in {
           enable = true;
           i3gaps = cfg.variant == "i3";
         }
-        (if machine.highDPI then {
+        (lib.mkDefault (if machine.highDPI then {
           font_size = 15;
           height = 50;
         } else {
           font_size = 11;
           height = 35;
-        })
+        }))
       ];
 
       # Wallpaper (feh)
