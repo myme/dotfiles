@@ -60,8 +60,12 @@ in ({
         enable = true;
         historyControl = ["erasedups" "ignoredups" "ignorespace"];
         initExtra = lib.mkIf nixos-config.virtualisation.docker.enable ''
+          # Alias completion
+          source ${pkgs.complete-alias}/bin/complete_alias
+
           # Docker
           alias dc="docker compose"
+          complete -F _complete_alias dc
         '';
       };
       direnv = {
