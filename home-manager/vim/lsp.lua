@@ -9,6 +9,11 @@ lsp_zero.on_attach(function(client, bufnr)
       buffer = bufnr,
       preserve_mappings = false
   })
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
+  vim.keymap.set('n', '<space>cf', vim.lsp.buf.format, opts)
+  vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, opts)
+  vim.keymap.set('n', '<space>cj', require('telescope.builtin').lsp_workspace_symbols, opts)
+  vim.keymap.set('n', '<space>cs', require('telescope.builtin').lsp_document_symbols, opts)
 end)
 
 vim.g.rustaceanvim = function()
