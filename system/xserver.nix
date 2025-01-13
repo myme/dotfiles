@@ -16,7 +16,7 @@ in {
       description = "Optimize for high DPI outputs (4k)";
     };
     myme.machine.de.variant = mkOption {
-      type = types.enum [ "none" "gnome" "plasma" "wm" "xfce" ];
+      type = types.enum [ "none" "hyprland" "gnome" "plasma" "wm" "xfce" ];
       default = if xserver then "wm" else "none";
       description = "Desktop Environment flavor";
     };
@@ -61,6 +61,15 @@ in {
     (mkIf (machine.role == "laptop" && cfg.variant == "wm") {
       # Backlight
       services.illum.enable = true;
+    })
+    # Hyprland (Wayland)
+    (mkIf (cfg.variant == "hyprland") {
+      services.displayManager.sddm.enable = true;
+      programs.hyprland = {
+        enable = true;
+        withUWSM = true;
+        xwayland.enable = true;
+      };
     })
     # Gnome
     (mkIf (cfg.variant == "gnome") {
