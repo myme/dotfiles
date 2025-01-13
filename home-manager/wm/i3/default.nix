@@ -171,10 +171,15 @@ in {
         modes = lib.mkMerge [
           {
             "resize" = {
-              h = "resize shrink width 10 px or 10 ppt";
-              j = "resize grow height 10 px or 10 ppt";
-              k = "resize shrink height 10 px or 10 ppt";
-              l = "resize grow width 10 px or 10 ppt";
+              h = "resize shrink width 1 px or 1 ppt";
+              j = "resize grow height 1 px or 1 ppt";
+              k = "resize shrink height 1 px or 1 ppt";
+              l = "resize grow width 1 px or 1 ppt";
+              "Shift+h" = "resize shrink width 10 px or 10 ppt";
+              "Shift+j" = "resize grow height 10 px or 10 ppt";
+              "Shift+k" = "resize shrink height 10 px or 10 ppt";
+              "Shift+l" = "resize grow width 10 px or 10 ppt";
+              q = "mode default";
               Return = "mode default";
               Escape = "mode default";
             };
@@ -187,6 +192,7 @@ in {
               s = ''exec --no-startup-id "${suspendCmd}", mode default'';
               r = ''exec --no-startup-id "${rebootCmd}", mode default'';
               p = ''exec --no-startup-id "${shutdownCmd}", mode default'';
+              q = "mode default";
               Return = "mode default";
               Escape = "mode default";
             };
