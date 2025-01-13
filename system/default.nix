@@ -109,7 +109,7 @@
       programs.dconf.enable = true;
 
       # Enable sound.
-      hardware.pulseaudio.enable = true;
+      services.pulseaudio.enable = true;
     })
     # Laptop configs
     (lib.mkIf (config.myme.machine.role == "laptop") {
