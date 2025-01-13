@@ -110,6 +110,10 @@ in {
             "${modifier}+Control+Shift+h" = "move workspace to output left";
             "${modifier}+Control+Shift+l" = "move workspace to output right";
 
+            # Scratchpad
+            "${modifier}+Shift+equal" = "scratchpad show";
+            "${modifier}+Shift+minus" = "move scratchpad";
+
             # Vim focus + move
             "${modifier}+h" = "focus left";
             "${modifier}+l" = "focus right";
