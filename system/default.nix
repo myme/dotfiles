@@ -1,5 +1,5 @@
 # Global system configuration
-{ config, lib, pkgs, system, ... }: {
+{ config, lib, pkgs, options, system, ... }: {
   imports = [ ./sleep.nix ./xserver.nix ./users.nix ./docker-desktop-fix.nix ];
 
   options.myme.machine = {
@@ -109,7 +109,8 @@
       programs.dconf.enable = true;
 
       # Enable sound.
-      services.pulseaudio.enable = true;
+      # TODO: Reduce to services.pulseaudio.enable = true; when NixOS stable is updated
+      ${if options.services ? pulseaudio then "services" else "hardware"}.pulseaudio.enable = true;
     })
     # Laptop configs
     (lib.mkIf (config.myme.machine.role == "laptop") {
