@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.myme.wm.hyprland;
 in
@@ -53,7 +58,19 @@ in
       };
     };
 
-    services.hyprpaper.enable = true;
+    services.hyprpaper = {
+      enable = true;
+      settings = {
+        ipc = "on";
+        # splash = false;
+        # splash_offset = 2.0;
+        preload = [ "${pkgs.myme.wallpapers}/nebula-abstract.jpg" ];
+        wallpaper = [
+          ",${pkgs.myme.wallpapers}/nebula-abstract.jpg"
+          # "DP-1,/share/wallpapers/cat_pacman.png"
+        ];
+      };
+    };
 
     wayland.windowManager.hyprland = {
       enable = true;
