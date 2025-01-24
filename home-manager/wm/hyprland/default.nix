@@ -15,6 +15,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [
+      pkgs.hyprsunset
       pkgs.wofi
     ];
 
