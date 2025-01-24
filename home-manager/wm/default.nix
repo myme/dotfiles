@@ -5,12 +5,25 @@ with lib;
 let
   lockCmd = "${./lock-wrapper.sh} ${pkgs.myme.pkgs.lockscreen}/bin/lockscreen";
   cfg = config.myme.wm;
+  isWayland = config.myme.wm.variant == "hyprland";
   machine = args.specialArgs.nixosConfig.myme.machine;
   withDM = machine.de.variant != "wm";
   wallpaperCmd = "${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/nebula-abstract.jpg || true";
 
-in {
-  imports = [ ./alacritty ./conky ./gnome.nix ./hyprland ./i3 ./polybar ./rofi ./theme.nix ./xmonad ];
+in
+{
+  imports = [
+    ./alacritty
+    ./conky
+    ./gnome.nix
+    ./hyprland
+    ./i3
+    ./polybar
+    ./rofi
+    ./theme.nix
+    ./waybar.nix
+    ./xmonad
+  ];
 
   options.myme.wm = {
     enable = mkEnableOption "WM - My personal Window Manager setup";
@@ -134,19 +147,30 @@ in {
     (mkIf (!withDM) {
       home.packages = [ pkgs.pavucontrol ];
 
+      # Use Polybar for X11
       myme.wm.polybar = mkMerge [
         {
-          enable = true;
+          enable = !isWayland;
           i3gaps = cfg.variant == "i3";
         }
-        (lib.mkDefault (if machine.highDPI then {
-          font_size = 15;
-          height = 50;
-        } else {
-          font_size = 11;
-          height = 35;
-        }))
+        (lib.mkDefault (
+          if machine.highDPI then
+            {
+              font_size = 15;
+              height = 50;
+            }
+          else
+            {
+              font_size = 11;
+              height = 35;
+            }
+        ))
       ];
+
+      # Use Waybar for Wayland (Hyprland)
+      myme.wm.waybar = {
+        enable = isWayland;
+      };
 
       # Wallpaper (feh)
       programs.feh.enable = true;
