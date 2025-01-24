@@ -12,7 +12,48 @@ in
       pkgs.wofi
     ];
 
-    programs.hyprlock.enable = true;
+    programs.hyprlock = {
+      enable = true;
+      settings = {
+        # sample hyprlock.conf
+        # for more configuration options, refer
+        # https://wiki.hyprland.org/Hypr-Ecosystem/hyprlock
+
+        input-field = {
+          # monitor = ;
+          fade_on_empty = false;
+        };
+
+        background = {
+          color = "rgb(23, 39, 41)";
+        };
+      };
+    };
+
+    services.hypridle = {
+      enable = true;
+      settings = {
+        general = {
+          after_sleep_cmd = "hyprctl dispatch dpms on";
+          ignore_dbus_inhibit = false;
+          lock_cmd = "hyprlock";
+        };
+
+        listener = [
+          {
+            timeout = 900;
+            on-timeout = "hyprlock";
+          }
+          {
+            timeout = 1200;
+            on-timeout = "hyprctl dispatch dpms off";
+            on-resume = "hyprctl dispatch dpms on";
+          }
+        ];
+      };
+    };
+
+    services.hyprpaper.enable = true;
 
     wayland.windowManager.hyprland = {
       enable = true;
