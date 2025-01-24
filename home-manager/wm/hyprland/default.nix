@@ -6,6 +6,7 @@
 }:
 let
   cfg = config.myme.wm.hyprland;
+  wallpaper = "${pkgs.myme.wallpapers}/nebula-abstract.jpg";
 in
 {
   options.myme.wm.hyprland = {
@@ -23,13 +24,12 @@ in
         # sample hyprlock.conf
         # for more configuration options, refer
         # https://wiki.hyprland.org/Hypr-Ecosystem/hyprlock
-
         input-field = {
           # monitor = ;
           fade_on_empty = false;
         };
-
         background = {
+          path = wallpaper;
           color = "rgb(23, 39, 41)";
         };
       };
@@ -64,9 +64,9 @@ in
         ipc = "on";
         # splash = false;
         # splash_offset = 2.0;
-        preload = [ "${pkgs.myme.wallpapers}/nebula-abstract.jpg" ];
+        preload = [ wallpaper ];
         wallpaper = [
-          ",${pkgs.myme.wallpapers}/nebula-abstract.jpg"
+          ",${wallpaper}"
           # "DP-1,/share/wallpapers/cat_pacman.png"
         ];
       };
