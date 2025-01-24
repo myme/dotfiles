@@ -25,13 +25,20 @@ in
         # sample hyprlock.conf
         # for more configuration options, refer
         # https://wiki.hyprland.org/Hypr-Ecosystem/hyprlock
+        general = {
+          hide_cursor = true;
+        };
         input-field = {
           # monitor = ;
           fade_on_empty = false;
+          font_color = "rgba(255, 121, 198, 0.5)";
+          inner_color = "rgba(0, 0, 0, 0.5)";
         };
         background = {
-          path = wallpaper;
+          # path = wallpaper;
+          path = "screenshot";
           color = "rgb(23, 39, 41)";
+          blur_passes = 2;
         };
       };
     };
