@@ -21,7 +21,7 @@ in
     ./polybar
     ./rofi
     ./theme.nix
-    ./waybar.nix
+    ./waybar
     ./xmonad
   ];
 
