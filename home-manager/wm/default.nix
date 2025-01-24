@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }@args:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}@args:
 
 with lib;
 
@@ -28,7 +33,13 @@ in
   options.myme.wm = {
     enable = mkEnableOption "WM - My personal Window Manager setup";
     variant = mkOption {
-      type = types.enum [ "none" "i3" "leftwm" "hyprland" "xmonad" ];
+      type = types.enum [
+        "none"
+        "i3"
+        "leftwm"
+        "hyprland"
+        "xmonad"
+      ];
       default = "none";
       description = "Window Manager flavor";
     };
@@ -43,7 +54,10 @@ in
       description = "Enable KDE Plasma integration";
     };
     theme = mkOption {
-      type = types.enum [ "light" "dark" ];
+      type = types.enum [
+        "light"
+        "dark"
+      ];
       default = "dark";
       description = "System look and feel";
     };
@@ -65,16 +79,22 @@ in
       };
 
       # XMonad config
-      myme.wm.xmonad = lib.mkDefault { enable = cfg.variant == "xmonad"; }
-        // (if machine.highDPI then {
-          fontSize = 12;
-          smartBorder = false;
-          spaces = 20;
-        } else {
-          fontSize = 10;
-          smartBorder = true;
-          spaces = 5;
-        });
+      myme.wm.xmonad =
+        lib.mkDefault { enable = cfg.variant == "xmonad"; }
+        // (
+          if machine.highDPI then
+            {
+              fontSize = 12;
+              smartBorder = false;
+              spaces = 20;
+            }
+          else
+            {
+              fontSize = 10;
+              smartBorder = true;
+              spaces = 5;
+            }
+        );
 
       # Alacritty
       myme.alacritty = lib.mkDefault {
@@ -85,8 +105,7 @@ in
       };
 
       # Emacs theme
-      myme.emacs.theme =
-        if cfg.theme == "dark" then "doom-dracula" else "doom-one-light";
+      myme.emacs.theme = if cfg.theme == "dark" then "doom-dracula" else "doom-one-light";
 
       # Rofi
       myme.rofi.enable = true;
@@ -110,7 +129,7 @@ in
 
       # Home manager activation
       home.activation = {
-        setWallpaper = lib.mkIf (!withDM) (lib.hm.dag.entryAfter ["writeBoundary"] wallpaperCmd);
+        setWallpaper = lib.mkIf (!withDM) (lib.hm.dag.entryAfter [ "writeBoundary" ] wallpaperCmd);
       };
 
       # XSession
@@ -193,13 +212,18 @@ in
       # Notifications (dunst)
       services.dunst = {
         enable = true;
-        settings = import ./dunst.nix (if machine.highDPI then {
-          font = "Dejavu Sans 15";
-          geometry = "500x5+30+20";
-        } else {
-          font = "Dejavu Sans 10";
-          geometry = "300x5-30+20";
-        });
+        settings = import ./dunst.nix (
+          if machine.highDPI then
+            {
+              font = "Dejavu Sans 15";
+              geometry = "500x5+30+20";
+            }
+          else
+            {
+              font = "Dejavu Sans 10";
+              geometry = "300x5-30+20";
+            }
+        );
       };
     })
   ]);
