@@ -7,6 +7,7 @@ let
   cfg = machine.de;
   xserver = (config.myme.machine.role != "server" && config.myme.machine.flavor
     != "wsl");
+  noDM = builtins.elem cfg.variant ["hyprland" "wm"];
 
 in {
   options = {
@@ -58,7 +59,7 @@ in {
       services.gnome.gnome-keyring.enable = true;
       security.pam.services.xdm.enableGnomeKeyring = true;
     })
-    (mkIf (machine.role == "laptop" && cfg.variant == "wm") {
+    (mkIf (machine.role == "laptop" && noDM) {
       # Backlight
       services.illum.enable = true;
     })
