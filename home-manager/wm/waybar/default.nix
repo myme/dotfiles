@@ -1,11 +1,15 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
+let
+  cfg = config.myme.wm.waybar;
+
+in
 {
   options.myme.wm.waybar = {
     enable = lib.mkEnableOption "Enable waybar";
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     programs.waybar = {
       enable = true;
       settings = {
@@ -288,6 +292,5 @@
       };
       style = builtins.readFile ./style.css;
     };
-
   };
 }

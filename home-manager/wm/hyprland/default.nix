@@ -19,6 +19,9 @@ in
       pkgs.wofi
     ];
 
+    # waybar status bar
+    myme.wm.waybar.enable = true;
+
     programs.hyprlock = {
       enable = true;
       settings = {
