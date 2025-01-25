@@ -15,7 +15,8 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [
-      pkgs.hyprsunset
+      # TODO: Switch to hyprsunset once it supports automatic transitions
+      # pkgs.hyprsunset
       pkgs.wofi
     ];
 
@@ -82,6 +83,24 @@ in
         ];
       };
     };
+
+    systemd.user.services.wlsunset = {
+      Install = { WantedBy = [ config.wayland.systemd.target ]; };
+
+      Unit = {
+        ConditionEnvironment = "WAYLAND_DISPLAY";
+        Description = "wlsunset";
+        After = [ config.wayland.systemd.target ];
+        PartOf = [ config.wayland.systemd.target ];
+      };
+
+      Service = {
+        ExecStart = "${pkgs.wlsunset}/bin/wlsunset -l 59.777839 -L 10.801630";
+        Restart = "always";
+        RestartSec = "10";
+      };
+    };
+
 
     wayland.windowManager.hyprland = {
       enable = true;
