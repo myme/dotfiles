@@ -12,7 +12,7 @@ let
   cfg = config.myme.wm;
   isWayland = config.myme.wm.variant == "hyprland";
   machine = args.specialArgs.nixosConfig.myme.machine;
-  withDM = machine.de.variant != "wm";
+  onlyX11WM = machine.de.variant == "wm";
   wallpaperCmd = "${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/nebula-abstract.jpg || true";
 
 in
@@ -45,7 +45,7 @@ in
     };
     dynamic_temp = mkOption {
       type = types.bool;
-      default = !withDM;
+      default = onlyX11WM;
       description = "Dynamically change screen color temperature";
     };
     plasma = mkOption {
@@ -133,7 +133,7 @@ in
 
       # Home manager activation
       home.activation = {
-        setWallpaper = lib.mkIf (!withDM) (lib.hm.dag.entryAfter [ "writeBoundary" ] wallpaperCmd);
+        setWallpaper = lib.mkIf onlyX11WM (lib.hm.dag.entryAfter [ "writeBoundary" ] wallpaperCmd);
       };
 
       # XSession
@@ -167,13 +167,33 @@ in
     })
 
     # Without a Desktop Environment
-    (mkIf (!withDM) {
-      home.packages = [ pkgs.pavucontrol ];
+    (mkIf (isWayland || onlyX11WM) {
+      home.packages = [
+        pkgs.pavucontrol
+        pkgs.pulsemixer
+      ];
 
+      # Bluetooth/network
+      services.blueman-applet.enable = machine.role == "laptop";
+
+      # Network manager
+      services.network-manager-applet.enable = true;
+    })
+
+    # With Wayland
+    (mkIf isWayland {
+      # Use Waybar for Wayland (Hyprland)
+      myme.wm.waybar = {
+        enable = true;
+      };
+    })
+
+    # X11 without a Desktop Environment
+    (mkIf onlyX11WM {
       # Use Polybar for X11
       myme.wm.polybar = mkMerge [
         {
-          enable = !isWayland;
+          enable = true;
           i3gaps = cfg.variant == "i3";
         }
         (lib.mkDefault (
@@ -190,19 +210,8 @@ in
         ))
       ];
 
-      # Use Waybar for Wayland (Hyprland)
-      myme.wm.waybar = {
-        enable = isWayland;
-      };
-
       # Wallpaper (feh)
       programs.feh.enable = true;
-
-      # Bluetooth/network
-      services.blueman-applet.enable = machine.role == "laptop";
-
-      # Network manager
-      services.network-manager-applet.enable = true;
 
       # Compositor (picom)
       services.picom.enable = true;
