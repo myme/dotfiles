@@ -15,14 +15,16 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [
-      # TODO: Switch to hyprsunset once it supports automatic transitions
-      # pkgs.hyprsunset
       pkgs.wofi
     ];
 
-    # waybar status bar
+    # cursor 🖱
+    home.pointerCursor.hyprcursor.enable = true;
+
+    # waybar status bar 🍫
     myme.wm.waybar.enable = true;
 
+    # protect me precious lucky charms 🍀
     programs.hyprlock = {
       enable = true;
       settings = {
@@ -34,7 +36,7 @@ in
         };
         input-field = {
           # monitor = ;
-          fade_on_empty = false;
+          fade_on_empty = true;
           font_color = "rgba(255, 121, 198, 0.5)";
           inner_color = "rgba(0, 0, 0, 0.5)";
         };
@@ -47,6 +49,7 @@ in
       };
     };
 
+    # idle handling 💤
     services.hypridle = {
       enable = true;
       settings = {
@@ -71,6 +74,7 @@ in
       };
     };
 
+    # wallpapers 🖼
     services.hyprpaper = {
       enable = true;
       settings = {
@@ -85,6 +89,27 @@ in
       };
     };
 
+    # autoname workspaces 🤖
+    systemd.user.services.hyprland-autoname-workspaces = {
+      Install = { WantedBy = [ config.wayland.systemd.target ]; };
+
+      Unit = {
+        ConditionEnvironment = "WAYLAND_DISPLAY";
+        Description = "hyprland-autoname-workspaces";
+        After = [ config.wayland.systemd.target ];
+        PartOf = [ config.wayland.systemd.target ];
+      };
+
+      Service = {
+        ExecStart = "${pkgs.hyprland-autoname-workspaces}/bin/hyprland-autoname-workspaces";
+        Restart = "always";
+        RestartSec = "10";
+      };
+    };
+
+    # my eyes! 🌄
+    # TODO: Switch to hyprsunset once it supports automatic transitions
+    # See: https://github.com/hyprwm/hyprsunset/issues/8
     systemd.user.services.wlsunset = {
       Install = { WantedBy = [ config.wayland.systemd.target ]; };
 
@@ -102,7 +127,7 @@ in
       };
     };
 
-
+    # main config
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;

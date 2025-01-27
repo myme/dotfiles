@@ -1,0 +1,142 @@
+version = "1.1.15"
+
+[class]
+remote-viewer = ""
+calibre-gui = ""
+".*transmission.*" = ""
+whatsapp-nativefier-d52542 = ""
+wlfreerdp = "󰀄"
+xplr = ""
+chrome-faolnafnngnfdaknnbpnkhgohbobgegn-default = ""
+darktable = ""
+swappy = ""
+wayvnc = "󰀄"
+org-telegram-desktop = ""
+wireshark-gtk = ""
+libreoffice-startcenter = ""
+org-ksnip-ksnip = ""
+"dmenu-pass generator" = ""
+org-qutebrowser-qutebrowser = ""
+"(?i)firefox" = "<span color='orange'> </span>"
+Signal = ""
+"(?i)alacritty" = "<span bgcolor='gray'></span>"
+"(?i)emacs" = ""
+dmenu-pass = ""
+telegramdesktop = ""
+vlc = ""
+kicad = ""
+zoom = ""
+libreoffice-calc = ""
+code-oss = ""
+libreoffice-writer = ""
+cssh = ""
+plexamp = ""
+kak = ""
+neomutt = ""
+qutepreview = ""
+"(?i)waydroid.*" = "droid"
+dmenu-browser = ""
+whatsapp-desktop = ""
+virt-manager = ""
+element = ""
+chromium = ""
+songrec = ""
+gsimplecalc = ""
+jetbrains-studio = ""
+qalculate-gtk = ""
+paperwork = ""
+sun-awt-x11-xframepeer = ""
+vncviewer = ""
+discord = "<span color='purple'></span>"
+work = ""
+dmenu-clipboard = ""
+udiskie = ""
+streamlink-twitch-gui = ""
+steam = ""
+libreoffice-impress = ""
+"Gimp-2.10" = ""
+molotov = ""
+personal = ""
+scli = ""
+wire = "󰁀"
+fontforge = ""
+slack = ""
+sandboxed-tor-browser = ""
+snappergui = ""
+nemo = ""
+pavucontrol = ""
+burp-startburp = ""
+nm-connection-editor = ""
+gcr-prompter = ""
+shopping = ""
+taskwarrior-tui = ""
+krita = ""
+org-pwmt-zathura = ""
+duolingo = ""
+"(?i)spotify" = "<span color='green'></span>"
+obsidian = ""
+mpv = ""
+bleachbit = ""
+vimiv = ""
+dmenu-emoji = ""
+rapid-photo-downloader = ""
+DEFAULT = ""
+"(?i)kitty" = ""
+
+[class_active]
+DEFAULT = "{icon}"
+
+[initial_class]
+
+[initial_class_active]
+
+[workspaces_name]
+0 = "zero"
+1 = "one"
+2 = "two"
+3 = "three"
+4 = "four"
+5 = "five"
+6 = "six"
+7 = "seven"
+8 = "eight"
+9 = "nine"
+10 = "ten"
+
+[title_in_class."(?i)kitty"]
+"(?i)neomutt" = "neomutt"
+
+[title_in_class_active."(?i)firefox"]
+"(?i)twitch" = "<span color='purple'>{icon}</span>"
+
+[title_in_initial_class]
+
+[title_in_initial_class_active]
+
+[initial_title_in_class]
+
+[initial_title_in_class_active]
+
+[initial_title_in_initial_class]
+
+[initial_title_in_initial_class_active]
+
+[exclude]
+"" = "^$"
+"(?i)TestApp" = ""
+aProgram = "^$"
+"(?i)fcitx" = ".*"
+"[Ss]team" = "^(Friends List.*)?$"
+
+[format]
+dedup = false
+dedup_inactive_fullscreen = false
+delim = " "
+workspace = "{id}{delim}{clients}"
+workspace_empty = "{id}"
+client = "{icon}"
+client_fullscreen = "[{icon}]"
+client_active = "{icon}"
+client_dup = "{icon}{counter_sup}"
+client_dup_active = "{icon}{delim}{icon}{counter_unfocused_sup}"
+client_dup_fullscreen = "[{icon}]{delim}{icon}{counter_unfocused_sup}"
