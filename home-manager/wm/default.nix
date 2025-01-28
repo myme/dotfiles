@@ -53,6 +53,11 @@ in
       default = machine.de.variant == "plasma";
       description = "Enable KDE Plasma integration";
     };
+    isWayland = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Read-only for introspection";
+    };
     theme = mkOption {
       type = types.enum [
         "light"
@@ -70,9 +75,13 @@ in
       # Install fonts
       myme.fonts.enable = true;
 
+      # Read-only for introspection
+      myme.wm.isWayland = lib.mkForce isWayland;
+
+      # Hyprland config
       myme.wm.hyprland.enable = cfg.variant == "hyprland";
 
-      # Relay i3 config
+      # I3 config
       myme.wm.i3 = {
         enable = cfg.variant == "i3";
         inherit lockCmd;
