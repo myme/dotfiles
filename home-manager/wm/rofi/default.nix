@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.myme.rofi;
@@ -18,7 +23,8 @@ let
     '';
   };
 
-in {
+in
+{
   options.myme.rofi = {
     enable = lib.mkEnableOption "Enable Rofi";
     font = {
@@ -38,6 +44,7 @@ in {
   config = {
     programs.rofi = {
       enable = cfg.enable;
+      package = if config.myme.wm.isWayland then pkgs.rofi-wayland else pkgs.rofi;
       theme = "${rofiTheme}";
     };
   };
