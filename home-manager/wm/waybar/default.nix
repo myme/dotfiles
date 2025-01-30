@@ -283,7 +283,7 @@ in
           };
 
           "custom/screen-recorder" = {
-            "format" = "{}";
+            "format" = " {} ";
             "exec" = "week status";
             "return-type" = "json";
             "interval" = 1;

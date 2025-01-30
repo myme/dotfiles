@@ -21,9 +21,9 @@ let
         ;;
       status)
         if systemctl --user is-active week &>/dev/null; then
-          echo '{"text": "󰻃 rec", "class": "recording"}'
+          echo '{"text": "■ stop", "class": "recording"}'
         else
-          echo '{"text": "⭘", "class": "idle"}'
+          echo '{"text": "󰻃", "class": "idle"}'
         fi
         ;;
       start)
