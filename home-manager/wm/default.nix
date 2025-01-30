@@ -27,6 +27,7 @@ in
     ./rofi
     ./theme.nix
     ./waybar
+    ./week.nix
     ./xmonad
   ];
 

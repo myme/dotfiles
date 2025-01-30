@@ -226,6 +226,14 @@ label:focus {
     background-color: #ffa000;
 }
 
+#custom-screen-recorder {
+    background-color: #2d3436;
+}
+
+#custom-screen-recorder.recording {
+    background-color: #f53c3c;
+}
+
 #temperature {
     background-color: #f0932b;
 }

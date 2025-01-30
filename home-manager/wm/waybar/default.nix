@@ -34,6 +34,7 @@ in
           modules-right = [
             "mpd"
             "idle_inhibitor"
+            "custom/screen-recorder"
             "pulseaudio"
             "network"
             "power-profiles-daemon"
@@ -281,6 +282,14 @@ in
               "suspend" = "systemctl suspend";
               "hibernate" = "systemctl hibernate";
             };
+          };
+
+          "custom/screen-recorder" = {
+            "format" = "{}";
+            "exec" = "week status";
+            "return-type" = "json";
+            "interval" = 1;
+            "on-click" = "week toggle";
           };
 
           # "custom/hello-from-waybar" = {
