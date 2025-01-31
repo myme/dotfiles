@@ -253,7 +253,8 @@ in
                 ""
               ];
             };
-            "on-click" = "pavucontrol";
+            "on-click" = "amixer set Master toggle";
+            "on-click-right" = "pavucontrol";
           };
 
           "custom/media" = {
