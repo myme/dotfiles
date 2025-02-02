@@ -9,8 +9,9 @@ layout_poetry() {
   local VENV;
   VENV=$(poetry env info --path)
   if [[ -z $VENV || ! -d $VENV/bin ]]; then
+    # We don't want to fail with error here, as it will break the direnv load
     log_error 'No poetry virtual environment found. Use `poetry install` to create one first.'
-    exit 2
+    return
   fi
 
   export VIRTUAL_ENV=$VENV
