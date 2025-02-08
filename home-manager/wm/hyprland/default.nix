@@ -4,9 +4,16 @@
   pkgs,
   ...
 }:
+
 let
   cfg = config.myme.wm.hyprland;
   wallpaper = "${pkgs.myme.wallpapers}/nebula-abstract.jpg";
+  hyprquit = pkgs.writeShellScriptBin "hyprquit" ''
+    #!${pkgs.bash}/bin/bash
+    answer="$(rofi -dmenu -p "Really quit?" <<< $'No\nYes')"
+    [ "$answer" = "Yes" ] && loginctl terminate-user $USER
+  '';
+
 in
 {
   options.myme.wm.hyprland = {
@@ -15,6 +22,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [
+      hyprquit
       pkgs.alsa-utils # for volume control
     ];
 
