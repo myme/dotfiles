@@ -239,6 +239,12 @@
         (eval setq-local org-roam-dailies-directory
               (expand-file-name "dailies" org-roam-directory))))
 
+;; Projectile
+(after! projectile
+  (put 'lsp-disabled-clients 'safe-local-variable 'listp)
+  (put 'projectile-project-compilation-dir 'safe-local-variable 'stringp)
+  (put 'projectile-project-test-prefix 'safe-local-variable 'stringp))
+
 ;; PureScript
 (setq psc-ide-use-npm-bin t)
 
