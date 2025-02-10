@@ -109,7 +109,7 @@ in
       };
 
       Service = {
-        ExecStart = "${pkgs.hyprland-autoname-workspaces}/bin/hyprland-autoname-workspaces";
+        ExecStart = "${pkgs.hyprland-autoname-workspaces}/bin/hyprland-autoname-workspaces --config ${./hyprland-autoname-workspaces.toml}";
         Restart = "always";
         RestartSec = "10";
       };
