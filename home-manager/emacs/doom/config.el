@@ -278,10 +278,21 @@
    ))
 
 ;; ChatGPT integration
-(use-package! chatgpt-shell
+;; (use-package! chatgpt-shell
+;;   :config
+;;   (setq chatgpt-shell-anthropic-key
+;;         (lambda () (auth-source-pick-first-password :host "api.anthropic.com")))
+;;   (setq chatgpt-shell-openai-key
+;;         (lambda () (auth-source-pick-first-password :host "api.openai.com"))))
+(use-package! gptel
   :config
-  (setq chatgpt-shell-openai-key
-        (lambda () (auth-source-pick-first-password :host "api.openai.com"))))
+  (setq!
+   gptel-model 'claude-3-sonnet-20240229 ;  "claude-3-opus-20240229" also available
+   gptel-backend (gptel-make-anthropic
+                  "Claude"
+                  :stream t
+                  :key (lambda () (auth-source-pick-first-password :host "api.anthropic.com")))
+   gptel-api-key (lambda () (auth-source-pick-first-password :host "api.openai.com"))))
 
 ;; Open Street Maps
 (use-package! osm)

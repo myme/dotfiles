@@ -1,11 +1,14 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; ~/dotfiles/emacs/.config/doom/packages.el
 
-;; Misc
-(package! chatgpt-shell
-  :recipe (:host github :repo "xenodium/chatgpt-shell"))
+;; LLMs
+;; (package! chatgpt-shell
+;;   :recipe (:host github :repo "xenodium/chatgpt-shell"))
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el" "dist")))
+(package! gptel)
+
+;; Misc
 (package! keychain-environment)
 
 ;; JavaScript
