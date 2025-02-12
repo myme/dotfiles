@@ -28,6 +28,7 @@ in
       plugins = with pkgs.vimPlugins; [
         # Completions + LSP (lsp-zero)
         (lib.mkIf config.myme.dev.copilot.enable copilot-vim)
+        codecompanion-nvim
         lsp-zero-nvim
         nvim-cmp
         cmp-nvim-lsp
@@ -141,6 +142,7 @@ in
 
         " Lua configs
         luafile ${./config.lua}
+        luafile ${./llm.lua}
         luafile ${./lsp.lua}
         luafile ${./testing.lua}
         luafile ${./completions.lua}
