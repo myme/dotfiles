@@ -65,7 +65,7 @@ in {
     })
     # Hyprland (Wayland)
     (mkIf (cfg.variant == "hyprland") {
-      services.displayManager.sddm.enable = true;
+      services.xserver.displayManager.gdm.enable = true;
       programs.hyprland = {
         enable = true;
         withUWSM = true;
