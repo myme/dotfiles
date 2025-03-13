@@ -96,7 +96,7 @@ in {
     # Stock emacs
     programs.emacs = {
       enable = lib.mkDefault true;
-      package = if isWayland then pkgs.emacs29-pgtk else pkgs.emacs29;
+      package = if isWayland then pkgs.emacs-pgtk else pkgs.emacs;
       extraPackages = epkgs: with epkgs; [ vterm ];
     };
 
