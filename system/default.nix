@@ -98,7 +98,6 @@
         enable = true;
         defaultUser = username;
         interop.register = true;
-        nativeSystemd = true;
         startMenuLaunchers = true;
         docker-desktop.enable = true;
       };
