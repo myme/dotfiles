@@ -32,6 +32,7 @@ in ({
       fd
       jq
       lsof
+      nix-diff
       nix-tree
       nixfmt-rfc-style
       ripgrep
