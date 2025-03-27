@@ -28,7 +28,6 @@ in
       plugins = with pkgs.vimPlugins; [
         # Completions + LSP (lsp-zero)
         (lib.mkIf config.myme.dev.copilot.enable copilot-vim)
-        codecompanion-nvim
         lsp-zero-nvim
         nvim-cmp
         cmp-nvim-lsp
