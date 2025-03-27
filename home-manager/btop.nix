@@ -10,7 +10,7 @@
       color_theme = "${pkgs.btop}/share/btop/themes/dracula.theme";
 
       #* If the theme set background should be shown, set to False if you want terminal background transparency.
-      theme_background = true;
+      theme_background = false;
 
       #* Sets if 24-bit truecolor should be used, will convert 24-bit colors to 256 color (6x6x6 color cube) if false.
       truecolor = true;
