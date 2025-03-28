@@ -272,7 +272,8 @@
               ("C-<tab>" . 'copilot-accept-completion-by-word))
   :config
   (setq
-   copilot-node-executable "@nodeExecutable@"
+   ;; This is madness! This is NixOS!
+   copilot-server-executable "@copilotExecutable@"
    ;; Avoid annoying copilot "unable to determine indentation" warnings
    copilot-indent-offset-warning-disable t
    ))
