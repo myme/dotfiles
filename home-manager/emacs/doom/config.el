@@ -126,6 +126,9 @@
    :desc "Hints"   :nv "h" #'myme/lsp-inlay-hints-mode)
   (:prefix "d"
    :desc "Ediff buffers" :nv "b" #'ediff-buffers)
+  (:prefix "l" :desc "LLM integration"
+   :desc "New chat" :nv "m" #'gptel
+   :desc "Toggle context at point" :nv "a" #'gptel-add)
   (:prefix "o"
    (:prefix "M" :desc "Maps"
     :desc "Search maps" :nv "s" #'osm-search))
