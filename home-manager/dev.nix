@@ -19,14 +19,14 @@ in {
       enable = mkEnableOption "Enable documentation (man, info, ++)";
     };
 
-    # Copilot
-    copilot = {
-      enable = mkEnableOption "Enable copilot editor integrations";
-    };
-
     # C/C++ options
     cpp = {
       enable = mkEnableOption "Enable C/C++ development tools";
+    };
+
+    # LLM support (Copilot, ...)
+    llm = {
+      enable = mkEnableOption "Enable LLM editor integrations";
     };
 
     # Elm

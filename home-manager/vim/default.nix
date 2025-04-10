@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.myme.vim;
@@ -25,59 +30,74 @@ in
       vimAlias = true;
       vimdiffAlias = true;
 
-      plugins = with pkgs.vimPlugins; [
-        # Completions + LSP (lsp-zero)
-        (lib.mkIf config.myme.dev.copilot.enable copilot-vim)
-        lsp-zero-nvim
-        nvim-cmp
-        cmp-nvim-lsp
-        nvim-lspconfig
-        luasnip
+      plugins =
+        with pkgs.vimPlugins;
+        (lib.mkMerge [
+          # LLM coding tools
+          (lib.mkIf config.myme.dev.llm.enable [
+            {
+              plugin = avante-nvim;
+              type = "lua";
+              config = ''
+                require("avante_lib").load()
+                require("avante").setup()
+              '';
+            }
+            copilot-vim
+          ])
+          [
+            # Completions + LSP (lsp-zero)
+            lsp-zero-nvim
+            nvim-cmp
+            cmp-nvim-lsp
+            nvim-lspconfig
+            luasnip
 
-        # Dev
-        neotest
-        neotest-haskell
-        neotest-python
-        neotest-rust
-        nvim-dap
-        nvim-dap-ui
+            # Dev
+            neotest
+            neotest-haskell
+            neotest-python
+            neotest-rust
+            nvim-dap
+            nvim-dap-ui
 
-        # UI
-        dashboard-nvim
-        neo-tree-nvim
-        nvim-web-devicons
+            # UI
+            dashboard-nvim
+            neo-tree-nvim
+            nvim-web-devicons
 
-        # Git
-        gitv
-        vim-fugitive
+            # Git
+            gitv
+            vim-fugitive
 
-        # Telescope (fuzzy)
-        telescope-fzf-native-nvim
-        telescope-nvim
+            # Telescope (fuzzy)
+            telescope-fzf-native-nvim
+            telescope-nvim
 
-        # Theme
-        catppuccin-nvim
-        dracula-nvim
-        rose-pine
-        vim-airline
-        vim-airline-themes
+            # Theme
+            catppuccin-nvim
+            dracula-nvim
+            rose-pine
+            vim-airline
+            vim-airline-themes
 
-        # Languages
-        go-nvim
-        haskell-tools-nvim
-        vim-nix
-        rustaceanvim
-        nvim-treesitter
+            # Languages
+            go-nvim
+            haskell-tools-nvim
+            vim-nix
+            rustaceanvim
+            nvim-treesitter
 
-        # Tpope
-        vim-sensible
-        vim-surround
-        vim-unimpaired
-        vim-vinegar
+            # Tpope
+            vim-sensible
+            vim-surround
+            vim-unimpaired
+            vim-vinegar
 
-        # Utils
-        which-key-nvim
-      ];
+            # Utils
+            which-key-nvim
+          ]
+        ]);
 
       extraConfig = ''
         let mapleader=" "
