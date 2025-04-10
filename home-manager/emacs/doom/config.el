@@ -242,6 +242,11 @@
         (eval setq-local org-roam-dailies-directory
               (expand-file-name "dailies" org-roam-directory))))
 
+;; Pytest
+(after! python-pytest
+  (put 'python-pytest-executable 'safe-local-variable
+       (lambda (s) (member s '("pytest" "poetry run pytest")))))
+
 ;; Projectile
 (after! projectile
   (put 'lsp-disabled-clients 'safe-local-variable 'listp)
