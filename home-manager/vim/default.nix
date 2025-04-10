@@ -160,6 +160,7 @@ in
         filetype indent on
 
         " Lua configs
+        luafile ${./authinfo.lua}
         luafile ${./config.lua}
         luafile ${./lsp.lua}
         luafile ${./testing.lua}
