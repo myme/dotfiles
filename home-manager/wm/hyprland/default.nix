@@ -24,6 +24,8 @@ in
     home.packages = [
       hyprquit
       pkgs.alsa-utils # for volume control
+      pkgs.nwg-displays
+      pkgs.wlr-randr
     ];
 
     # cursor 🖱
