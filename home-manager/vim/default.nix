@@ -141,7 +141,6 @@ in
 
         " Lua configs
         luafile ${./config.lua}
-        luafile ${./llm.lua}
         luafile ${./lsp.lua}
         luafile ${./testing.lua}
         luafile ${./completions.lua}
