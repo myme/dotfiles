@@ -24,9 +24,14 @@ in {
       enable = mkEnableOption "Enable C/C++ development tools";
     };
 
-    # LLM support (Copilot, ...)
+    # LLM support (Claude, Copilot, ...)
     llm = {
       enable = mkEnableOption "Enable LLM editor integrations";
+      claude = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Enable the Claude Code CLI tool";
+      };
     };
 
     # Elm
@@ -122,9 +127,14 @@ in {
       ]))
 
       # Haskell
-      (mkIf (cfg.haskell.enable) (with pkgs; [
+      (mkIf cfg.haskell.enable (with pkgs; [
         (mkIf cfg.haskell.lsp haskell-language-server)
         (mkIf cfg.haskell.ormolu ormolu)
+      ]))
+
+      # LLM
+      (mkIf cfg.llm.enable (with pkgs; [
+        (mkIf cfg.llm.claude claude-code)
       ]))
 
       # Network
@@ -137,7 +147,7 @@ in {
       ]))
 
       # Nix
-      (mkIf (cfg.nix.enable) (with pkgs; [
+      (mkIf cfg.nix.enable (with pkgs; [
         nil
       ]))
 
