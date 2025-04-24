@@ -20,6 +20,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.vscode-langservers-extracted
+    ];
+
     home.sessionVariables = lib.mkIf cfg.default-editor {
       EDITOR = "vim";
     };
