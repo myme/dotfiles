@@ -15,7 +15,7 @@
 { lib, pkgs, specialArgs, ... }:
 
 let
-  gnome = specialArgs.nixosConfig.services.xserver.desktopManager.gnome;
+  gnome = specialArgs.nixosConfig.services.desktopManager.gnome;
 in
 {
   config = lib.mkIf gnome.enable {

@@ -65,7 +65,7 @@ in {
     })
     # Hyprland (Wayland)
     (mkIf (cfg.variant == "hyprland") {
-      services.xserver.displayManager.gdm.enable = true;
+      services.displayManager.gdm.enable = true;
       programs.hyprland = {
         enable = true;
         withUWSM = true;
@@ -74,8 +74,8 @@ in {
     })
     # Gnome
     (mkIf (cfg.variant == "gnome") {
-      services.xserver.displayManager.gdm.enable = true;
-      services.xserver.desktopManager.gnome = {
+      services.displayManager.gdm.enable = true;
+      services.desktopManager.gnome = {
         enable = true;
         flashback.customSessions = [{
           wmName = "hmxsession";

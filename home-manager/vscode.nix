@@ -11,7 +11,7 @@ in {
   config = {
     programs.vscode = {
       enable = cfg.enable;
-      extensions = [
+      profiles.default.extensions = [
         pkgs.vscode-extensions.github.copilot
         pkgs.vscode-extensions.github.copilot-chat
         pkgs.vscode-extensions.mkhl.direnv
