@@ -12,10 +12,22 @@
 #       gsettings list-recursively $schema
 #   done
 
-{ lib, pkgs, specialArgs, ... }:
+{
+  lib,
+  pkgs,
+  specialArgs,
+  ...
+}:
 
 let
-  gnome = specialArgs.nixosConfig.services.desktopManager.gnome;
+  is_stable = specialArgs.nixosConfig.myme.machine.stable;
+  gnome =
+    # TODO: Remove this once stable is on NixOS 25.11
+    # desktopManager is moved out of xserver
+    if is_stable then
+      specialArgs.nixosConfig.services.xserver.desktopManager.gnome
+    else
+      specialArgs.nixosConfig.services.desktopManager.gnome;
 in
 {
   config = lib.mkIf gnome.enable {

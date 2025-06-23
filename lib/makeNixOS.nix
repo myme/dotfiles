@@ -28,6 +28,9 @@ in nixpkgs.lib.nixosSystem {
     })
     host.config
     {
+      # Use stable NixOS release
+      myme.machine.stable = use_stable;
+
       # Hostname
       networking.hostName = name;
 

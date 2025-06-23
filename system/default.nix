@@ -8,6 +8,11 @@
       default = "nixos";
       description = "Machine name";
     };
+    stable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Use stable NixOS release";
+    };
     role = lib.mkOption {
       type = lib.types.enum [ "desktop" "laptop" "server" ];
       default = "desktop";
