@@ -61,6 +61,12 @@ in
       variant = "alt-intl-unicode";
     };
 
+    # Generic shell aliases
+    home.shellAliases = {
+      dc = "docker compose";
+      ta = "tmux attach-session";
+    };
+
     # But of course!
     myme.emacs.enable = lib.mkDefault defaultPrograms;
     myme.vim.enable = lib.mkDefault defaultPrograms;
@@ -79,7 +85,6 @@ in
           source ${pkgs.complete-alias}/bin/complete_alias
 
           # Docker
-          alias dc="docker compose"
           complete -F _complete_alias dc
         '';
       };
