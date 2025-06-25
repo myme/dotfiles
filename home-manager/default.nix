@@ -120,6 +120,7 @@ in ({
           format = "[$time]($style) ";
         };
       };
+      zoxide.enable = lib.mkDefault defaultPrograms;
     };
   };
 })
