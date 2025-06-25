@@ -1,9 +1,16 @@
-{ config, lib, pkgs, nixos-config, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  nixos-config,
+  ...
+}:
 
 let
   defaultPrograms = config.myme.defaultPrograms;
 
-in ({
+in
+({
   imports = [
     ./barrier.nix
     ./btop.nix
@@ -27,24 +34,27 @@ in ({
   };
 
   config = {
-    home.packages = lib.mkIf defaultPrograms (with pkgs; [
-      dua
-      fd
-      jq
-      lsof
-      nix-diff
-      nix-tree
-      nixfmt-rfc-style
-      ripgrep
-      tree
-      unzip
-      xh
-      yq
-      zip
-      annodate
-      myme.pkgs.git-sync
-      myme.pkgs.hm
-    ]);
+    home.packages = lib.mkIf defaultPrograms (
+      with pkgs;
+      [
+        dua
+        fd
+        jq
+        lsof
+        nix-diff
+        nix-tree
+        nixfmt-rfc-style
+        ripgrep
+        tree
+        unzip
+        xh
+        yq
+        zip
+        annodate
+        myme.pkgs.git-sync
+        myme.pkgs.hm
+      ]
+    );
 
     home.keyboard = {
       layout = "us";
@@ -59,7 +69,11 @@ in ({
       bat.enable = lib.mkDefault defaultPrograms;
       bash = {
         enable = true;
-        historyControl = ["erasedups" "ignoredups" "ignorespace"];
+        historyControl = [
+          "erasedups"
+          "ignoredups"
+          "ignorespace"
+        ];
         initExtra = lib.mkIf nixos-config.virtualisation.docker.enable ''
           # Alias completion
           source ${pkgs.complete-alias}/bin/complete_alias
@@ -79,9 +93,9 @@ in ({
       fzf = {
         enable = lib.mkDefault defaultPrograms;
         fileWidgetCommand = "fd --type f";
-        fileWidgetOptions = ["--preview 'bat {}'"];
+        fileWidgetOptions = [ "--preview 'bat {}'" ];
         changeDirWidgetCommand = "fd --type d";
-        changeDirWidgetOptions = ["--preview 'tree -C {} | head -200'"];
+        changeDirWidgetOptions = [ "--preview 'tree -C {} | head -200'" ];
       };
       helix = {
         enable = lib.mkDefault defaultPrograms;
@@ -95,8 +109,17 @@ in ({
       htop = {
         enable = lib.mkDefault defaultPrograms;
         settings = {
-          left_meters = [ "LeftCPUs2" "Memory" "Swap" ];
-          right_meters = [ "RightCPUs2" "Tasks" "LoadAverage" "Uptime" ];
+          left_meters = [
+            "LeftCPUs2"
+            "Memory"
+            "Swap"
+          ];
+          right_meters = [
+            "RightCPUs2"
+            "Tasks"
+            "LoadAverage"
+            "Uptime"
+          ];
         };
       };
       nixon = {
