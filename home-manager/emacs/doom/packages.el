@@ -6,7 +6,6 @@
 ;;   :recipe (:host github :repo "xenodium/chatgpt-shell"))
 (package! copilot
   :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))
-(package! gptel)
 
 ;; Misc
 (package! keychain-environment)

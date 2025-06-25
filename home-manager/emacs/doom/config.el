@@ -126,12 +126,9 @@
    :desc "Hints"   :nv "h" #'myme/lsp-inlay-hints-mode)
   (:prefix "d"
    :desc "Ediff buffers" :nv "b" #'ediff-buffers)
-  (:prefix "l" :desc "LLM integration"
-   :desc "New chat" :nv "m" #'gptel
-   :desc "Toggle context at point" :nv "a" #'gptel-add)
   (:prefix "o"
-   (:prefix "M" :desc "Maps"
-    :desc "Search maps" :nv "s" #'osm-search))
+           (:prefix "M" :desc "Maps"
+            :desc "Search maps" :nv "s" #'osm-search))
   (:prefix "p"
    :desc "Open dired in project" :nv "d" #'projectile-dired
    :desc "Run async cmd in project" :nv "&" #'projectile-run-async-shell-command-in-root
@@ -286,21 +283,14 @@
    copilot-indent-offset-warning-disable t
    ))
 
-;; ChatGPT integration
-;; (use-package! chatgpt-shell
-;;   :config
-;;   (setq chatgpt-shell-anthropic-key
-;;         (lambda () (auth-source-pick-first-password :host "api.anthropic.com")))
-;;   (setq chatgpt-shell-openai-key
-;;         (lambda () (auth-source-pick-first-password :host "api.openai.com"))))
-(use-package! gptel
-  :config
+;; LLM integration
+(after! gptel
   (setq!
    gptel-model 'claude-3-7-sonnet-20250219 ;  "claude-3-opus-20240229" also available
    gptel-backend (gptel-make-anthropic
-                  "Claude"
-                  :stream t
-                  :key (lambda () (auth-source-pick-first-password :host "api.anthropic.com")))
+                     "Claude"
+                   :stream t
+                   :key (lambda () (auth-source-pick-first-password :host "api.anthropic.com")))
    gptel-api-key (lambda () (auth-source-pick-first-password :host "api.openai.com"))))
 
 ;; Open Street Maps
