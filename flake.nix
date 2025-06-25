@@ -61,7 +61,13 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+      ...
+    }@inputs:
     let
       overlays = [
         inputs.agenix.overlays.default
@@ -72,12 +78,15 @@
         inputs.piddif.overlay
         self.overlays.default
       ];
-      lib = nixpkgs.lib.extend (final: prev:
+      lib = nixpkgs.lib.extend (
+        final: prev:
         import ./lib {
           inherit inputs overlays;
           lib = final;
-        });
-    in {
+        }
+      );
+    in
+    {
       # Personal overlays
       overlays.default = import ./overlay.nix {
         inherit lib;
@@ -88,28 +97,32 @@
       nixosConfigurations = lib.myme.allProfiles lib.myme.makeNixOS;
 
       # Deploy nodes
-      deploy.nodes = lib.myme.allProfilesIf (_: host: host ? deploy)
-        (lib.myme.deployConf {
+      deploy.nodes = lib.myme.allProfilesIf (_: host: host ? deploy) (
+        lib.myme.deployConf {
           inherit (inputs) deploy-rs;
           inherit (self) nixosConfigurations;
-        });
+        }
+      );
 
       # Deploy checks
-      checks = builtins.mapAttrs
-        (system: deployLib: deployLib.deployChecks self.deploy)
-        inputs.deploy-rs.lib;
+      checks = builtins.mapAttrs (
+        system: deployLib: deployLib.deployChecks self.deploy
+      ) inputs.deploy-rs.lib;
 
       # Non-NixOS machines (Fedora, WSL, ++)
-      homeConfigurations =
-        lib.myme.nixos2hm { inherit (self) nixosConfigurations; };
+      homeConfigurations = lib.myme.nixos2hm { inherit (self) nixosConfigurations; };
 
       # Installation mediums
-      sdImages =
-        builtins.mapAttrs (name: config: config.config.system.build.sdImage)
-        self.nixosConfigurations;
-    } // flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ] (system:
-      let pkgs = import nixpkgs { inherit system overlays; };
-      in {
+      sdImages = builtins.mapAttrs (
+        name: config: config.config.system.build.sdImage
+      ) self.nixosConfigurations;
+    }
+    // flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ] (
+      system:
+      let
+        pkgs = import nixpkgs { inherit system overlays; };
+      in
+      {
         # Apps for `nix run .#<app>`
         apps = {
           agenix = {
@@ -136,14 +149,20 @@
           };
 
           # Deployment to other nodes
-          deploy =
-            pkgs.mkShell { buildInputs = with pkgs; [ deploy-rs.deploy-rs ]; };
+          deploy = pkgs.mkShell { buildInputs = with pkgs; [ deploy-rs.deploy-rs ]; };
 
           # For hacking on XMonad
           xmonad = pkgs.mkShell {
-            buildInputs = with pkgs;
-              [ (ghc.withPackages (ps: with ps; [ xmonad xmonad-contrib ])) ];
+            buildInputs = with pkgs; [
+              (ghc.withPackages (
+                ps: with ps; [
+                  xmonad
+                  xmonad-contrib
+                ]
+              ))
+            ];
           };
         };
-      });
+      }
+    );
 }
