@@ -71,8 +71,7 @@ in
             nvim-web-devicons
 
             # Git
-            gitv
-            vim-fugitive
+            neogit
 
             # Telescope (fuzzy)
             telescope-fzf-native-nvim
@@ -136,8 +135,8 @@ in
         set nobackup
         set noswapfile
 
-        " Git / fugitive
-        nmap <silent> <Leader>gg :Git<Return>
+        " Neogit
+        nmap <silent> <Leader>gg :Neogit<Return>
 
         " Neotree
         nnoremap <leader>op <cmd>Neotree toggle<cr>
