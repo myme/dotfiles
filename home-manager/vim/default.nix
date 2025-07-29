@@ -72,6 +72,7 @@ in
 
             # Git
             neogit
+            vim-fugitive
 
             # Telescope (fuzzy)
             telescope-fzf-native-nvim
@@ -135,7 +136,8 @@ in
         set nobackup
         set noswapfile
 
-        " Neogit
+        " Git
+        nmap <silent> <Leader>gB :Git blame<Return>
         nmap <silent> <Leader>gg :Neogit<Return>
 
         " Neotree
