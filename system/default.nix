@@ -1,6 +1,6 @@
 # Global system configuration
 { config, lib, pkgs, options, system, ... }: {
-  imports = [ ./sleep.nix ./xserver.nix ./users.nix ./docker-desktop-fix.nix ];
+  imports = [ ./sleep.nix ./xserver.nix ./users.nix ];
 
   options.myme.machine = {
     name = lib.mkOption {
@@ -104,9 +104,8 @@
         defaultUser = username;
         interop.register = true;
         startMenuLaunchers = true;
-        docker-desktop.enable = true;
+        # docker-desktop.enable = true;
       };
-      fix.docker-desktop.enable = true;
     })
     (lib.mkIf (config.myme.machine.role != "server") {
       # For GTK stuff
