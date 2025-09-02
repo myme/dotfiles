@@ -1,34 +1,37 @@
 { pkgs, ... }:
 {
-  home.packages = with pkgs; [
+  home.packages = [
     # Apps
-    firefox
-    chromium
-    gimp
-    vlc
+    pkgs.firefox
+    pkgs.chromium
+    pkgs.gimp
+    pkgs.vlc
 
     # Utils
-    lnav
-    peek
-    rofimoji
+    pkgs.lnav
+    pkgs.peek
+    pkgs.rofimoji
 
     # Gnome
-    gnome-calculator
-    nautilus
-    evince
-    seahorse
+    pkgs.gnome-calculator
+    pkgs.nautilus
+    pkgs.evince
+    pkgs.file-roller
+    pkgs.seahorse
   ];
 
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "text/html" = ["firefox.desktop"];
-      "text/xml" = ["firefox.desktop"];
-      "application/xhtml+xml" = ["firefox.desktop"];
-      "application/vnd.mozilla.xul+xml" = ["firefox.desktop"];
-      "x-scheme-handler/http" = ["firefox.desktop"];
-      "x-scheme-handler/https" = ["firefox.desktop"];
-      "x-scheme-handler/ftp" = ["firefox.desktop"];
+      "text/markdown" = [ "emacsclient.desktop" ];
+      "text/plain" = [ "emacsclient.desktop" ];
+      "text/html" = [ "firefox.desktop" ];
+      "text/xml" = [ "firefox.desktop" ];
+      "application/xhtml+xml" = [ "firefox.desktop" ];
+      "application/vnd.mozilla.xul+xml" = [ "firefox.desktop" ];
+      "x-scheme-handler/http" = [ "firefox.desktop" ];
+      "x-scheme-handler/https" = [ "firefox.desktop" ];
+      "x-scheme-handler/ftp" = [ "firefox.desktop" ];
     };
   };
 }
