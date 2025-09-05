@@ -54,6 +54,11 @@ in {
       default = "doom-dracula";
       description = "Doom theme";
     };
+    backgroundOpacity = lib.mkOption {
+      type = lib.types.int;
+      default = 95;
+      description = "Emacs background opacity";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -77,6 +82,7 @@ in {
       src = ./doom;
       copilotExecutable = "${pkgs.callPackage ./copilot.nix {}}/bin/copilot-language-server";
       doomConfigExtra = cfg.configExtra;
+      backgroundOpacity = cfg.backgroundOpacity;
       doomFontFamily = pkgs.lib.strings.escapeNixString cfg.font.family;
       doomFontSize = cfg.font.size;
       doomTheme = cfg.theme;
@@ -85,6 +91,7 @@ in {
       '';
       postFixup = ''
         substituteInPlace $out/config.el \
+          --subst-var backgroundOpacity \
           --subst-var copilotExecutable \
           --subst-var doomConfigExtra \
           --subst-var doomFontFamily \
