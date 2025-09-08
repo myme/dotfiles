@@ -24,8 +24,7 @@ in
     home.packages = [
       hyprquit
       pkgs.alsa-utils # for volume control
-      # FIXME: Broken build
-      # pkgs.nwg-displays
+      pkgs.nwg-displays
       pkgs.wlr-randr
     ];
 
