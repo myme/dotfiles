@@ -17,7 +17,8 @@ let
   '') else null;
   flavor = specialArgs.nixosConfig.myme.machine.flavor;
   deVariant = specialArgs.nixosConfig.myme.machine.de.variant;
-  isWayland = flavor == "wsl" || builtins.elem deVariant [ "gnome" "hyprland" ];
+  # isWayland = flavor == "wsl" || builtins.elem deVariant [ "gnome" "hyprland" ];
+  isWayland = builtins.elem deVariant [ "gnome" "hyprland" ];
   EDITOR = if specialArgs.nixosConfig.myme.machine.role == "server" then
     "${et}/bin/et"
   else
