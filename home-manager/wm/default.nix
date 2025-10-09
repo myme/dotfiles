@@ -123,11 +123,7 @@ in
       services = mkMerge [
         {
           # Screenshots (flameshot)
-          flameshot = {
-            enable = true;
-            package =
-              if isWayland then pkgs.flameshot.override { enableWlrSupport = true; } else pkgs.flameshot;
-          };
+          flameshot.enable = !isWayland;
         }
 
         # Dynamic temperature (redshift)

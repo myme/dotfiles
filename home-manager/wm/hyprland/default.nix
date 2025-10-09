@@ -24,6 +24,7 @@ in
     home.packages = [
       hyprquit
       pkgs.alsa-utils # for volume control
+      pkgs.myme.pkgs.hyprgrab
       pkgs.nwg-displays
       pkgs.wlr-randr
     ];
