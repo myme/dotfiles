@@ -90,7 +90,12 @@
       # Personal overlays
       overlays.default = import ./overlay.nix {
         inherit lib;
-        inherit (inputs) doomemacs home-manager wallpapers;
+        inherit (inputs)
+          doomemacs
+          home-manager
+          nixpkgs
+          wallpapers
+          ;
       };
 
       # NixOS machines
