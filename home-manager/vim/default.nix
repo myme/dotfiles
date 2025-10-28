@@ -110,8 +110,10 @@ in
         set   cmdheight=1
         set nocursorcolumn
         set nocursorline
+        set nohlsearch
         set   laststatus=2
         set   modeline
+        set   number
         set   relativenumber
         set   numberwidth=1
         set   scrolloff=0
