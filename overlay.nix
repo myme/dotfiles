@@ -6,7 +6,24 @@
   nixpkgs,
 }:
 
-final: prev: {
+final: prev:
+
+let
+  unstable = import nixpkgs {
+    inherit (prev) system;
+    config = {
+      allowUnfreePredicate = pkg: builtins.elem pkg.pname [
+        "claude-code"
+        "github-copilot-cli"
+      ];
+    };
+  };
+
+in
+{
+  # Always get LLM coding CLIs from unstable
+  inherit (unstable) claude-code github-copilot-cli;
+
   agenix = prev.agenix.override {
     # `age` works better than `rage` for editing .age files with SSH keys with
     # passphrases as of 2023-02-16.

@@ -32,6 +32,11 @@ in {
         default = true;
         description = "Enable the Claude Code CLI tool";
       };
+      copilot = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Enable the Copilot CLI tool";
+      };
     };
 
     # Elm
@@ -135,6 +140,7 @@ in {
       # LLM
       (mkIf cfg.llm.enable (with pkgs; [
         (mkIf cfg.llm.claude claude-code)
+        (mkIf cfg.llm.copilot github-copilot-cli)
       ]))
 
       # Network
