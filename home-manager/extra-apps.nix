@@ -3,7 +3,6 @@
   home.packages = [
     # Apps
     pkgs.firefox
-    pkgs.chromium
     pkgs.gimp
     pkgs.vlc
 
@@ -19,6 +18,20 @@
     pkgs.file-roller
     pkgs.seahorse
   ];
+
+  programs.chromium = {
+    enable = true;
+    extensions = [
+      # Bitwarden
+      { id = "nngceckbapebfimnlniiiahkandclblb"; }
+      # FoxyProxy
+      { id = "gcknhkkoolaabfmlnjonogaaifnjlfnp"; }
+      # Vimium
+      { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; }
+      # uBlock Origin Lite
+      { id = "ddkjiahejlhfcafbddmgiahcphecmpfh"; }
+    ];
+  };
 
   xdg.mimeApps = {
     enable = true;
