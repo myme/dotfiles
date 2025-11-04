@@ -17,6 +17,7 @@ in
     ./dev.nix
     ./emacs
     ./fonts.nix
+    ./ghostty.nix
     ./git.nix
     ./irc.nix
     ./nixon

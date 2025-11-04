@@ -114,6 +114,9 @@ in
         theme = if cfg.theme == "dark" then "dracula" else "one-light";
       };
 
+      # Ghostty
+      myme.ghostty.enable = true;
+
       # Emacs theme
       myme.emacs.theme = if cfg.theme == "dark" then "doom-dracula" else "doom-one-light";
 
