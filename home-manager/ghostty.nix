@@ -18,6 +18,7 @@ in
         font-family-bold = "NotoSansM NF Bold";
         font-family-italic = "NotoSansM NF Italic";
         font-family-bold-italic = "NotoSansM NF Bold Italic";
+        term = "xterm-256color";
         theme = "dracula";
         window-padding-x = 10;
         window-padding-y = 5;
