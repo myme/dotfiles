@@ -16,5 +16,7 @@
     :desc "Stop Org-Roam UI" :nv "U" (lambda () (interactive) (org-roam-ui-mode 0))
     :desc "Visit all org-mode files" :nv "v" #'myme/org-visit-all)
    (:prefix "s" :desc "Org Sync"
-    (:desc "Org sync all" :nv "s" #'myme/org-auto-sync))
-   )))
+    (:desc "Org sync all" :nv "s" #'myme/org-auto-sync)))
+  (:prefix
+   "n r"
+   (:desc "Daily from element at point" :nv "c" #'myme/org-copy-and-capture-to-daily))))

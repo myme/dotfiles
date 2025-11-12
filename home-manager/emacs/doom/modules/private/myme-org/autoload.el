@@ -185,3 +185,55 @@ IGNORE-FUTURE: When non-nil, exclude files with dates in the future."
   (interactive)
   (kill-new (shell-command-to-string "xclip-to-org"))
   (yank))
+
+;;;###autoload
+(defun myme/org-copy-element-body ()
+  "Copy the body of the org element at point.
+
+Exclude header and property drawers."
+  (interactive)
+  (save-excursion
+    ;; If in agenda, go to the actual org buffer
+    (when (derived-mode-p 'org-agenda-mode)
+      (org-agenda-switch-to))
+
+    (org-back-to-heading-or-point-min t)
+    (let ((element (org-element-at-point)))
+      (when (eq (org-element-type element) 'headline)
+        (let* ((contents-begin (org-element-property :contents-begin element))
+               (contents-end (org-element-property :contents-end element)))
+          (when (and contents-begin contents-end)
+            (goto-char contents-begin)
+            (org-end-of-meta-data t)
+            (let ((body-start (point)))
+              (when (< body-start contents-end)
+                (kill-ring-save body-start contents-end)
+                (message "Copied element body")))))))))
+
+;;;###autoload
+(defun myme/org-copy-and-capture-to-daily ()
+  "Copy current heading body to daily note with link and clock in."
+  (interactive)
+  (let ((link nil)
+        (body nil))
+
+    ;; Store link and copy body
+    (save-excursion
+      ;; If in agenda, go to the actual org buffer
+      (when (derived-mode-p 'org-agenda-mode)
+        (org-agenda-switch-to))
+
+      (org-back-to-heading-or-point-min t)
+      (setq link (org-store-link nil))
+      (myme/org-copy-element-body)
+      (setq body (current-kill 0)))
+
+    ;; Capture to daily note
+    (org-roam-dailies-capture-today nil "d")
+
+    ;; Insert link and body, then clock in
+    (when link
+      (insert (format "%s\n\n" link)))
+    (when body
+      (insert body))
+    (org-clock-in)))
