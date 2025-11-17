@@ -12,7 +12,6 @@ let
 in
 ({
   imports = [
-    ./barrier.nix
     ./btop.nix
     ./dev.nix
     ./emacs
