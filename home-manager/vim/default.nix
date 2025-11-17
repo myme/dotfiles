@@ -157,6 +157,8 @@ in
         nnoremap <leader>sp <cmd>Telescope grep_string<cr>
         nnoremap <leader>hW <cmd>Telescope man_pages<cr>
 
+        au FileType javascript nnoremap <buffer> <leader>tf <cmd>:!npm exec -- mocha % --exit<cr>
+
         " Themes
         set termguicolors
         colorscheme dracula
