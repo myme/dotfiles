@@ -51,11 +51,11 @@ in
           ])
           [
             # Completions + LSP (lsp-zero)
-            lsp-zero-nvim
             nvim-cmp
             cmp-nvim-lsp
             nvim-lspconfig
             luasnip
+            friendly-snippets
 
             # Dev
             neotest
@@ -72,6 +72,7 @@ in
 
             # Git
             neogit
+            diffview-nvim
             vim-fugitive
 
             # Telescope (fuzzy)
