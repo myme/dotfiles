@@ -3,8 +3,6 @@
 
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
   cfg = config.myme.dev;
 
@@ -16,24 +14,24 @@ in {
   options.myme.dev = {
     # Documentation (Man, info, ++)
     docs = {
-      enable = mkEnableOption "Enable documentation (man, info, ++)";
+      enable = lib.mkEnableOption "Enable documentation (man, info, ++)";
     };
 
     # C/C++ options
     cpp = {
-      enable = mkEnableOption "Enable C/C++ development tools";
+      enable = lib.mkEnableOption "Enable C/C++ development tools";
     };
 
     # LLM support (Claude, Copilot, ...)
     llm = {
-      enable = mkEnableOption "Enable LLM editor integrations";
-      claude = mkOption {
-        type = types.bool;
+      enable = lib.mkEnableOption "Enable LLM editor integrations";
+      claude = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         description = "Enable the Claude Code CLI tool";
       };
-      copilot = mkOption {
-        type = types.bool;
+      copilot = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         description = "Enable the Copilot CLI tool";
       };
@@ -41,19 +39,19 @@ in {
 
     # Elm
     elm = {
-      enable = mkEnableOption "Enable Elm development tools";
+      enable = lib.mkEnableOption "Enable Elm development tools";
     };
 
     # Haskell options
     haskell = {
-      enable = mkEnableOption "Enable Haskell development tools";
-      lsp = mkOption {
-        type = types.bool;
+      enable = lib.mkEnableOption "Enable Haskell development tools";
+      lsp = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         description = "Enable haskell-language-server";
       };
-      ormolu = mkOption {
-        type = types.bool;
+      ormolu = lib.mkOption {
+        type = lib.types.bool;
         default = true;
         description = "Install the Ormolu Haskell source code formatter";
       };
@@ -61,19 +59,19 @@ in {
 
     # Network options
     net = {
-      enable = mkEnableOption "Enable network development & diagnostics tools";
+      enable = lib.mkEnableOption "Enable network development & diagnostics tools";
     };
 
     # Nix options
     nix = {
-      enable = mkEnableOption "Enable Nix development tools";
+      enable = lib.mkEnableOption "Enable Nix development tools";
     };
 
     # Nodejs options
     nodejs = {
-      enable = mkEnableOption "Enable JavaScript development tools";
-      interpreter = mkOption {
-        type = types.bool;
+      enable = lib.mkEnableOption "Enable JavaScript development tools";
+      interpreter = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description = "Enable the Node.js interpreter";
       };
@@ -81,9 +79,9 @@ in {
 
     # Python options
     python = {
-      enable = mkEnableOption "Enable Python development tools";
-      interpreter = mkOption {
-        type = types.bool;
+      enable = lib.mkEnableOption "Enable Python development tools";
+      interpreter = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description = "Enable the Python interpreter";
       };
@@ -91,17 +89,17 @@ in {
 
     # GitHub options
     github = {
-      enable = mkEnableOption "Enable GitHub development tools";
+      enable = lib.mkEnableOption "Enable GitHub development tools";
     };
 
     # Rust options
     rust = {
-      enable = mkEnableOption "Enable Rust development tools";
+      enable = lib.mkEnableOption "Enable Rust development tools";
     };
 
     # Shell options
     shell = {
-      enable = mkEnableOption "Enable Shell script development tools";
+      enable = lib.mkEnableOption "Enable Shell script development tools";
     };
   };
 
@@ -114,87 +112,87 @@ in {
       };
     };
 
-    home.packages = mkMerge [
+    home.packages = lib.mkMerge [
       # Docs
-      (mkIf cfg.docs.enable (with pkgs; [
-        man-pages
-        man-pages-posix
-      ]))
+      (lib.mkIf cfg.docs.enable [
+        pkgs.man-pages
+        pkgs.man-pages-posix
+      ])
 
       # C/C++
-      (mkIf cfg.cpp.enable (with pkgs; [
-        ccls
-      ]))
+      (lib.mkIf cfg.cpp.enable [
+        pkgs.ccls
+      ])
 
       # Elm
-      (mkIf cfg.elm.enable (with pkgs; [
-        elmPackages.elm-language-server
-      ]))
+      (lib.mkIf cfg.elm.enable [
+        lib.elmPackages.elm-language-server
+      ])
 
       # Haskell
-      (mkIf cfg.haskell.enable (with pkgs; [
-        (mkIf cfg.haskell.lsp haskell-language-server)
-        (mkIf cfg.haskell.ormolu ormolu)
-      ]))
+      (lib.mkIf cfg.haskell.enable [
+        (lib.mkIf cfg.haskell.lsp pkgs.haskell-language-server)
+        (lib.mkIf cfg.haskell.ormolu pkgs.ormolu)
+      ])
 
       # LLM
-      (mkIf cfg.llm.enable (with pkgs; [
-        (mkIf cfg.llm.claude claude-code)
-        (mkIf cfg.llm.copilot github-copilot-cli)
-      ]))
+      (lib.mkIf cfg.llm.enable [
+        (lib.mkIf cfg.llm.claude pkgs.claude-code)
+        (lib.mkIf cfg.llm.copilot pkgs.github-copilot-cli)
+      ])
 
       # Network
-      (mkIf cfg.net.enable (with pkgs; [
-        dig
-        inetutils
-        mtr
-        nmap
-        wireshark
-      ]))
+      (lib.mkIf cfg.net.enable [
+        pkgs.dig
+        pkgs.inetutils
+        pkgs.mtr
+        pkgs.nmap
+        pkgs.wireshark
+      ])
 
       # Nix
-      (mkIf cfg.nix.enable (with pkgs; [
-        nil
-      ]))
+      (lib.mkIf cfg.nix.enable [
+        pkgs.nil
+      ])
 
       # Nodejs
-      (mkIf cfg.nodejs.enable (with pkgs; [
-        (mkIf cfg.nodejs.interpreter nodejs)
-        nodePackages.typescript
-        nodePackages.typescript-language-server
-        nodePackages.prettier
-      ]))
+      (lib.mkIf cfg.nodejs.enable [
+        (lib.mkIf cfg.nodejs.interpreter pkgs.nodejs)
+        pkgs.nodePackages.typescript
+        pkgs.nodePackages.typescript-language-server
+        pkgs.nodePackages.prettier
+      ])
 
       # Python
-      (mkIf cfg.python.enable (with pkgs; [
-        (mkIf cfg.python.interpreter (python3.withPackages (ps: with ps; [
-          ipython
+      (lib.mkIf cfg.python.enable [
+        (lib.mkIf cfg.python.interpreter (pkgs.python3.withPackages (ps: [
+          ps.ipython
         ])))
-        black
-        # python-language-server
-        pyright
-      ]))
+        pkgs.black
+        # pkgs.python-language-server
+        pkgs.pyright
+      ])
 
       # GitHub
-      (mkIf cfg.github.enable (with pkgs; [
-        gitAndTools.gh
-      ]))
+      (lib.mkIf cfg.github.enable [
+        pkgs.gitAndTools.gh
+      ])
 
       # Rust
-      (mkIf cfg.rust.enable (with pkgs; [
-        rust-analyzer
-      ]))
+      (lib.mkIf cfg.rust.enable [
+        pkgs.rust-analyzer
+      ])
 
       # Shell
-      (mkIf cfg.shell.enable (with pkgs; [
-        shellcheck
-        shfmt
-      ]))
+      (lib.mkIf cfg.shell.enable [
+        pkgs.shellcheck
+        pkgs.shfmt
+      ])
     ];
 
     # Ghci configuration
-    home.file = mkMerge [
-      (mkIf cfg.haskell.enable {
+    home.file = lib.mkMerge [
+      (lib.mkIf cfg.haskell.enable {
         ".ghci".text = ''
           :set prompt "λ: "
         '';
@@ -202,7 +200,7 @@ in {
     ];
 
     # Neovim plugins
-    programs.neovim.plugins = mkIf cfg.haskell.enable [
+    programs.neovim.plugins = lib.mkIf cfg.haskell.enable [
       pkgs.vimPlugins.haskell-tools-nvim
     ];
   };
