@@ -35,6 +35,11 @@ in {
         default = true;
         description = "Enable the Copilot CLI tool";
       };
+      gemini = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable the Gemini CLI tool";
+      };
     };
 
     # Elm
@@ -139,6 +144,7 @@ in {
       (lib.mkIf cfg.llm.enable [
         (lib.mkIf cfg.llm.claude pkgs.claude-code)
         (lib.mkIf cfg.llm.copilot pkgs.github-copilot-cli)
+        (lib.mkIf cfg.llm.gemini pkgs.gemini-cli)
       ])
 
       # Network

@@ -22,7 +22,7 @@ let
 in
 {
   # Always get LLM coding CLIs from unstable
-  inherit (unstable) claude-code github-copilot-cli;
+  inherit (unstable) claude-code gemini-cli github-copilot-cli;
 
   agenix = prev.agenix.override {
     # `age` works better than `rage` for editing .age files with SSH keys with
