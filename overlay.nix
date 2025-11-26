@@ -12,10 +12,12 @@ let
   unstable = import nixpkgs {
     inherit (prev) system;
     config = {
-      allowUnfreePredicate = pkg: builtins.elem pkg.pname [
-        "claude-code"
-        "github-copilot-cli"
-      ];
+      allowUnfreePredicate =
+        pkg:
+        builtins.elem pkg.pname [
+          "claude-code"
+          "github-copilot-cli"
+        ];
     };
   };
 
@@ -44,17 +46,8 @@ in
     };
 
   # Include fix for https://github.com/hyprwm/Hyprland/pull/11916
-  # FIXME: Remove when released in Hyprland
-  hyprland = nixpkgs.legacyPackages.${prev.system}.hyprland.overrideAttrs ({
-    version = "0.51.1-patched";
-    src = prev.fetchFromGitHub {
-      owner = "hyprwm";
-      repo = "hyprland";
-      fetchSubmodules = true;
-      rev = "ab11af9664a80df70fe3398810b79c4298312a33";
-      hash = "sha256-dSAPRyKzxM+JodX5xBCmpVrVYWjYpNPPiSySaI4W+rQ=";
-    };
-  });
+  # FIXME: Remove once 0.52 or above is in stable
+  inherit (unstable) hyprland;
 
   myme = {
     inherit doomemacs wallpapers;
