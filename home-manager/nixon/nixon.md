@@ -16,6 +16,20 @@ Start emacs.
 emacs
 ```
 
+### `_files_and_dirs`
+
+```bash
+fd -l
+```
+
+### `open ${_files_and_dirs | cols+h 9} &`
+
+Use `xdg-open` to open a file or directory.
+
+```bash
+xdg-open "$1"
+```
+
 ### `org-capture &`
 
 Run `org-capture` from [doomemacs](https://github.com/doomemacs/doomemacs).
