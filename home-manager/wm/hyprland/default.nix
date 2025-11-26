@@ -26,6 +26,7 @@ in
       pkgs.alsa-utils # for volume control
       pkgs.myme.pkgs.hyprgrab
       pkgs.nwg-displays
+      pkgs.wl-clipboard
       pkgs.wlr-randr
     ];
 
