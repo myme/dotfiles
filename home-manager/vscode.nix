@@ -1,9 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.myme.dev.vscode;
 
-in {
+in
+{
   options.myme.dev.vscode = {
     enable = lib.mkEnableOption "Enable VS Code";
   };
@@ -12,6 +18,7 @@ in {
     programs.vscode = {
       enable = cfg.enable;
       profiles.default.extensions = [
+        pkgs.vscode-extensions.dracula-theme.theme-dracula
         pkgs.vscode-extensions.github.copilot
         pkgs.vscode-extensions.github.copilot-chat
         pkgs.vscode-extensions.mkhl.direnv
