@@ -187,8 +187,8 @@ IGNORE-FUTURE: When non-nil, exclude files with dates in the future."
   (yank))
 
 ;;;###autoload
-(defun myme/org-copy-element-body ()
-  "Copy the body of the org element at point.
+(defun myme/org-read-element-body ()
+  "Return the body of the org element at point.
 
 Exclude header and property drawers."
   (interactive)
@@ -207,8 +207,7 @@ Exclude header and property drawers."
             (org-end-of-meta-data t)
             (let ((body-start (point)))
               (when (< body-start contents-end)
-                (kill-ring-save body-start contents-end)
-                (message "Copied element body")))))))))
+                (buffer-substring-no-properties body-start contents-end)))))))))
 
 ;;;###autoload
 (defun myme/org-copy-and-capture-to-daily ()
@@ -225,8 +224,7 @@ Exclude header and property drawers."
 
       (org-back-to-heading-or-point-min t)
       (setq link (org-store-link nil))
-      (myme/org-copy-element-body)
-      (setq body (current-kill 0)))
+      (setq body (myme/org-read-element-body)))
 
     ;; Capture to daily note
     (org-roam-dailies-capture-today nil "d")
