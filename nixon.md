@@ -39,13 +39,13 @@ nix flake show --json | jq -r '.nixosConfigurations | keys[]'
 ### `nixos-test`
 
 ```bash
-nixos-rebuild test --use-remote-sudo --flake .
+nixos-rebuild test --sudo --flake .
 ```
 
 ### `nixos-rebuild ${_nixos-rebuild-target} ${_nixos-configurations}`
 
 ```bash
-nixos-rebuild "$1" --use-remote-sudo --flake ".#$2"
+nixos-rebuild "$1" --sudo --flake ".#$2"
 ```
 
 ### `_nixos-rebuild-target`
@@ -59,7 +59,7 @@ switch
 ### `nixos-switch`
 
 ```bash
-nixos-rebuild switch --use-remote-sudo --flake .
+nixos-rebuild switch --sudo --flake .
 ```
 
 ### `home-manager-list-generations`
