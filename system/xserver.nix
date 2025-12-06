@@ -86,15 +86,7 @@ in
     })
     # Hyprland (Wayland)
     (mkIf (cfg.variant == "hyprland") {
-      services =
-        if is_stable then
-          {
-            xserver.displayManager.gdm.enable = true;
-          }
-        else
-          {
-            displayManager.gdm.enable = true;
-          };
+      services.displayManager.gdm.enable = true;
       programs.hyprland = {
         enable = true;
         withUWSM = true;
@@ -102,48 +94,37 @@ in
       };
     })
     # Gnome
-    (mkIf (cfg.variant == "gnome")
-      (
-        let
-          gnomeSettings = {
-            enable = true;
-            flashback.customSessions = [
-              {
-                wmName = "hmxsession";
-                wmLabel = "HomeManager XSession";
-                wmCommand =
-                  let
-                    wmCommand = pkgs.writeShellScript "hm-xsession" ''
-                      $HOME/.hm-xsession
-                    '';
-                  in
-                  "${wmCommand}";
-                enableGnomePanel = false;
-              }
-            ];
-          };
-        in
-        {
-          services =
-            # TODO: Remove this once stable is on NixOS 25.11
-            # displayManager/desktopManager is moved out of xserver
-            if is_stable then
-              {
-                xserver.displayManager.gdm.enable = true;
-                xserver.desktopManager.gnome = gnomeSettings;
-              }
-            else
-              {
-                displayManager.gdm.enable = true;
-                desktopManager.gnome = gnomeSettings;
-              };
-        }
-      )
-    )
+    (mkIf (cfg.variant == "gnome") (
+      let
+        gnomeSettings = {
+          enable = true;
+          flashback.customSessions = [
+            {
+              wmName = "hmxsession";
+              wmLabel = "HomeManager XSession";
+              wmCommand =
+                let
+                  wmCommand = pkgs.writeShellScript "hm-xsession" ''
+                    $HOME/.hm-xsession
+                  '';
+                in
+                "${wmCommand}";
+              enableGnomePanel = false;
+            }
+          ];
+        };
+      in
+      {
+        services = {
+          displayManager.gdm.enable = true;
+          desktopManager.gnome = gnomeSettings;
+        };
+      }
+    ))
     # KDE Plasma
     (mkIf (cfg.variant == "plasma") {
-      services.xserver.displayManager.sddm.enable = true;
-      services.xserver.desktopManager.plasma5.enable = true;
+      services.displayManager.sddm.enable = true;
+      services.desktopManager.plasma6.enable = true;
     })
     # XFCE
     (mkIf (cfg.variant == "xfce") {

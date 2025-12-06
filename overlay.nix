@@ -45,10 +45,6 @@ in
       };
     };
 
-  # Include fix for https://github.com/hyprwm/Hyprland/pull/11916
-  # FIXME: Remove once 0.52 or above is in stable
-  inherit (unstable) hyprland;
-
   myme = {
     inherit doomemacs wallpapers;
     pkgs = builtins.listToAttrs (

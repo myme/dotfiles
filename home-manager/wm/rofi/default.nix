@@ -44,7 +44,6 @@ in
   config = {
     programs.rofi = {
       enable = cfg.enable;
-      package = if config.myme.wm.isWayland then pkgs.rofi-wayland else pkgs.rofi;
       theme = "${rofiTheme}";
     };
   };

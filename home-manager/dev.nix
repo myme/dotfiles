@@ -181,7 +181,7 @@ in {
 
       # GitHub
       (lib.mkIf cfg.github.enable [
-        pkgs.gitAndTools.gh
+        pkgs.gh
       ])
 
       # Rust
