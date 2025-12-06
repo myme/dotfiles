@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  specialArgs,
   ...
 }:
 
@@ -13,6 +14,7 @@ let
     answer="$(rofi -dmenu -p "Really quit?" <<< $'No\nYes')"
     [ "$answer" = "Yes" ] && loginctl terminate-user $USER
   '';
+  withUWSM = specialArgs.nixosConfig.programs.hyprland.withUWSM;
 
 in
 {
@@ -103,7 +105,9 @@ in
 
     # autoname workspaces 🤖
     systemd.user.services.hyprland-autoname-workspaces = {
-      Install = { WantedBy = [ config.wayland.systemd.target ]; };
+      Install = {
+        WantedBy = [ config.wayland.systemd.target ];
+      };
 
       Unit = {
         ConditionEnvironment = "WAYLAND_DISPLAY";
@@ -123,7 +127,9 @@ in
     # TODO: Switch to hyprsunset once it supports automatic transitions
     # See: https://github.com/hyprwm/hyprsunset/issues/8
     systemd.user.services.wlsunset = {
-      Install = { WantedBy = [ config.wayland.systemd.target ]; };
+      Install = {
+        WantedBy = [ config.wayland.systemd.target ];
+      };
 
       Unit = {
         ConditionEnvironment = "WAYLAND_DISPLAY";
@@ -143,8 +149,15 @@ in
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
-      systemd.enable = true;
+      systemd = {
+        enable = !withUWSM;
+        variables = [ "--all" ];
+      };
       extraConfig = builtins.readFile ./hyprland.conf;
     };
+
+    # Env variables for Hyprland session
+    xdg.configFile."uwsm/env".source =
+      lib.mkIf withUWSM "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
   };
 }
