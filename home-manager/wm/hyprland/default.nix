@@ -157,7 +157,14 @@ in
     };
 
     # Env variables for Hyprland session
-    xdg.configFile."uwsm/env".source =
-      lib.mkIf withUWSM "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
+    xdg.configFile."uwsm/env".source = lib.mkIf withUWSM (
+      pkgs.writeTextFile {
+        name = "uwsm-vars.sh";
+        text = ''
+          source ${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh
+          unset __HM_SESS_VARS_SOURCED
+        '';
+      }
+    );
   };
 }
