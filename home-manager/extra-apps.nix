@@ -19,6 +19,10 @@
     pkgs.seahorse
   ];
 
+  home.sessionVariables = {
+    BROWSER = "${pkgs.firefox}/bin/firefox";
+  };
+
   programs.chromium = {
     enable = true;
     extensions = [
