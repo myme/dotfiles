@@ -9,8 +9,9 @@
 final: prev:
 
 let
+  system = prev.stdenv.hostPlatform.system;
   unstable = import nixpkgs {
-    inherit (prev) system;
+    inherit system;
     config = {
       allowUnfreePredicate =
         pkg:
