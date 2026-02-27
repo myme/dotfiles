@@ -150,8 +150,10 @@ in
         {
           enable = true;
           scriptPath = ".hm-xsession";
-          initExtra = wallpaperCmd;
         }
+        (mkIf onlyX11WM {
+          initExtra = wallpaperCmd;
+        })
         (mkIf (cfg.variant == "hyprland") {
           windowManager.command = "${pkgs.hyprland}/bin/hyprland";
         })
