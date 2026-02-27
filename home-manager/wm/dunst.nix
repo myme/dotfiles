@@ -1,4 +1,4 @@
-{ font, geometry }:
+{ font, width, origin, offset }:
 {
   global = {
     ### Display ###
@@ -19,37 +19,23 @@
     # will be ignored.
     follow = "mouse";
 
-    # The geometry of the window:
-    #   [{width}]x{height}[+/-{x}+/-{y}]
-    # The geometry of the message window.
-    # The height is measured in number of notifications everything else
-    # in pixels.  If the width is omitted but the height is given
-    # ("-geometry x2"), the message window expands over the whole screen
-    # (dmenu-like).  If width is 0, the window expands to the longest
-    # message displayed.  A positive x is measured from the left, a
-    # negative from the right side of the screen.  Y is measured from
-    # the top and down respectively.
-    # The width can be negative.  In this case the actual width is the
-    # screen width minus the width defined in within the geometry option.
-    # geometry = "300x5-30+20";
-    inherit geometry;
+    # Notification window width
+    inherit width;
 
-    # Show how many messages are currently hidden (because of geometry).
+    # Max height of a single notification
+    height = 300;
+
+    # Max number of visible notifications
+    notification_limit = 5;
+
+    # Position on screen
+    inherit origin;
+
+    # Offset from the origin
+    inherit offset;
+
+    # Show how many messages are currently hidden
     indicate_hidden = "yes";
-
-    # Shrink window if it's smaller than the width.  Will be ignored if
-    # width is 0.
-    shrink = "no";
-
-    # The transparency of the window.  Range: [0; 100].
-    # This option will only work if a compositing window manager is
-    # present (e.g. xcompmgr, compiz, etc.).
-    transparency = 7;
-
-    # The height of the entire notification.  If the height is smaller
-    # than the font height and padding combined, it will be raised
-    # to the font height and padding.
-    notification_height = 0;
 
     # Draw a line of "separator_height" pixel height between two
     # notifications.
@@ -219,18 +205,6 @@
     # notification height to avoid clipping text and/or icons.
     corner_radius = 10;
 
-    ### Legacy
-
-    # Use the Xinerama extension instead of RandR for multi-monitor support.
-    # This setting is provided for compatibility with older nVidia drivers that
-    # do not support RandR and using it on systems that support RandR is highly
-    # discouraged.
-    #
-    # By enabling this setting dunst will not be able to detect when a monitor
-    # is connected or disconnected which might break follow mode if the screen
-    # layout changes.
-    force_xinerama = false;
-
     ### mouse
 
     # Defines action of mouse event
@@ -243,17 +217,6 @@
     mouse_left_click = "close_current";
     mouse_middle_click = "do_action";
     mouse_right_click = "close_all";
-  };
-
-  # Experimental features that may or may not work correctly. Do not expect them
-  # to have a consistent behaviour across releases.
-  experimental = {
-    # Calculate the dpi to use on a per-monitor basis.
-    # If this setting is enabled the Xft.dpi value will be ignored and instead
-    # dunst will attempt to calculate an appropriate dpi value for each monitor
-    # using the resolution and physical size. This might be useful in setups
-    # where there are multiple screens with very different dpi values.
-    per_monitor_dpi = false;
   };
 
   shortcuts = {

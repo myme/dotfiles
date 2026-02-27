@@ -187,6 +187,17 @@ in
 
       # Network manager
       services.network-manager-applet.enable = true;
+
+      # Notifications (dunst)
+      services.dunst = {
+        enable = true;
+        settings = import ./dunst.nix (
+          if machine.highDPI then
+            { font = "Dejavu Sans 15"; width = 500; origin = "top-right"; offset = "30x20"; }
+          else
+            { font = "Dejavu Sans 10"; width = 300; origin = "top-right"; offset = "30x20"; }
+        );
+      };
     })
 
     # With Wayland
@@ -231,22 +242,6 @@ in
         lockCmd = "${lockCmd}";
       };
 
-      # Notifications (dunst)
-      services.dunst = {
-        enable = true;
-        settings = import ./dunst.nix (
-          if machine.highDPI then
-            {
-              font = "Dejavu Sans 15";
-              geometry = "500x5+30+20";
-            }
-          else
-            {
-              font = "Dejavu Sans 10";
-              geometry = "300x5-30+20";
-            }
-        );
-      };
     })
   ]);
 }
