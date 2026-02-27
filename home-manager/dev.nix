@@ -217,8 +217,8 @@ in {
           includeCoAuthoredBy = false;
         } // lib.optionalAttrs cfg.llm.claude.notify {
           hooks = {
-            Stop = [{ hooks = [{ type = "command"; command = "${pkgs.myme.pkgs.sonnette}/bin/sonnette notify"; }]; }];
-            Notification = [{ hooks = [{ type = "command"; command = "${pkgs.myme.pkgs.sonnette}/bin/sonnette notify"; }]; }];
+            Stop = [{ hooks = [{ type = "command"; command = "${pkgs.myme.pkgs.sonnette}/bin/sonnette notify 'Claude Code'"; }]; }];
+            Notification = [{ hooks = [{ type = "command"; command = "${pkgs.myme.pkgs.sonnette}/bin/sonnette notify 'Claude Code'"; }]; }];
           };
         });
       })

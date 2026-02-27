@@ -1,12 +1,57 @@
-{ writeShellScriptBin, tmux, coreutils }:
+{ writeShellScriptBin, tmux, coreutils, jq, libnotify }:
 
 writeShellScriptBin "sonnette" ''
   SONNETTE_DIR="''${SONNETTE_DIR:-''${XDG_RUNTIME_DIR:-/tmp}/sonnette}"
 
   notify() {
     ${coreutils}/bin/mkdir -p "$SONNETTE_DIR"
-    local name="''${1:-''${TMUX_PANE:-$$}}"
+    local name="''${TMUX_PANE:-$$}"
     ${coreutils}/bin/touch "$SONNETTE_DIR/$name"
+
+    # Parse args: [title] [-- notify-send-args...]
+    local title=""
+    local ns_args=()
+    while [ $# -gt 0 ]; do
+      if [ "$1" = "--" ]; then
+        shift
+        ns_args=("$@")
+        break
+      fi
+      title="$1"
+      shift
+    done
+
+    # Read JSON from stdin if not a terminal (e.g. hook payload)
+    local input=""
+    if [ ! -t 0 ]; then
+      input=$(${coreutils}/bin/cat)
+    fi
+
+    # Extract context from JSON
+    local cwd="" message=""
+    if [ -n "$input" ]; then
+      cwd=$(echo "$input" | ${jq}/bin/jq -r '.cwd // empty' 2>/dev/null)
+      message=$(echo "$input" | ${jq}/bin/jq -r '.message // empty' 2>/dev/null)
+    fi
+
+    # Enrich title with tmux session and project path
+    if [ -n "''${TMUX:-}" ]; then
+      local session
+      session=$(${tmux}/bin/tmux display-message -p '#S' 2>/dev/null)
+      if [ -n "$session" ]; then
+        title="''${title:+$title }[$session]"
+      fi
+    fi
+    if [ -n "$cwd" ]; then
+      title="''${title:+$title - }$(${coreutils}/bin/basename "$cwd")"
+    fi
+    title="''${title:-Notification}"
+
+    # Build notification body
+    local body="''${message:-Ready}"
+
+    # Send desktop notification
+    ${libnotify}/bin/notify-send "$title" "$body" "''${ns_args[@]}"
   }
 
   status() {
