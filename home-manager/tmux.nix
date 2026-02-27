@@ -4,6 +4,10 @@
       tmux-xpanes
     ];
 
+    home.sessionVariables = {
+      TMUX_XPANES_DEFAULT_CMD = "bat --style=plain --paging=never";
+    };
+
     programs.tmux = {
       enable = true;
       keyMode = "vi";
@@ -30,6 +34,10 @@
         # Mouse support
         set -g mouse on
 
+        # Sonnette: jump to alerting pane and clear notification
+        bind b run-shell '${pkgs.myme.pkgs.sonnette}/bin/sonnette jump'
+        bind B run-shell '${pkgs.myme.pkgs.sonnette}/bin/sonnette clear'
+
         # Keep server running
         set -g exit-empty off
       '';
@@ -39,7 +47,13 @@
           plugin = power-theme;
           extraConfig = "set -g @tmux_power_theme 'violet'";
         }
-        sensible
+        {
+          plugin = sensible;
+          extraConfig = ''
+            # Sonnette: append notification indicator after tmux-power status-right
+            set -ag status-right "#[bg=colour208,fg=colour0,bold]#(${pkgs.myme.pkgs.sonnette}/bin/sonnette status)#[default]"
+          '';
+        }
         sessionist
         urlview
         yank
