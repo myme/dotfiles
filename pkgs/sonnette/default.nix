@@ -16,18 +16,18 @@ writeShellScriptBin "sonnette" ''
     local count
     count=$(${coreutils}/bin/ls -1 "$SONNETTE_DIR" 2>/dev/null | ${coreutils}/bin/wc -l)
     if [ "$count" -gt 0 ]; then
-      echo " 🔔 $count"
+      echo " 🔔 $count "
     fi
   }
 
   jump() {
     if [ ! -d "$SONNETTE_DIR" ]; then
-      return 1
+      return
     fi
     local target
     target=$(${coreutils}/bin/ls -1 "$SONNETTE_DIR" 2>/dev/null | ${coreutils}/bin/head -1)
     if [ -z "$target" ]; then
-      return 1
+      return
     fi
     # If it looks like a tmux pane ID, switch to it
     if [ -n "''${TMUX:-}" ] && [[ "$target" == %* ]]; then
