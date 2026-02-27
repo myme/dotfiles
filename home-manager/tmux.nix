@@ -34,9 +34,9 @@
         # Mouse support
         set -g mouse on
 
-        # Sonnette: jump to alerting pane and clear notification
+        # Sonnette: jump to alerting pane and back to last pane
         bind b run-shell '${pkgs.myme.pkgs.sonnette}/bin/sonnette jump'
-        bind B run-shell '${pkgs.myme.pkgs.sonnette}/bin/sonnette clear'
+        bind B switch-client -l
 
         # Keep server running
         set -g exit-empty off
