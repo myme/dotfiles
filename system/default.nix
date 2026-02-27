@@ -110,10 +110,8 @@
     (lib.mkIf (config.myme.machine.role != "server") {
       # For GTK stuff
       programs.dconf.enable = true;
-
       # Enable sound.
-      # TODO: Reduce to services.pulseaudio.enable = true; when NixOS stable is updated
-      ${if options.services ? pulseaudio then "services" else "hardware"}.pulseaudio.enable = true;
+      services.pipewire.enable = true;
     })
     # Laptop configs
     (lib.mkIf (config.myme.machine.role == "laptop") {

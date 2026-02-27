@@ -178,7 +178,7 @@ in
     # Without a Desktop Environment
     (mkIf (isWayland || onlyX11WM) {
       home.packages = [
-        pkgs.pavucontrol
+        pkgs.pwvucontrol
         pkgs.pulsemixer
       ];
 

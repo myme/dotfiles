@@ -254,7 +254,7 @@ in
               ];
             };
             "on-click" = "amixer set Master toggle";
-            "on-click-right" = "pavucontrol";
+            "on-click-right" = "pwvucontrol";
           };
 
           "custom/media" = {

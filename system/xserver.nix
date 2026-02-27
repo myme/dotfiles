@@ -86,6 +86,7 @@ in
     })
     # Hyprland (Wayland)
     (mkIf (cfg.variant == "hyprland") {
+      environment.systemPackages = [ pkgs.xdg-desktop-portal-hyprland ];
       services.displayManager.gdm.enable = true;
       programs.hyprland = {
         enable = true;
