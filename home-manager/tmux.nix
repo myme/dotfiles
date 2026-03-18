@@ -38,6 +38,9 @@
         bind b run-shell '${pkgs.myme.pkgs.sonnette}/bin/sonnette jump'
         bind B switch-client -l
 
+        # Fuzzy session switcher
+        bind F display-popup -w 62% -h 38% -E "tmux list-sessions -F '#{session_name}' | fzf --reverse | xargs -r tmux switch-client -t"
+
         # Keep server running
         set -g exit-empty off
       '';
