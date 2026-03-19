@@ -213,7 +213,6 @@ in {
       })
       (lib.mkIf (cfg.llm.enable && cfg.llm.claude.enable) {
         ".claude/settings.json".text = builtins.toJSON ({
-          model = "opus";
           includeCoAuthoredBy = false;
         } // lib.optionalAttrs cfg.llm.claude.notify {
           hooks = {
