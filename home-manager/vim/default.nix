@@ -47,7 +47,6 @@ in
                 require("avante").setup()
               '';
             }
-            copilot-vim
           ])
           [
             # Completions + LSP (lsp-zero)

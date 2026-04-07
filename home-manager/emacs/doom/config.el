@@ -266,23 +266,6 @@
             browse-url-browser-function 'browse-url-generic
             search-web-default-browser 'browse-url-generic))))
 
-
-;; accept completion from copilot and fallback to company
-(use-package! copilot
-  :hook (prog-mode . copilot-mode)
-  :bind (:map copilot-completion-map
-              ("<tab>" . 'copilot-accept-completion)
-              ("TAB" . 'copilot-accept-completion)
-              ("C-TAB" . 'copilot-accept-completion-by-word)
-              ("C-<tab>" . 'copilot-accept-completion-by-word))
-  :config
-  (setq
-   ;; This is madness! This is NixOS!
-   copilot-server-executable "@copilotExecutable@"
-   ;; Avoid annoying copilot "unable to determine indentation" warnings
-   copilot-indent-offset-warning-disable t
-   ))
-
 ;; LLM integration
 (after! gptel
   (setq!

@@ -80,7 +80,6 @@ in {
     xdg.configFile.doom.source = pkgs.stdenv.mkDerivation {
       name = "doom-emacs-src";
       src = ./doom;
-      copilotExecutable = "${pkgs.callPackage ./copilot.nix {}}/bin/copilot-language-server";
       doomConfigExtra = cfg.configExtra;
       backgroundOpacity = cfg.backgroundOpacity;
       doomFontFamily = pkgs.lib.strings.escapeNixString cfg.font.family;
@@ -92,7 +91,6 @@ in {
       postFixup = ''
         substituteInPlace $out/config.el \
           --subst-var backgroundOpacity \
-          --subst-var copilotExecutable \
           --subst-var doomConfigExtra \
           --subst-var doomFontFamily \
           --subst-var doomFontSize \
