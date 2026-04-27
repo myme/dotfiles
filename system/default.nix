@@ -35,7 +35,8 @@
       };
 
       # Time
-      time.timeZone = "Europe/Oslo";
+      time.timeZone = lib.mkDefault "Europe/Oslo";
+      services.automatic-timezoned.enable = true;
 
       # System packages
       environment.systemPackages = with pkgs; [ vim ];
