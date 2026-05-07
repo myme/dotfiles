@@ -10,6 +10,10 @@
       url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Disko
     disko = {
@@ -65,6 +69,7 @@
     {
       self,
       nixpkgs,
+      nix-darwin,
       flake-utils,
       ...
     }@inputs:
