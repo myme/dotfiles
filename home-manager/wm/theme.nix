@@ -1,7 +1,7 @@
-{ config, lib, pkgs, ... }@args:
+{ config, lib, osConfig, pkgs, ... }@args:
 
 let
-  machine = args.specialArgs.nixosConfig.myme.machine;
+  machine = osConfig.myme.machine;
   enable = config.myme.wm.enable || machine.flavor == "wsl";
 
   iconThemes = {

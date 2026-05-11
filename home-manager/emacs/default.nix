@@ -1,4 +1,4 @@
-{ config, lib, pkgs, specialArgs, ... }:
+{ config, lib, pkgs, osConfig, ... }:
 
 let
   cfg = config.myme.emacs;
@@ -15,10 +15,10 @@ let
   epg = if lib.versionOlder pkgs.gnupg.version "2.4.4" then (pkgs.writeShellScriptBin "epg" ''
     PATH="${pkgs.gnupg24}/bin:$PATH" emacs "$@"
   '') else null;
-  flavor = specialArgs.nixosConfig.myme.machine.flavor;
-  deVariant = specialArgs.nixosConfig.myme.machine.de.variant;
+  flavor = osConfig.myme.machine.flavor;
+  deVariant = osConfig.myme.machine.de.variant;
   isWayland = flavor == "wsl" || builtins.elem deVariant [ "gnome" "hyprland" ];
-  EDITOR = if specialArgs.nixosConfig.myme.machine.role == "server" then
+  EDITOR = if osConfig.myme.machine.role == "server" then
     "${et}/bin/et"
   else
     "${ec}/bin/ec";

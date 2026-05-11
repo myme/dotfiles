@@ -15,13 +15,13 @@
 {
   lib,
   pkgs,
-  specialArgs,
+  osConfig,
   ...
 }:
 
 let
-  is_stable = specialArgs.nixosConfig.myme.machine.stable;
-  gnome = specialArgs.nixosConfig.services.desktopManager.gnome;
+  is_stable = osConfig.myme.machine.stable;
+  gnome = osConfig.services.desktopManager.gnome;
 in
 {
   config = lib.mkIf gnome.enable {

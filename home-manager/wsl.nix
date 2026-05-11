@@ -2,12 +2,12 @@
   config,
   lib,
   pkgs,
-  specialArgs,
+  osConfig,
   ...
 }:
 
 let
-  machine = specialArgs.nixosConfig.myme.machine;
+  machine = osConfig.myme.machine;
   isWsl = machine.flavor == "wsl";
 
 in
