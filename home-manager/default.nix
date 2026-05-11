@@ -44,7 +44,7 @@ in
         lsof
         nix-diff
         nix-tree
-        nixfmt-rfc-style
+        nixfmt
         ripgrep
         tree
         unzip
