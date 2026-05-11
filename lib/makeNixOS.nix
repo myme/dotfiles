@@ -13,7 +13,7 @@ in nixpkgs.lib.nixosSystem {
   inherit (host) system;
   specialArgs = { inherit inputs; };
   modules = [
-    ../system
+    ../modules
     ../users/root.nix
     agenix.nixosModules.default
     nixos-wsl.nixosModules.wsl

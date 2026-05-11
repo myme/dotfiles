@@ -11,7 +11,6 @@ let
   machine = config.myme.machine;
   is_stable = config.myme.machine.stable;
   cfg = machine.de;
-  xserver = (config.myme.machine.role != "server" && config.myme.machine.flavor != "wsl");
   noDM = builtins.elem cfg.variant [
     "hyprland"
     "wm"
@@ -19,26 +18,6 @@ let
 
 in
 {
-  options = {
-    myme.machine.highDPI = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Optimize for high DPI outputs (4k)";
-    };
-    myme.machine.de.variant = mkOption {
-      type = types.enum [
-        "none"
-        "hyprland"
-        "gnome"
-        "plasma"
-        "wm"
-        "xfce"
-      ];
-      default = if xserver then "wm" else "none";
-      description = "Desktop Environment flavor";
-    };
-  };
-
   config = mkMerge [
     (mkIf (cfg.variant != "none") {
       services.xserver = {

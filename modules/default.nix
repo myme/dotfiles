@@ -1,29 +1,6 @@
 # Global system configuration
 { config, lib, pkgs, options, system, ... }: {
-  imports = [ ./sleep.nix ./xserver.nix ./users.nix ];
-
-  options.myme.machine = {
-    name = lib.mkOption {
-      type = lib.types.str;
-      default = "nixos";
-      description = "Machine name";
-    };
-    stable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Use stable NixOS release";
-    };
-    role = lib.mkOption {
-      type = lib.types.enum [ "desktop" "laptop" "server" ];
-      default = "desktop";
-      description = "Machine type";
-    };
-    flavor = lib.mkOption {
-      type = lib.types.enum [ "nixos" "generic" "wsl" ];
-      default = "nixos";
-      description = "Linux flavor";
-    };
-  };
+  imports = [ ./machine.nix ./sleep.nix ./xserver.nix ./users.nix ];
 
   config = lib.mkMerge [
     # Defaults
