@@ -153,7 +153,7 @@ in {
       alias n=nixon
 
       # Nixon (p: project cd)
-      unalias p
+      (( ''${+aliases[p]} )) && unalias p
       p () {
           local project;
           project=$(nixon project -s "$@" | tail -1)
