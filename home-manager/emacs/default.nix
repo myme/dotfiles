@@ -123,7 +123,7 @@ in {
       xclip-to-org
     ] ++ (if epg != null then [epg] else []);
 
-    xdg.desktopEntries = {
+    xdg.desktopEntries = lib.mkIf pkgs.stdenv.isLinux {
       org-capture = {
         name = "Org Capture";
         genericName = "Emacs Org-Mode Capture";

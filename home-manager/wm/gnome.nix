@@ -21,10 +21,10 @@
 
 let
   is_stable = osConfig.myme.machine.stable;
-  gnome = osConfig.services.desktopManager.gnome;
+  gnomeEnable = osConfig.services.desktopManager.gnome.enable or false;
 in
 {
-  config = lib.mkIf gnome.enable {
+  config = lib.mkIf gnomeEnable {
     home.packages = [
       pkgs.wl-clipboard
     ];

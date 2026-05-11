@@ -2,12 +2,13 @@
   config,
   lib,
   pkgs,
-  nixos-config,
+  osConfig,
   ...
 }:
 
 let
   defaultPrograms = config.myme.defaultPrograms;
+  dockerEnabled = osConfig ? virtualisation && osConfig.virtualisation.docker.enable;
 
 in
 ({
@@ -80,7 +81,7 @@ in
           "ignoredups"
           "ignorespace"
         ];
-        initExtra = lib.mkIf nixos-config.virtualisation.docker.enable ''
+        initExtra = lib.mkIf dockerEnabled ''
           # Alias completion
           source ${pkgs.complete-alias}/bin/complete_alias
 
