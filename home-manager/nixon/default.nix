@@ -148,7 +148,7 @@ in {
       source ${cfg.package}/share/nixon/nixon-widget.bash
     '');
 
-    programs.zsh.initExtra = (mkIf config.programs.zsh.enable ''
+    programs.zsh.initContent = (mkIf config.programs.zsh.enable ''
       # Nixon
       alias n=nixon
 
