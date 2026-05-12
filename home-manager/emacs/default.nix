@@ -5,11 +5,14 @@ let
   doom = (pkgs.writeShellScriptBin "doom" ''
     ~/.emacs.d/bin/doom "$@"
   '');
+  # On Darwin we manage the daemon ourselves (no systemd socket activation),
+  # so fall back to `-a ""` to spawn a daemon if one isn't running.
+  emacsclientFallback = lib.optionalString pkgs.stdenv.isDarwin '' -a ""'';
   ec = (pkgs.writeShellScriptBin "ec" ''
-    emacsclient -c -a "" "$@"
+    emacsclient -c${emacsclientFallback} "$@"
   '');
   et = (pkgs.writeShellScriptBin "et" ''
-    emacsclient -t -a "" "$@"
+    emacsclient -t${emacsclientFallback} "$@"
   '');
   # FIXME: Hack to avoid hang on gpg save: https://dev.gnupg.org/T6481
   epg = if lib.versionOlder pkgs.gnupg.version "2.4.4" then (pkgs.writeShellScriptBin "epg" ''
