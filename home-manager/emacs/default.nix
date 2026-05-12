@@ -6,10 +6,10 @@ let
     ~/.emacs.d/bin/doom "$@"
   '');
   ec = (pkgs.writeShellScriptBin "ec" ''
-    emacsclient -c "$@"
+    emacsclient -c -a "" "$@"
   '');
   et = (pkgs.writeShellScriptBin "et" ''
-    emacsclient -t "$@"
+    emacsclient -t -a "" "$@"
   '');
   # FIXME: Hack to avoid hang on gpg save: https://dev.gnupg.org/T6481
   epg = if lib.versionOlder pkgs.gnupg.version "2.4.4" then (pkgs.writeShellScriptBin "epg" ''
@@ -130,9 +130,16 @@ in {
         };
       };
 
-      emacs.config.EnvironmentVariables = {
-        DOOMLOCALDIR = "${config.home.homeDirectory}/.cache/doomemacs/";
-        DOOMPROFILELOADFILE = "${config.home.homeDirectory}/.cache/doomemacs/load.el";
+      emacs.config = {
+        EnvironmentVariables = {
+          DOOMLOCALDIR = "${config.home.homeDirectory}/.cache/doomemacs/";
+          DOOMPROFILELOADFILE = "${config.home.homeDirectory}/.cache/doomemacs/load.el";
+        };
+        # Disable launchd's auto-restart so it doesn't race with ec's
+        # `-a ""` fallback when the user kills the daemon. With this off,
+        # any kill (clean or signal) leaves the daemon dead until the
+        # next ec / login.
+        KeepAlive = lib.mkForce false;
       };
     };
 
