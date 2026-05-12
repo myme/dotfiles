@@ -1,5 +1,13 @@
 ;;; ~/dotfiles/emacs/.config/doom/config.el -*- lexical-binding: t; -*-
 
+;; Inherit PATH (and friends) from a login shell on macOS, where
+;; launchd-started Emacs (daemon, Spotlight-launched .app) otherwise
+;; only sees /usr/bin:/bin:/usr/sbin:/sbin.
+(use-package! exec-path-from-shell
+  :when (eq system-type 'darwin)
+  :config
+  (exec-path-from-shell-initialize))
+
 ;; Doom
 
 (set-popup-rules!
