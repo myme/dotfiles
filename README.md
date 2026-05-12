@@ -98,6 +98,14 @@ After launching `emacs`, install `all-the-icons`:
 $ sudo nixos-rebuild <switch|test|build> --flake .
 ```
 
+## macOS
+
+Apply new configurations using [nix-darwin](https://github.com/LnL7/nix-darwin):
+
+``` bash
+$ sudo darwin-rebuild switch --flake .
+```
+
 ## Non-NixOS Linux / Windows Subsystem for Linux (WSL)
 
 ### Install
