@@ -113,6 +113,29 @@ in {
       };
     };
 
+    launchd.agents = lib.mkIf pkgs.stdenv.isDarwin {
+      doom-env = {
+        enable = true;
+        config = {
+          Label = "org.nixos.doom-env";
+          RunAtLoad = true;
+          KeepAlive = false;
+          ProgramArguments = [
+            "/bin/sh" "-c"
+            ''
+              launchctl setenv DOOMLOCALDIR "$HOME/.cache/doomemacs/" ; \
+              launchctl setenv DOOMPROFILELOADFILE "$HOME/.cache/doomemacs/load.el"
+            ''
+          ];
+        };
+      };
+
+      emacs.config.EnvironmentVariables = {
+        DOOMLOCALDIR = "${config.home.homeDirectory}/.cache/doomemacs/";
+        DOOMPROFILELOADFILE = "${config.home.homeDirectory}/.cache/doomemacs/load.el";
+      };
+    };
+
     # Additional packages
     home.packages = with pkgs; [
       (aspellWithDicts (dicts: with dicts; [ en en-computers it nb ]))
