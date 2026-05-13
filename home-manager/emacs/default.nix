@@ -7,7 +7,8 @@ let
   '');
   # On Darwin we manage the daemon ourselves (no systemd socket activation),
   # so fall back to `-a ""` to spawn a daemon if one isn't running.
-  emacsclientFallback = lib.optionalString pkgs.stdenv.isDarwin '' -a ""'';
+  # Note: regular `"..."` string — `''..''` strips the leading space.
+  emacsclientFallback = lib.optionalString pkgs.stdenv.isDarwin " -a \"\"";
   ec = (pkgs.writeShellScriptBin "ec" ''
     emacsclient -c${emacsclientFallback} "$@"
   '');
@@ -26,6 +27,51 @@ let
   else
     "${ec}/bin/ec";
   xclip-to-org = pkgs.writeShellScriptBin "xclip-to-org" (builtins.readFile ./xclip-to-org.sh);
+
+  # Build a minimal Spotlight-discoverable .app bundle on Darwin.
+  # `exec` is the body of a /bin/sh script that becomes CFBundleExecutable.
+  mkDarwinApp = { name, bundleId, exec, extraPlist ? "" }:
+    pkgs.runCommandLocal "${name}.app" {} ''
+      app="$out/Applications/${name}.app"
+      mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
+
+      cp "${pkgs.emacs}/Applications/Emacs.app/Contents/Resources/Emacs.icns" \
+         "$app/Contents/Resources/Emacs.icns"
+
+      cat > "$app/Contents/Info.plist" <<PLIST
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+        <key>CFBundleName</key><string>${name}</string>
+        <key>CFBundleDisplayName</key><string>${name}</string>
+        <key>CFBundleIdentifier</key><string>${bundleId}</string>
+        <key>CFBundleExecutable</key><string>launcher</string>
+        <key>CFBundleIconFile</key><string>Emacs</string>
+        <key>CFBundlePackageType</key><string>APPL</string>
+        <key>CFBundleVersion</key><string>1</string>
+        <key>CFBundleShortVersionString</key><string>1.0</string>
+        <key>LSUIElement</key><false/>
+        ${extraPlist}
+      </dict>
+      </plist>
+      PLIST
+
+      # Nix substitutes `${exec}` at eval time; the quoted heredoc tag
+      # stops the build shell from then expanding `$@` (empty in the
+      # build) before writing the file.
+      cat > "$app/Contents/MacOS/launcher" <<'LAUNCHER'
+      #!/bin/sh
+      ${exec}
+      LAUNCHER
+      chmod +x "$app/Contents/MacOS/launcher"
+    '';
+
+  emacsClientApp = mkDarwinApp {
+    name = "Emacs Client";
+    bundleId = "org.nixos.emacs-client";
+    exec = ''exec ${pkgs.emacs}/bin/emacsclient -c -a "" "$@"'';
+  };
 
 in {
   options.myme.emacs = {
@@ -154,7 +200,8 @@ in {
       et
       nodePackages.mermaid-cli
       xclip-to-org
-    ] ++ (if epg != null then [epg] else []);
+    ] ++ (if epg != null then [epg] else [])
+      ++ lib.optional pkgs.stdenv.isDarwin emacsClientApp;
 
     xdg.desktopEntries = lib.mkIf pkgs.stdenv.isLinux {
       org-capture = {
