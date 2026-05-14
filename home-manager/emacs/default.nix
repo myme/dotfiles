@@ -9,11 +9,14 @@ let
   # so fall back to `-a ""` to spawn a daemon if one isn't running.
   # Note: regular `"..."` string — `''..''` strips the leading space.
   emacsclientFallback = lib.optionalString pkgs.stdenv.isDarwin " -a \"\"";
+  # Use an absolute path so the wrappers work outside a shell-derived PATH
+  # (AppleScript `do shell script`, launchd plists, etc.).
+  emacsclientBin = "${config.programs.emacs.finalPackage}/bin/emacsclient";
   ec = (pkgs.writeShellScriptBin "ec" ''
-    emacsclient -c${emacsclientFallback} "$@"
+    ${emacsclientBin} -c${emacsclientFallback} "$@"
   '');
   et = (pkgs.writeShellScriptBin "et" ''
-    emacsclient -t${emacsclientFallback} "$@"
+    ${emacsclientBin} -t${emacsclientFallback} "$@"
   '');
   # FIXME: Hack to avoid hang on gpg save: https://dev.gnupg.org/T6481
   epg = if lib.versionOlder pkgs.gnupg.version "2.4.4" then (pkgs.writeShellScriptBin "epg" ''
@@ -72,6 +75,20 @@ let
     bundleId = "org.nixos.emacs-client";
     exec = ''exec ${pkgs.emacs}/bin/emacsclient -c -a "" "$@"'';
   };
+
+  # macOS dispatches `org-protocol://` URLs to apps via Apple Events, not
+  # argv, so a shell-script CFBundleExecutable can't receive them. AppleScript's
+  # `on open location` is the standard no-native-code path. Compile via
+  # /usr/bin/osacompile at activation time (osacompile isn't in nixpkgs).
+  orgCaptureScript = pkgs.writeText "org-capture.applescript" ''
+    on run
+      do shell script "${ec}/bin/ec"
+    end run
+
+    on open location this_URL
+      do shell script "${ec}/bin/ec " & quoted form of this_URL
+    end open location
+  '';
 
 in {
   options.myme.emacs = {
@@ -214,5 +231,27 @@ in {
         mimeType = [ "x-scheme-handler/org-protocol" ];
       };
     };
+
+    # Darwin equivalent of the Linux org-capture .desktop entry above:
+    # an .app bundle that handles org-protocol:// URLs and is launchable
+    # from Spotlight. Built at activation time because osacompile (Apple's
+    # AppleScript compiler) isn't packaged in nixpkgs.
+    home.activation.orgCaptureApp = lib.mkIf pkgs.stdenv.isDarwin
+      (lib.hm.dag.entryAfter ["writeBoundary"] ''
+        app="$HOME/Applications/Home Manager Apps/Org Capture.app"
+        run mkdir -p "$HOME/Applications/Home Manager Apps"
+        run rm -rf "$app"
+        run /usr/bin/osacompile -o "$app" ${orgCaptureScript}
+        run /usr/libexec/PlistBuddy \
+          -c 'Add :CFBundleURLTypes array' \
+          -c 'Add :CFBundleURLTypes:0 dict' \
+          -c 'Add :CFBundleURLTypes:0:CFBundleURLName string Org Protocol' \
+          -c 'Add :CFBundleURLTypes:0:CFBundleURLSchemes array' \
+          -c 'Add :CFBundleURLTypes:0:CFBundleURLSchemes:0 string org-protocol' \
+          -c 'Add :CFBundleIdentifier string org.nixos.org-capture' \
+          "$app/Contents/Info.plist"
+        # Re-register so LaunchServices picks up the new URL scheme.
+        run /usr/bin/touch "$app"
+      '');
   };
 }
