@@ -4,6 +4,7 @@ let
   cfg = config.myme.emacs;
   emacsPkg = config.programs.emacs.finalPackage;
   emacsclient = "${emacsPkg}/bin/emacsclient";
+  emacsIcon = "${pkgs.emacs}/Applications/Emacs.app/Contents/Resources/Emacs.icns";
 
   # Build a minimal Spotlight-discoverable .app bundle.
   # `exec` is the body of a /bin/sh script that becomes CFBundleExecutable.
@@ -12,8 +13,7 @@ let
       app="$out/Applications/${name}.app"
       mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 
-      cp "${pkgs.emacs}/Applications/Emacs.app/Contents/Resources/Emacs.icns" \
-         "$app/Contents/Resources/Emacs.icns"
+      cp "${emacsIcon}" "$app/Contents/Resources/Emacs.icns"
 
       cat > "$app/Contents/Info.plist" <<PLIST
       <?xml version="1.0" encoding="UTF-8"?>
@@ -117,6 +117,8 @@ in {
         run mkdir -p "$HOME/Applications/Home Manager Apps"
         run rm -rf "$app"
         run /usr/bin/osacompile -o "$app" ${orgCaptureScript}
+        # Replace osacompile's default droplet icon with the Emacs icon.
+        run cp "${emacsIcon}" "$app/Contents/Resources/applet.icns"
         run /usr/libexec/PlistBuddy \
           -c 'Add :CFBundleURLTypes array' \
           -c 'Add :CFBundleURLTypes:0 dict' \
@@ -125,7 +127,8 @@ in {
           -c 'Add :CFBundleURLTypes:0:CFBundleURLSchemes:0 string org-protocol' \
           -c 'Add :CFBundleIdentifier string org.nixos.org-capture' \
           "$app/Contents/Info.plist"
-        # Re-register so LaunchServices picks up the new URL scheme.
+        # Bump the bundle mtime so Launch Services re-indexes it (copyApps
+        # preserves the nix-store epoch mtime otherwise).
         run /usr/bin/touch "$app"
       '';
   };
