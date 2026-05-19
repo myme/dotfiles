@@ -5,11 +5,18 @@ let
   doom = (pkgs.writeShellScriptBin "doom" ''
     ~/.emacs.d/bin/doom "$@"
   '');
+  # On Darwin we manage the daemon ourselves (no systemd socket activation),
+  # so fall back to `-a ""` to spawn a daemon if one isn't running.
+  # Note: regular `"..."` string — `''..''` strips the leading space.
+  emacsclientFallback = lib.optionalString pkgs.stdenv.isDarwin " -a \"\"";
+  # Use an absolute path so the wrappers work outside a shell-derived PATH
+  # (AppleScript `do shell script`, launchd plists, etc.).
+  emacsclientBin = "${config.programs.emacs.finalPackage}/bin/emacsclient";
   ec = (pkgs.writeShellScriptBin "ec" ''
-    emacsclient -c "$@"
+    ${emacsclientBin} -c${emacsclientFallback} "$@"
   '');
   et = (pkgs.writeShellScriptBin "et" ''
-    emacsclient -t "$@"
+    ${emacsclientBin} -t${emacsclientFallback} "$@"
   '');
   # FIXME: Hack to avoid hang on gpg save: https://dev.gnupg.org/T6481
   epg = if lib.versionOlder pkgs.gnupg.version "2.4.4" then (pkgs.writeShellScriptBin "epg" ''
@@ -25,6 +32,8 @@ let
   xclip-to-org = pkgs.writeShellScriptBin "xclip-to-org" (builtins.readFile ./xclip-to-org.sh);
 
 in {
+  imports = [ ./darwin.nix ];
+
   options.myme.emacs = {
     enable = lib.mkEnableOption "Emacs";
     configExtra = lib.mkOption {

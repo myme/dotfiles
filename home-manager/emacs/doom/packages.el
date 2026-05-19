@@ -9,6 +9,8 @@
 
 ;; Misc
 (package! keychain-environment)
+(when (eq system-type 'darwin)
+  (package! exec-path-from-shell))
 
 ;; JavaScript
 (package! prettier-js)

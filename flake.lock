@@ -300,6 +300,27 @@
         "type": "github"
       }
     },
+    "nix-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777780666,
+        "narHash": "sha256-8wURyQMdDkGUarSTKOGdCuFfYiwa3HbzwscUfn3STDE=",
+        "owner": "nix-darwin",
+        "repo": "nix-darwin",
+        "rev": "8c62fba0854ba15c8917aed18894dbccb48a3777",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-darwin",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
     "nixon": {
       "inputs": {
         "nixpkgs": "nixpkgs_3",
@@ -482,6 +503,7 @@
         "home-manager": "home-manager_2",
         "home-manager-stable": "home-manager-stable",
         "i3ws": "i3ws",
+        "nix-darwin": "nix-darwin",
         "nixon": "nixon",
         "nixos-hardware": "nixos-hardware",
         "nixos-wsl": "nixos-wsl",
