@@ -8,6 +8,17 @@
   :config
   (exec-path-from-shell-initialize))
 
+;; macOS: when the daemon creates a frame for a remote emacsclient,
+;; the new window draws but key events still go to whatever app was
+;; frontmost. This only works because the launchd agent launches the
+;; daemon from inside Emacs.app (see darwin.nix) — without that
+;; bundle identity, `tell application "Emacs"` would fail to resolve.
+(when (eq system-type 'darwin)
+  (add-hook 'server-after-make-frame-hook
+            (lambda ()
+              (when (display-graphic-p)
+                (ns-do-applescript "tell application \"Emacs\" to activate")))))
+
 ;; Doom
 
 (set-popup-rules!

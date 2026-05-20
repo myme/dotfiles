@@ -103,6 +103,19 @@ in {
         # any kill (clean or signal) leaves the daemon dead until the
         # next ec / login.
         KeepAlive = lib.mkForce false;
+        # Launch the daemon from inside Emacs.app, not bin/emacs.
+        # A bare Unix binary has no Info.plist, so macOS assigns the
+        # daemon a non-`.regular` NSApplicationActivationPolicy — the
+        # WindowServer then refuses to transfer key-window status to
+        # it (you see frames, mouse works, but keyboard goes to the
+        # previously frontmost app, and Dock icon bounces forever).
+        # Launching from inside the .app bundle gives the daemon
+        # proper LaunchServices identity so AppleScript `tell
+        # application "Emacs" to activate` works.
+        ProgramArguments = lib.mkForce [
+          "/bin/sh" "-c"
+          "/bin/wait4path /nix/store && exec ${emacsPkg}/Applications/Emacs.app/Contents/MacOS/Emacs --fg-daemon"
+        ];
       };
     };
 
