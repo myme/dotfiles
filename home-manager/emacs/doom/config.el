@@ -19,6 +19,13 @@
               (when (display-graphic-p)
                 (ns-do-applescript "tell application \"Emacs\" to activate")))))
 
+;; macOS /bin/ls rejects --dired, which Emacs passes from `insert-directory`,
+;; making dired / find-file completion fail outside the current project with
+;; "Listing directory failed but 'access-file' worked". Use coreutils' gls.
+(when (and (eq system-type 'darwin) (executable-find "gls"))
+  (setq insert-directory-program "gls"
+        dired-listing-switches "-aBhl --group-directories-first"))
+
 ;; Doom
 
 (set-popup-rules!

@@ -133,7 +133,11 @@ in
       };
     };
 
-    home.packages = [ emacsClientApp ];
+    # `gls` for Emacs `insert-directory` — macOS /bin/ls doesn't grok --dired.
+    home.packages = [
+      emacsClientApp
+      pkgs.coreutils
+    ];
 
     # Darwin equivalent of the Linux org-capture xdg.desktopEntry in
     # default.nix: an .app bundle that handles org-protocol:// URLs and
