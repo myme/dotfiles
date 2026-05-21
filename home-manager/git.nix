@@ -51,6 +51,7 @@ _: {
       ];
       iniContent.user.useConfigOnly = true;
       ignores = [
+        ".DS_Store"
         ".dir-locals.el"
         ".direnv"
         ".envrc"
