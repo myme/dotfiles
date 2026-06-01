@@ -51,6 +51,7 @@ in
       enable = true;
       iconTheme = iconThemes.numix-circle;
       theme = themes.dracula;
+      gtk4.theme = themes.dracula;
     };
     home.pointerCursor = {
       gtk.enable = true;
