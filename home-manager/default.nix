@@ -66,6 +66,9 @@ in
       # Generic shell aliases
       shellAliases = {
         dc = "docker compose";
+        la = "ls -la";
+        ls = "ls --color=auto";
+        ll = "ls -l";
         ta = "tmux attach-session";
       };
     };
