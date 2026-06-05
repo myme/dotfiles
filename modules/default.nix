@@ -100,6 +100,10 @@
     })
     # Enable NixOS-WSL module
     (lib.mkIf (config.myme.machine.flavor == "wsl") {
+      # automatic-timezoned uses geoclue which doesn't work in WSL; disable it
+      # so the static time.timeZone default is used instead.
+      services.automatic-timezoned.enable = lib.mkForce false;
+
       wsl =
         let
           username = config.myme.machine.user.name;
