@@ -149,7 +149,7 @@ in
 
         " Telescope
         nnoremap <leader>. <cmd>Telescope find_files<cr>
-        nnoremap <leader>, <cmd>Telescope buffers<cr>
+        nnoremap <leader>, <cmd>Telescope buffers sort_lastused=true<cr>
         nnoremap <leader>g. <cmd>Telescope git_files<cr>
         nnoremap <leader>s" <cmd>Telescope registers<cr>
         nnoremap <leader>sd <cmd>Telescope live_grep<cr>
