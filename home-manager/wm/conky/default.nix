@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.myme.wm.conky;
@@ -22,7 +27,8 @@ let
     '';
   };
 
-in {
+in
+{
   options.myme.wm.conky = {
     enable = lib.mkEnableOption "Enable conky resource monitor";
     font = {
@@ -63,7 +69,9 @@ in {
         Restart = "on-failure";
       };
 
-      Install = { WantedBy = [ "graphical-session.target" ]; };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
     };
   };
 }

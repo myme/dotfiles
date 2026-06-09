@@ -1,9 +1,15 @@
-{ fetchFromGitHub, makeWrapper, stdenv, ... }:
+{
+  fetchFromGitHub,
+  makeWrapper,
+  stdenv,
+  ...
+}:
 
 let
   defaultCommitMsg = ''"Auto-commit from \$(uname -n) at \$(date +\"%Y-%m-%d %T\")"'';
 
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = "git-sync";
   version = "0d0s33l2..hhjz";
   src = fetchFromGitHub {

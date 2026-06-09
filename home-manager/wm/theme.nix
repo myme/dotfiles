@@ -1,4 +1,10 @@
-{ config, lib, osConfig, pkgs, ... }@args:
+{
+  config,
+  lib,
+  osConfig,
+  pkgs,
+  ...
+}@args:
 
 let
   machine = osConfig.myme.machine;
@@ -16,7 +22,7 @@ let
       name = "capitaine-cursors";
       size = lib.mkDefault (if machine.highDPI then 64 else 50);
     };
-    none = {};
+    none = { };
     numix = {
       package = pkgs.numix-cursor-theme;
       name = "Numix-Cursor";
@@ -38,7 +44,8 @@ let
     };
   };
 
-in {
+in
+{
   config = lib.mkIf enable {
     gtk = {
       enable = true;
@@ -48,6 +55,7 @@ in {
     home.pointerCursor = {
       gtk.enable = true;
       x11.enable = true;
-    } // cursorThemes.capitaine;
+    }
+    // cursorThemes.capitaine;
   };
 }

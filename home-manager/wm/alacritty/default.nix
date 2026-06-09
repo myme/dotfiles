@@ -1,4 +1,10 @@
-{ config, lib, pkgs, flake-inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  flake-inputs,
+  ...
+}:
 
 with lib;
 
@@ -7,16 +13,19 @@ let
   terminal = pkgs.writeShellScriptBin "x-terminal-emulator" ''${pkgs.alacritty}/bin/alacritty "$@"'';
   readTheme = input: theme: builtins.fromTOML (builtins.readFile "${input}/${theme}.toml");
   catppuccin = flake-inputs.alacritty-catppuccin;
-  theme = {
-    catppuccin-frappe = readTheme catppuccin "catppuccin-frappe";
-    catppuccin-latte = readTheme catppuccin "catppuccin-latte";
-    catppuccin-macchiato = readTheme catppuccin "catppuccin-macchiato";
-    catppuccin-mocha = readTheme catppuccin "catppuccin-mocha";
-    dracula = readTheme flake-inputs.alacritty-dracula "dracula";
-    nord.colors = import ./nord-theme.nix;
-  }.${cfg.theme};
+  theme =
+    {
+      catppuccin-frappe = readTheme catppuccin "catppuccin-frappe";
+      catppuccin-latte = readTheme catppuccin "catppuccin-latte";
+      catppuccin-macchiato = readTheme catppuccin "catppuccin-macchiato";
+      catppuccin-mocha = readTheme catppuccin "catppuccin-mocha";
+      dracula = readTheme flake-inputs.alacritty-dracula "dracula";
+      nord.colors = import ./nord-theme.nix;
+    }
+    .${cfg.theme};
 
-in {
+in
+{
   options.myme.alacritty = {
     enable = mkEnableOption "Enable Alacritty";
     background_opacity = mkOption {
@@ -54,7 +63,10 @@ in {
         };
         window = {
           opacity = cfg.background_opacity;
-          padding = { x = 10; y = 5; };
+          padding = {
+            x = 10;
+            y = 5;
+          };
         };
       };
     };

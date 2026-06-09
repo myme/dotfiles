@@ -6,8 +6,7 @@ name: host: {
     sshUser = nixosConfigurations."${name}".config.myme.machine.user.name;
     sshOpts = if host.deploy ? sshOpts then host.deploy.sshOpts else { };
     magicRollback = false;
-    path = deploy-rs.lib."${host.system}".activate.nixos
-      nixosConfigurations."${name}";
+    path = deploy-rs.lib."${host.system}".activate.nixos nixosConfigurations."${name}";
     user = "root";
   };
 }

@@ -3,7 +3,8 @@
 let
   cfg = config.myme.machine.sleep;
 
-in {
+in
+{
   options.myme.machine.sleep = {
     hibernateDelay = lib.mkOption {
       type = lib.types.str;

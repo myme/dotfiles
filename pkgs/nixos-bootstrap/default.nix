@@ -1,4 +1,8 @@
-{ gum, jq, stdenv }:
+{
+  gum,
+  jq,
+  stdenv,
+}:
 
 stdenv.mkDerivation {
   pname = "nixos-bootstrap";

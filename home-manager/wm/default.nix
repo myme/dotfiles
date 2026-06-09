@@ -196,9 +196,19 @@ in
         enable = true;
         settings = import ./dunst.nix (
           if machine.highDPI then
-            { font = "Dejavu Sans 15"; width = 500; origin = "top-right"; offset = "30x20"; }
+            {
+              font = "Dejavu Sans 15";
+              width = 500;
+              origin = "top-right";
+              offset = "30x20";
+            }
           else
-            { font = "Dejavu Sans 10"; width = 300; origin = "top-right"; offset = "30x20"; }
+            {
+              font = "Dejavu Sans 10";
+              width = 300;
+              origin = "top-right";
+              offset = "30x20";
+            }
         );
       };
     })

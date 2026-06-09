@@ -13,12 +13,21 @@
       description = "Use stable NixOS release";
     };
     role = lib.mkOption {
-      type = lib.types.enum [ "desktop" "laptop" "server" ];
+      type = lib.types.enum [
+        "desktop"
+        "laptop"
+        "server"
+      ];
       default = "desktop";
       description = "Machine type";
     };
     flavor = lib.mkOption {
-      type = lib.types.enum [ "nixos" "generic" "wsl" "darwin" ];
+      type = lib.types.enum [
+        "nixos"
+        "generic"
+        "wsl"
+        "darwin"
+      ];
       default = "nixos";
       description = "OS flavor";
     };
@@ -37,10 +46,16 @@
         "xfce"
       ];
       default =
-        if config.myme.machine.role == "server"
-          || builtins.elem config.myme.machine.flavor [ "wsl" "darwin" ]
-        then "none"
-        else "wm";
+        if
+          config.myme.machine.role == "server"
+          || builtins.elem config.myme.machine.flavor [
+            "wsl"
+            "darwin"
+          ]
+        then
+          "none"
+        else
+          "wm";
       description = "Desktop Environment flavor";
     };
   };
