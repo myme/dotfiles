@@ -12,7 +12,7 @@ let
   lockCmd = "${./lock-wrapper.sh} ${pkgs.myme.pkgs.lockscreen}/bin/lockscreen";
   cfg = config.myme.wm;
   isWayland = config.myme.wm.variant == "hyprland";
-  machine = osConfig.myme.machine;
+  inherit (osConfig.myme) machine;
   onlyX11WM = machine.de.variant == "wm";
   wallpaperCmd = "${pkgs.feh}/bin/feh --bg-fill ${pkgs.myme.wallpapers}/nebula-abstract.jpg || true";
 

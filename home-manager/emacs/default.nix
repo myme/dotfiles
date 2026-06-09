@@ -8,11 +8,9 @@
 
 let
   cfg = config.myme.emacs;
-  doom = (
-    pkgs.writeShellScriptBin "doom" ''
-      ~/.emacs.d/bin/doom "$@"
-    ''
-  );
+  doom = pkgs.writeShellScriptBin "doom" ''
+    ~/.emacs.d/bin/doom "$@"
+  '';
   # On Darwin we manage the daemon ourselves (no systemd socket activation),
   # so fall back to `-a ""` to spawn a daemon if one isn't running.
   # Note: regular `"..."` string — `''..''` strips the leading space.
@@ -20,16 +18,12 @@ let
   # Use an absolute path so the wrappers work outside a shell-derived PATH
   # (AppleScript `do shell script`, launchd plists, etc.).
   emacsclientBin = "${config.programs.emacs.finalPackage}/bin/emacsclient";
-  ec = (
-    pkgs.writeShellScriptBin "ec" ''
-      ${emacsclientBin} -c${emacsclientFallback} "$@"
-    ''
-  );
-  et = (
-    pkgs.writeShellScriptBin "et" ''
-      ${emacsclientBin} -t${emacsclientFallback} "$@"
-    ''
-  );
+  ec = pkgs.writeShellScriptBin "ec" ''
+    ${emacsclientBin} -c${emacsclientFallback} "$@"
+  '';
+  et = pkgs.writeShellScriptBin "et" ''
+    ${emacsclientBin} -t${emacsclientFallback} "$@"
+  '';
   # FIXME: Hack to avoid hang on gpg save: https://dev.gnupg.org/T6481
   epg =
     if lib.versionOlder pkgs.gnupg.version "2.4.4" then
@@ -38,7 +32,7 @@ let
       '')
     else
       null;
-  flavor = osConfig.myme.machine.flavor;
+  inherit (osConfig.myme.machine) flavor;
   deVariant = osConfig.myme.machine.de.variant;
   isWayland =
     flavor == "wsl"
@@ -109,7 +103,7 @@ in
       name = "doom-emacs-src";
       src = ./doom;
       doomConfigExtra = cfg.configExtra;
-      backgroundOpacity = cfg.backgroundOpacity;
+      inherit (cfg) backgroundOpacity;
       doomFontFamily = pkgs.lib.strings.escapeNixString cfg.font.family;
       doomFontSize = cfg.font.size;
       doomTheme = cfg.theme;

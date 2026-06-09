@@ -51,7 +51,7 @@ in
     ];
 
     programs.alacritty = {
-      enable = cfg.enable;
+      inherit (cfg) enable;
       settings = theme // {
         env = {
           TERM = "xterm-256color";

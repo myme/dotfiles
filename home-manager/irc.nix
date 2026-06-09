@@ -7,7 +7,7 @@
 
 let
   cfg = config.myme.irc;
-  weechat = pkgs.weechat;
+  inherit (pkgs) weechat;
   tmuxCmd = "${pkgs.tmux}/bin/tmux -L weechat";
   weechatCmd = "${weechat}/bin/weechat";
   irc = pkgs.writeShellScriptBin "irc" ''

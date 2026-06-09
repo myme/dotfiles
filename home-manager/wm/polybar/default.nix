@@ -8,7 +8,7 @@
 with lib;
 
 let
-  wm = config.myme.wm;
+  inherit (config.myme) wm;
   cfg = wm.polybar;
   polybar = config.services.polybar.package;
   themes = {
@@ -50,19 +50,19 @@ in
         Service.Environment = mkForce "PATH=${polybar}/bin:/run/wrappers/bin:${pkgs.xdotool}/bin";
       };
       services.polybar = {
-        enable = cfg.enable;
+        inherit (cfg) enable;
         config = {
           defaults = {
             width = "100%";
-            height = cfg.height;
+            inherit (cfg) height;
             fixed-center = true;
             bottom = true;
 
             module-margin-left = 1;
             module-margin-right = 2;
 
-            background = theme.colors.background;
-            foreground = theme.colors.foreground;
+            inherit (theme.colors) background;
+            inherit (theme.colors) foreground;
 
             line-size = 3;
             line-color = theme.colors.urgent;

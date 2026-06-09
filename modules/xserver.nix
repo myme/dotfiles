@@ -8,7 +8,7 @@
 with lib;
 
 let
-  machine = config.myme.machine;
+  inherit (config.myme) machine;
   is_stable = config.myme.machine.stable;
   cfg = machine.de;
   noDM = builtins.elem cfg.variant [

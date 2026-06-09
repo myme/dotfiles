@@ -7,11 +7,11 @@
 }:
 
 let
-  defaultPrograms = config.myme.defaultPrograms;
+  inherit (config.myme) defaultPrograms;
   dockerEnabled = osConfig ? virtualisation && osConfig.virtualisation.docker.enable;
 
 in
-({
+{
   imports = [
     ./btop.nix
     ./dev.nix
@@ -152,4 +152,4 @@ in
       zoxide.enable = lib.mkDefault defaultPrograms;
     };
   };
-})
+}

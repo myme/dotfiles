@@ -43,23 +43,21 @@ let
   '';
 in
 {
-  config = (
-    lib.mkIf (config.myme.wm.enable && config.myme.wm.isWayland) {
-      home.packages = [ week ];
+  config = lib.mkIf (config.myme.wm.enable && config.myme.wm.isWayland) {
+    home.packages = [ week ];
 
-      systemd.user.services.week = {
-        Unit = {
-          Description = "Week - A screen recording tool";
-          # PartOf = ["graphical-session.target"];
-        };
-        # Install = {
-        #   WantedBy = ["graphical-session.target"];
-        # };
-        Service = {
-          Type = "simple";
-          ExecStart = "${week}/bin/week";
-        };
+    systemd.user.services.week = {
+      Unit = {
+        Description = "Week - A screen recording tool";
+        # PartOf = ["graphical-session.target"];
       };
-    }
-  );
+      # Install = {
+      #   WantedBy = ["graphical-session.target"];
+      # };
+      Service = {
+        Type = "simple";
+        ExecStart = "${week}/bin/week";
+      };
+    };
+  };
 }

@@ -7,7 +7,7 @@
 }@args:
 
 let
-  machine = osConfig.myme.machine;
+  inherit (osConfig.myme) machine;
   enable = config.myme.wm.enable || machine.flavor == "wsl";
 
   iconThemes = {

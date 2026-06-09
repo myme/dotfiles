@@ -125,7 +125,7 @@ in
     programs = {
       info.enable = cfg.docs.enable;
       man = {
-        enable = cfg.docs.enable;
+        inherit (cfg.docs) enable;
         generateCaches = true;
       };
     };

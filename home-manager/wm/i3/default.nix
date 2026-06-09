@@ -7,9 +7,9 @@
 
 let
   cfg = config.myme.wm.i3;
-  modifier = config.xsession.windowManager.i3.config.modifier;
+  inherit (config.xsession.windowManager.i3.config) modifier;
   exitCmd = "i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'";
-  lockCmd = cfg.lockCmd;
+  inherit (cfg) lockCmd;
   hibernateCmd = "i3-nagbar -t warning -m 'Do you want to hibernate?' -b 'Yes' 'systemctl hibernate'";
   suspendCmd = "${lockCmd} && systemctl suspend";
   rebootCmd = "i3-nagbar -t warning -m 'Do you want to reboot?' -b 'Yes' 'systemctl reboot'";
@@ -43,14 +43,14 @@ in
   config = lib.mkIf cfg.enable {
     # i3ws
     myme.i3ws = {
-      enable = cfg.enable;
+      inherit (cfg) enable;
       icons = true;
       separator = " ";
     };
 
     # i3 config
     xsession.windowManager.i3 = {
-      enable = cfg.enable;
+      inherit (cfg) enable;
       package = pkgs.i3-gaps;
       config = {
         modifier = "Mod4";
@@ -256,7 +256,7 @@ in
           }
         ]
         ++ (
-          if (cfg.plasma) then
+          if cfg.plasma then
             [
               {
                 command = "${pkgs.wmctrl} -c Plasma";

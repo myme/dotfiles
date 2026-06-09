@@ -43,7 +43,7 @@ in
 
   config = {
     programs.rofi = {
-      enable = cfg.enable;
+      inherit (cfg) enable;
       theme = "${rofiTheme}";
     };
   };
