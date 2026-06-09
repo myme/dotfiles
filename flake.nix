@@ -157,7 +157,7 @@
                   enable = true;
                   name = "gitleaks";
                   description = "Detect hardcoded secrets";
-                  entry = "${pkgs.gitleaks}/bin/gitleaks detect --no-banner --redact --source=.";
+                  entry = "${pkgs.gitleaks}/bin/gitleaks detect --no-banner --redact --no-git --source=.";
                   language = "system";
                   pass_filenames = false;
                 };
