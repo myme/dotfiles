@@ -25,25 +25,26 @@ in
   };
 
   config = {
-    # Home manager
-    home-manager.useGlobalPkgs = true;
-    home-manager.useUserPackages = !genericLinux;
-
     users.users.${cfg.user.name} = cfg.user.config;
-    home-manager.users.${cfg.user.name} = lib.mkMerge [
-      cfg.user.profile
-      (
-        { specialArgs, ... }:
-        {
-          config = {
-            # Pass stateVersion from NixOS config
-            home.stateVersion = specialArgs.nixosConfig.system.stateVersion;
 
-            submoduleSupport.enable = lib.mkForce (!genericLinux);
-            targets.genericLinux.enable = genericLinux;
-          };
-        }
-      )
-    ];
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = !genericLinux;
+      users.${cfg.user.name} = lib.mkMerge [
+        cfg.user.profile
+        (
+          { specialArgs, ... }:
+          {
+            config = {
+              # Pass stateVersion from NixOS config
+              home.stateVersion = specialArgs.nixosConfig.system.stateVersion;
+
+              submoduleSupport.enable = lib.mkForce (!genericLinux);
+              targets.genericLinux.enable = genericLinux;
+            };
+          }
+        )
+      ];
+    };
   };
 }

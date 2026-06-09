@@ -35,37 +35,39 @@ in
   };
 
   config = {
-    home.packages = lib.mkIf defaultPrograms (
-      with pkgs;
-      [
-        dua
-        fd
-        jq
-        lsof
-        nix-diff
-        nix-tree
-        nixfmt
-        ripgrep
-        tree
-        unzip
-        xh
-        yq
-        zip
-        annodate
-        myme.pkgs.git-sync
-        myme.pkgs.hm
-      ]
-    );
+    home = {
+      packages = lib.mkIf defaultPrograms (
+        with pkgs;
+        [
+          dua
+          fd
+          jq
+          lsof
+          nix-diff
+          nix-tree
+          nixfmt
+          ripgrep
+          tree
+          unzip
+          xh
+          yq
+          zip
+          annodate
+          myme.pkgs.git-sync
+          myme.pkgs.hm
+        ]
+      );
 
-    home.keyboard = {
-      layout = "us";
-      variant = "alt-intl-unicode";
-    };
+      keyboard = {
+        layout = "us";
+        variant = "alt-intl-unicode";
+      };
 
-    # Generic shell aliases
-    home.shellAliases = {
-      dc = "docker compose";
-      ta = "tmux attach-session";
+      # Generic shell aliases
+      shellAliases = {
+        dc = "docker compose";
+        ta = "tmux attach-session";
+      };
     };
 
     # But of course!

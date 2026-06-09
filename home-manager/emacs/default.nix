@@ -84,19 +84,41 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Doom Emacs (.emacs.d)
-    home.file.".emacs.d".source = pkgs.myme.doomemacs;
+    home = {
+      # Doom Emacs (.emacs.d)
+      file.".emacs.d".source = pkgs.myme.doomemacs;
 
-    # Doom Emacs local files (~/.cache/doom)
-    home.sessionVariables = lib.mkMerge [
-      {
-        DOOMLOCALDIR = "~/.cache/doomemacs/";
-        DOOMPROFILELOADFILE = "~/.cache/doomemacs/load.el";
-      }
-      (lib.mkIf cfg.default-editor {
-        inherit EDITOR;
-      })
-    ];
+      # Doom Emacs local files (~/.cache/doom)
+      sessionVariables = lib.mkMerge [
+        {
+          DOOMLOCALDIR = "~/.cache/doomemacs/";
+          DOOMPROFILELOADFILE = "~/.cache/doomemacs/load.el";
+        }
+        (lib.mkIf cfg.default-editor {
+          inherit EDITOR;
+        })
+      ];
+
+      # Additional packages
+      packages =
+        with pkgs;
+        [
+          (aspellWithDicts (
+            dicts: with dicts; [
+              en
+              en-computers
+              it
+              nb
+            ]
+          ))
+          doom
+          ec
+          et
+          nodePackages.mermaid-cli
+          xclip-to-org
+        ]
+        ++ (if epg != null then [ epg ] else [ ]);
+    };
 
     # Doom Emacs configuration (~/.config/doom)
     xdg.configFile.doom.source = pkgs.stdenv.mkDerivation {
@@ -134,26 +156,6 @@ in
         socketActivation.enable = true;
       };
     };
-
-    # Additional packages
-    home.packages =
-      with pkgs;
-      [
-        (aspellWithDicts (
-          dicts: with dicts; [
-            en
-            en-computers
-            it
-            nb
-          ]
-        ))
-        doom
-        ec
-        et
-        nodePackages.mermaid-cli
-        xclip-to-org
-      ]
-      ++ (if epg != null then [ epg ] else [ ]);
 
     xdg.desktopEntries = lib.mkIf pkgs.stdenv.isLinux {
       org-capture = {

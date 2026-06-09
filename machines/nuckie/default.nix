@@ -64,22 +64,24 @@
 
       nix.settings.trusted-public-keys = [ "tuple:RLwVT0X7XUres7PkgkMLgsMfWhbHP0PYIfQmqJ2M6Ac=" ];
 
-      # TODO: Remove, set in `modules/default.nix`
-      boot.loader.systemd-boot.enable = true;
-      boot.loader.efi.canTouchEfiVariables = true;
+      boot = {
+        # TODO: Remove, set in `modules/default.nix`
+        loader.systemd-boot.enable = true;
+        loader.efi.canTouchEfiVariables = true;
 
-      boot.initrd.availableKernelModules = [
-        "xhci_pci"
-        "ahci"
-        "nvme"
-        "usbhid"
-        "usb_storage"
-        "sd_mod"
-        "sdhci_pci"
-      ];
-      boot.initrd.kernelModules = [ ];
-      boot.kernelModules = [ "kvm-intel" ];
-      boot.extraModulePackages = [ ];
+        initrd.availableKernelModules = [
+          "xhci_pci"
+          "ahci"
+          "nvme"
+          "usbhid"
+          "usb_storage"
+          "sd_mod"
+          "sdhci_pci"
+        ];
+        initrd.kernelModules = [ ];
+        kernelModules = [ "kvm-intel" ];
+        extraModulePackages = [ ];
+      };
 
       fileSystems."/" = {
         device = "/dev/disk/by-uuid/663eb7a2-61a1-497e-8e25-2a9138fbe41c";

@@ -74,55 +74,59 @@ in
     {
       home.packages = [ pkgs.xclip ];
 
-      # Install fonts
-      myme.fonts.enable = true;
+      myme = {
+        # Install fonts
+        fonts.enable = true;
 
-      # Read-only for introspection
-      myme.wm.isWayland = lib.mkForce isWayland;
+        wm = {
+          # Read-only for introspection
+          isWayland = lib.mkForce isWayland;
 
-      # Hyprland config
-      myme.wm.hyprland.enable = cfg.variant == "hyprland";
+          # Hyprland config
+          hyprland.enable = cfg.variant == "hyprland";
 
-      # I3 config
-      myme.wm.i3 = {
-        enable = cfg.variant == "i3";
-        inherit lockCmd;
+          # I3 config
+          i3 = {
+            enable = cfg.variant == "i3";
+            inherit lockCmd;
+          };
+
+          # XMonad config
+          xmonad =
+            lib.mkDefault { enable = cfg.variant == "xmonad"; }
+            // (
+              if machine.highDPI then
+                {
+                  fontSize = 12;
+                  smartBorder = false;
+                  spaces = 20;
+                }
+              else
+                {
+                  fontSize = 10;
+                  smartBorder = true;
+                  spaces = 5;
+                }
+            );
+        };
+
+        # Alacritty
+        alacritty = lib.mkDefault {
+          enable = true;
+          background_opacity = 0.95;
+          font_size = if machine.highDPI then 12 else 6;
+          theme = if cfg.theme == "dark" then "dracula" else "one-light";
+        };
+
+        # Ghostty
+        ghostty.enable = true;
+
+        # Emacs theme
+        emacs.theme = if cfg.theme == "dark" then "doom-dracula" else "doom-one-light";
+
+        # Rofi
+        rofi.enable = true;
       };
-
-      # XMonad config
-      myme.wm.xmonad =
-        lib.mkDefault { enable = cfg.variant == "xmonad"; }
-        // (
-          if machine.highDPI then
-            {
-              fontSize = 12;
-              smartBorder = false;
-              spaces = 20;
-            }
-          else
-            {
-              fontSize = 10;
-              smartBorder = true;
-              spaces = 5;
-            }
-        );
-
-      # Alacritty
-      myme.alacritty = lib.mkDefault {
-        enable = true;
-        background_opacity = 0.95;
-        font_size = if machine.highDPI then 12 else 6;
-        theme = if cfg.theme == "dark" then "dracula" else "one-light";
-      };
-
-      # Ghostty
-      myme.ghostty.enable = true;
-
-      # Emacs theme
-      myme.emacs.theme = if cfg.theme == "dark" then "doom-dracula" else "doom-one-light";
-
-      # Rofi
-      myme.rofi.enable = true;
 
       services = mkMerge [
         {
@@ -185,31 +189,33 @@ in
         pkgs.pulsemixer
       ];
 
-      # Bluetooth/network
-      services.blueman-applet.enable = machine.role == "laptop";
+      services = {
+        # Bluetooth/network
+        blueman-applet.enable = machine.role == "laptop";
 
-      # Network manager
-      services.network-manager-applet.enable = true;
+        # Network manager
+        network-manager-applet.enable = true;
 
-      # Notifications (dunst)
-      services.dunst = {
-        enable = true;
-        settings = import ./dunst.nix (
-          if machine.highDPI then
-            {
-              font = "Dejavu Sans 15";
-              width = 500;
-              origin = "top-right";
-              offset = "30x20";
-            }
-          else
-            {
-              font = "Dejavu Sans 10";
-              width = 300;
-              origin = "top-right";
-              offset = "30x20";
-            }
-        );
+        # Notifications (dunst)
+        dunst = {
+          enable = true;
+          settings = import ./dunst.nix (
+            if machine.highDPI then
+              {
+                font = "Dejavu Sans 15";
+                width = 500;
+                origin = "top-right";
+                offset = "30x20";
+              }
+            else
+              {
+                font = "Dejavu Sans 10";
+                width = 300;
+                origin = "top-right";
+                offset = "30x20";
+              }
+          );
+        };
       };
     })
 

@@ -115,23 +115,25 @@ in
         startWhenNeeded = true;
       };
 
-      # Boot
-      boot.loader.grub.enable = true;
-      boot.loader.grub.devices = [ "/dev/sda" ];
-
       # Hardware configuration
       imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
-      boot.initrd.availableKernelModules = [
-        "ahci"
-        "xhci_pci"
-        "virtio_pci"
-        "sd_mod"
-        "sr_mod"
-      ];
-      boot.initrd.kernelModules = [ ];
-      boot.kernelModules = [ ];
-      boot.extraModulePackages = [ ];
+      boot = {
+        # Boot
+        loader.grub.enable = true;
+        loader.grub.devices = [ "/dev/sda" ];
+
+        initrd.availableKernelModules = [
+          "ahci"
+          "xhci_pci"
+          "virtio_pci"
+          "sd_mod"
+          "sr_mod"
+        ];
+        initrd.kernelModules = [ ];
+        kernelModules = [ ];
+        extraModulePackages = [ ];
+      };
 
       fileSystems."/" = {
         device = "/dev/sda1";

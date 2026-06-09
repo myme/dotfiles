@@ -79,15 +79,19 @@
     # Disable boot + networking for WSL
     (lib.mkIf (config.myme.machine.flavor != "wsl") {
       # Boot
-      boot.loader.systemd-boot.enable = lib.mkDefault true;
-      boot.loader.systemd-boot.configurationLimit = lib.mkDefault 30;
-      boot.loader.efi.canTouchEfiVariables = lib.mkDefault true;
+      boot.loader = {
+        systemd-boot.enable = lib.mkDefault true;
+        systemd-boot.configurationLimit = lib.mkDefault 30;
+        efi.canTouchEfiVariables = lib.mkDefault true;
+      };
       # boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
       # Network
       # networking.hostName = config.myme.machine.name;
-      networking.networkmanager.enable = true;
-      networking.firewall.enable = true;
+      networking = {
+        networkmanager.enable = true;
+        firewall.enable = true;
+      };
     })
     # Enable NixOS-WSL module
     (lib.mkIf (config.myme.machine.flavor == "wsl") {

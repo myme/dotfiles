@@ -68,8 +68,55 @@ in
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
 
-    # Add default commands
-    programs.nixon.configExtra = lib.mkIf cfg.defaultCommands (lib.readFile ./nixon.md);
+    programs = {
+      # Add default commands
+      nixon.configExtra = lib.mkIf cfg.defaultCommands (lib.readFile ./nixon.md);
+
+      bash.initExtra = mkIf config.programs.bash.enable ''
+        # Nixon
+        alias n=nixon
+        alias px="nixon project"
+
+        source ${pkgs.complete-alias}/bin/complete_alias
+        complete -F _complete_alias n
+        complete -F _complete_alias px
+
+        # Nixon (p: project cd)
+        p () {
+            local project;
+            project=$(nixon project -s "$@" | tail -1)
+            if [ -z "$project" ]; then
+                return
+            fi
+            cd "$project"
+        }
+
+        source ${cfg.package}/share/nixon/nixon-widget.bash
+      '';
+
+      zsh.initContent = mkIf config.programs.zsh.enable ''
+        # Nixon
+        alias n=nixon
+
+        # Nixon (p: project cd)
+        (( ''${+aliases[p]} )) && unalias p
+        p () {
+            local project;
+            project=$(nixon project -s "$@" | tail -1)
+            if [ -z "$project" ]; then
+                return
+            fi
+            cd "$project"
+        }
+
+        # Nixon (px: project execute)
+        px () {
+            nixon project "$@"
+        }
+
+        source ${cfg.package}/share/zsh/site-functions/_nixon_widget
+      '';
+    };
 
     xdg.configFile."nixon.md".text = ''
       # Nixon
@@ -141,49 +188,5 @@ in
       ${cfg.configExtra}
     '';
 
-    programs.bash.initExtra = mkIf config.programs.bash.enable ''
-      # Nixon
-      alias n=nixon
-      alias px="nixon project"
-
-      source ${pkgs.complete-alias}/bin/complete_alias
-      complete -F _complete_alias n
-      complete -F _complete_alias px
-
-      # Nixon (p: project cd)
-      p () {
-          local project;
-          project=$(nixon project -s "$@" | tail -1)
-          if [ -z "$project" ]; then
-              return
-          fi
-          cd "$project"
-      }
-
-      source ${cfg.package}/share/nixon/nixon-widget.bash
-    '';
-
-    programs.zsh.initContent = mkIf config.programs.zsh.enable ''
-      # Nixon
-      alias n=nixon
-
-      # Nixon (p: project cd)
-      (( ''${+aliases[p]} )) && unalias p
-      p () {
-          local project;
-          project=$(nixon project -s "$@" | tail -1)
-          if [ -z "$project" ]; then
-              return
-          fi
-          cd "$project"
-      }
-
-      # Nixon (px: project execute)
-      px () {
-          nixon project "$@"
-      }
-
-      source ${cfg.package}/share/zsh/site-functions/_nixon_widget
-    '';
   };
 }

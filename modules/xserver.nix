@@ -19,26 +19,25 @@ in
 {
   config = mkMerge [
     (mkIf (cfg.variant != "none") {
-      services.xserver = {
-        enable = true;
-        xkb = {
-          layout = "us";
-          variant = "alt-intl-unicode";
+      services = {
+        xserver = {
+          enable = true;
+          xkb = {
+            layout = "us";
+            variant = "alt-intl-unicode";
+          };
+          # LightDM Background image
+          displayManager.lightdm.background = "${pkgs.myme.wallpapers}/alien-moon-nature.jpg";
+          # Disable xterm session
+          desktopManager.xterm.enable = false;
+        };
+
+        # Enable touchpad support
+        libinput = {
+          enable = true;
+          touchpad.naturalScrolling = true;
         };
       };
-
-      # Enable touchpad support
-      services.libinput = {
-        enable = true;
-        touchpad.naturalScrolling = true;
-      };
-
-      # LightDM Background image
-      services.xserver.displayManager.lightdm.background =
-        "${pkgs.myme.wallpapers}/alien-moon-nature.jpg";
-
-      # Disable xterm session
-      services.xserver.desktopManager.xterm.enable = false;
     })
     # WM
     (mkIf (cfg.variant == "wm") {
