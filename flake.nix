@@ -38,6 +38,14 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     doomemacs = {
       url = "github:doomemacs/doomemacs";
       flake = false;
@@ -114,11 +122,6 @@
         }
       );
 
-      # Deploy checks
-      checks = builtins.mapAttrs (
-        system: deployLib: deployLib.deployChecks self.deploy
-      ) inputs.deploy-rs.lib;
-
       # Non-NixOS machines (Fedora, WSL, ++)
       homeConfigurations = lib.myme.nixos2hm { inherit (self) nixosConfigurations; };
 
@@ -127,52 +130,99 @@
         name: config: config.config.system.build.sdImage
       ) self.nixosConfigurations;
     }
-    // flake-utils.lib.eachSystem [ "aarch64-linux" "x86_64-linux" ] (
-      system:
-      let
-        pkgs = import nixpkgs { inherit system overlays; };
-      in
-      {
-        # Apps for `nix run .#<app>`
-        apps = {
-          agenix = {
-            type = "app";
-            program = "${pkgs.agenix}/bin/agenix";
-          };
-          deploy = {
-            type = "app";
-            program = "${pkgs.deploy-rs.deploy-rs}/bin/deploy";
-          };
-        };
+    //
+      flake-utils.lib.eachSystem
+        [
+          "aarch64-linux"
+          "x86_64-linux"
+          "aarch64-darwin"
+        ]
+        (
+          system:
+          let
+            pkgs = import nixpkgs { inherit system overlays; };
+            isLinux = lib.hasSuffix "-linux" system;
+            treefmtEval = inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+            pre-commit-check = inputs.git-hooks.lib.${system}.run {
+              src = ./.;
+              default_stages = [ "pre-push" ];
+              hooks = {
+                treefmt = {
+                  enable = true;
+                  package = treefmtEval.config.build.wrapper;
+                };
+                statix.enable = true;
+                deadnix.enable = true;
+                gitleaks = {
+                  enable = true;
+                  name = "gitleaks";
+                  description = "Detect hardcoded secrets";
+                  entry = "${pkgs.gitleaks}/bin/gitleaks detect --no-banner --redact --source=.";
+                  language = "system";
+                  pass_filenames = false;
+                };
+              };
+            };
+          in
+          {
+            # `nix fmt`
+            formatter = treefmtEval.config.build.wrapper;
 
-        # All packages under pkgs.myme.pkgs from the overlay
-        packages = pkgs.myme.pkgs;
+            # `nix flake check`
+            checks = {
+              pre-commit = pre-commit-check;
+            }
+            // lib.optionalAttrs (inputs.deploy-rs.lib ? ${system}) (
+              inputs.deploy-rs.lib.${system}.deployChecks self.deploy
+            );
 
-        devShells = {
-          # Default dev shell (used by direnv)
-          default = pkgs.mkShell {
-            buildInputs = with pkgs; [
-              agenix
-              disko
-              pkgs.myme.pkgs.nixos-bootstrap
-            ];
-          };
+            # Apps for `nix run .#<app>` (Linux only)
+            apps = lib.optionalAttrs isLinux {
+              agenix = {
+                type = "app";
+                program = "${pkgs.agenix}/bin/agenix";
+              };
+              deploy = {
+                type = "app";
+                program = "${pkgs.deploy-rs.deploy-rs}/bin/deploy";
+              };
+            };
 
-          # Deployment to other nodes
-          deploy = pkgs.mkShell { buildInputs = with pkgs; [ deploy-rs.deploy-rs ]; };
+            # All packages under pkgs.myme.pkgs from the overlay (Linux only)
+            packages = lib.optionalAttrs isLinux pkgs.myme.pkgs;
 
-          # For hacking on XMonad
-          xmonad = pkgs.mkShell {
-            buildInputs = with pkgs; [
-              (ghc.withPackages (
-                ps: with ps; [
-                  xmonad
-                  xmonad-contrib
-                ]
-              ))
-            ];
-          };
-        };
-      }
-    );
+            devShells = {
+              # Default dev shell (used by direnv) — installs the pre-push hook
+              default = pkgs.mkShell {
+                inherit (pre-commit-check) shellHook;
+                buildInputs =
+                  pre-commit-check.enabledPackages
+                  ++ lib.optionals isLinux (
+                    with pkgs;
+                    [
+                      agenix
+                      disko
+                      myme.pkgs.nixos-bootstrap
+                    ]
+                  );
+              };
+            }
+            // lib.optionalAttrs isLinux {
+              # Deployment to other nodes
+              deploy = pkgs.mkShell { buildInputs = with pkgs; [ deploy-rs.deploy-rs ]; };
+
+              # For hacking on XMonad
+              xmonad = pkgs.mkShell {
+                buildInputs = with pkgs; [
+                  (ghc.withPackages (
+                    ps: with ps; [
+                      xmonad
+                      xmonad-contrib
+                    ]
+                  ))
+                ];
+              };
+            };
+          }
+        );
 }

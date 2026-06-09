@@ -1,0 +1,12 @@
+# gitleaks config — extends the default rules with project-specific allowlists
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Allowlist agenix-encrypted files and public SSH key lists"
+paths = [
+  '''secrets\.nix''',
+  '''secrets/.*\.age''',
+  '''machines/.*\.age''',
+  '''flake\.lock''',
+]
