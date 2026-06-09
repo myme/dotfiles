@@ -75,6 +75,11 @@
       };
 
       system.stateVersion = "24.05";
+
+      # On NixOS-WSL `/etc/resolv.conf` is provided by WSL; on other flavors
+      # NetworkManager manages it. In both cases the default resolvconf
+      # service would conflict with `environment.etc."resolv.conf"`.
+      networking.resolvconf.enable = false;
     }
     # Disable boot + networking for WSL
     (lib.mkIf (config.myme.machine.flavor != "wsl") {

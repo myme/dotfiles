@@ -14,8 +14,6 @@ in
   };
 
   config = {
-    systemd.sleep.extraConfig = ''
-      HibernateDelaySec=${cfg.hibernateDelay}
-    '';
+    systemd.sleep.settings.Sleep.HibernateDelaySec = cfg.hibernateDelay;
   };
 }

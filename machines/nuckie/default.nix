@@ -56,7 +56,7 @@
         defaults = {
           email = "mm@myme.no";
           dnsProvider = "domeneshop";
-          credentialsFile = config.age.secrets.acme.path;
+          environmentFile = config.age.secrets.acme.path;
           group = "nginx";
         };
         certs."nuckie.myme.no" = { };
