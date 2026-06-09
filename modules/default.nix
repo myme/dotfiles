@@ -3,8 +3,6 @@
   config,
   lib,
   pkgs,
-  options,
-  system,
   ...
 }:
 {

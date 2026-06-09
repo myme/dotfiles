@@ -10,8 +10,6 @@ in
   stable = true;
   config =
     {
-      config,
-      lib,
       modulesPath,
       pkgs,
       ...

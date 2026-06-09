@@ -7,9 +7,6 @@
   system = "x86_64-linux";
   config =
     {
-      config,
-      lib,
-      pkgs,
       ...
     }:
     {

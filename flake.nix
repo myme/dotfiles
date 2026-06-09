@@ -77,7 +77,6 @@
     {
       self,
       nixpkgs,
-      nix-darwin,
       flake-utils,
       ...
     }@inputs:
@@ -92,7 +91,7 @@
         self.overlays.default
       ];
       lib = nixpkgs.lib.extend (
-        final: prev:
+        final: _prev:
         import ./lib {
           inherit inputs overlays;
           lib = final;
@@ -105,7 +104,6 @@
         inherit lib;
         inherit (inputs)
           doomemacs
-          home-manager
           nixpkgs
           wallpapers
           ;
@@ -127,7 +125,7 @@
 
       # Installation mediums
       sdImages = builtins.mapAttrs (
-        name: config: config.config.system.build.sdImage
+        _name: config: config.config.system.build.sdImage
       ) self.nixosConfigurations;
     }
     //

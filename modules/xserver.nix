@@ -9,7 +9,6 @@ with lib;
 
 let
   inherit (config.myme) machine;
-  is_stable = config.myme.machine.stable;
   cfg = machine.de;
   noDM = builtins.elem cfg.variant [
     "hyprland"

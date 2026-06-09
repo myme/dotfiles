@@ -3,7 +3,6 @@
 { nixosConfigurations }:
 
 let
-  removeHostname = str: builtins.head (builtins.split "@" str);
   userAtHostConfig =
     { host, config }:
     (lib.mapAttrsToList (username: hmConfig: {

@@ -4,7 +4,7 @@
   osConfig,
   pkgs,
   ...
-}@args:
+}:
 
 let
   inherit (osConfig.myme) machine;

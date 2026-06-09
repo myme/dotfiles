@@ -1,6 +1,5 @@
 {
   lib,
-  home-manager,
   doomemacs,
   wallpapers,
   nixpkgs,
