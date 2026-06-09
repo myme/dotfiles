@@ -114,7 +114,7 @@ in
           doom
           ec
           et
-          nodePackages.mermaid-cli
+          mermaid-cli
           xclip-to-org
         ]
         ++ (if epg != null then [ epg ] else [ ]);

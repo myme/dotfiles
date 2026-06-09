@@ -13,7 +13,9 @@ in
     };
   };
 
-  config = {
+  # WSL doesn't load the standard systemd module, so `systemd.sleep.settings`
+  # isn't declared there.
+  config = lib.mkIf (config.myme.machine.flavor != "wsl") {
     systemd.sleep.settings.Sleep.HibernateDelaySec = cfg.hibernateDelay;
   };
 }

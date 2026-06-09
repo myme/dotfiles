@@ -178,9 +178,9 @@ in
       # Nodejs
       (lib.mkIf cfg.nodejs.enable [
         (lib.mkIf cfg.nodejs.interpreter pkgs.nodejs)
-        pkgs.nodePackages.typescript
-        pkgs.nodePackages.typescript-language-server
-        pkgs.nodePackages.prettier
+        pkgs.typescript
+        pkgs.typescript-language-server
+        pkgs.prettier
       ])
 
       # Python

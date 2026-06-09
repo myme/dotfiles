@@ -143,10 +143,8 @@
 
       # Virtualization
       virtualisation = {
-        libvirtd = {
-          enable = true;
-          qemu.ovmf.enable = true;
-        };
+        # OVMF images are available by default in current nixpkgs.
+        libvirtd.enable = true;
         podman.enable = true;
       };
     };
