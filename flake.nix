@@ -171,7 +171,13 @@
               pre-commit = pre-commit-check;
             }
             // lib.optionalAttrs (inputs.deploy-rs.lib ? ${system}) (
-              inputs.deploy-rs.lib.${system}.deployChecks self.deploy
+              # Only check deploy nodes that target the current system —
+              # cross-arch builds would require qemu emulation in CI.
+              inputs.deploy-rs.lib.${system}.deployChecks {
+                nodes = lib.filterAttrs (
+                  name: _: self.nixosConfigurations.${name}.pkgs.stdenv.hostPlatform.system == system
+                ) self.deploy.nodes;
+              }
             );
 
             # Apps for `nix run .#<app>` (Linux only)
