@@ -2,16 +2,16 @@
 
 {
   colors = rec {
-    nord0 = "#2e3440";  # Polar night
-    nord1 = "#3b4252";  # Polar night
-    nord2 = "#434c5e";  # Polar night
-    nord3 = "#4c566a";  # Polar night
-    nord4 = "#d8dee9";  # Snow storm
-    nord5 = "#e5e9f0";  # Snow storm
-    nord6 = "#eceff4";  # Snow storm
-    nord7 = "#8fbcbb";  # Frost: "polar water"
-    nord8 = "#88c0d0";  # Frost: "clear ice"
-    nord9 = "#81a1c1";  # Frost: "arctic water"
+    nord0 = "#2e3440"; # Polar night
+    nord1 = "#3b4252"; # Polar night
+    nord2 = "#434c5e"; # Polar night
+    nord3 = "#4c566a"; # Polar night
+    nord4 = "#d8dee9"; # Snow storm
+    nord5 = "#e5e9f0"; # Snow storm
+    nord6 = "#eceff4"; # Snow storm
+    nord7 = "#8fbcbb"; # Frost: "polar water"
+    nord8 = "#88c0d0"; # Frost: "clear ice"
+    nord9 = "#81a1c1"; # Frost: "arctic water"
     nord10 = "#5e81ac"; # Frost: "arctic ocean"
     nord11 = "#bf616a"; # Aurora: red
     nord12 = "#d08770"; # Aurora: orange

@@ -10,13 +10,14 @@ let
     name = lib.strings.removeSuffix ".nix" fname;
     value = import ../machines/${fname};
   };
-  imported = builtins.filter
-    ({ name, value }: pred name value)
-    (builtins.map doImport allProfiles);
-  toAttr = { name, value }: {
-    inherit name;
-    value = apply name value;
-  };
+  imported = builtins.filter ({ name, value }: pred name value) (builtins.map doImport allProfiles);
+  toAttr =
+    { name, value }:
+    {
+      inherit name;
+      value = apply name value;
+    };
   attributes = builtins.map toAttr imported;
 
-in builtins.listToAttrs attributes
+in
+builtins.listToAttrs attributes

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.myme.emacs;
@@ -8,8 +13,14 @@ let
 
   # Build a minimal Spotlight-discoverable .app bundle.
   # `exec` is the body of a /bin/sh script that becomes CFBundleExecutable.
-  mkDarwinApp = { name, bundleId, exec, extraPlist ? "" }:
-    pkgs.runCommandLocal "${name}.app" {} ''
+  mkDarwinApp =
+    {
+      name,
+      bundleId,
+      exec,
+      extraPlist ? "",
+    }:
+    pkgs.runCommandLocal "${name}.app" { } ''
       app="$out/Applications/${name}.app"
       mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 
@@ -65,7 +76,8 @@ let
     end open location
   '';
 
-in {
+in
+{
   config = lib.mkIf (cfg.enable && pkgs.stdenv.isDarwin) {
     # GUI launches on macOS (Spotlight, Dock, Finder) inherit launchd's
     # environment, not the login shell's. Without these:
@@ -82,7 +94,8 @@ in {
           RunAtLoad = true;
           KeepAlive = false;
           ProgramArguments = [
-            "/bin/sh" "-c"
+            "/bin/sh"
+            "-c"
             ''
               launchctl setenv DOOMLOCALDIR "$HOME/.cache/doomemacs/" ; \
               launchctl setenv DOOMPROFILELOADFILE "$HOME/.cache/doomemacs/load.el"
@@ -113,7 +126,8 @@ in {
         # proper LaunchServices identity so AppleScript `tell
         # application "Emacs" to activate` works.
         ProgramArguments = lib.mkForce [
-          "/bin/sh" "-c"
+          "/bin/sh"
+          "-c"
           "/bin/wait4path /nix/store && exec ${emacsPkg}/Applications/Emacs.app/Contents/MacOS/Emacs --fg-daemon"
         ];
       };
@@ -124,25 +138,24 @@ in {
     # Darwin equivalent of the Linux org-capture xdg.desktopEntry in
     # default.nix: an .app bundle that handles org-protocol:// URLs and
     # is launchable from Spotlight.
-    home.activation.orgCaptureApp =
-      lib.hm.dag.entryAfter ["writeBoundary"] ''
-        app="$HOME/Applications/Home Manager Apps/Org Capture.app"
-        run mkdir -p "$HOME/Applications/Home Manager Apps"
-        run rm -rf "$app"
-        run /usr/bin/osacompile -o "$app" ${orgCaptureScript}
-        # Replace osacompile's default droplet icon with the Emacs icon.
-        run cp "${emacsIcon}" "$app/Contents/Resources/applet.icns"
-        run /usr/libexec/PlistBuddy \
-          -c 'Add :CFBundleURLTypes array' \
-          -c 'Add :CFBundleURLTypes:0 dict' \
-          -c 'Add :CFBundleURLTypes:0:CFBundleURLName string Org Protocol' \
-          -c 'Add :CFBundleURLTypes:0:CFBundleURLSchemes array' \
-          -c 'Add :CFBundleURLTypes:0:CFBundleURLSchemes:0 string org-protocol' \
-          -c 'Add :CFBundleIdentifier string org.nixos.org-capture' \
-          "$app/Contents/Info.plist"
-        # Bump the bundle mtime so Launch Services re-indexes it (copyApps
-        # preserves the nix-store epoch mtime otherwise).
-        run /usr/bin/touch "$app"
-      '';
+    home.activation.orgCaptureApp = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      app="$HOME/Applications/Home Manager Apps/Org Capture.app"
+      run mkdir -p "$HOME/Applications/Home Manager Apps"
+      run rm -rf "$app"
+      run /usr/bin/osacompile -o "$app" ${orgCaptureScript}
+      # Replace osacompile's default droplet icon with the Emacs icon.
+      run cp "${emacsIcon}" "$app/Contents/Resources/applet.icns"
+      run /usr/libexec/PlistBuddy \
+        -c 'Add :CFBundleURLTypes array' \
+        -c 'Add :CFBundleURLTypes:0 dict' \
+        -c 'Add :CFBundleURLTypes:0:CFBundleURLName string Org Protocol' \
+        -c 'Add :CFBundleURLTypes:0:CFBundleURLSchemes array' \
+        -c 'Add :CFBundleURLTypes:0:CFBundleURLSchemes:0 string org-protocol' \
+        -c 'Add :CFBundleIdentifier string org.nixos.org-capture' \
+        "$app/Contents/Info.plist"
+      # Bump the bundle mtime so Launch Services re-indexes it (copyApps
+      # preserves the nix-store epoch mtime otherwise).
+      run /usr/bin/touch "$app"
+    '';
   };
 }

@@ -1,9 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.myme.wm;
 
-in {
+in
+{
   options.myme.wm.xmonad = {
     enable = lib.mkEnableOption "XMonad - Dynamic tiling window manager";
     font = {

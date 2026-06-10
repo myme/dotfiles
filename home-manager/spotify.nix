@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   spotify-ctrl = pkgs.writeShellScriptBin "spotify-ctrl" ''
@@ -8,16 +13,20 @@ let
         org.mpris.MediaPlayer2.Player."$1"
   '';
 
-in {
+in
+{
   options = {
     myme.apps.spotify.enable = lib.mkEnableOption "Enable Spotify";
   };
 
   config = lib.mkIf config.myme.apps.spotify.enable {
-    home.packages = with pkgs; [
-      spotify
-    ] ++ [
-      spotify-ctrl
-    ];
+    home.packages =
+      with pkgs;
+      [
+        spotify
+      ]
+      ++ [
+        spotify-ctrl
+      ];
   };
 }

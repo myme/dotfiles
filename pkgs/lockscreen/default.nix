@@ -1,4 +1,9 @@
-{ i3lock, imagemagick, scrot, writeShellScriptBin }:
+{
+  i3lock,
+  imagemagick,
+  scrot,
+  writeShellScriptBin,
+}:
 
 writeShellScriptBin "lockscreen" ''
   bg_image="''${XDG_RUNTIME_DIR:-/tmp}/lock-image.png"

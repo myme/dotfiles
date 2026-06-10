@@ -1,8 +1,14 @@
-{ lib, inputs, overlays }:
+{
+  lib,
+  inputs,
+  overlays,
+}:
 
-let allProfilesIf = import ./allProfilesIf.nix { inherit lib; };
+let
+  allProfilesIf = import ./allProfilesIf.nix { inherit lib; };
 
-in {
+in
+{
   myme = {
     allNixFiles = import ./allNixFiles.nix { inherit lib; };
     allProfiles = allProfilesIf (_: _: true);

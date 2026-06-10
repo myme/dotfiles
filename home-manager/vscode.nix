@@ -16,7 +16,7 @@ in
 
   config = {
     programs.vscode = {
-      enable = cfg.enable;
+      inherit (cfg) enable;
       profiles.default.extensions = [
         pkgs.vscode-extensions.dracula-theme.theme-dracula
         pkgs.vscode-extensions.github.copilot

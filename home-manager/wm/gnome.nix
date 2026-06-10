@@ -20,7 +20,6 @@
 }:
 
 let
-  is_stable = osConfig.myme.machine.stable;
   gnomeEnable = osConfig.services.desktopManager.gnome.enable or false;
 in
 {

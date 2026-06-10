@@ -1,8 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.myme.irc;
-  weechat = pkgs.weechat;
+  inherit (pkgs) weechat;
   tmuxCmd = "${pkgs.tmux}/bin/tmux -L weechat";
   weechatCmd = "${weechat}/bin/weechat";
   irc = pkgs.writeShellScriptBin "irc" ''
@@ -10,14 +15,18 @@ let
     TMUX_TMPDIR= ${tmuxCmd} attach-session -t weechat
   '';
 
-in {
+in
+{
   options = {
     myme.irc.enable = lib.mkEnableOption "Enable IRC (weechat)";
     myme.irc.service = lib.mkEnableOption "Run WeeChat as a user service";
   };
 
   config = {
-    home.packages = lib.mkIf cfg.enable [ irc weechat ];
+    home.packages = lib.mkIf cfg.enable [
+      irc
+      weechat
+    ];
 
     systemd.user.services.weechat = lib.mkIf (cfg.enable && cfg.service) {
       Unit = {
@@ -34,7 +43,9 @@ in {
         Restart = "on-failure";
       };
 
-      Install = { WantedBy = [ "default.target" ]; };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
     };
   };
 }

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -11,7 +16,8 @@ let
   renumberFlag = "--no-renumber";
   cmd = "${cfg.package}/bin/i3ws ${iconFlag} ${separator} ${renumberFlag}";
 
-in {
+in
+{
   options.myme.i3ws = {
     enable = mkEnableOption "Enable i3ws integration";
 
@@ -24,13 +30,13 @@ in {
     icons = mkOption {
       type = types.bool;
       default = false;
-      description ="Enable i3ws integration";
+      description = "Enable i3ws integration";
     };
 
     separator = mkOption {
       type = types.str;
       default = ":";
-      description ="Separator between workspace number and icons";
+      description = "Separator between workspace number and icons";
     };
   };
 
@@ -44,7 +50,7 @@ in {
 
       Service = {
         Environment = "PATH=${i3pkg}/bin";
-        ExecStart = ''${cmd} monitor'';
+        ExecStart = "${cmd} monitor";
         Restart = "on-failure";
       };
 

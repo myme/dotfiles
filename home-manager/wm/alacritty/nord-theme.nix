@@ -27,11 +27,10 @@
     background = "#4c566a";
   };
   search = {
-    matches =
-      {
-        foreground = "CellBackground";
-        background = "#88c0d0";
-      };
+    matches = {
+      foreground = "CellBackground";
+      background = "#88c0d0";
+    };
   };
   colors = {
     footer_bar = {

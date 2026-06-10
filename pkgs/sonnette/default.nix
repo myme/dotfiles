@@ -1,4 +1,10 @@
-{ writeShellScriptBin, tmux, coreutils, jq, libnotify }:
+{
+  writeShellScriptBin,
+  tmux,
+  coreutils,
+  jq,
+  libnotify,
+}:
 
 writeShellScriptBin "sonnette" ''
   SONNETTE_DIR="''${SONNETTE_DIR:-''${XDG_RUNTIME_DIR:-/tmp}/sonnette}"

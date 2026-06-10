@@ -1,5 +1,4 @@
 {
-  bash,
   fetchzip,
   nodejs,
   writeShellScriptBin,

@@ -1,12 +1,18 @@
 # TODO: Pair programming setup using Docker/Podman + Tmate
 # Use a docker/pod with tmate and usual dev tools to share a tmux session with a peer.
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.myme.dev;
 
-in {
+in
+{
   imports = [
     ./vscode.nix
   ];
@@ -119,7 +125,7 @@ in {
     programs = {
       info.enable = cfg.docs.enable;
       man = {
-        enable = cfg.docs.enable;
+        inherit (cfg.docs) enable;
         generateCaches = true;
       };
     };
@@ -172,16 +178,18 @@ in {
       # Nodejs
       (lib.mkIf cfg.nodejs.enable [
         (lib.mkIf cfg.nodejs.interpreter pkgs.nodejs)
-        pkgs.nodePackages.typescript
-        pkgs.nodePackages.typescript-language-server
-        pkgs.nodePackages.prettier
+        pkgs.typescript
+        pkgs.typescript-language-server
+        pkgs.prettier
       ])
 
       # Python
       (lib.mkIf cfg.python.enable [
-        (lib.mkIf cfg.python.interpreter (pkgs.python3.withPackages (ps: [
-          ps.ipython
-        ])))
+        (lib.mkIf cfg.python.interpreter (
+          pkgs.python3.withPackages (ps: [
+            ps.ipython
+          ])
+        ))
         pkgs.black
         # pkgs.python-language-server
         pkgs.pyright
@@ -212,14 +220,35 @@ in {
         '';
       })
       (lib.mkIf (cfg.llm.enable && cfg.llm.claude.enable) {
-        ".claude/settings.json".text = builtins.toJSON ({
-          includeCoAuthoredBy = false;
-        } // lib.optionalAttrs cfg.llm.claude.notify {
-          hooks = {
-            Stop = [{ hooks = [{ type = "command"; command = "${pkgs.myme.pkgs.sonnette}/bin/sonnette notify 'Claude Code'"; }]; }];
-            Notification = [{ hooks = [{ type = "command"; command = "${pkgs.myme.pkgs.sonnette}/bin/sonnette notify 'Claude Code'"; }]; }];
-          };
-        });
+        ".claude/settings.json".text = builtins.toJSON (
+          {
+            includeCoAuthoredBy = false;
+          }
+          // lib.optionalAttrs cfg.llm.claude.notify {
+            hooks = {
+              Stop = [
+                {
+                  hooks = [
+                    {
+                      type = "command";
+                      command = "${pkgs.myme.pkgs.sonnette}/bin/sonnette notify 'Claude Code'";
+                    }
+                  ];
+                }
+              ];
+              Notification = [
+                {
+                  hooks = [
+                    {
+                      type = "command";
+                      command = "${pkgs.myme.pkgs.sonnette}/bin/sonnette notify 'Claude Code'";
+                    }
+                  ];
+                }
+              ];
+            };
+          }
+        );
       })
     ];
 

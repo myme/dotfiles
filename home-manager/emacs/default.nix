@@ -1,10 +1,16 @@
-{ config, lib, pkgs, osConfig, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  osConfig,
+  ...
+}:
 
 let
   cfg = config.myme.emacs;
-  doom = (pkgs.writeShellScriptBin "doom" ''
+  doom = pkgs.writeShellScriptBin "doom" ''
     ~/.emacs.d/bin/doom "$@"
-  '');
+  '';
   # On Darwin we manage the daemon ourselves (no systemd socket activation),
   # so fall back to `-a ""` to spawn a daemon if one isn't running.
   # Note: regular `"..."` string — `''..''` strips the leading space.
@@ -12,26 +18,33 @@ let
   # Use an absolute path so the wrappers work outside a shell-derived PATH
   # (AppleScript `do shell script`, launchd plists, etc.).
   emacsclientBin = "${config.programs.emacs.finalPackage}/bin/emacsclient";
-  ec = (pkgs.writeShellScriptBin "ec" ''
+  ec = pkgs.writeShellScriptBin "ec" ''
     ${emacsclientBin} -c${emacsclientFallback} "$@"
-  '');
-  et = (pkgs.writeShellScriptBin "et" ''
+  '';
+  et = pkgs.writeShellScriptBin "et" ''
     ${emacsclientBin} -t${emacsclientFallback} "$@"
-  '');
+  '';
   # FIXME: Hack to avoid hang on gpg save: https://dev.gnupg.org/T6481
-  epg = if lib.versionOlder pkgs.gnupg.version "2.4.4" then (pkgs.writeShellScriptBin "epg" ''
-    PATH="${pkgs.gnupg24}/bin:$PATH" emacs "$@"
-  '') else null;
-  flavor = osConfig.myme.machine.flavor;
+  epg =
+    if lib.versionOlder pkgs.gnupg.version "2.4.4" then
+      (pkgs.writeShellScriptBin "epg" ''
+        PATH="${pkgs.gnupg24}/bin:$PATH" emacs "$@"
+      '')
+    else
+      null;
+  inherit (osConfig.myme.machine) flavor;
   deVariant = osConfig.myme.machine.de.variant;
-  isWayland = flavor == "wsl" || builtins.elem deVariant [ "gnome" "hyprland" ];
-  EDITOR = if osConfig.myme.machine.role == "server" then
-    "${et}/bin/et"
-  else
-    "${ec}/bin/ec";
+  isWayland =
+    flavor == "wsl"
+    || builtins.elem deVariant [
+      "gnome"
+      "hyprland"
+    ];
+  EDITOR = if osConfig.myme.machine.role == "server" then "${et}/bin/et" else "${ec}/bin/ec";
   xclip-to-org = pkgs.writeShellScriptBin "xclip-to-org" (builtins.readFile ./xclip-to-org.sh);
 
-in {
+in
+{
   imports = [ ./darwin.nix ];
 
   options.myme.emacs = {
@@ -71,26 +84,48 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    # Doom Emacs (.emacs.d)
-    home.file.".emacs.d".source = pkgs.myme.doomemacs;
+    home = {
+      # Doom Emacs (.emacs.d)
+      file.".emacs.d".source = pkgs.myme.doomemacs;
 
-    # Doom Emacs local files (~/.cache/doom)
-    home.sessionVariables = lib.mkMerge [
-      {
-        DOOMLOCALDIR = "~/.cache/doomemacs/";
-        DOOMPROFILELOADFILE = "~/.cache/doomemacs/load.el";
-      }
-      (lib.mkIf cfg.default-editor {
-        inherit EDITOR;
-      })
-    ];
+      # Doom Emacs local files (~/.cache/doom)
+      sessionVariables = lib.mkMerge [
+        {
+          DOOMLOCALDIR = "~/.cache/doomemacs/";
+          DOOMPROFILELOADFILE = "~/.cache/doomemacs/load.el";
+        }
+        (lib.mkIf cfg.default-editor {
+          inherit EDITOR;
+        })
+      ];
+
+      # Additional packages
+      packages =
+        with pkgs;
+        [
+          (aspellWithDicts (
+            dicts: with dicts; [
+              en
+              en-computers
+              it
+              nb
+            ]
+          ))
+          doom
+          ec
+          et
+          mermaid-cli
+          xclip-to-org
+        ]
+        ++ (if epg != null then [ epg ] else [ ]);
+    };
 
     # Doom Emacs configuration (~/.config/doom)
     xdg.configFile.doom.source = pkgs.stdenv.mkDerivation {
       name = "doom-emacs-src";
       src = ./doom;
       doomConfigExtra = cfg.configExtra;
-      backgroundOpacity = cfg.backgroundOpacity;
+      inherit (cfg) backgroundOpacity;
       doomFontFamily = pkgs.lib.strings.escapeNixString cfg.font.family;
       doomFontSize = cfg.font.size;
       doomTheme = cfg.theme;
@@ -122,16 +157,6 @@ in {
       };
     };
 
-    # Additional packages
-    home.packages = with pkgs; [
-      (aspellWithDicts (dicts: with dicts; [ en en-computers it nb ]))
-      doom
-      ec
-      et
-      nodePackages.mermaid-cli
-      xclip-to-org
-    ] ++ (if epg != null then [epg] else []);
-
     xdg.desktopEntries = lib.mkIf pkgs.stdenv.isLinux {
       org-capture = {
         name = "Org Capture";
@@ -139,7 +164,10 @@ in {
         exec = "${EDITOR} %u";
         icon = "emacs";
         terminal = false;
-        categories = [ "Development" "TextEditor" ];
+        categories = [
+          "Development"
+          "TextEditor"
+        ];
         mimeType = [ "x-scheme-handler/org-protocol" ];
       };
     };

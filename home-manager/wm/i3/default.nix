@@ -1,10 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.myme.wm.i3;
-  modifier = config.xsession.windowManager.i3.config.modifier;
+  inherit (config.xsession.windowManager.i3.config) modifier;
   exitCmd = "i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'";
-  lockCmd = cfg.lockCmd;
+  inherit (cfg) lockCmd;
   hibernateCmd = "i3-nagbar -t warning -m 'Do you want to hibernate?' -b 'Yes' 'systemctl hibernate'";
   suspendCmd = "${lockCmd} && systemctl suspend";
   rebootCmd = "i3-nagbar -t warning -m 'Do you want to reboot?' -b 'Yes' 'systemctl reboot'";
@@ -14,7 +19,8 @@ let
   amixer = "${pkgs.alsa-utils}/bin/amixer";
   nixonCfg = config.programs.nixon;
 
-in {
+in
+{
   imports = [
     ./i3ws.nix
   ];
@@ -37,28 +43,61 @@ in {
   config = lib.mkIf cfg.enable {
     # i3ws
     myme.i3ws = {
-      enable = cfg.enable;
+      inherit (cfg) enable;
       icons = true;
       separator = " ";
     };
 
     # i3 config
     xsession.windowManager.i3 = {
-      enable = cfg.enable;
+      inherit (cfg) enable;
       package = pkgs.i3-gaps;
       config = {
         modifier = "Mod4";
-        bars = [];
+        bars = [ ];
         colors = {
           background = "#ffffff";
-          focused         = { border = "#4c7899"; background = "#285577"; text = "#ffffff"; indicator = "#2e9ef4"; childBorder = "#285577"; };
-          focusedInactive = { border = "#333333"; background = "#5f676a"; text = "#ffffff"; indicator = "#484e50"; childBorder = "#5f676a"; };
-          unfocused       = { border = "#333333"; background = "#222222"; text = "#888888"; indicator = "#292d2e"; childBorder = "#222222"; };
-          urgent          = { border = "#2f343a"; background = "#900000"; text = "#ffffff"; indicator = "#900000"; childBorder = "#900000"; };
-          placeholder     = { border = "#000000"; background = "#0c0c0c"; text = "#ffffff"; indicator = "#000000"; childBorder = "#0c0c0c"; };
+          focused = {
+            border = "#4c7899";
+            background = "#285577";
+            text = "#ffffff";
+            indicator = "#2e9ef4";
+            childBorder = "#285577";
+          };
+          focusedInactive = {
+            border = "#333333";
+            background = "#5f676a";
+            text = "#ffffff";
+            indicator = "#484e50";
+            childBorder = "#5f676a";
+          };
+          unfocused = {
+            border = "#333333";
+            background = "#222222";
+            text = "#888888";
+            indicator = "#292d2e";
+            childBorder = "#222222";
+          };
+          urgent = {
+            border = "#2f343a";
+            background = "#900000";
+            text = "#ffffff";
+            indicator = "#900000";
+            childBorder = "#900000";
+          };
+          placeholder = {
+            border = "#000000";
+            background = "#0c0c0c";
+            text = "#ffffff";
+            indicator = "#000000";
+            childBorder = "#0c0c0c";
+          };
         };
         fonts = {
-          names = ["Dejavu Sans Mono" "FontAwesome 11"];
+          names = [
+            "Dejavu Sans Mono"
+            "FontAwesome 11"
+          ];
         };
         gaps = {
           inner = 10;
@@ -148,28 +187,36 @@ in {
             # Restart/reload
             "${modifier}+r" = "reload";
             "${modifier}+Shift+r" = "restart";
-          } // (
-            if ! nixonCfg.enable then {} else {
-              # Nixon
-              "${modifier}+x" = "exec --no-startup-id ${nixonCfg.package}/bin/nixon run";
-              "${modifier}+Shift+x" = "exec --no-startup-id ${nixonCfg.package}/bin/nixon project";
-            }
-          ) // (
+          }
+          // (
+            if !nixonCfg.enable then
+              { }
+            else
+              {
+                # Nixon
+                "${modifier}+x" = "exec --no-startup-id ${nixonCfg.package}/bin/nixon run";
+                "${modifier}+Shift+x" = "exec --no-startup-id ${nixonCfg.package}/bin/nixon project";
+              }
+          )
+          // (
             # Sans Plasma
-            if cfg.plasma then {} else {
-              # Locking
-              "Control+Mod1+l" = ''mode "${lockMode}"'';
+            if cfg.plasma then
+              { }
+            else
+              {
+                # Locking
+                "Control+Mod1+l" = ''mode "${lockMode}"'';
 
-              # Audio controls
-              "XF86AudioRaiseVolume" = "exec --no-startup-id ${amixer} set Master 1%+";
-              "XF86AudioLowerVolume" = "exec --no-startup-id ${amixer} set Master 1%-";
-              "XF86AudioMute"        = "exec --no-startup-id ${amixer} set Master toggle";
-              "XF86AudioMicMute"     = "exec --no-startup-id ${amixer} set Capture toggle";
+                # Audio controls
+                "XF86AudioRaiseVolume" = "exec --no-startup-id ${amixer} set Master 1%+";
+                "XF86AudioLowerVolume" = "exec --no-startup-id ${amixer} set Master 1%-";
+                "XF86AudioMute" = "exec --no-startup-id ${amixer} set Master toggle";
+                "XF86AudioMicMute" = "exec --no-startup-id ${amixer} set Capture toggle";
 
-              # Brightness
-              # "XF86MonBrightnessUp"   = "exec ${backlight} -A 10";
-              # "XF86MonBrightnessDown" = "exec ${backlight} -U 10";
-            }
+                # Brightness
+                # "XF86MonBrightnessUp"   = "exec ${backlight} -A 10";
+                # "XF86MonBrightnessDown" = "exec ${backlight} -U 10";
+              }
           )
         );
         modes = lib.mkMerge [
@@ -203,43 +250,140 @@ in {
           })
         ];
         startup = [
-          { command = "~/.fehbg"; notification = false; }
-        ] ++ (if (cfg.plasma) then [
-          { command = "${pkgs.wmctrl} -c Plasma"; notification = false; }
-          { command = "systemctl --user restart davmail.service"; notification = false; }
-          { command = "systemctl --user restart i3ws.service"; always = true; notification = false; }
-          { command = "systemctl --user restart picom.service"; notification = false; }
-          { command = "systemctl --user restart polybar.service"; always = true; notification = false; }
-          { command = "systemctl --user restart syncthing.service"; notification = false; }
-          { command = "systemctl --user restart qsyncthingtray.service"; always = true; notification = false; }
-        ] else [
-          # Enable natural scrolling
-          # { command = ''xinput set-prop "GDX1301:00 27C6:01F0 Touchpad" "libinput Natural Scrolling Enabled" 1''; notification = false; }
-          { command = ''setxkbmap us alt-intl-unicode''; notification = false; }
-          # { command = "systemctl --user restart davmail.service"; notification = false; }
-          # { command = "systemctl --user restart syncthing.service"; notification = false; }
-          # { command = "systemctl --user restart picom.service"; notification = false; }
-          { command = "systemctl --user restart polybar.service"; always = true; notification = false; }
-          { command = "systemctl --user restart i3ws.service"; always = true; notification = false; }
-          { command = "sleep 2; systemctl --user restart qsyncthingtray.service"; always = true; notification = false; }
-        ]);
+          {
+            command = "~/.fehbg";
+            notification = false;
+          }
+        ]
+        ++ (
+          if cfg.plasma then
+            [
+              {
+                command = "${pkgs.wmctrl} -c Plasma";
+                notification = false;
+              }
+              {
+                command = "systemctl --user restart davmail.service";
+                notification = false;
+              }
+              {
+                command = "systemctl --user restart i3ws.service";
+                always = true;
+                notification = false;
+              }
+              {
+                command = "systemctl --user restart picom.service";
+                notification = false;
+              }
+              {
+                command = "systemctl --user restart polybar.service";
+                always = true;
+                notification = false;
+              }
+              {
+                command = "systemctl --user restart syncthing.service";
+                notification = false;
+              }
+              {
+                command = "systemctl --user restart qsyncthingtray.service";
+                always = true;
+                notification = false;
+              }
+            ]
+          else
+            [
+              # Enable natural scrolling
+              # { command = ''xinput set-prop "GDX1301:00 27C6:01F0 Touchpad" "libinput Natural Scrolling Enabled" 1''; notification = false; }
+              {
+                command = "setxkbmap us alt-intl-unicode";
+                notification = false;
+              }
+              # { command = "systemctl --user restart davmail.service"; notification = false; }
+              # { command = "systemctl --user restart syncthing.service"; notification = false; }
+              # { command = "systemctl --user restart picom.service"; notification = false; }
+              {
+                command = "systemctl --user restart polybar.service";
+                always = true;
+                notification = false;
+              }
+              {
+                command = "systemctl --user restart i3ws.service";
+                always = true;
+                notification = false;
+              }
+              {
+                command = "sleep 2; systemctl --user restart qsyncthingtray.service";
+                always = true;
+                notification = false;
+              }
+            ]
+        );
         window = {
           # Disable title bar
           titlebar = false;
-          commands = if (!cfg.plasma) then [] else [
-            # Kill Plasma desktop
-            { criteria = { title = "Desktop — Plasma"; }; command = "kill; floating enable; border none"; }
+          commands =
+            if (!cfg.plasma) then
+              [ ]
+            else
+              [
+                # Kill Plasma desktop
+                {
+                  criteria = {
+                    title = "Desktop — Plasma";
+                  };
+                  command = "kill; floating enable; border none";
+                }
 
-            # Plasma popus shouldn't be tiled
-            { criteria = { class = "plasmashell"; };      command = "floating enable"; }
-            { criteria = { class = "Plasma"; };           command = "floating enable; border none"; }
-            { criteria = { title = "plasma-desktop"; };   command = "floating enable; border none"; }
-            { criteria = { title = "win7"; };             command = "floating enable; border none"; }
-            { criteria = { class = "krunner"; };          command = "floating enable; border none"; }
-            { criteria = { class = "Kmix"; };             command = "floating enable; border none"; }
-            { criteria = { class = "Klipper"; };          command = "floating enable; border none"; }
-            { criteria = { class = "Plasmoidviewer"; };   command = "floating enable; border none"; }
-          ];
+                # Plasma popus shouldn't be tiled
+                {
+                  criteria = {
+                    class = "plasmashell";
+                  };
+                  command = "floating enable";
+                }
+                {
+                  criteria = {
+                    class = "Plasma";
+                  };
+                  command = "floating enable; border none";
+                }
+                {
+                  criteria = {
+                    title = "plasma-desktop";
+                  };
+                  command = "floating enable; border none";
+                }
+                {
+                  criteria = {
+                    title = "win7";
+                  };
+                  command = "floating enable; border none";
+                }
+                {
+                  criteria = {
+                    class = "krunner";
+                  };
+                  command = "floating enable; border none";
+                }
+                {
+                  criteria = {
+                    class = "Kmix";
+                  };
+                  command = "floating enable; border none";
+                }
+                {
+                  criteria = {
+                    class = "Klipper";
+                  };
+                  command = "floating enable; border none";
+                }
+                {
+                  criteria = {
+                    class = "Plasmoidviewer";
+                  };
+                  command = "floating enable; border none";
+                }
+              ];
         };
       };
     };

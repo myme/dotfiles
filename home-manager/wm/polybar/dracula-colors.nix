@@ -11,7 +11,7 @@
     dracula6 = "#eceff4"; # foreground
     dracula7 = "#5af78e"; # bright green
     dracula8 = "#1ef956"; # dim green
-    dracula9 = "#4d5b86";  # dim blue
+    dracula9 = "#4d5b86"; # dim blue
     dracula10 = "#bd93f9"; # blue
     dracula11 = "#ff5555"; # red
     dracula12 = "#d08770"; # orange

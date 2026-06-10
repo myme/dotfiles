@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   osConfig,
@@ -7,7 +6,7 @@
 }:
 
 let
-  machine = osConfig.myme.machine;
+  inherit (osConfig.myme) machine;
   isWsl = machine.flavor == "wsl";
 
 in

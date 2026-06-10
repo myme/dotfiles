@@ -14,7 +14,7 @@ let
     answer="$(rofi -dmenu -p "Really quit?" <<< $'No\nYes')"
     [ "$answer" = "Yes" ] && loginctl terminate-user $USER
   '';
-  withUWSM = specialArgs.nixosConfig.programs.hyprland.withUWSM;
+  inherit (specialArgs.nixosConfig.programs.hyprland) withUWSM;
 
 in
 {

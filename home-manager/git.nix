@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   config = {
     programs.git = {
       enable = true;

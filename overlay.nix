@@ -1,6 +1,5 @@
 {
   lib,
-  home-manager,
   doomemacs,
   wallpapers,
   nixpkgs,
@@ -9,7 +8,7 @@
 final: prev:
 
 let
-  system = prev.stdenv.hostPlatform.system;
+  inherit (prev.stdenv.hostPlatform) system;
   unstable = import nixpkgs {
     inherit system;
     config = {
