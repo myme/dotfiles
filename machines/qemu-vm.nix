@@ -6,6 +6,13 @@
 {
   system = "x86_64-linux";
   config = _: {
+    # Stub for `nix flake check`; `nixos-rebuild build-vm` overrides this.
+    fileSystems."/" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "ext4";
+    };
+    boot.loader.grub.device = "/dev/vda";
+
     myme.machine = {
       role = "desktop";
       de.variant = "hyprland";
