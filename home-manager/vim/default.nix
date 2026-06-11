@@ -170,6 +170,14 @@ in
         filetype plugin on
         filetype indent on
 
+        " Run current line and visual selection
+        nnoremap <leader>rr :.w !bash<CR>
+        xnoremap <leader>rr :w !bash<CR>
+
+        " Run current line and visual selection in a terminal split
+        nnoremap <leader>rt :execute 'terminal ' . getline('.')<CR>
+        xnoremap <leader>rt :<C-u>execute 'terminal bash -c ' . shellescape(join(getline("'<", "'>"), "; "))<CR>
+
         " Lua configs
         luafile ${./authinfo.lua}
         luafile ${./config.lua}
