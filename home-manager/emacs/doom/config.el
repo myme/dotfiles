@@ -41,48 +41,42 @@
 
 
 (defun myme/doom-ascii-banner ()
-  (let* ((banner
-          '(
-            "                 ...',;;;;;;,''.."
-            "            ..,;;;;;;;;;;;;;;;;;;;;,.."
-            "          .;;;;;;;;;;;;;:c:;;;;;;;;;;;;."
-            "       .,;;;;;;;;;;;;:looK0kc;;;;;;;;;;;;,."
-            "     .,;;;;;;;;;;;;;cooooKKK0o,;;;;;;;;;;;;,."
-            "    .;;;;;;;;;;;;;;coolccldk0Ko',;;;;;;;;;;;;."
-            "   ,;;;;;;;;;;;;;;:occkKNKOd;d0:.',;;;;;;;;;;;,"
-            "  ,;;;;;;;;;;;;;;;lccWMMMNNNX,dO'..',;;;;;;;;;;,"
-            " .;;;;;;;;;;;;;;;co:xMMMMNNNNlcKl....',;;;;;;;;;."
-            " ;;;;;;;;;;;;;;;;lol:0MMMNNNk'k0O......',;;;;;;;;"
-            ";;;;;;;;;;;;;;;;ooolclxkdl:lOKKK'.......',;;;;;;."
-            ",;;;;;;;;;;;;;;;:ooooooolO00KKKK0;.........',;;;;,"
-            ";;;;;;;;;;;;;;;;dooooooooKKKKKKK0c...........',;;;"
-            ",;;;;;;;;;;;;;o0KKxoooooo0KKKK0Oool,...........',,"
-            ";;;;;;;;;;;;xKKKKKdooooOk0KKKOooooo:............."
-            " ;;;;;;;;;;;kKKKKKK0oooOKdk0KKdooooooc..........."
-            " .;;;;;;;;;dKKKKKKKKoodKKddOKKoooooooo;.........."
-            "  ,;;;;;;;;KKKKKKKKOooxKKddkKKxoooooool........."
-            "   ,;;;;;;cKKKKKKx:'..cKKddl...,:looooo'......."
-            "    .;;;;;cKKKxc'.....'KKdd:......,cloo'......"
-            "     .,;;;;xc'.........oKdo..........,c....."
-            "       .,;;;'...........xo'..............."
-            "          .;;;'........................."
-            "            ..,;'...................."
-            "                 ..............."
-            ""
-            "                    E M A C S"
-            )
-          )
-         (longest-line (apply #'max (mapcar #'length banner))))
-    (put-text-property
-     (point)
-     (dolist (line banner (point))
-       (insert (+doom-dashboard--center
-                +doom-dashboard--width
-                (concat
-                 line (make-string (max 0 (- longest-line (length line)))
-                                   32)))
-               "\n"))
-     'face 'doom-dashboard-banner)))
+  "Return myme's custom ASCII banner for the Doom dashboard.
+As of the `:ui dashboard' module (renamed from `:ui doom-dashboard' in
+2.1), `+dashboard-ascii-banner-fn' must *return* the banner as a single
+propertized string; the `+dashboard-widget-banner' widget handles the
+centering, padding and insertion itself."
+  (propertize
+   (string-join
+    '("                 ...',;;;;;;,''.."
+      "            ..,;;;;;;;;;;;;;;;;;;;;,.."
+      "          .;;;;;;;;;;;;;:c:;;;;;;;;;;;;."
+      "       .,;;;;;;;;;;;;:looK0kc;;;;;;;;;;;;,."
+      "     .,;;;;;;;;;;;;;cooooKKK0o,;;;;;;;;;;;;,."
+      "    .;;;;;;;;;;;;;;coolccldk0Ko',;;;;;;;;;;;;."
+      "   ,;;;;;;;;;;;;;;:occkKNKOd;d0:.',;;;;;;;;;;;,"
+      "  ,;;;;;;;;;;;;;;;lccWMMMNNNX,dO'..',;;;;;;;;;;,"
+      " .;;;;;;;;;;;;;;;co:xMMMMNNNNlcKl....',;;;;;;;;;."
+      " ;;;;;;;;;;;;;;;;lol:0MMMNNNk'k0O......',;;;;;;;;"
+      ";;;;;;;;;;;;;;;;ooolclxkdl:lOKKK'.......',;;;;;;."
+      ",;;;;;;;;;;;;;;;:ooooooolO00KKKK0;.........',;;;;,"
+      ";;;;;;;;;;;;;;;;dooooooooKKKKKKK0c...........',;;;"
+      ",;;;;;;;;;;;;;o0KKxoooooo0KKKK0Oool,...........',,"
+      ";;;;;;;;;;;;xKKKKKdooooOk0KKKOooooo:............."
+      " ;;;;;;;;;;;kKKKKKK0oooOKdk0KKdooooooc..........."
+      " .;;;;;;;;;dKKKKKKKKoodKKddOKKoooooooo;.........."
+      "  ,;;;;;;;;KKKKKKKKOooxKKddkKKxoooooool........."
+      "   ,;;;;;;cKKKKKKx:'..cKKddl...,:looooo'......."
+      "    .;;;;;cKKKxc'.....'KKdd:......,cloo'......"
+      "     .,;;;;xc'.........oKdo..........,c....."
+      "       .,;;;'...........xo'..............."
+      "          .;;;'........................."
+      "            ..,;'...................."
+      "                 ..............."
+      ""
+      "                    E M A C S")
+    "\n")
+   'face '+dashboard-banner))
 
 
 (setq-default
@@ -100,10 +94,10 @@
  ;; Dired
  dired-dwim-target t
 
- ;; Banner
- +doom-dashboard-banner-dir (concat doom-private-dir "banners/")
- +doom-dashboard-banner-file "rocket-ship.svg"
- +doom-dashboard-ascii-banner-fn #'myme/doom-ascii-banner
+ ;; Banner (vars renamed +doom-dashboard-* -> +dashboard-* with the 2.1 module rename)
+ +dashboard-banner-dir (concat doom-private-dir "banners/")
+ +dashboard-banner-file "rocket-ship.svg"
+ +dashboard-ascii-banner-fn #'myme/doom-ascii-banner
 
  ;; Workspaces
  +workspaces-main "default"
