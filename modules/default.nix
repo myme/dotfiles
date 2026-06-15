@@ -97,6 +97,11 @@
         networkmanager.enable = true;
         firewall.enable = true;
       };
+
+      # Give /etc/resolv.conf a real owner. Required for general DNS resolution
+      # and, where Tailscale is enabled, gives MagicDNS an upstream to forward
+      # non-tailnet queries to (otherwise: SERVFAIL on public names).
+      services.resolved.enable = true;
     })
     # Enable NixOS-WSL module
     (lib.mkIf (config.myme.machine.flavor == "wsl") {
