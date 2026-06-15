@@ -288,7 +288,7 @@ centering, padding and insertion itself."
 
 ;; LLM integration
 (after! gptel
-  (setq!
+  (setopt
    gptel-model 'claude-sonnet-4-20250514
    gptel-backend (gptel-make-anthropic
                      "Claude"
