@@ -1,0 +1,5 @@
+disabled = []
+# statix follows symlinks and does not treat .gitignore'd symlink targets as
+# ignored, so `result` (-> /nix/store system closure) makes it walk forever.
+# `.direnv` holds flake-input source trees we don't want to lint either.
+ignore = ["result", ".direnv", ".git"]
