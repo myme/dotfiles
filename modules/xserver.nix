@@ -65,6 +65,7 @@ in
     (mkIf (cfg.variant == "hyprland") {
       environment.systemPackages = [ pkgs.xdg-desktop-portal-hyprland ];
       services.displayManager.gdm.enable = true;
+      services.displayManager.defaultSession = "hyprland-uwsm";
       programs.hyprland = {
         enable = true;
         withUWSM = true;
