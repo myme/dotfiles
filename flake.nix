@@ -47,7 +47,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     doomemacs = {
-      url = "github:doomemacs/doomemacs";
+      # Use git+https (not github:) so the modules submodule at sources/doom+
+      # (github.com/doomemacs/modules) is fetched. The github: tarball fetcher
+      # omits submodules, leaving the module tree empty.
+      url = "git+https://github.com/doomemacs/doomemacs.git?submodules=1";
       flake = false;
     };
     i3ws = {
