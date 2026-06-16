@@ -57,6 +57,10 @@
       url = "github:myme/i3ws";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     annodate.url = "github:myme/annodate";
     nixon.url = "github:myme/nixon";
     piddif.url = "github:myme/piddif";

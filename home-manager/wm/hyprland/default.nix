@@ -35,9 +35,6 @@ in
     # cursor 🖱
     home.pointerCursor.hyprcursor.enable = true;
 
-    # waybar status bar 🍫
-    myme.wm.waybar.enable = true;
-
     # protect me precious lucky charms 🍀
     programs.hyprlock = {
       enable = true;

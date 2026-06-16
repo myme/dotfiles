@@ -27,9 +27,13 @@ nixpkgs.lib.nixosSystem {
     (
       { config, ... }:
       {
-        # Pass flake inputs to Home Manager
-        home-manager.users.${config.myme.machine.user.name}._module.args = {
+        # Pass flake inputs to Home Manager. `flake-inputs` goes via
+        # extraSpecialArgs so it is available during `imports` resolution
+        # (e.g. importing a flake's home module), not just in `config`.
+        home-manager.extraSpecialArgs = {
           flake-inputs = inputs;
+        };
+        home-manager.users.${config.myme.machine.user.name}._module.args = {
           nixos-config = config;
         };
       }

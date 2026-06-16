@@ -26,6 +26,7 @@ in
     ./i3
     ./polybar
     ./rofi
+    ./dankshell
     ./theme.nix
     ./waybar
     ./week.nix
@@ -44,6 +45,14 @@ in
       ];
       default = "none";
       description = "Window Manager flavor";
+    };
+    bar = mkOption {
+      type = types.enum [
+        "waybar"
+        "dankshell"
+      ];
+      default = "waybar";
+      description = "Status bar to use under Wayland (Hyprland).";
     };
     dynamic_temp = mkOption {
       type = types.bool;
@@ -221,10 +230,9 @@ in
 
     # With Wayland
     (mkIf isWayland {
-      # Use Waybar for Wayland (Hyprland)
-      myme.wm.waybar = {
-        enable = true;
-      };
+      # Status bar for Wayland (Hyprland), selected via `myme.wm.bar`
+      myme.wm.waybar.enable = cfg.bar == "waybar";
+      myme.wm.dankshell.enable = cfg.bar == "dankshell";
     })
 
     # X11 without a Desktop Environment
