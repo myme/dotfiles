@@ -96,10 +96,13 @@ in
         # splash = false;
         # splash_offset = 2.0;
         preload = [ wallpaper ];
-        wallpaper = [
-          ",${wallpaper}"
-          # "DP-1,/share/wallpapers/cat_pacman.png"
-        ];
+        # hyprpaper 0.8 replaced the flat `wallpaper = "monitor,path"` syntax
+        # with a block; the old form is silently ignored ("no target").
+        wallpaper = {
+          monitor = "";
+          path = wallpaper;
+          # one block per monitor; empty monitor = all outputs
+        };
       };
     };
 
