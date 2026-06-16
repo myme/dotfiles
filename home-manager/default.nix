@@ -147,6 +147,24 @@ in
         use_nix = true;
       };
       nushell.enable = lib.mkDefault defaultPrograms;
+      ssh = {
+        # programs.ssh is enabled transitively. Opt out of the soon-to-be
+        # removed implicit defaults, keeping the previous values explicitly so
+        # ~/.ssh/config is unchanged and the deprecation warning is silenced.
+        enableDefaultConfig = false;
+        settings."*" = {
+          forwardAgent = false;
+          addKeysToAgent = "no";
+          compression = false;
+          serverAliveInterval = 0;
+          serverAliveCountMax = 3;
+          hashKnownHosts = false;
+          userKnownHostsFile = "~/.ssh/known_hosts";
+          controlMaster = "no";
+          controlPath = "~/.ssh/master-%r@%n:%p";
+          controlPersist = "no";
+        };
+      };
       starship = {
         enable = lib.mkDefault defaultPrograms;
         settings.time = {
