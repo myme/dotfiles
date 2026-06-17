@@ -17,6 +17,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # DMS ships its own freedesktop notification daemon + toast popups, so
+    # disable dunst to avoid a clash over the org.freedesktop.Notifications
+    # D-Bus name. mkForce overrides the unconditional enable in ../default.nix.
+    services.dunst.enable = lib.mkForce false;
+
     programs.dank-material-shell = {
       enable = true;
       systemd.enable = true; # dms.service, bound to the wayland systemd target
