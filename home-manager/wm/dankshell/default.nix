@@ -34,6 +34,11 @@ in
           wallpaper = [ ];
         };
 
+        # Notification toast popups in the bottom-right corner. DMS's
+        # "positions" are corners, not edges: Top=top-right (default),
+        # Bottom=bottom-left, Left=top-left, Right=bottom-right.
+        notificationPopupPosition = 3; # SettingsData.Position.Right (bottom-right)
+
         # Don't write matugen theme templates into external apps (emacs,
         # ghostty, alacritty, ...). Their configs are managed read-only by
         # home-manager, so DMS's writes fail (read-only fs) and pop a "Theme
