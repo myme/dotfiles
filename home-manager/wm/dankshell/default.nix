@@ -29,6 +29,12 @@ in
           wallpaper = [ ];
         };
 
+        # Don't write matugen theme templates into external apps (emacs,
+        # ghostty, alacritty, ...). Their configs are managed read-only by
+        # home-manager, so DMS's writes fail (read-only fs) and pop a "Theme
+        # worker failed" toast. The shell/bar still themes itself in-process.
+        runDmsMatugenTemplates = false;
+
         # Faithful copy of the upstream default bar (SettingsData.qml barConfigs[0])
         # with position = 1 (Bottom). screenPreferences ["all"] renders one bar per
         # monitor; leftWidgets already carry the workspaces + focused window.
