@@ -26,6 +26,13 @@ in
       enable = true;
       systemd.enable = true; # dms.service, bound to the wayland systemd target
 
+      # Local "capture" plugin: a bar button opening a drawer with
+      # screenshot/record actions (region/window/monitor) that shell out to
+      # hyprgrab and week. managePluginSettings writes plugin_settings.json so
+      # the plugin is enabled declaratively.
+      managePluginSettings = true;
+      plugins.capture.src = ./plugins/capture;
+
       settings = {
         # Don't let DMS draw its own wallpaper layer — defer to the external
         # manager (hyprpaper, configured in the hyprland module). An empty
@@ -67,6 +74,7 @@ in
               "weather"
             ];
             rightWidgets = [
+              "capture" # local plugin: screenshot/record drawer
               "systemTray"
               "clipboard"
               "cpuUsage"

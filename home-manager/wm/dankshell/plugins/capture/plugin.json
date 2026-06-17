@@ -1,0 +1,13 @@
+{
+  "id": "capture",
+  "name": "Capture",
+  "description": "Screenshot and screen recording (region, window, or monitor) via hyprgrab and week",
+  "version": "1.0.0",
+  "author": "myme",
+  "type": "widget",
+  "capabilities": ["dankbar-widget"],
+  "component": "./CaptureWidget.qml",
+  "icon": "screenshot_monitor",
+  "requires": ["hyprgrab", "week"],
+  "permissions": ["process"]
+}
