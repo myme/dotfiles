@@ -65,12 +65,12 @@ in
               "battery"
               "controlCenterButton"
             ];
-            spacing = 4;
+            spacing = 0; # 0 = no outer margin -> bar spans edge-to-edge, no bottom gap
             innerPadding = 4;
             bottomGap = 0;
             transparency = 1.0;
             widgetTransparency = 1.0;
-            squareCorners = false;
+            squareCorners = true; # flat corners (no rounded floating pill)
             noBackground = false;
             maximizeWidgetIcons = false;
             maximizeWidgetText = false;
