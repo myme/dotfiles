@@ -90,7 +90,7 @@
     let
       overlays = [
         inputs.agenix.overlays.default
-        inputs.deploy-rs.overlay
+        inputs.deploy-rs.overlays.default
         inputs.i3ws.overlay
         inputs.annodate.overlay
         inputs.nixon.overlay
