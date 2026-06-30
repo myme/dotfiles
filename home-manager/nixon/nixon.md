@@ -176,6 +176,31 @@ git log --oneline --color
 git ls-files
 ```
 
+### `git-worktrees`
+
+List `git` worktrees.
+
+```bash
+git worktree list
+```
+
+### `git-worktree ${git-worktrees | cols 1}`
+
+Select a `git` worktree.
+
+```bash
+echo "$1"
+```
+
+### `git-worktree-remove ${git-worktree}`
+
+Remove a `git` worktree.
+
+```bash
+echo git worktree remove "$1"
+git worktree remove "$1"
+```
+
 ## Files
 
 ### `rg-files`
