@@ -26,6 +26,12 @@ in
   # Always get LLM coding CLIs from unstable
   inherit (unstable) claude-code gemini-cli github-copilot-cli;
 
+  # The 26.05 stable revision's capitaine-cursors isn't on cache.nixos.org
+  # (Hydra doesn't build it on the stable channel), so it rebuilds from source
+  # via inkscape. Unstable's output is cached and has no runtime deps (pure
+  # cursor data), so this is a clean substitution.
+  inherit (unstable) capitaine-cursors;
+
   agenix = prev.agenix.override {
     # `age` works better than `rage` for editing .age files with SSH keys with
     # passphrases as of 2023-02-16.
