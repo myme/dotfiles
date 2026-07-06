@@ -4,14 +4,6 @@ let
 in
 {
   inherit system;
-  deploy = {
-    host = "deque.myme.no";
-    sshOpts = [
-      "-A"
-      "-p"
-      (builtins.toString sshPort)
-    ];
-  };
   stable = true;
   config =
     {

@@ -3,10 +3,6 @@ let
 in
 {
   inherit system;
-  deploy = {
-    host = "192.168.1.7";
-    sshOpts = [ "-t" ];
-  };
   stable = true;
   config =
     {
