@@ -32,7 +32,6 @@
     };
 
     # Tools + Utils
-    deploy-rs.url = "github:serokell/deploy-rs";
     flake-utils.url = "github:numtide/flake-utils";
     agenix = {
       url = "github:ryantm/agenix";
@@ -90,7 +89,6 @@
     let
       overlays = [
         inputs.agenix.overlays.default
-        inputs.deploy-rs.overlays.default
         inputs.i3ws.overlay
         inputs.annodate.overlay
         inputs.nixon.overlay
@@ -118,14 +116,6 @@
 
       # NixOS machines
       nixosConfigurations = lib.myme.allProfiles lib.myme.makeNixOS;
-
-      # Deploy nodes
-      deploy.nodes = lib.myme.allProfilesIf (_: host: host ? deploy) (
-        lib.myme.deployConf {
-          inherit (inputs) deploy-rs;
-          inherit (self) nixosConfigurations;
-        }
-      );
 
       # Non-NixOS machines (Fedora, WSL, ++)
       homeConfigurations = lib.myme.nixos2hm { inherit (self) nixosConfigurations; };
@@ -174,28 +164,13 @@
             formatter = treefmtEval.config.build.wrapper;
 
             # `nix flake check`
-            checks = {
-              pre-commit = pre-commit-check;
-            }
-            // lib.optionalAttrs (inputs.deploy-rs.lib ? ${system}) (
-              # Only check deploy nodes that target the current system —
-              # cross-arch builds would require qemu emulation in CI.
-              inputs.deploy-rs.lib.${system}.deployChecks {
-                nodes = lib.filterAttrs (
-                  name: _: self.nixosConfigurations.${name}.pkgs.stdenv.hostPlatform.system == system
-                ) self.deploy.nodes;
-              }
-            );
+            checks.pre-commit = pre-commit-check;
 
             # Apps for `nix run .#<app>` (Linux only)
             apps = lib.optionalAttrs isLinux {
               agenix = {
                 type = "app";
                 program = "${pkgs.agenix}/bin/agenix";
-              };
-              deploy = {
-                type = "app";
-                program = "${pkgs.deploy-rs.deploy-rs}/bin/deploy";
               };
             };
 
@@ -219,9 +194,6 @@
               };
             }
             // lib.optionalAttrs isLinux {
-              # Deployment to other nodes
-              deploy = pkgs.mkShell { buildInputs = with pkgs; [ deploy-rs.deploy-rs ]; };
-
               # For hacking on XMonad
               xmonad = pkgs.mkShell {
                 buildInputs = with pkgs; [

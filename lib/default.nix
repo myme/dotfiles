@@ -13,7 +13,6 @@ in
     allNixFiles = import ./allNixFiles.nix { inherit lib; };
     allProfiles = allProfilesIf (_: _: true);
     inherit allProfilesIf;
-    deployConf = import ./deployConf.nix;
     nixos2hm = import ./nixos2hm.nix { inherit lib; };
     makeNixOS = import ./makeNixOS.nix { inherit inputs overlays; };
   };
