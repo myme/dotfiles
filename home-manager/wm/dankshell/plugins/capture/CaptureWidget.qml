@@ -15,10 +15,10 @@ PluginComponent {
     // which polls the same command.
     property bool recording: false
 
-    // While recording, clicking the bar pill stops the recording directly
-    // (no popout). When idle, pillClickAction is null so the framework opens
-    // the capture drawer as usual.
-    pillClickAction: recording ? (() => root.stopRecording()) : null
+    // pillClickAction stays null so a plain click always opens the capture
+    // drawer (also while recording, so screenshots stay available). Stopping a
+    // recording is handled by the dedicated stop button that appears in the
+    // expanded pill.
 
     Process {
         id: statusProc
@@ -67,21 +67,120 @@ PluginComponent {
         root.recording = false; // optimistic; poll confirms
     }
 
+    // Horizontal bar: the capture icon is always shown; while recording the
+    // pill expands to the right to reveal a pulsing REC dot and a stop button.
     horizontalBarPill: Component {
-        DankIcon {
-            name: root.recording ? "stop_circle" : "screenshot_monitor"
-            size: Theme.iconSize
-            color: root.recording ? Theme.error : Theme.surfaceText
-            filled: root.recording
+        Row {
+            spacing: 0
+
+            DankIcon {
+                anchors.verticalCenter: parent.verticalCenter
+                name: "screenshot_monitor"
+                size: Theme.iconSize
+                color: Theme.surfaceText
+            }
+
+            Item {
+                id: stopWrapH
+                anchors.verticalCenter: parent.verticalCenter
+                height: stopRowH.implicitHeight
+                width: root.recording ? stopRowH.implicitWidth + Theme.spacingXS : 0
+                clip: true
+                opacity: root.recording ? 1 : 0
+
+                Behavior on width {
+                    NumberAnimation {
+                        duration: Theme.shortDuration
+                        easing.type: Theme.standardEasing
+                    }
+                }
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: Theme.shortDuration
+                    }
+                }
+
+                Row {
+                    id: stopRowH
+                    anchors.left: parent.left
+                    anchors.leftMargin: Theme.spacingXS
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: Theme.spacingXS
+
+                    DankIcon {
+                        anchors.verticalCenter: parent.verticalCenter
+                        name: "stop_circle"
+                        size: Theme.iconSize
+                        color: Theme.tempDanger
+                        filled: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: root.stopRecording()
+                        }
+                    }
+                }
+            }
         }
     }
 
+    // Vertical bar: same idea, but the pill expands downwards.
     verticalBarPill: Component {
-        DankIcon {
-            name: root.recording ? "stop_circle" : "screenshot_monitor"
-            size: Theme.iconSize
-            color: root.recording ? Theme.error : Theme.surfaceText
-            filled: root.recording
+        Column {
+            spacing: 0
+
+            DankIcon {
+                anchors.horizontalCenter: parent.horizontalCenter
+                name: "screenshot_monitor"
+                size: Theme.iconSize
+                color: Theme.surfaceText
+            }
+
+            Item {
+                id: stopWrapV
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: stopColV.implicitWidth
+                height: root.recording ? stopColV.implicitHeight + Theme.spacingXS : 0
+                clip: true
+                opacity: root.recording ? 1 : 0
+
+                Behavior on height {
+                    NumberAnimation {
+                        duration: Theme.shortDuration
+                        easing.type: Theme.standardEasing
+                    }
+                }
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: Theme.shortDuration
+                    }
+                }
+
+                Column {
+                    id: stopColV
+                    anchors.top: parent.top
+                    anchors.topMargin: Theme.spacingXS
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    spacing: Theme.spacingXS
+
+                    DankIcon {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        name: "stop_circle"
+                        size: Theme.iconSize
+                        color: Theme.tempDanger
+                        filled: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: root.stopRecording()
+                        }
+                    }
+                }
+            }
         }
     }
 
