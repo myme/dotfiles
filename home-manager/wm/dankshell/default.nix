@@ -52,6 +52,10 @@ in
         # worker failed" toast. The shell/bar still themes itself in-process.
         runDmsMatugenTemplates = false;
 
+        # Draw each workspace's app icons on its pill. Native replacement for
+        # hyprland-autoname-workspaces, which is waybar-only (see ../hyprland).
+        showWorkspaceApps = true;
+
         # Faithful copy of the upstream default bar (SettingsData.qml barConfigs[0])
         # with position = 1 (Bottom). screenPreferences ["all"] renders one bar per
         # monitor; leftWidgets already carry the workspaces + focused window.

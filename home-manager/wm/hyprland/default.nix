@@ -104,7 +104,11 @@ in
     };
 
     # autoname workspaces 🤖
-    systemd.user.services.hyprland-autoname-workspaces = {
+    #
+    # Waybar only: renaming workspaces to "{id} {icons}" breaks quickshell,
+    # which reconciles workspaces by name and grows duplicate pills under
+    # dankshell. Dankshell draws app icons itself (see ../dankshell).
+    systemd.user.services.hyprland-autoname-workspaces = lib.mkIf config.myme.wm.waybar.enable {
       Install = {
         WantedBy = [ config.wayland.systemd.target ];
       };
