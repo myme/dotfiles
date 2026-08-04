@@ -103,10 +103,14 @@ in
       fish.enable = lib.mkDefault defaultPrograms;
       fzf = {
         enable = lib.mkDefault defaultPrograms;
-        fileWidgetCommand = "fd --type f";
-        fileWidgetOptions = [ "--preview 'bat {}'" ];
-        changeDirWidgetCommand = "fd --type d";
-        changeDirWidgetOptions = [ "--preview 'tree -C {} | head -200'" ];
+        fileWidget = {
+          command = "fd --type f";
+          options = [ "--preview 'bat {}'" ];
+        };
+        changeDirWidget = {
+          command = "fd --type d";
+          options = [ "--preview 'tree -C {} | head -200'" ];
+        };
       };
       helix = {
         enable = lib.mkDefault defaultPrograms;
