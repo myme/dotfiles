@@ -54,6 +54,7 @@ in
       gtk4.theme = themes.dracula;
     };
     home.pointerCursor = {
+      enable = true;
       gtk.enable = true;
       x11.enable = true;
     }
