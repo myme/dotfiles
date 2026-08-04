@@ -38,18 +38,6 @@ in
     ageBin = "${prev.age}/bin/age";
   };
 
-  # mailutils 3.21 fails to link on aarch64-darwin under libtool 2.6.2: the
-  # sieve extension modules reference libmailutils symbols without linking
-  # against it directly, which the two-level namespace linker rejects. Backport
-  # of the upstream fix (nixpkgs PR #548382), not yet on the nixos-unstable
-  # channel. Drop once the channel advances past 2026-08-02.
-  # https://github.com/NixOS/nixpkgs/issues/548559
-  mailutils = prev.mailutils.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [
-      ./pkgs/mailutils-fix-linking-with-libtool-2.6.2.patch
-    ];
-  });
-
   gnupg240 =
     let
       pname = "gnupg";
@@ -76,4 +64,19 @@ in
   # Avoid nvidia vaapi driver collisions with e.g. intel
   # https://github.com/NixOS/nixpkgs/pull/165064
   nvidia-vaapi-driver = prev.lib.hiPrio prev.nvidia-vaapi-driver;
+}
+# mailutils 3.21 fails to link on Darwin under libtool 2.6.2: the sieve
+# extension modules reference libmailutils symbols without linking against it
+# directly, which the two-level namespace linker rejects. Backport of the
+# upstream fix (nixpkgs PR #548382), not yet on the nixos-unstable channel.
+# Linux links fine and has cached builds, so only patch where it's needed --
+# otherwise this forces a source build (in qemu for emulated systems).
+# Drop once the channel advances past 2026-08-02.
+# https://github.com/NixOS/nixpkgs/issues/548559
+// prev.lib.optionalAttrs prev.stdenv.hostPlatform.isDarwin {
+  mailutils = prev.mailutils.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      ./pkgs/mailutils-fix-linking-with-libtool-2.6.2.patch
+    ];
+  });
 }
