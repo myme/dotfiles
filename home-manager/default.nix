@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   pkgs,
   osConfig,
   ...
@@ -9,6 +10,23 @@
 let
   inherit (config.myme) defaultPrograms;
   dockerEnabled = osConfig ? virtualisation && osConfig.virtualisation.docker.enable;
+
+  # home-manager master folded the flat fzf widget settings into nested
+  # `fileWidget.{command,options}` submodules, keeping the old names as
+  # renamed-option aliases. `home-manager-stable` (release-26.05) only has
+  # the flat ones, so declare the values once and shape them to whichever
+  # generation a machine is built against — using the flat names everywhere
+  # would work, but warns on every rebuild of an unstable machine.
+  fzfWidgets = {
+    file = {
+      command = "fd --type f";
+      options = [ "--preview 'bat {}'" ];
+    };
+    changeDir = {
+      command = "fd --type d";
+      options = [ "--preview 'tree -C {} | head -200'" ];
+    };
+  };
 
 in
 {
@@ -103,15 +121,21 @@ in
       fish.enable = lib.mkDefault defaultPrograms;
       fzf = {
         enable = lib.mkDefault defaultPrograms;
-        fileWidget = {
-          command = "fd --type f";
-          options = [ "--preview 'bat {}'" ];
-        };
-        changeDirWidget = {
-          command = "fd --type d";
-          options = [ "--preview 'tree -C {} | head -200'" ];
-        };
-      };
+      }
+      // (
+        if options.programs.fzf ? fileWidget then
+          {
+            fileWidget = fzfWidgets.file;
+            changeDirWidget = fzfWidgets.changeDir;
+          }
+        else
+          {
+            fileWidgetCommand = fzfWidgets.file.command;
+            fileWidgetOptions = fzfWidgets.file.options;
+            changeDirWidgetCommand = fzfWidgets.changeDir.command;
+            changeDirWidgetOptions = fzfWidgets.changeDir.options;
+          }
+      );
       helix = {
         enable = lib.mkDefault defaultPrograms;
         settings = {
