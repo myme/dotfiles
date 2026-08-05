@@ -8,8 +8,13 @@
 let
   cfg = config.myme.emacs;
   emacsPkg = config.programs.emacs.finalPackage;
-  emacsclient = "${emacsPkg}/bin/emacsclient";
-  emacsIcon = "${pkgs.emacs}/Applications/Emacs.app/Contents/Resources/Emacs.icns";
+  # Daemon-aware wrapper from default.nix: brings the daemon up from inside
+  # Emacs.app when none is running, so its frames can take keyboard focus.
+  ec = cfg.clientWrapper;
+  # Take the icon from the package the daemon actually runs from. `pkgs.emacs`
+  # is a different derivation here and would pull a second, unrelated
+  # Emacs.app into the profile closure.
+  emacsIcon = "${emacsPkg}/Applications/Emacs.app/Contents/Resources/Emacs.icns";
 
   # Build a minimal Spotlight-discoverable .app bundle.
   # `exec` is the body of a /bin/sh script that becomes CFBundleExecutable.
@@ -55,10 +60,16 @@ let
       chmod +x "$app/Contents/MacOS/launcher"
     '';
 
+  # `-n` matters: without it emacsclient blocks until the frame is deleted,
+  # so the bundle stays a running (window-less, CGS-connection-less) app for
+  # the frame's whole lifetime. Relaunching from Spotlight then just
+  # "activates" that zombie instead of opening a frame — and LaunchServices
+  # sometimes gives up and starts a second instance, yielding two frames.
+  # With `-n` the launcher exits as soon as the frame exists.
   emacsClientApp = mkDarwinApp {
     name = "Emacs Client";
     bundleId = "org.nixos.emacs-client";
-    exec = ''exec ${emacsclient} -c -a "" "$@"'';
+    exec = ''exec ${ec} -n "$@"'';
   };
 
   # macOS dispatches `org-protocol://` URLs to apps via Apple Events, not
@@ -68,11 +79,11 @@ let
   # in nixpkgs).
   orgCaptureScript = pkgs.writeText "org-capture.applescript" ''
     on run
-      do shell script "${emacsclient} -c -a \"\""
+      do shell script "${ec} -n"
     end run
 
     on open location this_URL
-      do shell script "${emacsclient} -c -a \"\" " & quoted form of this_URL
+      do shell script "${ec} -n " & quoted form of this_URL
     end open location
   '';
 
@@ -111,10 +122,10 @@ in
           DOOMLOCALDIR = "${config.home.homeDirectory}/.cache/doomemacs/";
           DOOMPROFILELOADFILE = "${config.home.homeDirectory}/.cache/doomemacs/load.el";
         };
-        # Disable launchd's auto-restart so it doesn't race with ec's
-        # `-a ""` fallback when the user kills the daemon. With this off,
-        # any kill (clean or signal) leaves the daemon dead until the
-        # next ec / login.
+        # Keep daemon startup lazy: any kill (clean or signal) leaves the
+        # daemon dead rather than being resurrected behind your back. `ec`
+        # kickstarts this agent when it finds no server, so the daemon is
+        # always launched from the bundle below — never from a bare binary.
         KeepAlive = lib.mkForce false;
         # Launch the daemon from inside Emacs.app, not bin/emacs.
         # A bare Unix binary has no Info.plist, so macOS assigns the

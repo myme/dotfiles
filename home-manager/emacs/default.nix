@@ -11,18 +11,37 @@ let
   doom = pkgs.writeShellScriptBin "doom" ''
     ~/.emacs.d/bin/doom "$@"
   '';
-  # On Darwin we manage the daemon ourselves (no systemd socket activation),
-  # so fall back to `-a ""` to spawn a daemon if one isn't running.
-  # Note: regular `"..."` string — `''..''` strips the leading space.
-  emacsclientFallback = lib.optionalString pkgs.stdenv.isDarwin " -a \"\"";
   # Use an absolute path so the wrappers work outside a shell-derived PATH
   # (AppleScript `do shell script`, launchd plists, etc.).
   emacsclientBin = "${config.programs.emacs.finalPackage}/bin/emacsclient";
+  emacsAppBin = "${config.programs.emacs.finalPackage}/Applications/Emacs.app/Contents/MacOS/Emacs";
+
+  # Darwin has no systemd socket activation, so the wrappers have to bring
+  # the daemon up themselves. `emacsclient -a ""` is the obvious way and is
+  # wrong here: it execs a bare `emacs` off PATH, and a binary started
+  # outside an .app bundle gets no LaunchServices identity — which silently
+  # breaks frame focus (see doom/config.el for the full story). Kick the
+  # launchd agent instead, whose ProgramArguments point into Emacs.app, and
+  # only start the bundle directly if the agent is missing or wedged.
+  ensureDaemon = lib.optionalString pkgs.stdenv.isDarwin ''
+    serverUp() { ${emacsclientBin} --eval t >/dev/null 2>&1; }
+    if ! serverUp; then
+      launchctl kickstart "gui/$(id -u)/org.nix-community.home.emacs" >/dev/null 2>&1 || true
+      n=0
+      until serverUp || [ "$n" -ge 60 ]; do
+        n=$((n + 1))
+        sleep 0.5
+      done
+      serverUp || ${emacsAppBin} --daemon
+    fi
+  '';
   ec = pkgs.writeShellScriptBin "ec" ''
-    ${emacsclientBin} -c${emacsclientFallback} "$@"
+    ${ensureDaemon}
+    exec ${emacsclientBin} -c "$@"
   '';
   et = pkgs.writeShellScriptBin "et" ''
-    ${emacsclientBin} -t${emacsclientFallback} "$@"
+    ${ensureDaemon}
+    exec ${emacsclientBin} -t "$@"
   '';
   # FIXME: Hack to avoid hang on gpg save: https://dev.gnupg.org/T6481
   epg =
@@ -49,6 +68,17 @@ in
 
   options.myme.emacs = {
     enable = lib.mkEnableOption "Emacs";
+    clientWrapper = lib.mkOption {
+      type = lib.types.str;
+      internal = true;
+      readOnly = true;
+      default = "${ec}/bin/ec";
+      description = ''
+        Path to the graphical emacsclient wrapper. Exposed so darwin.nix can
+        reuse it in the .app bundles it builds rather than duplicating the
+        daemon-startup logic.
+      '';
+    };
     configExtra = lib.mkOption {
       type = lib.types.str;
       default = "";

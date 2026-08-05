@@ -8,16 +8,25 @@
   :config
   (exec-path-from-shell-initialize))
 
-;; macOS: when the daemon creates a frame for a remote emacsclient,
-;; the new window draws but key events still go to whatever app was
-;; frontmost. This only works because the launchd agent launches the
-;; daemon from inside Emacs.app (see darwin.nix) — without that
-;; bundle identity, `tell application "Emacs"` would fail to resolve.
+;; macOS: when the daemon creates a frame for a remote emacsclient, the
+;; new window draws but key events still go to whatever app was
+;; frontmost. `ns-hide-emacs' calls -[NSApp activateIgnoringOtherApps:]
+;; in-process, which only works if the daemon has LaunchServices bundle
+;; identity — i.e. it was launched from inside Emacs.app (see darwin.nix).
+;;
+;; Do NOT activate via `tell application "Emacs"' here. AppleScript
+;; resolves that name through LaunchServices, which indexes every
+;; Emacs.app in /nix/store and does not match a running daemon that
+;; lacks bundle identity — so `activate' LAUNCHES A SECOND Emacs
+;; instead of focusing the daemon. Note this hook fires for clients that
+;; merely open a file without creating a frame too (see the
+;; `(not (null buffers))' branch of `server-process-filter'), which is
+;; how magit commit messages ended up spawning a stray Emacs as well.
 (when (eq system-type 'darwin)
   (add-hook 'server-after-make-frame-hook
             (lambda ()
               (when (display-graphic-p)
-                (ns-do-applescript "tell application \"Emacs\" to activate")))))
+                (ns-hide-emacs 'activate)))))
 
 ;; macOS /bin/ls rejects --dired, which Emacs passes from `insert-directory`,
 ;; making dired / find-file completion fail outside the current project with
