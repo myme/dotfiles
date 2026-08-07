@@ -43,14 +43,6 @@ let
     ${ensureDaemon}
     exec ${emacsclientBin} -t "$@"
   '';
-  # FIXME: Hack to avoid hang on gpg save: https://dev.gnupg.org/T6481
-  epg =
-    if lib.versionOlder pkgs.gnupg.version "2.4.4" then
-      (pkgs.writeShellScriptBin "epg" ''
-        PATH="${pkgs.gnupg24}/bin:$PATH" emacs "$@"
-      '')
-    else
-      null;
   inherit (osConfig.myme.machine) flavor;
   deVariant = osConfig.myme.machine.de.variant;
   isWayland =
@@ -130,24 +122,21 @@ in
       ];
 
       # Additional packages
-      packages =
-        with pkgs;
-        [
-          (aspellWithDicts (
-            dicts: with dicts; [
-              en
-              en-computers
-              it
-              nb
-            ]
-          ))
-          doom
-          ec
-          et
-          mermaid-cli
-          xclip-to-org
-        ]
-        ++ (if epg != null then [ epg ] else [ ]);
+      packages = with pkgs; [
+        (aspellWithDicts (
+          dicts: with dicts; [
+            en
+            en-computers
+            it
+            nb
+          ]
+        ))
+        doom
+        ec
+        et
+        mermaid-cli
+        xclip-to-org
+      ];
     };
 
     # Doom Emacs configuration (~/.config/doom)
