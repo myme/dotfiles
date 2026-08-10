@@ -96,6 +96,15 @@
       networking = {
         networkmanager.enable = true;
         firewall.enable = true;
+
+        # The home ISP router only carries the single IPv6 address it leases
+        # over DHCPv6; anything sourced from a SLAAC address is dropped without
+        # so much as an ICMPv6 error. Source selection prefers SLAAC privacy
+        # addresses over the DHCPv6 lease, so leaving them enabled makes IPv6
+        # hang outright. Drop them so the routable address is the only
+        # candidate. Costs little privacy in practice: the delegated prefix is
+        # static, so it identifies the household either way.
+        tempAddresses = lib.mkDefault "disabled";
       };
 
       # Give /etc/resolv.conf a real owner. Required for general DNS resolution
