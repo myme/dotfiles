@@ -28,7 +28,7 @@ in
       enable = lib.mkEnableOption "Enable C/C++ development tools";
     };
 
-    # LLM support (Claude, Copilot, ...)
+    # LLM support (Claude, Codex, Copilot, ...)
     llm = {
       enable = lib.mkEnableOption "Enable LLM editor integrations";
       claude = {
@@ -42,6 +42,11 @@ in
           default = true;
           description = "Enable sonnette notifications via Claude Code hooks";
         };
+      };
+      codex = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable the Codex CLI tool";
       };
       copilot = lib.mkOption {
         type = lib.types.bool;
@@ -157,6 +162,7 @@ in
       (lib.mkIf cfg.llm.enable [
         (lib.mkIf cfg.llm.claude.enable pkgs.claude-code)
         (lib.mkIf cfg.llm.claude.notify pkgs.myme.pkgs.sonnette)
+        (lib.mkIf cfg.llm.codex pkgs.codex)
         (lib.mkIf cfg.llm.copilot pkgs.github-copilot-cli)
         (lib.mkIf cfg.llm.gemini pkgs.gemini-cli)
       ])
