@@ -73,8 +73,7 @@ The predicate should test the *actual* justification, not a proxy for it.
 
 ### Where this is used
 
-- `overlay.nix` — `mailutils` (patch landed upstream?), `capitaine-cursors`
-  (channel drift).
+- `overlay.nix` — `capitaine-cursors` (channel drift).
 - `pkgs/dracula-theme.nix` — vendored copy; warns if nixpkgs re-adds it.
 - `machines/list.nix` — `linux-builder` qemu pin; warns when unstable's qemu
   moves off the version the pin was tested against.
