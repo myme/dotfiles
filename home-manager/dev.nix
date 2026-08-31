@@ -204,6 +204,7 @@ in
       # GitHub
       (lib.mkIf cfg.github.enable [
         pkgs.gh
+        pkgs.gh-stack
       ])
 
       # Rust
