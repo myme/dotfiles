@@ -15,6 +15,31 @@ let
     [ "$answer" = "Yes" ] && loginctl terminate-user $USER
   '';
   inherit (specialArgs.nixosConfig.programs.hyprland) withUWSM;
+  hyprctl = "${specialArgs.nixosConfig.programs.hyprland.package}/bin/hyprctl";
+  # re-arm hotplugged monitors 🔌
+  #
+  # Hyprland can lose the first page-flip after a hotplug modeset:
+  #   drm: Modesetting DP-5 with 2560x1440@59.95Hz
+  #   ERR drm: Cannot commit when a page-flip is awaiting
+  # The CRTC goes live and workspaces render onto it, but the panel never
+  # receives a frame and reports "no signal". Neither `dispatch dpms off/on`
+  # nor a bare `reload` recovers it -- both are no-ops while the mode is
+  # unchanged. Only a real resolution change re-arms the flip, so bounce every
+  # output through another advertised mode and let `reload` restore the
+  # configured one. Monitors with a single mode have nothing to bounce
+  # through and are skipped (the internal panel, typically).
+  hyprmonitorbounce = pkgs.writeShellScriptBin "hyprmonitorbounce" ''
+    ${hyprctl} -j monitors | ${pkgs.jq}/bin/jq -r '
+      .[] | . as $m
+      | [ $m.availableModes[] | select(startswith("\($m.width)x\($m.height)@") | not) ] as $alt
+      | select($alt | length > 0)
+      | "\($m.name) \($alt[0] | sub("Hz$";""))"
+    ' | while read -r name mode; do
+      ${hyprctl} keyword monitor "$name,$mode,auto,1" > /dev/null
+    done
+    sleep 1
+    ${hyprctl} reload > /dev/null
+  '';
 
 in
 {
@@ -24,6 +49,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [
+      hyprmonitorbounce
       hyprquit
       pkgs.alsa-utils # for volume control
       pkgs.myme.pkgs.hyprgrab
@@ -103,49 +129,96 @@ in
       };
     };
 
-    # autoname workspaces 🤖
-    #
-    # Waybar only: renaming workspaces to "{id} {icons}" breaks quickshell,
-    # which reconciles workspaces by name and grows duplicate pills under
-    # dankshell. Dankshell draws app icons itself (see ../dankshell).
-    systemd.user.services.hyprland-autoname-workspaces = lib.mkIf config.myme.wm.waybar.enable {
-      Install = {
-        WantedBy = [ config.wayland.systemd.target ];
+    systemd.user.services = {
+      # autoname workspaces 🤖
+      #
+      # Waybar only: renaming workspaces to "{id} {icons}" breaks quickshell,
+      # which reconciles workspaces by name and grows duplicate pills under
+      # dankshell. Dankshell draws app icons itself (see ../dankshell).
+      hyprland-autoname-workspaces = lib.mkIf config.myme.wm.waybar.enable {
+        Install = {
+          WantedBy = [ config.wayland.systemd.target ];
+        };
+
+        Unit = {
+          ConditionEnvironment = "WAYLAND_DISPLAY";
+          Description = "hyprland-autoname-workspaces";
+          After = [ config.wayland.systemd.target ];
+          PartOf = [ config.wayland.systemd.target ];
+        };
+
+        Service = {
+          ExecStart = "${pkgs.hyprland-autoname-workspaces}/bin/hyprland-autoname-workspaces --config ${./hyprland-autoname-workspaces.toml}";
+          Restart = "always";
+          RestartSec = "10";
+        };
       };
 
-      Unit = {
-        ConditionEnvironment = "WAYLAND_DISPLAY";
-        Description = "hyprland-autoname-workspaces";
-        After = [ config.wayland.systemd.target ];
-        PartOf = [ config.wayland.systemd.target ];
+      # re-arm hotplugged monitors 🔌 (see hyprmonitorbounce above)
+      hyprland-monitor-bounce = {
+        Install = {
+          WantedBy = [ config.wayland.systemd.target ];
+        };
+
+        Unit = {
+          ConditionEnvironment = "WAYLAND_DISPLAY";
+          Description = "hyprland-monitor-bounce";
+          After = [ config.wayland.systemd.target ];
+          PartOf = [ config.wayland.systemd.target ];
+        };
+
+        Service = {
+          ExecStart = toString (
+            pkgs.writeShellScript "hyprland-monitor-bounce" ''
+              # Glob the socket rather than trusting HYPRLAND_INSTANCE_SIGNATURE,
+              # which isn't in the unit's environment on every startup ordering.
+              for _ in $(seq 30); do
+                socket=$(ls -t "$XDG_RUNTIME_DIR"/hypr/*/.socket2.sock 2>/dev/null | head -1)
+                [ -S "$socket" ] && break
+                sleep 1
+              done
+              [ -S "$socket" ] || exit 1
+
+              last=0
+              ${pkgs.socat}/bin/socat -U - "UNIX-CONNECT:$socket" | while read -r line; do
+                case "$line" in
+                  monitoradded*)
+                    # A dock connect fires one event per output, but a single
+                    # bounce re-modesets all of them -- ignore the rest of burst.
+                    [ $((SECONDS - last)) -lt 8 ] && continue
+                    sleep 2
+                    ${hyprmonitorbounce}/bin/hyprmonitorbounce
+                    last=$SECONDS
+                    ;;
+                esac
+              done
+            ''
+          );
+          Restart = "always";
+          RestartSec = "10";
+        };
       };
 
-      Service = {
-        ExecStart = "${pkgs.hyprland-autoname-workspaces}/bin/hyprland-autoname-workspaces --config ${./hyprland-autoname-workspaces.toml}";
-        Restart = "always";
-        RestartSec = "10";
-      };
-    };
+      # my eyes! 🌄
+      # TODO: Switch to hyprsunset once it supports automatic transitions
+      # See: https://github.com/hyprwm/hyprsunset/issues/8
+      wlsunset = {
+        Install = {
+          WantedBy = [ config.wayland.systemd.target ];
+        };
 
-    # my eyes! 🌄
-    # TODO: Switch to hyprsunset once it supports automatic transitions
-    # See: https://github.com/hyprwm/hyprsunset/issues/8
-    systemd.user.services.wlsunset = {
-      Install = {
-        WantedBy = [ config.wayland.systemd.target ];
-      };
+        Unit = {
+          ConditionEnvironment = "WAYLAND_DISPLAY";
+          Description = "wlsunset";
+          After = [ config.wayland.systemd.target ];
+          PartOf = [ config.wayland.systemd.target ];
+        };
 
-      Unit = {
-        ConditionEnvironment = "WAYLAND_DISPLAY";
-        Description = "wlsunset";
-        After = [ config.wayland.systemd.target ];
-        PartOf = [ config.wayland.systemd.target ];
-      };
-
-      Service = {
-        ExecStart = "${pkgs.wlsunset}/bin/wlsunset -l 59.777839 -L 10.801630";
-        Restart = "always";
-        RestartSec = "10";
+        Service = {
+          ExecStart = "${pkgs.wlsunset}/bin/wlsunset -l 59.777839 -L 10.801630";
+          Restart = "always";
+          RestartSec = "10";
+        };
       };
     };
 
