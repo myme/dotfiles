@@ -77,7 +77,10 @@ in
         ]
       );
 
-      keyboard = {
+      # Only relevant for X11: home-manager turns this into a
+      # `setxkbmap.service` unit, which fails without a display. Hyprland
+      # configures `input.kb_layout` itself.
+      keyboard = lib.mkIf (!config.myme.wm.isWayland) {
         layout = "us";
         variant = "alt-intl-unicode";
       };
