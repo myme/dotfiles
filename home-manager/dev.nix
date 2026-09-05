@@ -58,6 +58,8 @@ in
         default = true;
         description = "Enable the Gemini CLI tool";
       };
+      ollama.enable = lib.mkEnableOption "Enable opencode";
+      opencode.enable = lib.mkEnableOption "Enable opencode";
     };
 
     # Elm
@@ -165,6 +167,8 @@ in
         (lib.mkIf cfg.llm.codex pkgs.codex)
         (lib.mkIf cfg.llm.copilot pkgs.github-copilot-cli)
         (lib.mkIf cfg.llm.gemini pkgs.gemini-cli)
+        (lib.mkIf cfg.llm.ollama.enable pkgs.ollama)
+        (lib.mkIf cfg.llm.opencode.enable pkgs.opencode)
       ])
 
       # Network
