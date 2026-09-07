@@ -32,6 +32,7 @@ in
 {
   imports = [
     ./btop.nix
+    ./llm/codex.nix
     ./dev.nix
     ./emacs
     ./fonts.nix
