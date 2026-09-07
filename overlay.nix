@@ -24,7 +24,20 @@ let
 in
 {
   # Always get LLM coding CLIs from unstable
-  inherit (unstable) claude-code gemini-cli github-copilot-cli;
+  inherit (unstable) gemini-cli github-copilot-cli;
+
+  # ... except the two that get used all day, which come straight from the
+  # vendors' own release channels. Even unstable trails them by days, which is
+  # a lot of releases for tools shipping several a day. See llm/README.md.
+  #
+  # Both take `unstable` rather than reaching for `final`/`prev`, so that the
+  # "has the channel caught up?" guard inside them always measures against
+  # nixpkgs-unstable. On the stable machines `prev` is nixos-26.05, whose
+  # release branch never advances, and a guard pointed at it would never fire.
+  # It also keeps claude-code -- which is unfree -- inside the scope of the
+  # allowUnfreePredicate on the `unstable` import above.
+  claude-code = final.callPackage ./llm/claude-code.nix { inherit unstable; };
+  codex = final.callPackage ./llm/codex.nix { inherit unstable; };
 
   # The 26.05 stable revision's capitaine-cursors isn't on cache.nixos.org
   # (Hydra doesn't build it on the stable channel), so it rebuilds from source

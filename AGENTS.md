@@ -77,3 +77,9 @@ The predicate should test the *actual* justification, not a proxy for it.
 - `pkgs/dracula-theme.nix` — vendored copy; warns if nixpkgs re-adds it.
 - `machines/list.nix` — `linux-builder` qemu pin; warns when unstable's qemu
   moves off the version the pin was tested against.
+- `llm/claude-code.nix`, `llm/codex.nix` — bleeding-edge pins ahead of the
+  channel; the predicate is "has nixpkgs caught up?", which is a race rather
+  than a bug, so both fall back to `nixpkgs` the moment the pin stops buying
+  anything. Both compare against `nixpkgs-unstable` explicitly rather than
+  against `prev`, so the guard still fires on the stable machines. See
+  `llm/README.md`.

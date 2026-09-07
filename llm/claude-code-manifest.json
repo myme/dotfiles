@@ -1,0 +1,66 @@
+{
+  "version": "2.1.263",
+  "manifestSignatureEnforcement": "flag",
+  "commit": "37ae3f38d765199d54a6913cd61c6c9ad8576cc6",
+  "buildDate": "2026-09-06T01:18:58Z",
+  "platforms": {
+    "darwin-arm64": {
+      "binary": "claude.zst",
+      "checksum": "dfacc492242949835c71d3ca7fa0cd728d3761d91ab4a707e52a92a283684727",
+      "size": 66090434,
+      "bundle": {
+        "checksum": "5b5f7f63580a46496ac073e81a5731e154b420b4fc7bb568f7a512c7b47fbc9d",
+        "size": 66093112
+      }
+    },
+    "darwin-x64": {
+      "binary": "claude.zst",
+      "checksum": "39d04744aa07519e43f2f47f7e5ee5d94b0456a207a067c092a4d3697177a2aa",
+      "size": 70149197,
+      "bundle": {
+        "checksum": "ae043f87449df6c66dc0a0da8c439939b83b95dcfe2c304bf49001a63c7479e3",
+        "size": 70148734
+      }
+    },
+    "linux-arm64": {
+      "binary": "claude.zst",
+      "checksum": "b24f793f3fda8aa2fe85e834fed9b5e4172e772b29dd6f8bec365e6d355addf0",
+      "size": 75295606
+    },
+    "linux-x64": {
+      "binary": "claude.zst",
+      "checksum": "fb383bab72dbf2b58c1b0e7a8b73b2a84f22033dc8ad774fd794632181336df0",
+      "size": 75925087
+    },
+    "linux-arm64-musl": {
+      "binary": "claude.zst",
+      "checksum": "57cfe09cd48b80372a27f3ae013569787ffea241cc550b0d2d6dddeff19cc54d",
+      "size": 73772408
+    },
+    "linux-x64-musl": {
+      "binary": "claude.zst",
+      "checksum": "165b4627cdd065f1c4c8087b6901d076f41c17fcdce7c9155187173d0d523a2e",
+      "size": 74438972
+    },
+    "win32-x64": {
+      "binary": "claude.exe.zst",
+      "checksum": "a07850ce01171aee27a7a234a73e0bbcc38ba2d07eb66eed3f053d8c00296329",
+      "size": 78339597
+    },
+    "win32-arm64": {
+      "binary": "claude.exe.zst",
+      "checksum": "2ed0d4a3612f6fca014bd725f2e959ea6cc0db6d16b7b125e4a6c751bc869839",
+      "size": 75079270
+    }
+  },
+  "sdkCompat": {
+    "testedWrapperVersions": [
+      "0.3.223",
+      "0.3.224",
+      "0.3.225",
+      "0.3.226",
+      "0.3.227"
+    ],
+    "harnessSchema": 1
+  }
+}
