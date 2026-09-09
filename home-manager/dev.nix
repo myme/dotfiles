@@ -37,11 +37,6 @@ in
           default = true;
           description = "Enable the Claude Code CLI tool";
         };
-        notify = lib.mkOption {
-          type = lib.types.bool;
-          default = true;
-          description = "Enable sonnette notifications via Claude Code hooks";
-        };
       };
       codex = lib.mkOption {
         type = lib.types.bool;
@@ -163,7 +158,6 @@ in
       # LLM
       (lib.mkIf cfg.llm.enable [
         (lib.mkIf cfg.llm.claude.enable pkgs.claude-code)
-        (lib.mkIf cfg.llm.claude.notify pkgs.myme.pkgs.sonnette)
         (lib.mkIf cfg.llm.codex pkgs.codex)
         (lib.mkIf cfg.llm.copilot pkgs.github-copilot-cli)
         (lib.mkIf cfg.llm.gemini pkgs.gemini-cli)
@@ -231,35 +225,9 @@ in
         '';
       })
       (lib.mkIf (cfg.llm.enable && cfg.llm.claude.enable) {
-        ".claude/settings.json".text = builtins.toJSON (
-          {
-            includeCoAuthoredBy = false;
-          }
-          // lib.optionalAttrs cfg.llm.claude.notify {
-            hooks = {
-              Stop = [
-                {
-                  hooks = [
-                    {
-                      type = "command";
-                      command = "${pkgs.myme.pkgs.sonnette}/bin/sonnette notify 'Claude Code'";
-                    }
-                  ];
-                }
-              ];
-              Notification = [
-                {
-                  hooks = [
-                    {
-                      type = "command";
-                      command = "${pkgs.myme.pkgs.sonnette}/bin/sonnette notify 'Claude Code'";
-                    }
-                  ];
-                }
-              ];
-            };
-          }
-        );
+        ".claude/settings.json".text = builtins.toJSON {
+          includeCoAuthoredBy = false;
+        };
       })
     ];
 

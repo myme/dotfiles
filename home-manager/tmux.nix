@@ -35,8 +35,7 @@
         # Mouse support
         set -g mouse on
 
-        # Sonnette: jump to alerting pane and back to last pane
-        bind b run-shell '${pkgs.myme.pkgs.sonnette}/bin/sonnette jump'
+        # Back to last session
         bind B switch-client -l
 
         # Fuzzy session switcher
@@ -51,13 +50,7 @@
           plugin = power-theme;
           extraConfig = "set -g @tmux_power_theme 'violet'";
         }
-        {
-          plugin = sensible;
-          extraConfig = ''
-            # Sonnette: append notification indicator after tmux-power status-right
-            set -ag status-right "#[bg=colour208,fg=colour0,bold]#(${pkgs.myme.pkgs.sonnette}/bin/sonnette status)#[default]"
-          '';
-        }
+        sensible
         sessionist
         urlview
         yank
