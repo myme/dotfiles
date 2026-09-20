@@ -12,7 +12,9 @@
 #
 # This assumes the worktree for this machine sits at
 # ~/code/myme/dotfiles/<host>; anywhere else the link dangles and codex falls
-# back to its defaults.
+# back to its defaults. The worktree directories are lowercase while
+# `networking.hostName` need not be (Tuple -> .../dotfiles/tuple), so only the
+# checkout path is lowercased -- machines/<host>/ keeps the hostname's own case.
 {
   config,
   lib,
@@ -23,7 +25,7 @@
 let
   cfg = config.myme.dev;
   host = osConfig.networking.hostName;
-  checkout = "${config.home.homeDirectory}/code/myme/dotfiles/${host}";
+  checkout = "${config.home.homeDirectory}/code/myme/dotfiles/${lib.toLower host}";
 in
 {
   config = lib.mkIf (cfg.llm.enable && cfg.llm.codex) {
