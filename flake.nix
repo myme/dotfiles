@@ -91,7 +91,7 @@
         inputs.agenix.overlays.default
         inputs.i3ws.overlay
         inputs.annodate.overlay
-        inputs.nixon.overlay
+        inputs.nixon.overlays.default
         inputs.piddif.overlay
         self.overlays.default
       ];
