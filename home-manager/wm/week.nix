@@ -22,6 +22,7 @@ let
 
     video_dir="$HOME/Videos"
     pidfile="''${XDG_RUNTIME_DIR:-/tmp}/week.pid"
+    logfile="''${XDG_RUNTIME_DIR:-/tmp}/week.log"
 
     notify() { "$notify" -a week "week" "$1" 2>/dev/null || true; }
 
@@ -34,26 +35,46 @@ let
       fi
       target="''${1:-region}"
       mkdir -p "$video_dir"
-      filename="$video_dir/$(date +%F-%H%M%S).webm"
+      # H.264/mp4, not VP9/webm: wl-screenrec picks the codec from the
+      # container extension and encodes on the GPU, and hardly any VAAPI
+      # driver exposes a VP9 *encode* entrypoint. AMD's VCN (radeonsi) decodes
+      # VP9 but cannot encode it, so .webm died on the spot with "No usable
+      # encoding entrypoint found for profile VAProfileVP9Profile0". H.264 is
+      # the one profile every GPU this runs on can encode. To check on a new
+      # machine, run `vainfo`: the codec needs VAEntrypointEncSlice listed,
+      # not just VAEntrypointVLD.
+      filename="$video_dir/$(date +%F-%H%M%S).mp4"
       case "$target" in
         region)
           geometry="$($slurp)" || exit 1
-          "$setsid" "$recorder" --filename "$filename" --geometry "$geometry" >/dev/null 2>&1 &
+          set -- --geometry "$geometry"
           ;;
         window)
           geometry="$($hyprctl activewindow -j | $jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')"
-          "$setsid" "$recorder" --filename "$filename" --geometry "$geometry" >/dev/null 2>&1 &
+          set -- --geometry "$geometry"
           ;;
         monitor | output)
           output="$($slurp -o -f '%o')" || exit 1
-          "$setsid" "$recorder" --filename "$filename" --output "$output" >/dev/null 2>&1 &
+          set -- --output "$output"
           ;;
         *)
           echo "week: unknown target '$target' (region|window|monitor)" >&2
           exit 1
           ;;
       esac
-      echo $! > "$pidfile"
+      "$setsid" "$recorder" --filename "$filename" "$@" >"$logfile" 2>&1 &
+      pid=$!
+      echo "$pid" > "$pidfile"
+      # wl-screenrec fails fast on an unsupported codec or a bad geometry.
+      # Without this check the notification claims success, the recording is
+      # simply absent, and the reason went to /dev/null -- so confirm the
+      # process survived and otherwise show what it said.
+      sleep 0.5
+      if ! kill -0 "$pid" 2>/dev/null; then
+        rm -f "$pidfile"
+        notify "Recording failed: $(tail -n1 "$logfile")"
+        exit 1
+      fi
       notify "Recording ($target) → $filename"
     }
 
