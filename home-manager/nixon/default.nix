@@ -114,7 +114,7 @@ in
             nixon project "$@"
         }
 
-        source ${cfg.package}/share/zsh/site-functions/_nixon_widget
+        source ${cfg.package}/share/nixon/nixon-widget.zsh
       '';
     };
 
