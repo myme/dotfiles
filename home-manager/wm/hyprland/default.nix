@@ -225,13 +225,13 @@ in
     # main config
     wayland.windowManager.hyprland = {
       enable = true;
-      configType = "hyprlang";
+      configType = "lua";
       xwayland.enable = true;
       systemd = {
         enable = !withUWSM;
         variables = [ "--all" ];
       };
-      extraConfig = builtins.readFile ./hyprland.conf;
+      extraConfig = builtins.readFile ./hyprland.lua;
     };
 
     # Env variables for Hyprland session
