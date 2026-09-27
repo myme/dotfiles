@@ -8,7 +8,7 @@
 
 let
   cfg = config.myme.wm.hyprland;
-  wallpaper = "${pkgs.myme.wallpapers}/nebula-abstract.jpg";
+  inherit (cfg) wallpaper;
   hyprquit = pkgs.writeShellScriptBin "hyprquit" ''
     #!${pkgs.bash}/bin/bash
     answer="$(rofi -dmenu -p "Really quit?" <<< $'No\nYes')"
@@ -45,6 +45,12 @@ in
 {
   options.myme.wm.hyprland = {
     enable = lib.mkEnableOption "Hyprland - Tiling compositor with the looks";
+    wallpaper = lib.mkOption {
+      type = lib.types.path;
+      default = "${pkgs.myme.wallpapers}/nebula-abstract.jpg";
+      defaultText = lib.literalExpression "\"\${pkgs.myme.wallpapers}/nebula-abstract.jpg\"";
+      description = "Image hyprpaper puts on every output.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
