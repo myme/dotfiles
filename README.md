@@ -54,6 +54,12 @@ $ NIX_INSTALL_HOST=10.20.30.40 nixbs-copy
 $ nixbs-ssh
 ```
 
+### Generate hardware configuration
+
+``` bash
+$ nixos-generate-config --show-hardware-config
+```
+
 ### Drop into dev shell
 
 ``` bash
@@ -65,6 +71,12 @@ $ ./dev
 
 ``` bash
 $ sudo disko ./machine/<hostname>/disk.nix
+```
+
+or using flake notation:
+
+``` bash
+$ sudo disko --flake .#<hostname>
 ```
 
 ### Start NixOS installation
