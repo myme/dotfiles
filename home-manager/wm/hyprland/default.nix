@@ -14,6 +14,12 @@ let
     answer="$(rofi -dmenu -p "Really quit?" <<< $'No\nYes')"
     [ "$answer" = "Yes" ] && loginctl terminate-user $USER
   '';
+  # live wallpapers (mpvpaper) 📽
+  livepaper = pkgs.writeShellScriptBin "livepaper" ''
+    OUTPUT="''${1:-*}"
+    WALLPAPER_PATH="''${2:-$HOME/Videos/Wallpapers/Live}"
+    ${pkgs.mpvpaper}/bin/mpvpaper -o 'video-zoom=0.4 no-audio loop' "$OUTPUT" "$WALLPAPER_PATH"
+  '';
   inherit (specialArgs.nixosConfig.programs.hyprland) withUWSM;
   hyprctl = "${specialArgs.nixosConfig.programs.hyprland.package}/bin/hyprctl";
   # re-arm hotplugged monitors 🔌
@@ -57,6 +63,7 @@ in
     home.packages = [
       hyprmonitorbounce
       hyprquit
+      livepaper
       pkgs.alsa-utils # for volume control
       pkgs.myme.pkgs.hyprgrab
       pkgs.nwg-displays
