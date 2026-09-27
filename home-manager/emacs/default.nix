@@ -143,7 +143,21 @@ in
     xdg.configFile.doom.source = pkgs.stdenv.mkDerivation {
       name = "doom-emacs-src";
       src = ./doom;
-      doomConfigExtra = cfg.configExtra;
+      # FIXME: Doom (or straight) overwrites the extraPackages load paths :(
+      # Should try to find a proper workaround for keeping mu4e in the load path.
+      doomConfigExtra =
+        lib.optionalString config.myme.mail.enable (
+          let
+            mu4e = config.programs.emacs.package.pkgs.mu4e;
+            inherit (mu4e) version;
+          in
+          ''
+            ;; Mu4e
+            (add-to-list 'load-path "${mu4e}/share/emacs/site-lisp/elpa/mu4e-${version}")
+          ''
+        )
+        + cfg.configExtra;
+      doomEmailModule = lib.optionalString config.myme.mail.enable "(mu4e +org)";
       inherit (cfg) backgroundOpacity;
       doomFontFamily = pkgs.lib.strings.escapeNixString cfg.font.family;
       doomFontSize = cfg.font.size;
@@ -158,6 +172,8 @@ in
           --subst-var doomFontFamily \
           --subst-var doomFontSize \
           --subst-var doomTheme
+        substituteInPlace $out/init.el \
+          --subst-var doomEmailModule
       '';
     };
 

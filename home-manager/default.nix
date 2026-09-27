@@ -39,6 +39,7 @@ in
     ./ghostty.nix
     ./git.nix
     ./irc.nix
+    ./mail.nix
     ./nixon
     ./ssh.nix
     ./spotify.nix

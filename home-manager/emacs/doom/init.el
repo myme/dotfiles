@@ -199,6 +199,7 @@
 
        :email
        ;;(mu4e +org +gmail)
+       @doomEmailModule@
        ;;notmuch
        ;;(wanderlust +gmail)
 
