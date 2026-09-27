@@ -17,6 +17,21 @@ hl.config({
     allow_tearing = false,
     layout = "dwindle",
   },
+  group = {
+    col = {
+      border_active = { colors = { "rgba(ff79c6ee)", "rgba(50fa7bee)" }, angle = 45 },
+      border_inactive = "rgba(595959aa)",
+    },
+    groupbar = {
+      indicator_height = 10,
+      rounding = 5,
+      col = {
+        active = { colors = { "rgba(ff79c6ee)", "rgba(50fa7bee)" }, angle = 45 },
+        inactive = "rgba(595959aa)",
+      },
+      render_titles = false,
+    },
+  },
   decoration = {
     rounding = 10,
     active_opacity = 1.0,
@@ -87,6 +102,7 @@ hl.bind(mainMod .. " + V", function()
   hl.dispatch(hl.dsp.window.alter_zorder({ mode = "top" }))
 end)
 hl.bind(mainMod .. " + SHIFT + V", hl.dsp.window.float({ action = "unset" }))
+hl.bind(mainMod .. " + T", hl.dsp.group.toggle())
 hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("nixon -b rofi run"))
 hl.bind(mainMod .. " + SHIFT + X", hl.dsp.exec_cmd("nixon -b rofi project"))
 hl.bind("Print", hl.dsp.exec_cmd("hyprgrab output"))
