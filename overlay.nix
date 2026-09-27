@@ -14,7 +14,7 @@ let
     config = {
       allowUnfreePredicate =
         pkg:
-        builtins.elem pkg.pname [
+        builtins.elem (lib.getName pkg) [
           "claude-code"
           "github-copilot-cli"
         ];
