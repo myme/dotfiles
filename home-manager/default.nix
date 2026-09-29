@@ -61,6 +61,7 @@ in
         [
           dua
           fd
+          glow
           jq
           lsof
           nix-diff
