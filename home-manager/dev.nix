@@ -48,11 +48,6 @@ in
         default = true;
         description = "Enable the Copilot CLI tool";
       };
-      gemini = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Enable the Gemini CLI tool";
-      };
       ollama = {
         enable = lib.mkEnableOption "Enable the Ollama LLM runner";
         package = lib.mkOption {
@@ -173,7 +168,6 @@ in
         (lib.mkIf cfg.llm.claude.enable pkgs.claude-code)
         (lib.mkIf cfg.llm.codex pkgs.codex)
         (lib.mkIf cfg.llm.copilot pkgs.github-copilot-cli)
-        (lib.mkIf cfg.llm.gemini pkgs.gemini-cli)
         (lib.mkIf cfg.llm.ollama.enable cfg.llm.ollama.package)
         (lib.mkIf cfg.llm.opencode.enable pkgs.opencode)
       ])

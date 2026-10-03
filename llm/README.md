@@ -5,7 +5,7 @@ fast, but "fast" there still means a day or three of lag, which is a lot of
 releases for tools that get used all day. These two packages track the
 vendors' *own* release channels instead.
 
-Everything else (`gemini-cli`, `github-copilot-cli`, ...) still comes from
+Everything else (`github-copilot-cli`, ...) still comes from
 `nixpkgs-unstable` via `overlay.nix`.
 
 ## How the pins work

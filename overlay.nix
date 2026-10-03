@@ -24,7 +24,7 @@ let
 in
 {
   # Always get LLM coding CLIs from unstable
-  inherit (unstable) gemini-cli github-copilot-cli;
+  inherit (unstable) github-copilot-cli;
 
   # ... except the two that get used all day, which come straight from the
   # vendors' own release channels. Even unstable trails them by days, which is
