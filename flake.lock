@@ -420,11 +420,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1789998085,
-        "narHash": "sha256-2nuRIoDPRyu16+L06m1GrlLWBTwWSjIqdl8qzDMepj8=",
+        "lastModified": 1791026257,
+        "narHash": "sha256-CV13vqxcdF1T30jimHiruU8m/fI6alY1pI38L5f+oGQ=",
         "owner": "myme",
         "repo": "nixon",
-        "rev": "9448c1ab4b5d33b3904d5932c858fbc1d51689c7",
+        "rev": "51343b2b8775d7787c28a40b72a2157dbd865c17",
         "type": "github"
       },
       "original": {
