@@ -89,7 +89,7 @@ let
 
 in
 {
-  config = lib.mkIf (cfg.enable && pkgs.stdenv.isDarwin) {
+  config = lib.mkIf (cfg.enable && pkgs.stdenv.hostPlatform.isDarwin) {
     # GUI launches on macOS (Spotlight, Dock, Finder) inherit launchd's
     # environment, not the login shell's. Without these:
     #  (a) Spotlight-launched Emacs misses DOOMLOCALDIR and can't find

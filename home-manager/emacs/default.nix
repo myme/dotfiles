@@ -23,7 +23,7 @@ let
   # breaks frame focus (see doom/config.el for the full story). Kick the
   # launchd agent instead, whose ProgramArguments point into Emacs.app, and
   # only start the bundle directly if the agent is missing or wedged.
-  ensureDaemon = lib.optionalString pkgs.stdenv.isDarwin ''
+  ensureDaemon = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
     serverUp() { ${emacsclientBin} --eval t >/dev/null 2>&1; }
     if ! serverUp; then
       launchctl kickstart "gui/$(id -u)/org.nix-community.home.emacs" >/dev/null 2>&1 || true
@@ -192,7 +192,7 @@ in
       };
     };
 
-    xdg.desktopEntries = lib.mkIf pkgs.stdenv.isLinux {
+    xdg.desktopEntries = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       org-capture = {
         name = "Org Capture";
         genericName = "Emacs Org-Mode Capture";
