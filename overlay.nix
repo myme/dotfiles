@@ -60,27 +60,11 @@ in
 
   myme = {
     inherit doomemacs wallpapers;
-    pkgs =
-      let
-        vendored = builtins.listToAttrs (
-          builtins.map (fname: {
-            name = final.lib.strings.removeSuffix ".nix" fname;
-            value = final.callPackage ./pkgs/${fname} { };
-          }) (lib.myme.allNixFiles ./pkgs)
-        );
-      in
-      vendored
-      // {
-        # pkgs/dracula-theme.nix is vendored because nixpkgs-unstable dropped
-        # dracula-theme on 2026-07-22 along with gtk-engine-murrine. nixos-26.05
-        # still ships it, so key the expiry on `unstable` -- that's the channel
-        # that forced the vendoring, and it makes the check channel-independent.
-        # Removals live on in the alias set as a `throw`, so `?` isn't enough:
-        # force the value and catch.
-        dracula-theme = prev.lib.warnIf (builtins.tryEval unstable.dracula-theme.name).success ''
-          dracula-theme is back in nixpkgs-unstable; drop pkgs/dracula-theme.nix and
-          point home-manager/wm/theme.nix at pkgs.dracula-theme.
-        '' vendored.dracula-theme;
-      };
+    pkgs = builtins.listToAttrs (
+      builtins.map (fname: {
+        name = final.lib.strings.removeSuffix ".nix" fname;
+        value = final.callPackage ./pkgs/${fname} { };
+      }) (lib.myme.allNixFiles ./pkgs)
+    );
   };
 }

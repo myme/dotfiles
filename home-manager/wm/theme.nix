@@ -35,7 +35,7 @@ let
       name = "Adwaita-dark";
     };
     dracula = {
-      package = pkgs.myme.pkgs.dracula-theme;
+      package = pkgs.dracula-theme;
       name = "Dracula";
     };
     nordic = {
