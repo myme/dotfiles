@@ -69,16 +69,77 @@ end)
 
 -- Keep the existing nwg-displays monitor presets usable. Only this small
 -- generated monitor file is read; the main config and all bindings use Lua.
+--
+-- `monitor=` lines come in two forms, which may both name the same output:
+-- `output,mode,position,scale[,key,value...]`, and `output,key,value...` to
+-- add to it (`transform,1` for a portrait screen). Each output's keys are
+-- gathered first and declared once. Presets may also carry binds for their
+-- own outputs; the monitor dispatchers among them are translated too.
+local function trim(s)
+  return (s:match("^%s*(.-)%s*$"))
+end
+
+local function split(s)
+  local fields = {}
+  for field in (s .. ","):gmatch("([^,]*),") do
+    table.insert(fields, trim(field))
+  end
+  return fields
+end
+
+local function value(v)
+  return tonumber(v) or v
+end
+
+local positionalModes = { preferred = true, highres = true, highrr = true, maxwidth = true }
+
+local monitorDispatchers = {
+  focusmonitor = function(arg)
+    return hl.dsp.focus({ monitor = arg })
+  end,
+  -- "+0" is the active workspace, the only one `workspace.move` moves.
+  moveworkspacetomonitor = function(arg)
+    return hl.dsp.workspace.move({ monitor = (arg:gsub("^%+0%s+", "")) })
+  end,
+}
+
 local configHome = os.getenv("XDG_CONFIG_HOME") or (os.getenv("HOME") .. "/.config")
 local monitorFile = io.open(configHome .. "/hypr/monitors.conf", "r")
 if monitorFile then
+  local monitors, order = {}, {}
   for line in monitorFile:lines() do
-    local output, mode, position, scale = line:match("^%s*monitor%s*=%s*([^,]*),([^,]+),([^,]+),([^,%s]+)")
-    if output then
-      hl.monitor({ output = output, mode = mode, position = position, scale = tonumber(scale) or scale })
+    local keyword, rest = line:match("^%s*(%a+)%s*=%s*(.-)%s*$")
+    if keyword == "monitor" then
+      local fields = split(rest)
+      local output = fields[1]
+      if not monitors[output] then
+        monitors[output] = { output = output }
+        table.insert(order, output)
+      end
+      local spec, mode, i = monitors[output], fields[2], 2
+      if mode == "disable" then
+        spec.disabled, i = true, #fields + 1
+      elseif mode and (mode:match("^%d") or positionalModes[mode]) then
+        spec.mode, spec.position, spec.scale, i = mode, fields[3], value(fields[4]), 5
+      end
+      while fields[i] and fields[i + 1] do
+        spec[fields[i]] = value(fields[i + 1])
+        i = i + 2
+      end
+    elseif keyword == "bind" then
+      local mods, key, dispatcher, arg = rest:match("^([^,]*),([^,]+),([^,]+),(.+)$")
+      local dispatch = dispatcher and monitorDispatchers[trim(dispatcher)]
+      if dispatch then
+        local combo = trim(mods):gsub("%$mainMod", mainMod):gsub("%s+", " + ")
+        combo = (combo == "" and "" or combo .. " + ") .. trim(key)
+        hl.bind(combo, dispatch(trim(arg)))
+      end
     end
   end
   monitorFile:close()
+  for _, output in ipairs(order) do
+    hl.monitor(monitors[output])
+  end
 else
   hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
 end
