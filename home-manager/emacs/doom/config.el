@@ -277,7 +277,7 @@ centering, padding and insertion itself."
 ;; Pytest
 (after! python-pytest
   (put 'python-pytest-executable 'safe-local-variable
-       (lambda (s) (member s '("pytest" "poetry run pytest")))))
+       (lambda (s) (member s '("pytest" "uv run pytest")))))
 
 ;; Projectile
 (after! projectile
