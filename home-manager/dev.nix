@@ -11,6 +11,46 @@
 let
   cfg = config.myme.dev;
 
+  # Claude Code sessions grow to several GB each when left running for days,
+  # and a handful of them is enough to push the machine into a global OOM. The
+  # kernel then picks victims by oom_score_adj rather than size, and has been
+  # known to pick the user's systemd manager -- taking the whole graphical
+  # session and tmux down with it. So each session runs in its own scope
+  # under `llm.slice`, capped individually and as a group, and volunteers
+  # itself as the first thing to kill. A lost session is cheap
+  # (`claude --resume`); a lost desktop is not.
+  claudeScope = pkgs.writeShellScript "claude" ''
+    # Raising one's own score needs no privileges, and works without systemd.
+    echo 500 > /proc/$$/oom_score_adj 2>/dev/null || true
+
+    # Not when already scoped (a `claude` spawned from a Claude session), nor
+    # without a user manager to ask (WSL without systemd, bare containers).
+    if [ -z "''${MYME_CLAUDE_SCOPE:-}" ] && [ -S "''${XDG_RUNTIME_DIR:-}/bus" ] \
+      && command -v systemd-run >/dev/null; then
+      export MYME_CLAUDE_SCOPE=1
+      exec systemd-run --user --scope --quiet --collect \
+        --slice=llm.slice --unit="claude-$$" \
+        --description="Claude Code in $PWD" \
+        -p MemoryHigh=4G -p MemoryMax=6G \
+        ${lib.getExe pkgs.claude-code} "$@"
+    fi
+    exec ${lib.getExe pkgs.claude-code} "$@"
+  '';
+
+  claude =
+    if pkgs.stdenv.hostPlatform.isLinux then
+      pkgs.symlinkJoin {
+        name = "claude-code-scoped-${pkgs.claude-code.version}";
+        paths = [ pkgs.claude-code ];
+        postBuild = ''
+          rm $out/bin/claude
+          ln -s ${claudeScope} $out/bin/claude
+        '';
+        meta.mainProgram = "claude";
+      }
+    else
+      pkgs.claude-code;
+
 in
 {
   imports = [
@@ -165,7 +205,7 @@ in
 
       # LLM
       (lib.mkIf cfg.llm.enable [
-        (lib.mkIf cfg.llm.claude.enable pkgs.claude-code)
+        (lib.mkIf cfg.llm.claude.enable claude)
         (lib.mkIf cfg.llm.codex pkgs.codex)
         (lib.mkIf cfg.llm.copilot pkgs.github-copilot-cli)
         (lib.mkIf cfg.llm.ollama.enable cfg.llm.ollama.package)
@@ -237,6 +277,19 @@ in
         };
       })
     ];
+
+    # Shared budget for all Claude sessions (see `claudeScope` above). Above
+    # MemoryHigh the slice is reclaimed into swap; at MemoryMax a session in
+    # it gets OOM-killed, rather than something elsewhere on the machine.
+    systemd.user.slices.llm =
+      lib.mkIf (cfg.llm.enable && cfg.llm.claude.enable && pkgs.stdenv.hostPlatform.isLinux)
+        {
+          Unit.Description = "LLM agents";
+          Slice = {
+            MemoryHigh = "12G";
+            MemoryMax = "16G";
+          };
+        };
 
     # Neovim plugins
     programs.neovim.plugins = lib.mkIf cfg.haskell.enable [
