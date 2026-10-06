@@ -126,7 +126,6 @@ in
         (aspellWithDicts (
           dicts: with dicts; [
             en
-            en-computers
             it
             nb
           ]
