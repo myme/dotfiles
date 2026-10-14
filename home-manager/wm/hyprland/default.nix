@@ -22,6 +22,10 @@ let
   '';
   inherit (specialArgs.nixosConfig.programs.hyprland) withUWSM;
   hyprctl = "${specialArgs.nixosConfig.programs.hyprland.package}/bin/hyprctl";
+  # The Lua config evaluates `hyprctl dispatch` args as a Lua expression, so
+  # the legacy `dispatch dpms off` form is a syntax error.
+  dpmsOn = "${hyprctl} dispatch 'hl.dsp.dpms({ action = \"on\" })'";
+  dpmsOff = "${hyprctl} dispatch 'hl.dsp.dpms({ action = \"off\" })'";
   # re-arm hotplugged monitors 🔌
   #
   # Hyprland can lose the first page-flip after a hotplug modeset:
@@ -105,20 +109,20 @@ in
       settings = {
         general = {
           before_sleep_cmd = "loginctl lock-session";
-          after_sleep_cmd = "hyprctl dispatch dpms on";
+          after_sleep_cmd = dpmsOn;
           ignore_dbus_inhibit = false;
-          lock_cmd = "hyprlock";
+          lock_cmd = "pidof hyprlock || hyprlock";
         };
 
         listener = [
           {
             timeout = 300;
-            on-timeout = "hyprlock";
+            on-timeout = "pidof hyprlock || hyprlock";
           }
           {
             timeout = 1200;
-            on-timeout = "hyprctl dispatch dpms off";
-            on-resume = "hyprctl dispatch dpms on";
+            on-timeout = dpmsOff;
+            on-resume = dpmsOn;
           }
         ];
       };
