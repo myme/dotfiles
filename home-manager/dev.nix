@@ -36,7 +36,9 @@ let
   # session and tmux down with it. So each agent session (Claude, Codex) runs
   # in its own scope under `llm.slice`, capped individually and as a group,
   # and volunteers itself as the first thing to kill. A lost session is cheap
-  # (`claude --resume`); a lost desktop is not.
+  # (`claude --resume`); a lost desktop is not. Everything an agent spawns --
+  # test runners, builds -- lands in the same slice, which is also where the
+  # CPU and IO limits live (see `systemd.user.slices.llm` below).
   llmScope =
     name: pkg:
     pkgs.writeShellScript name ''
@@ -127,6 +129,16 @@ in
         };
       };
       opencode.enable = lib.mkEnableOption "Enable opencode";
+      allowedCPUs = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        example = "2-11";
+        description = ''
+          CPUs that agent sessions, and everything they spawn, may run on, as
+          a systemd `AllowedCPUs=` set. Leaving a few cores out guarantees the
+          desktop some headroom however hard the agents push. Null means all.
+        '';
+      };
     };
 
     # Elm
@@ -317,14 +329,25 @@ in
     # Shared budget for all agent sessions (see `llmScope` above). Above
     # MemoryHigh the slice is reclaimed into swap; at MemoryMax a session in
     # it gets OOM-killed, rather than something elsewhere on the machine.
+    #
+    # Agents happily start a worker per core, and at equal CPU weight that
+    # starves the desktop: audio drops out, input lags. The low weights make
+    # the slice yield whenever anything else wants the CPU or disk, and cost
+    # nothing when the machine is otherwise idle. `allowedCPUs` additionally
+    # keeps some cores out of the slice's reach entirely.
     systemd.user.slices.llm =
       lib.mkIf
         (cfg.llm.enable && (cfg.llm.claude.enable || cfg.llm.codex) && pkgs.stdenv.hostPlatform.isLinux)
         {
           Unit.Description = "LLM agents";
           Slice = {
+            CPUWeight = 20;
+            IOWeight = 20;
             MemoryHigh = "12G";
             MemoryMax = "16G";
+          }
+          // lib.optionalAttrs (cfg.llm.allowedCPUs != null) {
+            AllowedCPUs = cfg.llm.allowedCPUs;
           };
         };
 
