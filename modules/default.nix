@@ -133,7 +133,10 @@
     (lib.mkIf (config.myme.machine.role != "server") {
       # For GTK stuff
       programs.dconf.enable = true;
-      # Enable sound.
+      # Enable sound. rtkit lets PipeWire run its audio threads at realtime
+      # priority; without it they compete with everything else for the CPU
+      # and audio (Bluetooth especially) drops out under load.
+      security.rtkit.enable = true;
       services.pipewire.enable = true;
     })
     # Laptop configs
