@@ -33,41 +33,47 @@ let
   # and a handful of them is enough to push the machine into a global OOM. The
   # kernel then picks victims by oom_score_adj rather than size, and has been
   # known to pick the user's systemd manager -- taking the whole graphical
-  # session and tmux down with it. So each session runs in its own scope
-  # under `llm.slice`, capped individually and as a group, and volunteers
-  # itself as the first thing to kill. A lost session is cheap
+  # session and tmux down with it. So each agent session (Claude, Codex) runs
+  # in its own scope under `llm.slice`, capped individually and as a group,
+  # and volunteers itself as the first thing to kill. A lost session is cheap
   # (`claude --resume`); a lost desktop is not.
-  claudeScope = pkgs.writeShellScript "claude" ''
-    # Raising one's own score needs no privileges, and works without systemd.
-    echo 500 > /proc/$$/oom_score_adj 2>/dev/null || true
+  llmScope =
+    name: pkg:
+    pkgs.writeShellScript name ''
+      # Raising one's own score needs no privileges, and works without systemd.
+      echo 500 > /proc/$$/oom_score_adj 2>/dev/null || true
 
-    # Not when already scoped (a `claude` spawned from a Claude session), nor
-    # without a user manager to ask (WSL without systemd, bare containers).
-    if [ -z "''${MYME_CLAUDE_SCOPE:-}" ] && [ -S "''${XDG_RUNTIME_DIR:-}/bus" ] \
-      && command -v systemd-run >/dev/null; then
-      export MYME_CLAUDE_SCOPE=1
-      exec systemd-run --user --scope --quiet --collect \
-        --slice=llm.slice --unit="claude-$$" \
-        --description="Claude Code in $PWD" \
-        -p MemoryHigh=4G -p MemoryMax=6G \
-        ${lib.getExe pkgs.claude-code} "$@"
-    fi
-    exec ${lib.getExe pkgs.claude-code} "$@"
-  '';
+      # Not when already scoped (an agent spawned from an agent session), nor
+      # without a user manager to ask (WSL without systemd, bare containers).
+      if [ -z "''${MYME_LLM_SCOPE:-}" ] && [ -S "''${XDG_RUNTIME_DIR:-}/bus" ] \
+        && command -v systemd-run >/dev/null; then
+        export MYME_LLM_SCOPE=1
+        exec systemd-run --user --scope --quiet --collect \
+          --slice=llm.slice --unit="${name}-$$" \
+          --description="${name} in $PWD" \
+          -p MemoryHigh=4G -p MemoryMax=6G \
+          ${lib.getExe pkg} "$@"
+      fi
+      exec ${lib.getExe pkg} "$@"
+    '';
 
-  claude =
+  scoped =
+    name: pkg:
     if pkgs.stdenv.hostPlatform.isLinux then
       pkgs.symlinkJoin {
-        name = "claude-code-scoped-${pkgs.claude-code.version}";
-        paths = [ pkgs.claude-code ];
+        name = "${pkg.pname}-scoped-${pkg.version}";
+        paths = [ pkg ];
         postBuild = ''
-          rm $out/bin/claude
-          ln -s ${claudeScope} $out/bin/claude
+          rm $out/bin/${name}
+          ln -s ${llmScope name pkg} $out/bin/${name}
         '';
-        meta.mainProgram = "claude";
+        meta.mainProgram = name;
       }
     else
-      pkgs.claude-code;
+      pkg;
+
+  claude = scoped "claude" pkgs.claude-code;
+  codex = scoped "codex" pkgs.codex;
 
 in
 {
@@ -224,7 +230,7 @@ in
       # LLM
       (lib.mkIf cfg.llm.enable [
         (lib.mkIf cfg.llm.claude.enable claude)
-        (lib.mkIf cfg.llm.codex pkgs.codex)
+        (lib.mkIf cfg.llm.codex codex)
         (lib.mkIf cfg.llm.copilot pkgs.github-copilot-cli)
         (lib.mkIf cfg.llm.ollama.enable cfg.llm.ollama.package)
         (lib.mkIf cfg.llm.opencode.enable pkgs.opencode)
@@ -308,11 +314,12 @@ in
       })
     ];
 
-    # Shared budget for all Claude sessions (see `claudeScope` above). Above
+    # Shared budget for all agent sessions (see `llmScope` above). Above
     # MemoryHigh the slice is reclaimed into swap; at MemoryMax a session in
     # it gets OOM-killed, rather than something elsewhere on the machine.
     systemd.user.slices.llm =
-      lib.mkIf (cfg.llm.enable && cfg.llm.claude.enable && pkgs.stdenv.hostPlatform.isLinux)
+      lib.mkIf
+        (cfg.llm.enable && (cfg.llm.claude.enable || cfg.llm.codex) && pkgs.stdenv.hostPlatform.isLinux)
         {
           Unit.Description = "LLM agents";
           Slice = {
