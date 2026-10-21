@@ -3,9 +3,15 @@
 ;; Inherit PATH (and friends) from a login shell on macOS, where
 ;; launchd-started Emacs (daemon, Spotlight-launched .app) otherwise
 ;; only sees /usr/bin:/bin:/usr/sbin:/sbin.
+;;
+;; SSH_AUTH_SOCK too: launchd hands every GUI Emacs macOS's own (empty)
+;; agent, not home-manager's, so commit signing from magit dies on
+;; `Couldn't find key in agent?'. The daemon plist already fixes this (see
+;; darwin.nix); this covers Emacs.app launched directly.
 (use-package! exec-path-from-shell
   :when (eq system-type 'darwin)
   :config
+  (add-to-list 'exec-path-from-shell-variables "SSH_AUTH_SOCK")
   (exec-path-from-shell-initialize))
 
 ;; macOS: when the daemon creates a frame for a remote emacsclient, the

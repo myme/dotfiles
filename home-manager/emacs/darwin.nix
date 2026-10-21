@@ -136,10 +136,20 @@ in
         # Launching from inside the .app bundle gives the daemon
         # proper LaunchServices identity so AppleScript `tell
         # application "Emacs" to activate` works.
+        #
+        # SSH_AUTH_SOCK is exported here rather than in EnvironmentVariables
+        # or via `launchctl setenv`: Apple's on-demand com.openssh.ssh-agent
+        # claims that variable as a SecureSocketWithKey, so launchd stamps its
+        # (keyless) socket into every job it starts, overriding both. Only
+        # the shell running after launchd gets the last word. Without it,
+        # commit signing from magit fails on `Couldn't find key in agent?`.
         ProgramArguments = lib.mkForce [
           "/bin/sh"
           "-c"
-          "/bin/wait4path /nix/store && exec ${emacsPkg}/Applications/Emacs.app/Contents/MacOS/Emacs --fg-daemon"
+          (
+            lib.optionalString config.services.ssh-agent.enable ''export SSH_AUTH_SOCK="$(${lib.getExe pkgs.getconf} DARWIN_USER_TEMP_DIR)/${config.services.ssh-agent.socket}"; ''
+            + "/bin/wait4path /nix/store && exec ${emacsPkg}/Applications/Emacs.app/Contents/MacOS/Emacs --fg-daemon"
+          )
         ];
       };
     };
