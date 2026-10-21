@@ -11,6 +11,24 @@
 let
   cfg = config.myme.dev;
 
+  # Claude Code PreToolUse guard: refuses a `git push` that would land on
+  # main/master, resolved with a dry run so tracking/push.default can't hide it.
+  claudeBlockPush = pkgs.writeShellApplication {
+    name = "claude-block-push-to-default";
+    runtimeInputs = [
+      pkgs.coreutils
+      pkgs.gawk
+      pkgs.git
+      pkgs.gnugrep
+      pkgs.gnused
+      pkgs.jq
+    ];
+    # The script reads exit statuses itself (a rejected dry run still lists
+    # its refs), so no errexit/pipefail.
+    bashOptions = [ ];
+    text = builtins.readFile ./claude-block-push.sh;
+  };
+
   # Claude Code sessions grow to several GB each when left running for days,
   # and a handful of them is enough to push the machine into a global OOM. The
   # kernel then picks victims by oom_score_adj rather than size, and has been
@@ -274,6 +292,18 @@ in
       (lib.mkIf (cfg.llm.enable && cfg.llm.claude.enable) {
         ".claude/settings.json".text = builtins.toJSON {
           includeCoAuthoredBy = false;
+          hooks.PreToolUse = [
+            {
+              matcher = "Bash";
+              hooks = [
+                {
+                  type = "command";
+                  command = "${claudeBlockPush}/bin/claude-block-push-to-default";
+                  timeout = 30;
+                }
+              ];
+            }
+          ];
         };
       })
     ];
