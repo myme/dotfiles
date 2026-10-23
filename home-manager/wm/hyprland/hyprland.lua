@@ -42,7 +42,13 @@ hl.config({
   animations = { enabled = true },
   dwindle = { preserve_split = true },
   master = { new_status = "master" },
-  misc = { force_default_wallpaper = 0, disable_hyprland_logo = true },
+  misc = {
+    force_default_wallpaper = 0,
+    disable_hyprland_logo = true,
+    -- Let a fresh hyprlock take over if the lock client crashes, instead of
+    -- stranding the session on the "lockscreen died" screen.
+    allow_session_lock_restore = true,
+  },
   input = {
     kb_layout = "us",
     kb_variant = "alt-intl-unicode",
