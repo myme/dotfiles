@@ -26,6 +26,12 @@ let
   # the legacy `dispatch dpms off` form is a syntax error.
   dpmsOn = "${hyprctl} dispatch 'hl.dsp.dpms({ action = \"on\" })'";
   dpmsOff = "${hyprctl} dispatch 'hl.dsp.dpms({ action = \"off\" })'";
+  # Hyprland powers up every newly added output, so a monitor that drops off
+  # the bus while blanked comes back lit. hypridle has already fired its
+  # timeout and won't again until the next resume, so the panel would stay on
+  # indefinitely. Record the idle blank in a flag that the hotplug watcher
+  # below re-asserts.
+  dpmsOffFlag = "$XDG_RUNTIME_DIR/hypridle-dpms-off";
   # re-arm hotplugged monitors 🔌
   #
   # Hyprland can lose the first page-flip after a hotplug modeset:
@@ -109,7 +115,7 @@ in
       settings = {
         general = {
           before_sleep_cmd = "loginctl lock-session";
-          after_sleep_cmd = dpmsOn;
+          after_sleep_cmd = "rm -f ${dpmsOffFlag}; ${dpmsOn}";
           ignore_dbus_inhibit = false;
           lock_cmd = "pidof hyprlock || hyprlock";
         };
@@ -121,8 +127,8 @@ in
           }
           {
             timeout = 1200;
-            on-timeout = dpmsOff;
-            on-resume = dpmsOn;
+            on-timeout = "touch ${dpmsOffFlag}; ${dpmsOff}";
+            on-resume = "rm -f ${dpmsOffFlag}; ${dpmsOn}";
           }
         ];
       };
@@ -200,12 +206,15 @@ in
               ${pkgs.socat}/bin/socat -U - "UNIX-CONNECT:$socket" | while read -r line; do
                 case "$line" in
                   monitoradded*)
+                    sleep 2
                     # A dock connect fires one event per output, but a single
                     # bounce re-modesets all of them -- ignore the rest of burst.
-                    [ $((SECONDS - last)) -lt 8 ] && continue
-                    sleep 2
-                    ${hyprmonitorbounce}/bin/hyprmonitorbounce
-                    last=$SECONDS
+                    if [ $((SECONDS - last)) -ge 8 ]; then
+                      ${hyprmonitorbounce}/bin/hyprmonitorbounce
+                      last=$SECONDS
+                    fi
+                    # Blank again if hypridle had the outputs off (see dpmsOffFlag).
+                    [ -e "${dpmsOffFlag}" ] && ${dpmsOff} > /dev/null
                     ;;
                 esac
               done
