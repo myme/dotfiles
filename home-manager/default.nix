@@ -181,7 +181,14 @@ in
         use_direnv = true;
         use_nix = true;
       };
-      nushell.enable = lib.mkDefault defaultPrograms;
+      nushell = {
+        enable = lib.mkDefault defaultPrograms;
+      }
+      // lib.optionalAttrs (options.programs.nushell ? loadSessionVariables) {
+        # Keep the pre-26.11 behavior explicit; stable Home Manager does not
+        # expose this option yet.
+        loadSessionVariables = false;
+      };
       starship = {
         enable = lib.mkDefault defaultPrograms;
         settings.time = {
