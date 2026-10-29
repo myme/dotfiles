@@ -4,11 +4,14 @@ _: {
       enable = true;
       settings = {
         user.name = "Martin Myrseth";
+        # Track remote branches automatically only when the branch names match.
+        branch.autoSetupMerge = "simple";
         branch.autosetuprebase = "remote";
         init.defaultBranch = "main";
         github.user = "myme";
         push = {
-          default = "upstream";
+          # Refuse to push to an upstream branch with a different name.
+          default = "simple";
           followTags = true;
         };
         rerere.enabled = true;
