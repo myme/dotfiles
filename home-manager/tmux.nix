@@ -41,6 +41,9 @@
         # Fuzzy session switcher
         bind F display-popup -w 62% -h 38% -E "tmux list-sessions -F '#{session_name}' | fzf --reverse | xargs -r tmux switch-client -t"
 
+        # Fuzzy window switcher across all sessions
+        bind f display-popup -w 62% -h 38% -E "tmux list-windows -a -F '#{window_id} #{session_name}:#{window_index}: #{window_name}' | fzf --reverse --with-nth=2.. | cut -d ' ' -f 1 | xargs -r tmux switch-client -t"
+
         # Keep server running
         set -g exit-empty off
       '';
