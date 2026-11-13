@@ -140,6 +140,8 @@
             treefmtEval = inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
             pre-commit-check = inputs.git-hooks.lib.${system}.run {
               src = ./.;
+              # Use the Rust runner to keep language toolchains out of the hook runner build.
+              package = pkgs.prek;
               default_stages = [ "pre-push" ];
               hooks = {
                 treefmt = {
