@@ -8,42 +8,6 @@
 let
   cfg = config.myme.vim;
 
-  avante =
-    let
-      base = pkgs.vimPlugins.avante-nvim;
-      # cargoSetupHook requires system AWS-LC and Oniguruma, but Avante only declares OpenSSL.
-      missingLibs =
-        builtins.filter
-          (
-            dep:
-            !(builtins.any (pkg: lib.getName pkg == lib.getName dep) (base.avante-nvim-lib.buildInputs or [ ]))
-          )
-          [
-            pkgs.aws-lc
-            pkgs.oniguruma
-          ];
-      hasSystemLibs = missingLibs == [ ];
-    in
-    lib.warnIf hasSystemLibs
-      "Delete the Avante system-library workaround in home-manager/vim/default.nix; nixpkgs now supplies it."
-      (
-        if hasSystemLibs then
-          base
-        else
-          base.override {
-            rustPlatform = pkgs.rustPlatform // {
-              buildRustPackage =
-                args:
-                pkgs.rustPlatform.buildRustPackage (
-                  args
-                  // {
-                    buildInputs = (args.buildInputs or [ ]) ++ missingLibs;
-                  }
-                );
-            };
-          }
-      );
-
 in
 {
   options.myme.vim = {
@@ -72,74 +36,59 @@ in
       withRuby = false;
       withPython3 = false;
 
-      plugins =
-        with pkgs.vimPlugins;
-        (lib.mkMerge [
-          # LLM coding tools
-          (lib.mkIf config.myme.dev.llm.enable [
-            {
-              plugin = avante;
-              type = "lua";
-              config = ''
-                require("avante_lib").load()
-                require("avante").setup()
-              '';
-            }
-          ])
-          [
-            # Completions + LSP (lsp-zero)
-            nvim-cmp
-            cmp-nvim-lsp
-            nvim-lspconfig
-            luasnip
-            friendly-snippets
+      plugins = with pkgs.vimPlugins; [
+        # Completions + LSP (lsp-zero)
+        nvim-cmp
+        cmp-nvim-lsp
+        nvim-lspconfig
+        luasnip
+        friendly-snippets
 
-            # Dev
-            neotest
-            neotest-haskell
-            neotest-python
-            neotest-rust
-            nvim-dap
-            nvim-dap-ui
+        # Dev
+        neotest
+        neotest-haskell
+        neotest-python
+        neotest-rust
+        nvim-dap
+        nvim-dap-ui
 
-            # UI
-            dashboard-nvim
-            neo-tree-nvim
-            nvim-web-devicons
+        # UI
+        dashboard-nvim
+        neo-tree-nvim
+        nvim-web-devicons
 
-            # Git
-            neogit
-            diffview-nvim
-            vim-fugitive
+        # Git
+        neogit
+        diffview-nvim
+        vim-fugitive
 
-            # Telescope (fuzzy)
-            telescope-fzf-native-nvim
-            telescope-nvim
+        # Telescope (fuzzy)
+        telescope-fzf-native-nvim
+        telescope-nvim
 
-            # Theme
-            catppuccin-nvim
-            dracula-nvim
-            rose-pine
-            vim-airline
-            vim-airline-themes
+        # Theme
+        catppuccin-nvim
+        dracula-nvim
+        rose-pine
+        vim-airline
+        vim-airline-themes
 
-            # Languages
-            go-nvim
-            haskell-tools-nvim
-            vim-nix
-            rustaceanvim
-            nvim-treesitter
+        # Languages
+        go-nvim
+        haskell-tools-nvim
+        vim-nix
+        rustaceanvim
+        nvim-treesitter
 
-            # Tpope
-            vim-sensible
-            vim-surround
-            vim-unimpaired
-            vim-vinegar
+        # Tpope
+        vim-sensible
+        vim-surround
+        vim-unimpaired
+        vim-vinegar
 
-            # Utils
-            which-key-nvim
-          ]
-        ]);
+        # Utils
+        which-key-nvim
+      ];
 
       extraConfig = ''
         let mapleader=" "
