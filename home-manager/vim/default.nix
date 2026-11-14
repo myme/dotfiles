@@ -8,6 +8,42 @@
 let
   cfg = config.myme.vim;
 
+  avante =
+    let
+      base = pkgs.vimPlugins.avante-nvim;
+      # cargoSetupHook requires system AWS-LC and Oniguruma, but Avante only declares OpenSSL.
+      missingLibs =
+        builtins.filter
+          (
+            dep:
+            !(builtins.any (pkg: lib.getName pkg == lib.getName dep) (base.avante-nvim-lib.buildInputs or [ ]))
+          )
+          [
+            pkgs.aws-lc
+            pkgs.oniguruma
+          ];
+      hasSystemLibs = missingLibs == [ ];
+    in
+    lib.warnIf hasSystemLibs
+      "Delete the Avante system-library workaround in home-manager/vim/default.nix; nixpkgs now supplies it."
+      (
+        if hasSystemLibs then
+          base
+        else
+          base.override {
+            rustPlatform = pkgs.rustPlatform // {
+              buildRustPackage =
+                args:
+                pkgs.rustPlatform.buildRustPackage (
+                  args
+                  // {
+                    buildInputs = (args.buildInputs or [ ]) ++ missingLibs;
+                  }
+                );
+            };
+          }
+      );
+
 in
 {
   options.myme.vim = {
@@ -42,7 +78,7 @@ in
           # LLM coding tools
           (lib.mkIf config.myme.dev.llm.enable [
             {
-              plugin = avante-nvim;
+              plugin = avante;
               type = "lua";
               config = ''
                 require("avante_lib").load()
