@@ -87,6 +87,10 @@ in
     # protect me precious lucky charms 🍀
     programs.hyprlock = {
       enable = true;
+      # Backport the screenshot-rotation fix only for Hyprland >= 0.57.
+      package = pkgs.myme.pkgs.hyprlock.override {
+        hyprland = specialArgs.nixosConfig.programs.hyprland.package;
+      };
       settings = {
         # sample hyprlock.conf
         # for more configuration options, refer

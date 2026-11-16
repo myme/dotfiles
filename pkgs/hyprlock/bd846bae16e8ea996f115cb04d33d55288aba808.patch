@@ -1,0 +1,94 @@
+From bd846bae16e8ea996f115cb04d33d55288aba808 Mon Sep 17 00:00:00 2001
+From: Vaxry <vaxry@vaxry.net>
+Date: Mon, 2 Nov 2026 12:21:11 +0100
+Subject: [PATCH] renderer/background: don't transform received buffers
+
+---
+ src/renderer/widgets/Background.cpp | 24 ++----------------------
+ src/renderer/widgets/Background.hpp |  2 --
+ 2 files changed, 2 insertions(+), 24 deletions(-)
+
+diff --git a/src/renderer/widgets/Background.cpp b/src/renderer/widgets/Background.cpp
+index 3b921e7d..2d25fd40 100644
+--- a/src/renderer/widgets/Background.cpp
++++ b/src/renderer/widgets/Background.cpp
+@@ -15,7 +15,6 @@
+ CBackground::CBackground() {
+     blurredFB        = makeUnique<CFramebuffer>();
+     pendingBlurredFB = makeUnique<CFramebuffer>();
+-    transformedScFB  = makeUnique<CFramebuffer>();
+ }
+ 
+ CBackground::~CBackground() {
+@@ -119,7 +118,7 @@ void CBackground::updatePrimaryAsset() {
+ 
+     const bool NEEDFB = (isScreenshot || blurPasses > 0 || asset->m_vSize != viewport || transform != HYPRUTILS_TRANSFORM_NORMAL) && (!blurredFB->isAllocated() || firstRender);
+     if (NEEDFB)
+-        renderToFB(*asset, *blurredFB, blurPasses, isScreenshot);
++        renderToFB(*asset, *blurredFB, blurPasses);
+ }
+ 
+ void CBackground::updatePendingAsset() {
+@@ -130,25 +129,7 @@ void CBackground::updatePendingAsset() {
+     renderToFB(*pendingAsset, *pendingBlurredFB, blurPasses);
+ }
+ 
+-void CBackground::updateScAsset() {
+-    if (scAsset || scResourceID == 0)
+-        return;
+-
+-    // path=screenshot -> scAsset = asset
+-    scAsset = (asset && isScreenshot) ? asset : g_asyncResourceManager->getAssetByID(scResourceID);
+-    if (!scAsset)
+-        return;
+-
+-    const bool NEEDSCTRANSFORM = transform != HYPRUTILS_TRANSFORM_NORMAL;
+-    if (NEEDSCTRANSFORM)
+-        renderToFB(*scAsset, *transformedScFB, 0, true);
+-}
+-
+ const CTexture& CBackground::getPrimaryAssetTex() const {
+-    // This case is only for background:path=screenshot with blurPasses=0
+-    if (isScreenshot && blurPasses == 0 && transformedScFB->isAllocated())
+-        return transformedScFB->m_cTex;
+-
+     return (blurredFB->isAllocated()) ? blurredFB->m_cTex : *asset;
+ }
+ 
+@@ -157,7 +138,7 @@ const CTexture& CBackground::getPendingAssetTex() const {
+ }
+ 
+ const CTexture& CBackground::getScAssetTex() const {
+-    return (transformedScFB->isAllocated()) ? transformedScFB->m_cTex : *scAsset;
++    return *scAsset;
+ }
+ 
+ void CBackground::renderRect(CHyprColor color) {
+@@ -227,7 +208,6 @@ void CBackground::renderToFB(const CTexture& tex, CFramebuffer& fb, int passes,
+ bool CBackground::draw(const SRenderData& data) {
+     updatePrimaryAsset();
+     updatePendingAsset();
+-    updateScAsset();
+ 
+     if (asset && asset->m_iType == TEXTURE_INVALID) {
+         g_asyncResourceManager->unload(asset);
+diff --git a/src/renderer/widgets/Background.hpp b/src/renderer/widgets/Background.hpp
+index d3516c57..3684a69a 100644
+--- a/src/renderer/widgets/Background.hpp
++++ b/src/renderer/widgets/Background.hpp
+@@ -30,7 +30,6 @@ class CBackground : public IWidget {
+ 
+     void            updatePrimaryAsset();
+     void            updatePendingAsset();
+-    void            updateScAsset();
+ 
+     const CTexture& getPrimaryAssetTex() const;
+     const CTexture& getPendingAssetTex() const;
+@@ -49,7 +48,6 @@ class CBackground : public IWidget {
+     // if needed
+     UP<CFramebuffer>                blurredFB;
+     UP<CFramebuffer>                pendingBlurredFB;
+-    UP<CFramebuffer>                transformedScFB;
+ 
+     int                             blurSize          = 10;
+     int                             blurPasses        = 3;
