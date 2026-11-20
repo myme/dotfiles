@@ -1,22 +1,22 @@
 {
-  "version": "0.169.0",
-  "tag": "rust-v0.169.0",
+  "version": "0.171.0",
+  "tag": "rust-v0.171.0",
   "platforms": {
     "x86_64-linux": {
       "asset": "codex-package-x86_64-unknown-linux-musl.tar.gz",
-      "checksum": "3b8ed091149cc63a59046b9f094bcfa21cdb4dda15ede441ce369bcee4a71ba0"
+      "checksum": "8391d67757496bfd14893eca6cbf0c96994bf2627566ff1f018f70600c9ef6b3"
     },
     "aarch64-linux": {
       "asset": "codex-package-aarch64-unknown-linux-musl.tar.gz",
-      "checksum": "c8d0b4ab2a97c595b70b10412d36d0d5464dcef1e1d3246b073d48017cdf5a4f"
+      "checksum": "d8c43bee6cf11b01eb18b95f4d7961092bc40228180808859e70dabb7784c1c9"
     },
     "x86_64-darwin": {
       "asset": "codex-package-x86_64-apple-darwin.tar.gz",
-      "checksum": "0a3c392235b4712409495ced02bbe0662ce7a038232766d1c1c34af74e905c2f"
+      "checksum": "dd130ea3217b4e6fe4454c99949e0b28e2e8a9ad8da8c3a75f0c7265fab7153b"
     },
     "aarch64-darwin": {
       "asset": "codex-package-aarch64-apple-darwin.tar.gz",
-      "checksum": "8a232260df7a12c5e83e0b4b7659e1c8d9259b41942517bc0068d8ab55c36461"
+      "checksum": "58c88032ec446e72922d911d8f03773102da20c16a6059cf21f6744bce57f210"
     }
   }
 }
