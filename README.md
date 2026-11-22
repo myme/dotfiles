@@ -118,6 +118,23 @@ Apply new configurations using [nix-darwin](https://github.com/LnL7/nix-darwin):
 $ sudo darwin-rebuild switch --flake .
 ```
 
+### Mosh over Tailscale
+
+Import `modules/tailnet-mosh.nix` in the Mac's nix-darwin configuration and set
+`myme.tailnetMosh.enable`, `myme.tailnetMosh.user`, and `myme.tailnetMosh.ipv4`.
+Add the client's public key to `users.users.<name>.openssh.authorizedKeys.keys`.
+The module disables macOS Remote Login and runs key-only OpenSSH on
+`127.0.0.1:2222`. After switching locally, publish the listener to the
+tailnet from the Mac with Tailscale Serve:
+
+``` bash
+$ TAILSCALE_BE_CLI=1 /Applications/Tailscale.app/Contents/MacOS/Tailscale serve --bg --tcp=22 tcp://127.0.0.1:2222
+```
+
+Connect to the Mac's Tailscale IPv4 address. Mosh bootstraps through Serve over
+SSH, then sends UDP directly to that address. If the tailnet policy restricts
+traffic, allow the client to reach the Mac on TCP 22 and UDP 60001–60999.
+
 ## Non-NixOS Linux / Windows Subsystem for Linux (WSL)
 
 ### Install
